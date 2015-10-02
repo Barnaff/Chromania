@@ -62,4 +62,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-Chromania_iOS/Classes/UnityTrampolineConfigure.h
+
+!Parse.Unity.dll
