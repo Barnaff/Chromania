@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 
 [XmlRoot("GameData")]
-public class GameData : ScriptableObject {
+public class GameData : ScriptableObject  {
 
 	public string Version;
 

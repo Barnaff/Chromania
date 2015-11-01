@@ -9,6 +9,12 @@ public class AccountManager : MonoBehaviour, IAccount {
 	private const string USER_NAME_KEY = "userName";
 	private const string PASSWORD_KEY = "password";
 
+	[SerializeField]
+	private bool _UserLogedIn;
+
+	[SerializeField]
+	private bool _facebbokEnabled;
+
 	#endregion
 
 	// Use this for initialization
@@ -62,6 +68,11 @@ public class AccountManager : MonoBehaviour, IAccount {
 		PlayerPrefs.SetString(PASSWORD_KEY, password);
 	}
 
+	private void UserLogedIn()
+	{
+		_UserLogedIn = true;
+	}
+
 	IEnumerator RegisterAnonymusUser(System.Action <bool> completionAction)
 	{
 		string userName = System.Guid.NewGuid().ToString();
@@ -96,6 +107,7 @@ public class AccountManager : MonoBehaviour, IAccount {
 		}
 
 		StoreLocalUser(userName, password);
+		UserLogedIn();
 		if (completionAction != null)
 		{
 			completionAction(true);
@@ -117,7 +129,7 @@ public class AccountManager : MonoBehaviour, IAccount {
 			finished = true;
 			if (t.IsFaulted || t.IsCanceled)
 			{
-				Debug.Log("Registration failed! " + t.Exception.ToString());
+				Debug.Log("Login failed! " + t.Exception.ToString());
 				result = false;
 			}
 			else
@@ -132,6 +144,8 @@ public class AccountManager : MonoBehaviour, IAccount {
 		{
 			yield return null;
 		}
+
+		UserLogedIn();
 
 		if (completionAction != null)
 		{

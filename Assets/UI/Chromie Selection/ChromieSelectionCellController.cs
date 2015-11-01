@@ -50,8 +50,8 @@ public class ChromieSelectionCellController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-	
-	}
+        SetSelectState(false);
+    }
 
 	#endregion
 	
@@ -84,6 +84,26 @@ public class ChromieSelectionCellController : MonoBehaviour {
         {
             OnSelectChromieCell(this);
         }
+    }
+
+    public void SetSelectState(bool isSelected, bool animated = false)
+    {
+        float animationDuration = 0.0f;
+        if (animated)
+        {
+            animationDuration = 0.3f;
+        }
+
+        if (isSelected)
+        {
+               
+            Overlay.CrossFadeAlpha(1.0f, animationDuration, true);
+        }
+        else
+        {
+            Overlay.CrossFadeAlpha(0.0f, animationDuration, true);
+        }
+      
     }
 	
 

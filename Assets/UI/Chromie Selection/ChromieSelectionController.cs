@@ -37,7 +37,6 @@ public class ChromieSelectionController : BaseMenuScreen {
 	void Start()
 	{
 		this.gameObject.transform.localPosition = Vector3.zero;
-        SetupGridSizes();
         _gameSetupmanager = ComponentsFactory.GetAComponent<IGameSetup>() as IGameSetup;
 
 		IGameDataLoader gameDataLoader = ComponentsFactory.GetAComponent<IGameDataLoader>() as IGameDataLoader;
@@ -53,9 +52,7 @@ public class ChromieSelectionController : BaseMenuScreen {
 
     void Update()
     {
-#if UNITY_EDITOR
-        SetupGridSizes();
-#endif
+
     }
 
 	#endregion
@@ -86,7 +83,6 @@ public class ChromieSelectionController : BaseMenuScreen {
 	public void ItemSlotButtonAction(GameObject sender)
 	{
 		int index = _selectionSlots.IndexOf(sender);
-		Debug.Log("clock on : " + index);
 		RemoveColor(index);
 	}
 
@@ -102,17 +98,7 @@ public class ChromieSelectionController : BaseMenuScreen {
 
     #region Private
 
-    private void SetupGridSizes()
-    {
-        Rect gridContainerRect = RectTransformUtility.PixelAdjustRect(_gridContainer, _canvas);
-        float marginSize = gridContainerRect.width * 0.02f;
-        float cellWidth = (gridContainerRect.width - (marginSize * 2.0f)) * 0.3f;
-        float cellHeight = cellWidth * 0.6f;
-        Vector2 cellSize = new Vector2(cellWidth, cellHeight);
-        _gridLayout.padding = new RectOffset((int)marginSize * 2, (int)marginSize, (int)marginSize * 2, (int)marginSize);
-        _gridLayout.spacing = new Vector2(marginSize, marginSize);
-        _gridLayout.cellSize = cellSize;
-    }
+
 
 	private void UpdateSlots()
 	{
@@ -147,7 +133,7 @@ public class ChromieSelectionController : BaseMenuScreen {
 		_letsPlayButton.enabled = isReady;
 	}
 
-	private void AddColor(ColorType colorType)
+	private void AddColor(ColorType colorType, ChromieSelectionCellController cell)
 	{
 		for (int i=0; i <  _gameSetupmanager.SelectedColors.Length ; i++)
 		{
@@ -158,18 +144,21 @@ public class ChromieSelectionController : BaseMenuScreen {
 			}
 		}
 
-		for (int i=0; i <  _gameSetupmanager.SelectedColors.Length ; i++)
+
+        for (int i=0; i <  _gameSetupmanager.SelectedColors.Length ; i++)
 		{
 			ColorType selectedColorForSlot = _gameSetupmanager.SelectedColors[i];
 			if (selectedColorForSlot == ColorType.None)
 			{
 				_gameSetupmanager.SelectedColors[i] = colorType;
 				UpdateSlots();
-				GameObject slot = _selectionSlots[i];
-				AnimateColor(Input.mousePosition, slot.transform.position, ()=>
-				             {
+                cell.SetSelectState(true, true);
+                GameObject slot = _selectionSlots[i];
+                StartCoroutine(AnimateAddColor(cell, slot, () =>
+                             {
 
-				});
+                                
+                             }));
 				return;
 			}
 		}
@@ -177,8 +166,19 @@ public class ChromieSelectionController : BaseMenuScreen {
 
 	private void RemoveColor(int index)
 	{
-		_gameSetupmanager.SelectedColors[index] = ColorType.None;
-		UpdateSlots();
+        StartCoroutine(AnimateRemoveColor(_selectionSlots[index].gameObject, () =>
+        {
+            ChromieSelectionCellController cellController = CellForColor(_gameSetupmanager.SelectedColors[index]);
+            if (cellController != null)
+            {
+                cellController.SetSelectState(false, true);
+            }
+
+            _gameSetupmanager.SelectedColors[index] = ColorType.None;
+            UpdateSlots();
+        }));
+
+      
 	}
 
     private void SetInventory()
@@ -200,7 +200,7 @@ public class ChromieSelectionController : BaseMenuScreen {
             {
                 GameObject chromieCell = Instantiate(_chromieSelectionCellPrefab) as GameObject;
                 chromieCell.transform.SetParent(_gridLayout.gameObject.transform);
-
+				chromieCell.transform.localScale = new Vector3(1,1,1);
                 ChromieSelectionCellController cellController = chromieCell.GetComponent<ChromieSelectionCellController>() as ChromieSelectionCellController;
                 if (cellController != null)
                 {
@@ -214,18 +214,72 @@ public class ChromieSelectionController : BaseMenuScreen {
     private void SelectChromieCellhandler(ChromieSelectionCellController cell)
     {
         ColorType colorType = cell.CellColorType;
-        Debug.Log("selected: " + colorType);
-        AddColor(colorType);
+        AddColor(colorType, cell);
     }
 
 
-    private void AnimateColor(Vector3 startPosition, Vector3 endPosition, System.Action completionAction)
+    IEnumerator AnimateAddColor(ChromieSelectionCellController fromCell, GameObject toSlot, System.Action completionAction)
 	{
-		GameObject slotSprite = Instantiate(_selectionSlots[0], startPosition, Quaternion.identity) as GameObject;
-		slotSprite.SetActive(true);
+        Vector3 targetPosition = toSlot.transform.position;
+        toSlot.transform.position = fromCell.transform.position;
 
+        iTween.Stop(toSlot);
+        yield return null;
 
-	}
+        float animationDuration = 0.01f;
+        iTween.ScaleTo(toSlot, iTween.Hash("time", animationDuration, "x", 1f, "y", 1f));
+        yield return new WaitForSeconds(animationDuration);
+
+        animationDuration = 0.3f;
+        iTween.MoveTo(toSlot, iTween.Hash("time", animationDuration, "position", targetPosition, "easetype", iTween.EaseType.easeInCubic));
+        yield return new WaitForSeconds(animationDuration);
+
+        animationDuration = 0.6f;
+        iTween.PunchScale(toSlot, iTween.Hash("time", animationDuration, "x", 0.3f, "y", 0.3f));
+        yield return new WaitForSeconds(animationDuration);
+       
+
+        if (completionAction != null)
+        {
+            completionAction();
+        }
+    }
+
+    IEnumerator AnimateRemoveColor(GameObject colorSlot, System.Action completionAction)
+    {
+        iTween.Stop(colorSlot);
+        yield return null;
+
+        float animationDuration = 0.1f;
+        iTween.ScaleTo(colorSlot, iTween.Hash("time", animationDuration, "x", 1.2f, "y", 1.2f, "easetype", iTween.EaseType.easeOutSine));
+        yield return new WaitForSeconds(animationDuration);
+
+        animationDuration = 0.3f;
+        iTween.ScaleTo(colorSlot, iTween.Hash("time", animationDuration, "x", 0.0f, "y", 0.0f, "easetype", iTween.EaseType.easeInSine));
+        yield return new WaitForSeconds(animationDuration);
+
+        colorSlot.SetActive(false);
+
+        yield return null;
+       
+        if (completionAction != null)
+        {
+            completionAction();
+        }
+    }
+
+    private ChromieSelectionCellController CellForColor(ColorType colorType)
+    {
+        for (int i=0; i< _gridLayout.transform.childCount; i++)
+        {
+            ChromieSelectionCellController cellController = _gridLayout.transform.GetChild(i).GetComponent<ChromieSelectionCellController>();
+            if (cellController != null && cellController.CellColorType == colorType)
+            {
+                return cellController;
+            }
+        }
+        return null;
+    }
 
 	#endregion
 }

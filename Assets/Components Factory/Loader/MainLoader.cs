@@ -36,7 +36,7 @@ public class MainLoader : MonoBehaviour {
                     IScreensFlow screenFlowManager = ComponentsFactory.GetAComponent<IScreensFlow>() as IScreensFlow;
                     if (screenFlowManager != null)
                     {
-                        screenFlowManager.DisplayMenuScene();
+                        StartCoroutine(StartGameScene());
                     }
                 });
 			}
@@ -45,7 +45,20 @@ public class MainLoader : MonoBehaviour {
 		{
 			Debug.LogError("ERROR: Components Factory could not be loaded!");
 		}
-	}
+
+  
+    }
+
+    IEnumerator StartGameScene()
+    {
+        yield return new WaitForSeconds(1.0f);
+        IScreensFlow screenFlowManager = ComponentsFactory.GetAComponent<IScreensFlow>() as IScreensFlow;
+        if (screenFlowManager != null)
+        {
+            Debug.Log("load lobby scene");
+           screenFlowManager.DisplayMenuScene();
+        }
+    }
 
 	#endregion
 
