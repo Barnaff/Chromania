@@ -95,15 +95,21 @@ public class ChromieSelectionCellController : MonoBehaviour {
         }
 
         if (isSelected)
-        {
-               
+        {   
             Overlay.CrossFadeAlpha(1.0f, animationDuration, true);
         }
         else
         {
             Overlay.CrossFadeAlpha(0.0f, animationDuration, true);
         }
-      
+
+		ChromieIcon.gameObject.SetActive(!isSelected);
+
+        if (isSelected && animated)
+        {
+            iTween.ScaleFrom(ChromieIcon.gameObject, iTween.Hash("time", 0.3f, "x", 0.1f, "y", 0.1f, "easetype", iTween.EaseType.easeOutElastic));
+
+        }
     }
 	
 

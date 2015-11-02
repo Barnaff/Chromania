@@ -62,22 +62,22 @@ public class MenuItemController : MonoBehaviour {
 			{
 			case ItemDirection.Top:
 			{
-				targetPosition = new Vector3(this.gameObject.transform.localPosition.x, Screen.height * 0.5f + this.gameObject.GetComponent<Image>().preferredHeight * 0.5f , this.gameObject.transform.localPosition.z);
+				targetPosition = new Vector3(this.gameObject.transform.localPosition.x, Screen.height , this.gameObject.transform.localPosition.z);
 				break;
 			}
 			case ItemDirection.Bottom:
 			{
-				targetPosition = new Vector3(this.gameObject.transform.localPosition.x, -Screen.height * 0.5f - this.gameObject.GetComponent<Image>().preferredHeight * 0.5f, this.gameObject.transform.localPosition.z);
+				targetPosition = new Vector3(this.gameObject.transform.localPosition.x, -Screen.height  , this.gameObject.transform.localPosition.z);
 				break;
 			}
 			case ItemDirection.Left:
 			{
-				targetPosition = new Vector3(-Screen.width * 0.5f - this.gameObject.GetComponent<Image>().preferredWidth * 0.5f, this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
+				targetPosition = new Vector3(-Screen.width , this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
 				break;
 			}
 			case ItemDirection.Right:
 			{
-				targetPosition = new Vector3(Screen.width * 0.5f + this.gameObject.GetComponent<Image>().preferredWidth * 0.5f , this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
+				targetPosition = new Vector3(Screen.width  , this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
 				break;
 			}
 			}
@@ -101,22 +101,22 @@ public class MenuItemController : MonoBehaviour {
 		{
 		case ItemDirection.Top:
 		{
-			targetPosition = new Vector3(this.gameObject.transform.localPosition.x, Screen.height * 0.5f + this.gameObject.GetComponent<Image>().preferredHeight * 0.5f , this.gameObject.transform.localPosition.z);
+			targetPosition = new Vector3(this.gameObject.transform.localPosition.x, Screen.height , this.gameObject.transform.localPosition.z);
 			break;
 		}
 		case ItemDirection.Bottom:
 		{
-			targetPosition = new Vector3(this.gameObject.transform.localPosition.x, -Screen.height * 0.5f - this.gameObject.GetComponent<Image>().preferredHeight * 0.5f, this.gameObject.transform.localPosition.z);
+			targetPosition = new Vector3(this.gameObject.transform.localPosition.x, -Screen.height, this.gameObject.transform.localPosition.z);
 			break;
 		}
 		case ItemDirection.Left:
 		{
-			targetPosition = new Vector3(-Screen.width * 0.5f - this.gameObject.GetComponent<Image>().preferredWidth * 0.5f, this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
+			targetPosition = new Vector3(-Screen.width, this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
 			break;
 		}
 		case ItemDirection.Right:
 		{
-			targetPosition = new Vector3(Screen.width * 0.5f + this.gameObject.GetComponent<Image>().preferredWidth * 0.5f , this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
+			targetPosition = new Vector3(Screen.width , this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
 			break;
 		}
 		}

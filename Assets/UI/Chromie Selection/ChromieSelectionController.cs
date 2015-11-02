@@ -25,16 +25,19 @@ public class ChromieSelectionController : BaseMenuScreen {
     [SerializeField]
     private Canvas _canvas;
 
-    IGameSetup _gameSetupmanager;
+	private IGameSetup _gameSetupmanager;
 
-	GameData _gameData;
+	private GameData _gameData;
+
+	[SerializeField]
+	private Vector3[] _slotsPositions;
 
 	#endregion
 
 
 	#region Initialize
 
-	void Start()
+	IEnumerator Start()
 	{
 		this.gameObject.transform.localPosition = Vector3.zero;
         _gameSetupmanager = ComponentsFactory.GetAComponent<IGameSetup>() as IGameSetup;
@@ -48,7 +51,44 @@ public class ChromieSelectionController : BaseMenuScreen {
 
 			UpdateSlots();
 		}
+
+		yield return null;
+
+		_slotsPositions = new Vector3[_selectionSlots.Count];
+		for (int i=0; i< _selectionSlots.Count; i++)
+		{
+			_slotsPositions[i] = _selectionSlots[i].transform.position;
+		}
 	}
+
+    void OnEnable()
+    {
+        if (_gameSetupmanager == null)
+        {
+            _gameSetupmanager = ComponentsFactory.GetAComponent<IGameSetup>() as IGameSetup;
+        }
+
+        for (int i = 0; i < _gridLayout.transform.childCount; i++)
+        {
+            ChromieSelectionCellController cellController = _gridLayout.transform.GetChild(i).GetComponent<ChromieSelectionCellController>();
+            if (cellController != null)
+            {
+                bool isSelected = false;
+                if (_gameSetupmanager.SelectedColors != null)
+                {
+                    for (int j = 0; j < _gameSetupmanager.SelectedColors.Length; j++)
+                    {
+                        if (_gameSetupmanager.SelectedColors[j] == cellController.CellColorType)
+                        {
+                            isSelected = true;
+                            break;
+                        }
+                    }
+                }
+                cellController.SetSelectState(isSelected, false);
+            }
+        }
+    }
 
     void Update()
     {
@@ -150,10 +190,18 @@ public class ChromieSelectionController : BaseMenuScreen {
 			ColorType selectedColorForSlot = _gameSetupmanager.SelectedColors[i];
 			if (selectedColorForSlot == ColorType.None)
 			{
+				GameObject slot = _selectionSlots[i];
+				if (slot.GetComponent<iTween>() != null)
+				{
+					if (slot.GetComponent<iTween>().isRunning)
+					{
+						return;
+					}
+				}
 				_gameSetupmanager.SelectedColors[i] = colorType;
 				UpdateSlots();
                 cell.SetSelectState(true, true);
-                GameObject slot = _selectionSlots[i];
+               
                 StartCoroutine(AnimateAddColor(cell, slot, () =>
                              {
 
@@ -166,6 +214,14 @@ public class ChromieSelectionController : BaseMenuScreen {
 
 	private void RemoveColor(int index)
 	{
+		if (_selectionSlots[index].gameObject.GetComponent<iTween>() != null)
+		{
+			if (_selectionSlots[index].gameObject.GetComponent<iTween>().isRunning)
+			{
+				return;
+			}
+		}
+
         StartCoroutine(AnimateRemoveColor(_selectionSlots[index].gameObject, () =>
         {
             ChromieSelectionCellController cellController = CellForColor(_gameSetupmanager.SelectedColors[index]);
@@ -220,7 +276,8 @@ public class ChromieSelectionController : BaseMenuScreen {
 
     IEnumerator AnimateAddColor(ChromieSelectionCellController fromCell, GameObject toSlot, System.Action completionAction)
 	{
-        Vector3 targetPosition = toSlot.transform.position;
+
+		Vector3 targetPosition = PositionForSlot(toSlot);
         toSlot.transform.position = fromCell.transform.position;
 
         iTween.Stop(toSlot);
@@ -238,7 +295,6 @@ public class ChromieSelectionController : BaseMenuScreen {
         iTween.PunchScale(toSlot, iTween.Hash("time", animationDuration, "x", 0.3f, "y", 0.3f));
         yield return new WaitForSeconds(animationDuration);
        
-
         if (completionAction != null)
         {
             completionAction();
@@ -247,22 +303,27 @@ public class ChromieSelectionController : BaseMenuScreen {
 
     IEnumerator AnimateRemoveColor(GameObject colorSlot, System.Action completionAction)
     {
-        iTween.Stop(colorSlot);
-        yield return null;
+
+		iTween.Stop(colorSlot);
+
+		//yield return null;
 
         float animationDuration = 0.1f;
         iTween.ScaleTo(colorSlot, iTween.Hash("time", animationDuration, "x", 1.2f, "y", 1.2f, "easetype", iTween.EaseType.easeOutSine));
         yield return new WaitForSeconds(animationDuration);
 
         animationDuration = 0.3f;
-        iTween.ScaleTo(colorSlot, iTween.Hash("time", animationDuration, "x", 0.0f, "y", 0.0f, "easetype", iTween.EaseType.easeInSine));
+        iTween.ScaleTo(colorSlot, iTween.Hash("time", animationDuration, "x", 0.1f, "y", 0.1f, "easetype", iTween.EaseType.easeInSine));
         yield return new WaitForSeconds(animationDuration);
 
-        colorSlot.SetActive(false);
+		colorSlot.SetActive(false);
 
         yield return null;
-       
-        if (completionAction != null)
+		if (colorSlot.GetComponent<iTween>() != null)
+		{
+			Destroy(colorSlot.GetComponent<iTween>());
+		}
+		if (completionAction != null)
         {
             completionAction();
         }
@@ -280,6 +341,18 @@ public class ChromieSelectionController : BaseMenuScreen {
         }
         return null;
     }
+
+	private Vector3 PositionForSlot(GameObject slot)
+	{
+		for (int i = 0; i< _selectionSlots.Count; i++)
+		{
+			if (_selectionSlots[i] == slot)
+			{
+				return _slotsPositions[i];
+			}
+		}
+		return Vector3.zero;
+	}
 
 	#endregion
 }

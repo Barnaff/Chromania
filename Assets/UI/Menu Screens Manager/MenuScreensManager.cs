@@ -71,28 +71,28 @@ public class MenuScreensManager : MonoBehaviour {
 			BaseMenuScreen newScreen = newScreenPanel.GetComponent<BaseMenuScreen>() as BaseMenuScreen;
 			if (_currentScreen != null)
 			{
-				
-				_currentScreen.DisplayExitAnimationWithCompletion(()=>
+                _currentScreen.DisplayExitAnimationWithCompletion(()=>
 				                                                  {
 					_currentScreen.ScreenWillBeRemoved();
-					//_currentScreen.gameObject.SetActive(false);
-					DisableAllPanels();
+					_currentScreen.gameObject.SetActive(false);
+					//DisableAllPanels();
 					newScreen.gameObject.SetActive(true);
 					newScreen.ScreenWillBeDisplayed();
+                    _currentScreen = newScreen;
 					newScreen.DisplayEnterAnimationWithCompletion(()=>
 					                                              {
-						_currentScreen = newScreen;
+						
 					});
 				});
 			}
 			else
 			{
-                Debug.Log("display: " + newScreen.name);
 				newScreen.gameObject.SetActive(true);
 				newScreen.ScreenWillBeDisplayed();
-				newScreen.DisplayEnterAnimationWithCompletion(()=>
+                _currentScreen = newScreen;
+                newScreen.DisplayEnterAnimationWithCompletion(()=>
 				{
-					_currentScreen = newScreen;
+					
 				});
 			}
 		}
