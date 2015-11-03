@@ -17,7 +17,7 @@ public class AnalyticsUseExample : MonoBehaviour {
 
 		//Staring Analytics
 		//It will be started with ID spesifayed in xml
-		AndroidGoogleAnalytics.instance.StartTracking();
+		AndroidGoogleAnalytics.Instance.StartTracking();
 
 		//If you want ot change default tracking id use this function after StartTracking:
 	//	AndroidGoogleAnalytics.instance.SetTrackerID("UA-55040152-1");
@@ -26,20 +26,20 @@ public class AnalyticsUseExample : MonoBehaviour {
 
 	void Start() {
 		//Tracking first screen
-		AndroidGoogleAnalytics.instance.SendView("Home Screen");
+		AndroidGoogleAnalytics.Instance.SendView("Home Screen");
 
 		//Send event example + 1 more implementation
-		AndroidGoogleAnalytics.instance.SendEvent("Category", "Action", "label");
+		AndroidGoogleAnalytics.Instance.SendEvent("Category", "Action", "label");
 		//Send event example with addition values + 1 more implementation
-		AndroidGoogleAnalytics.instance.SendEvent("Category", "Action", "label", 100, "screen", "main");
+		AndroidGoogleAnalytics.Instance.SendEvent("Category", "Action", "label", 100, "screen", "main");
 
 		//Send timing event + 2 more implementation 
-		AndroidGoogleAnalytics.instance.SendTiming("App Started", (long) Time.time);
+		AndroidGoogleAnalytics.Instance.SendTiming("App Started", (long) Time.time);
 
 		//Set session key
-		AndroidGoogleAnalytics.instance.SetKey("SCREEN", "MAIN");
+		AndroidGoogleAnalytics.Instance.SetKey("SCREEN", "MAIN");
 
-		AndroidGoogleAnalytics.instance.EnableAdvertisingIdCollection(true);
+		AndroidGoogleAnalytics.Instance.EnableAdvertisingIdCollection(true);
 
 
 		//To remove session key use
@@ -60,8 +60,8 @@ public class AnalyticsUseExample : MonoBehaviour {
 	}
 
 	public void PurchaseTackingExample() {
-		AndroidGoogleAnalytics.instance.CreateTransaction("0_123456", "In-app Store", 2.1f, 0.17f, 0f, "USD");
-		AndroidGoogleAnalytics.instance.CreateItem("0_123456", "Level Pack: Space", "L_789", "Game expansions", 1.99f, 1, "USD");
+		AndroidGoogleAnalytics.Instance.CreateTransaction("0_123456", "In-app Store", 2.1f, 0.17f, 0f, "USD");
+		AndroidGoogleAnalytics.Instance.CreateItem("0_123456", "Level Pack: Space", "L_789", "Game expansions", 1.99f, 1, "USD");
 
 	}
 	

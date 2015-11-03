@@ -57,7 +57,7 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 		Debug.Log ("GooglePlayManager was created");
 
 		//Creating sub managers
-		GooglePlayQuests.instance.Init();
+		GooglePlayQuests.Instance.Init();
 	}
 
 

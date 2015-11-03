@@ -35,7 +35,7 @@ public class GooglePlayConnection : SA_Singleton<GooglePlayConnection> {
 	void Awake() {
 		DontDestroyOnLoad(gameObject);
 
-		GooglePlayManager.instance.Create();
+		GooglePlayManager.Instance.Create();
 		Init();
 	}
 

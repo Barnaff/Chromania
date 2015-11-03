@@ -45,7 +45,7 @@ public class iAdIOSBanner : MonoBehaviour {
 		if(registeredBanners.ContainsKey(sceneBannerId)) {
 			banner = registeredBanners[sceneBannerId];
 		}  else {
-			banner = iAdBannerController.instance.CreateAdBanner(anchor);
+			banner = iAdBannerController.Instance.CreateAdBanner(anchor);
 			registeredBanners.Add(sceneBannerId, banner);
 		}
 

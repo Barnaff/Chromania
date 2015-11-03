@@ -48,12 +48,12 @@ public class UM_BillingExample : BaseIOSFeaturePreview {
 
 			//subscribign on intit fisigh action
 			UM_InAppPurchaseManager.OnBillingConnectFinishedAction += OnBillingConnectFinishedAction;
-			UM_InAppPurchaseManager.instance.Init();
+			UM_InAppPurchaseManager.Instance.Init();
 			UM_ExampleStatusBar.text = "Initializing billing...";
 		}
 
 
-		if(UM_InAppPurchaseManager.instance.IsInited) {
+		if(UM_InAppPurchaseManager.Instance.IsInited) {
 			GUI.enabled = true;
 		} else  {
 			GUI.enabled = false;
@@ -63,7 +63,7 @@ public class UM_BillingExample : BaseIOSFeaturePreview {
 		StartX = XStartPos;
 		StartY+= YButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Buy Consumable Item")) {
-			UM_InAppPurchaseManager.instance.Purchase(CONSUMABLE_PRODUCT_ID);
+			UM_InAppPurchaseManager.Instance.Purchase(CONSUMABLE_PRODUCT_ID);
 
 			UM_ExampleStatusBar.text = "Start purchsing " + CONSUMABLE_PRODUCT_ID + " product";
 		}
@@ -73,7 +73,7 @@ public class UM_BillingExample : BaseIOSFeaturePreview {
 
 		bool e = GUI.enabled;
 		string msg = "";
-		if(UM_InAppPurchaseManager.instance.IsProductPurchased(NON_CONSUMABLE_PRODUCT_ID)) {
+		if(UM_InAppPurchaseManager.Instance.IsProductPurchased(NON_CONSUMABLE_PRODUCT_ID)) {
 			msg = "Already purchased";
 			GUI.enabled = false;
 		} else {
@@ -83,14 +83,14 @@ public class UM_BillingExample : BaseIOSFeaturePreview {
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Buy Non-Consumable Item \n" + msg)) {
 			UM_ExampleStatusBar.text = "Start purchsing " + NON_CONSUMABLE_PRODUCT_ID + " product";
 
-			UM_InAppPurchaseManager.instance.Purchase(NON_CONSUMABLE_PRODUCT_ID);
+			UM_InAppPurchaseManager.Instance.Purchase(NON_CONSUMABLE_PRODUCT_ID);
 		}
 
 		GUI.enabled = e;
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Restore Purshases \n For IOS Only")) {
-			IOSInAppPurchaseManager.instance.RestorePurchases();
+			IOSInAppPurchaseManager.Instance.RestorePurchases();
 		}
 
 

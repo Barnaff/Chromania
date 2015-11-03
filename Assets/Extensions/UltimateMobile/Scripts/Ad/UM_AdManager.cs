@@ -78,7 +78,7 @@ public static class UM_AdManager  {
 			if(UltimateMobileSettings.Instance.IOSAdEdngine == UM_IOSAdEngineOprions.GoogleMobileAd)  {
 				return GoogleMobileAd.CreateAdBanner(anchor, GADBannerSize.BANNER).id;
 			} else {
-				return iAdBannerController.instance.CreateAdBanner(anchor).id;
+				return iAdBannerController.Instance.CreateAdBanner(anchor).id;
 			}
 		case RuntimePlatform.Android:
 			return GoogleMobileAd.CreateAdBanner(anchor, GADBannerSize.BANNER).id;
@@ -131,7 +131,7 @@ public static class UM_AdManager  {
 			if(UltimateMobileSettings.Instance.IOSAdEdngine == UM_IOSAdEngineOprions.GoogleMobileAd)  {
 				return GoogleMobileAd.GetBanner(id).IsOnScreen;
 			} else {
-				return iAdBannerController.instance.GetBanner(id).IsOnScreen;
+				return iAdBannerController.Instance.GetBanner(id).IsOnScreen;
 			}
 		case RuntimePlatform.Android:
 			return GoogleMobileAd.GetBanner(id).IsOnScreen;
@@ -156,7 +156,7 @@ public static class UM_AdManager  {
 			if(UltimateMobileSettings.Instance.IOSAdEdngine == UM_IOSAdEngineOprions.GoogleMobileAd)  {
 				GoogleMobileAd.DestroyBanner(id);
 			} else {
-				iAdBannerController.instance.DestroyBanner(id);
+				iAdBannerController.Instance.DestroyBanner(id);
 			}
 			break;
 		case RuntimePlatform.Android:
@@ -181,7 +181,7 @@ public static class UM_AdManager  {
 			if(UltimateMobileSettings.Instance.IOSAdEdngine == UM_IOSAdEngineOprions.GoogleMobileAd)  {
 				GoogleMobileAd.GetBanner(id).Hide();
 			} else {
-				iAdBannerController.instance.GetBanner(id).Hide();
+				iAdBannerController.Instance.GetBanner(id).Hide();
 			}
 			break;
 		case RuntimePlatform.Android:
@@ -208,7 +208,7 @@ public static class UM_AdManager  {
 			if(UltimateMobileSettings.Instance.IOSAdEdngine == UM_IOSAdEngineOprions.GoogleMobileAd)  {
 				GoogleMobileAd.GetBanner(id).Show();
 			} else {
-				iAdBannerController.instance.GetBanner(id).Show();
+				iAdBannerController.Instance.GetBanner(id).Show();
 			}
 			break;
 		case RuntimePlatform.Android:
@@ -252,7 +252,7 @@ public static class UM_AdManager  {
 			if(UltimateMobileSettings.Instance.IOSAdEdngine == UM_IOSAdEngineOprions.GoogleMobileAd)  {
 				GoogleMobileAd.StartInterstitialAd();
 			} else {
-				iAdBannerController.instance.StartInterstitialAd();
+				iAdBannerController.Instance.StartInterstitialAd();
 			}
 			break;
 		case RuntimePlatform.Android:
@@ -271,7 +271,7 @@ public static class UM_AdManager  {
 			if(UltimateMobileSettings.Instance.IOSAdEdngine == UM_IOSAdEngineOprions.GoogleMobileAd)  {
 				GoogleMobileAd.LoadInterstitialAd();
 			} else {
-				iAdBannerController.instance.LoadInterstitialAd();
+				iAdBannerController.Instance.LoadInterstitialAd();
 			}
 			break;
 		case RuntimePlatform.Android:
@@ -290,7 +290,7 @@ public static class UM_AdManager  {
 			if(UltimateMobileSettings.Instance.IOSAdEdngine == UM_IOSAdEngineOprions.GoogleMobileAd)  {
 				GoogleMobileAd.ShowInterstitialAd();
 			} else {
-				iAdBannerController.instance.ShowInterstitialAd();
+				iAdBannerController.Instance.ShowInterstitialAd();
 			}
 			break;
 		case RuntimePlatform.Android:

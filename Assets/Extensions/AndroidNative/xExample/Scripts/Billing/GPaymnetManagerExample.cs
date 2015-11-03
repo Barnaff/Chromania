@@ -33,10 +33,10 @@ public class GPaymnetManagerExample : MonoBehaviour {
 
 		//When you will add your own proucts you can skip this code section of you already have added
 		//your products ids under the editor setings menu
-		AndroidInAppPurchaseManager.instance.AddProduct(ANDROID_TEST_PURCHASED);
-		AndroidInAppPurchaseManager.instance.AddProduct(ANDROID_TEST_CANCELED);
-		AndroidInAppPurchaseManager.instance.AddProduct(ANDROID_TEST_REFUNDED);
-		AndroidInAppPurchaseManager.instance.AddProduct(ANDROID_TEST_ITEM_UNAVAILABLE);
+		AndroidInAppPurchaseManager.Instance.AddProduct(ANDROID_TEST_PURCHASED);
+		AndroidInAppPurchaseManager.Instance.AddProduct(ANDROID_TEST_CANCELED);
+		AndroidInAppPurchaseManager.Instance.AddProduct(ANDROID_TEST_REFUNDED);
+		AndroidInAppPurchaseManager.Instance.AddProduct(ANDROID_TEST_ITEM_UNAVAILABLE);
 
 
 		//listening for purchase and consume events
@@ -145,10 +145,10 @@ public class GPaymnetManagerExample : MonoBehaviour {
 
 		if(result.isSuccess) {
 			_isInited = true;
-			AndroidMessage.Create("Success", "Billing init complete inventory contains: " + AndroidInAppPurchaseManager.instance.Inventory.Purchases.Count + " products");
+			AndroidMessage.Create("Success", "Billing init complete inventory contains: " + AndroidInAppPurchaseManager.Instance.Inventory.Purchases.Count + " products");
 
 			Debug.Log("Loaded products names");
-			foreach(GoogleProductTemplate tpl in AndroidInAppPurchaseManager.instance.Inventory.Products) {
+			foreach(GoogleProductTemplate tpl in AndroidInAppPurchaseManager.Instance.Inventory.Products) {
 				Debug.Log(tpl.Title);
 				Debug.Log(tpl.OriginalJson);
 			}

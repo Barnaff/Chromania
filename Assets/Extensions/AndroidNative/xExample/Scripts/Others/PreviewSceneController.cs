@@ -10,7 +10,7 @@ public class PreviewSceneController : MonoBehaviour {
 
 		//Init Gamethrive Push Notifications if this option is enabled in AndroidNative Inspector window
 		if (AndroidNativeSettings.Instance.UseGameThrivePushNotifications) {
-			GoogleCloudMessageService.instance.InitOneSignalNotifications ();		
+			GoogleCloudMessageService.Instance.InitOneSignalNotifications ();		
 		}
 	}
 
@@ -23,7 +23,7 @@ public class PreviewSceneController : MonoBehaviour {
 		//AndroidSocialGate.SendMail("Send Mail", "", "Hey Stan, I found a bug", "stans.assets@gmail.com");
 
 		AN_LicenseManager.OnLicenseRequestResult += LicenseRequestResult;
-		AN_LicenseManager.instance.StartLicenseRequest();
+		AN_LicenseManager.Instance.StartLicenseRequest();
 	}
 
 	private void LicenseRequestResult(AN_LicenseRequestResult result) {

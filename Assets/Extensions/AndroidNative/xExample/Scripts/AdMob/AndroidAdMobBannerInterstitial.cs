@@ -17,12 +17,12 @@ public class AndroidAdMobBannerInterstitial : MonoBehaviour {
 	
 	void Awake() {
 
-		if(AndroidAdMobController.instance.IsInited) {
-			if(!AndroidAdMobController.instance.InterstisialUnitId.Equals(InterstitialUnityId)) {
-				AndroidAdMobController.instance.SetInterstisialsUnitID(InterstitialUnityId);
+		if(AndroidAdMobController.Instance.IsInited) {
+			if(!AndroidAdMobController.Instance.InterstisialUnitId.Equals(InterstitialUnityId)) {
+				AndroidAdMobController.Instance.SetInterstisialsUnitID(InterstitialUnityId);
 			} 
 		} else {
-			AndroidAdMobController.instance.Init(InterstitialUnityId);
+			AndroidAdMobController.Instance.Init(InterstitialUnityId);
 		}
 
 
@@ -40,7 +40,7 @@ public class AndroidAdMobBannerInterstitial : MonoBehaviour {
 	// --------------------------------------
 
 	public void ShowBanner() {
-		AndroidAdMobController.instance.StartInterstitialAd();
+		AndroidAdMobController.Instance.StartInterstitialAd();
 	}
 
 

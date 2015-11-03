@@ -94,11 +94,11 @@ public class PlayServiceCustomLBExample : MonoBehaviour {
 
 	public void LoadScore() {
 
-		GooglePlayManager.instance.LoadPlayerCenteredScores(LEADERBOARD_ID, displayTime, displayCollection, 10);
+		GooglePlayManager.Instance.LoadPlayerCenteredScores(LEADERBOARD_ID, displayTime, displayCollection, 10);
 	}
 
 	public void OpenUI() {
-		GooglePlayManager.instance.ShowLeaderBoardById(LEADERBOARD_ID);
+		GooglePlayManager.Instance.ShowLeaderBoardById(LEADERBOARD_ID);
 	}
 	
 
@@ -189,7 +189,7 @@ public class PlayServiceCustomLBExample : MonoBehaviour {
 					line.score.text 		= score.LongScore.ToString();
 					line.playerId.text 		= score.PlayerId;
 
-					GooglePlayerTemplate player = GooglePlayManager.instance.GetPlayerById(score.PlayerId);
+					GooglePlayerTemplate player = GooglePlayManager.Instance.GetPlayerById(score.PlayerId);
 					if(player != null) {
 						line.playerName.text =  player.name;
 						if(player.hasIconImage) {
@@ -237,8 +237,8 @@ public class PlayServiceCustomLBExample : MonoBehaviour {
 
 		SubmitScoreButton.text = "Submit Score: " + score;
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
-			if(GooglePlayManager.instance.player.icon != null) {
-				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.instance.player.icon;
+			if(GooglePlayManager.Instance.player.icon != null) {
+				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.Instance.player.icon;
 			}
 		}  else {
 			avatar.GetComponent<Renderer>().material.mainTexture = defaulttexture;
@@ -319,7 +319,7 @@ public class PlayServiceCustomLBExample : MonoBehaviour {
 
 
 	private void SubmitScore() {
-		GooglePlayManager.instance.SubmitScoreById(LEADERBOARD_ID, score);
+		GooglePlayManager.Instance.SubmitScoreById(LEADERBOARD_ID, score);
 		SA_StatusBar.text = "Submitiong score: " + (score +1).ToString();
 		score ++;
 	}
@@ -333,7 +333,7 @@ public class PlayServiceCustomLBExample : MonoBehaviour {
 	
 	private void OnPlayerConnected() {
 		SA_StatusBar.text = "Player Connected";
-		playerLabel.text = GooglePlayManager.instance.player.name;
+		playerLabel.text = GooglePlayManager.Instance.player.name;
 
 	}
 	
@@ -349,7 +349,7 @@ public class PlayServiceCustomLBExample : MonoBehaviour {
 
 		SA_StatusBar.text = "Scores Load Finished";
 
-		loadedLeaderBoard = GooglePlayManager.instance.GetLeaderBoard(LEADERBOARD_ID);
+		loadedLeaderBoard = GooglePlayManager.Instance.GetLeaderBoard(LEADERBOARD_ID);
 
 
 		if(loadedLeaderBoard == null) {

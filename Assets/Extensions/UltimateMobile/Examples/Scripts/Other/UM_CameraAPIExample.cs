@@ -18,28 +18,28 @@ public class UM_CameraAPIExample : BaseIOSFeaturePreview {
 		
 		StartY+= YLableStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth + 10, buttonHeight), "Save Screenshot To Camera Roll")) {
-			UM_Camera.instance.OnImageSaved += OnImageSaved;
-			UM_Camera.instance.SaveScreenshotToGallery();
+			UM_Camera.Instance.OnImageSaved += OnImageSaved;
+			UM_Camera.Instance.SaveScreenshotToGallery();
 		}
 
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Save Texture To Camera Roll")) {
-			UM_Camera.instance.OnImageSaved += OnImageSaved;
-			UM_Camera.instance.SaveImageToGalalry(hello_texture);
+			UM_Camera.Instance.OnImageSaved += OnImageSaved;
+			UM_Camera.Instance.SaveImageToGalalry(hello_texture);
 		}
 
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Get Image From Album")) {
-			UM_Camera.instance.OnImagePicked += OnImage;
-			UM_Camera.instance.GetImageFromGallery();
+			UM_Camera.Instance.OnImagePicked += OnImage;
+			UM_Camera.Instance.GetImageFromGallery();
 		}
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Get Image From Camera")) {
-			UM_Camera.instance.OnImagePicked += OnImage;
-			UM_Camera.instance.GetImageFromCamera();
+			UM_Camera.Instance.OnImagePicked += OnImage;
+			UM_Camera.Instance.GetImageFromCamera();
 		}
 
 		StartX = XStartPos;
@@ -69,11 +69,11 @@ public class UM_CameraAPIExample : BaseIOSFeaturePreview {
 	
 
 	private void OnImage (UM_ImagePickResult result) {
-		UM_Camera.instance.OnImageSaved -= OnImageSaved;
+		UM_Camera.Instance.OnImageSaved -= OnImageSaved;
 		if(result.IsSucceeded) {
 			darawTexgture = result.image;
 		}
 
-		UM_Camera.instance.OnImagePicked -= OnImage;
+		UM_Camera.Instance.OnImagePicked -= OnImage;
 	}
 }

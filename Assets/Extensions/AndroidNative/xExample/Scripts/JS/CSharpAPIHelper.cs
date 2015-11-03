@@ -17,7 +17,7 @@ public class CSharpAPIHelper : MonoBehaviour {
 			OnPlayerConnected ();
 		}  else {
 			Debug.Log("Connecting....");
-			GooglePlayConnection.instance.Connect();
+			GooglePlayConnection.Instance.Connect();
 		}
 
 

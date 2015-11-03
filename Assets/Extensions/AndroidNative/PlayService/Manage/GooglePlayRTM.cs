@@ -55,7 +55,7 @@ public class GooglePlayRTM : SA_Singleton<GooglePlayRTM>  {
 		_currentRoom = new GP_RTM_Room();
 
 
-		GooglePlayInvitationManager.instance.Init();
+		GooglePlayInvitationManager.Instance.Init();
 		Debug.Log("GooglePlayRTM Created");
 
 	}

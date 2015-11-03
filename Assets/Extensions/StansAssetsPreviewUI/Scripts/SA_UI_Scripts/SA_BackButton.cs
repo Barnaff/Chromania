@@ -37,6 +37,6 @@ public class SA_BackButton : DefaultPreviewButton {
 	}
 
 	private void GoBack() {
-		SALevelLoader.instance.LoadLevel(firstLevel);
+		SALevelLoader.Instance.LoadLevel(firstLevel);
 	}
 }

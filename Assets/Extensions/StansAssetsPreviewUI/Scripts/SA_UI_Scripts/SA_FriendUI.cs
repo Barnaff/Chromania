@@ -24,7 +24,7 @@ public class SA_FriendUI : MonoBehaviour {
 		avatar.GetComponent<Renderer>().material.mainTexture = defaulttexture;
 		
 		
-		GooglePlayerTemplate player = GooglePlayManager.instance.GetPlayerById(pId);
+		GooglePlayerTemplate player = GooglePlayManager.Instance.GetPlayerById(pId);
 		if(player != null) {
 			playerId.text = "Player Id: " + _pId;
 			playerName.text = "Name: " + player.name;
@@ -38,7 +38,7 @@ public class SA_FriendUI : MonoBehaviour {
 	}
 
 	public void PlayWithFried() {
-		GooglePlayRTM.instance.FindMatch(1, 1, _pId);
+		GooglePlayRTM.Instance.FindMatch(1, 1, _pId);
 	}
 
 	void FixedUpdate() {

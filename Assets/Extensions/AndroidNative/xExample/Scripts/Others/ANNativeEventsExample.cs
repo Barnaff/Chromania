@@ -5,7 +5,7 @@ public class ANNativeEventsExample : MonoBehaviour {
 
 
 	void Start () {
-		AndroidApp.instance.OnActivityResult += OnActivityResult;
+		AndroidApp.Instance.OnActivityResult += OnActivityResult;
 	}
 	
 

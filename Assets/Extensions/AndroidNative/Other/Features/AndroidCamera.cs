@@ -41,8 +41,8 @@ public class AndroidCamera : SA_Singleton<AndroidCamera>  {
 
 	public void SaveScreenshotToGallery(String name = "") {
 		_lastImageName = name;
-		SA_ScreenShotMaker.instance.OnScreenshotReady += OnScreenshotReady;
-		SA_ScreenShotMaker.instance.GetScreenshot();
+		SA_ScreenShotMaker.Instance.OnScreenshotReady += OnScreenshotReady;
+		SA_ScreenShotMaker.Instance.GetScreenshot();
 	}
 
 
@@ -88,7 +88,7 @@ public class AndroidCamera : SA_Singleton<AndroidCamera>  {
 
 
 	private void OnScreenshotReady(Texture2D tex) {
-		SA_ScreenShotMaker.instance.OnScreenshotReady -= OnScreenshotReady;
+		SA_ScreenShotMaker.Instance.OnScreenshotReady -= OnScreenshotReady;
 		SaveImageToGallery(tex, _lastImageName);
 
 	}

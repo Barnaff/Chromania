@@ -66,8 +66,8 @@ public class PlayServicFridnsLoadExample_New : MonoBehaviour {
 		} 
 
 		int i = 0;
-		foreach(string fId in GooglePlayManager.instance.friendsList) {
-			GooglePlayerTemplate p = GooglePlayManager.instance.GetPlayerById(fId);
+		foreach(string fId in GooglePlayManager.Instance.friendsList) {
+			GooglePlayerTemplate p = GooglePlayManager.Instance.GetPlayerById(fId);
 			if(p != null) {
 				rows[i].playerId.text = p.playerId;
 				rows[i].playerName.text = p.name;
@@ -104,8 +104,8 @@ public class PlayServicFridnsLoadExample_New : MonoBehaviour {
 
 	void FixedUpdate() {
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
-			if(GooglePlayManager.instance.player.icon != null) {
-				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.instance.player.icon;
+			if(GooglePlayManager.Instance.player.icon != null) {
+				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.Instance.player.icon;
 			}
 		}  else {
 			avatar.GetComponent<Renderer>().material.mainTexture = defaulttexture;
@@ -140,7 +140,7 @@ public class PlayServicFridnsLoadExample_New : MonoBehaviour {
 
 
 	public void LoadFriendsList() {
-		GooglePlayManager.instance.LoadFriends();
+		GooglePlayManager.Instance.LoadFriends();
 	}
 
 
@@ -158,7 +158,7 @@ public class PlayServicFridnsLoadExample_New : MonoBehaviour {
 	
 	private void OnPlayerConnected() {
 		SA_StatusBar.text = "Player Connected";
-		playerLabel.text = GooglePlayManager.instance.player.name;
+		playerLabel.text = GooglePlayManager.Instance.player.name;
 	}
 	
 	private void OnConnectionResult(GooglePlayConnectionResult result) {

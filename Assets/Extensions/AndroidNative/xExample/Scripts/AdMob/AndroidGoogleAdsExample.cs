@@ -53,31 +53,31 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 
 	void Start() {
 
-		AndroidAdMobController.instance.Init(MY_BANNERS_AD_UNIT_ID);
+		AndroidAdMobController.Instance.Init(MY_BANNERS_AD_UNIT_ID);
 
 		//If yoi whant to use Interstisial ad also, you need to set additional ad unin id for Interstisial as well
-		AndroidAdMobController.instance.SetInterstisialsUnitID(MY_INTERSTISIALS_AD_UNIT_ID);
+		AndroidAdMobController.Instance.SetInterstisialsUnitID(MY_INTERSTISIALS_AD_UNIT_ID);
 
 		
 		//Optional, add data for better ad targeting
-		AndroidAdMobController.instance.SetGender(GoogleGender.Male);
-		AndroidAdMobController.instance.AddKeyword("game");
-		AndroidAdMobController.instance.SetBirthday(1989, AndroidMonth.MARCH, 18);
-		AndroidAdMobController.instance.TagForChildDirectedTreatment(false);
+		AndroidAdMobController.Instance.SetGender(GoogleGender.Male);
+		AndroidAdMobController.Instance.AddKeyword("game");
+		AndroidAdMobController.Instance.SetBirthday(1989, AndroidMonth.MARCH, 18);
+		AndroidAdMobController.Instance.TagForChildDirectedTreatment(false);
 
 		//Causes a device to receive test ads. The deviceId can be obtained by viewing the logcat output after creating a new ad
 		//AndroidAdMobController.instance.AddTestDevice("6B9FA8031AEFDC4758B7D8987F77A5A6");
 
 
 
-		AndroidAdMobController.instance.OnInterstitialLoaded += OnInterstisialsLoaded; 
-		AndroidAdMobController.instance.OnInterstitialOpened += OnInterstisialsOpen;
+		AndroidAdMobController.Instance.OnInterstitialLoaded += OnInterstisialsLoaded; 
+		AndroidAdMobController.Instance.OnInterstitialOpened += OnInterstisialsOpen;
 
 
 
 		//listening for InApp Event
 		//You will only receive in-app purchase (IAP) ads if you specifically configure an IAP ad campaign in the AdMob front end.
-		AndroidAdMobController.instance.OnAdInAppRequest += OnInAppRequest;
+		AndroidAdMobController.Instance.OnAdInAppRequest += OnInAppRequest;
 
 	
 
@@ -86,40 +86,40 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 
 
 	private void StartInterstitialAd() {
-		AndroidAdMobController.instance.StartInterstitialAd ();
+		AndroidAdMobController.Instance.StartInterstitialAd ();
 	}
 
 	private void LoadInterstitialAd() {
-		AndroidAdMobController.instance.LoadInterstitialAd ();
+		AndroidAdMobController.Instance.LoadInterstitialAd ();
 	}
 
 	private void ShowInterstitialAd() {
-		AndroidAdMobController.instance.ShowInterstitialAd ();
+		AndroidAdMobController.Instance.ShowInterstitialAd ();
 	}
 
 
 	private void CreateBannerCustomPos() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(300, 100, GADBannerSize.BANNER);
+		banner1 = AndroidAdMobController.Instance.CreateAdBanner(300, 100, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerUpperLeft() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperLeft, GADBannerSize.BANNER);
+		banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.UpperLeft, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerUpperCneter() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.BANNER);
+		banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerBottomLeft() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerLeft, GADBannerSize.BANNER);
+		banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.LowerLeft, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerBottomCenter() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.BANNER);
+		banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerBottomRight() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerRight, GADBannerSize.BANNER);
+		banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.LowerRight, GADBannerSize.BANNER);
 	}
 
 	private void B1Hide() {
@@ -136,17 +136,17 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 	}
 
 	private void B1Destrouy() {
-		AndroidAdMobController.instance.DestroyBanner(banner1.id);
+		AndroidAdMobController.Instance.DestroyBanner(banner1.id);
 		banner1 = null;
 	}
 
 
 	private void SmartTOP() {
-		banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.SMART_BANNER);
+		banner2 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.SMART_BANNER);
 	}
 
 	private void SmartBottom() {
-		banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.SMART_BANNER);
+		banner2 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.SMART_BANNER);
 	}
 
 	
@@ -164,7 +164,7 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 	}
 	
 	private void B2Destrouy() {
-		AndroidAdMobController.instance.DestroyBanner(banner2.id);
+		AndroidAdMobController.Instance.DestroyBanner(banner2.id);
 		banner2 = null;
 	}
 
@@ -297,7 +297,7 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 		//Then you should perfrom purchase  for this product id, using this or another game billing plugin
 		//Once the purchase is complete, you should call RecordInAppResolution with one of the constants defined in GADInAppResolution:
 
-		AndroidAdMobController.instance.RecordInAppResolution(GADInAppResolution.RESOLUTION_SUCCESS);
+		AndroidAdMobController.Instance.RecordInAppResolution(GADInAppResolution.RESOLUTION_SUCCESS);
 
 	}
 

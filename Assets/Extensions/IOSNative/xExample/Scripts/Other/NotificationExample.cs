@@ -30,7 +30,7 @@ public class NotificationExample : BaseIOSFeaturePreview {
 	
 	
 	void Awake() {
-		IOSNotificationController.instance.RequestNotificationPermissions();
+		IOSNotificationController.Instance.RequestNotificationPermissions();
 
 		IOSNotificationController.OnLocalNotificationReceived += HandleOnLocalNotificationReceived;
 
@@ -81,7 +81,7 @@ public class NotificationExample : BaseIOSFeaturePreview {
 		
 		StartX += XButtonStep;
 		if(UnityEngine.GUI.Button(new UnityEngine.Rect(StartX, StartY, buttonWidth, buttonHeight), "Cancel All Notifications")) {
-			IOSNotificationController.instance.CancelAllLocalNotifications();
+			IOSNotificationController.Instance.CancelAllLocalNotifications();
 			IOSNativeUtility.SetApplicationBagesNumber(0);
 		}
 		
@@ -89,7 +89,7 @@ public class NotificationExample : BaseIOSFeaturePreview {
 		if(UnityEngine.GUI.Button(new UnityEngine.Rect(StartX, StartY, buttonWidth, buttonHeight), "Cansel Last Notification")) {
 
 
-			IOSNotificationController.instance.CancelLocalNotificationById(lastNotificationId);
+			IOSNotificationController.Instance.CancelLocalNotificationById(lastNotificationId);
 		}
 		
 		
@@ -120,7 +120,7 @@ public class NotificationExample : BaseIOSFeaturePreview {
 		
 		StartX += XButtonStep;
 		if(UnityEngine.GUI.Button(new UnityEngine.Rect(StartX, StartY, buttonWidth, buttonHeight), "Show Game Kit Notification")) {
-			IOSNotificationController.instance.ShowGmaeKitNotification("Title", "Message");
+			IOSNotificationController.Instance.ShowGmaeKitNotification("Title", "Message");
 		}
 		
 		

@@ -19,7 +19,7 @@ public class TBM_Multiplayer_Example : BaseIOSFeaturePreview {
 		}
 
 		int ROLE_WIZARD = 0x4; // 100 in binary
-		GameCenter_RTM.instance.SetPlayerAttributes (ROLE_WIZARD);
+		GameCenter_RTM.Instance.SetPlayerAttributes (ROLE_WIZARD);
 
 
 

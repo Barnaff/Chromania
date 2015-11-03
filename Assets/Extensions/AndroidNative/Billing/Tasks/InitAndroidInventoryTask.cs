@@ -51,7 +51,7 @@ public class InitAndroidInventoryTask : MonoBehaviour {
 		Debug.Log("OnBillingConnected COMPLETE");
 		//Store connection is Successful. Next we loading product and customer purchasing details
 
-		if(AndroidInAppPurchaseManager.instance.IsInventoryLoaded) {
+		if(AndroidInAppPurchaseManager.Instance.IsInventoryLoaded) {
 			Debug.Log("IsInventoryLoaded COMPLETE");
 			ActionComplete();
 		} else {

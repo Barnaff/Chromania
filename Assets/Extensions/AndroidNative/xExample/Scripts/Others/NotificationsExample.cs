@@ -46,29 +46,29 @@ public class NotificationsExample : MonoBehaviour {
 	}
 
 	private void Local() {
-		LastNotificationId = AndroidNotificationManager.instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
+		LastNotificationId = AndroidNotificationManager.Instance.ScheduleLocalNotification("Hello", "This is local notification", 5);
 	}
 
 	private void LoadLaunchNotification (){
-		AndroidNotificationManager.instance.OnNotificationIdLoaded += OnNotificationIdLoaded;
-		AndroidNotificationManager.instance.LocadAppLaunchNotificationId();
+		AndroidNotificationManager.Instance.OnNotificationIdLoaded += OnNotificationIdLoaded;
+		AndroidNotificationManager.Instance.LocadAppLaunchNotificationId();
 	}
 
 	private void CanselLocal() {
-		AndroidNotificationManager.instance.CancelLocalNotification(LastNotificationId);
+		AndroidNotificationManager.Instance.CancelLocalNotification(LastNotificationId);
 	}
 
 	private void CancelAll() {
-		AndroidNotificationManager.instance.CancelAllLocalNotifications();
+		AndroidNotificationManager.Instance.CancelAllLocalNotifications();
 	}
 
 
 	private void Reg() {
-		GoogleCloudMessageService.instance.RgisterDevice();
+		GoogleCloudMessageService.Instance.RgisterDevice();
 	}
 
 	private void LoadLastMessage() {
-		GoogleCloudMessageService.instance.LoadLastMessage();
+		GoogleCloudMessageService.Instance.LoadLastMessage();
 	}
 
 
@@ -88,7 +88,7 @@ public class NotificationsExample : MonoBehaviour {
 
 	void HandleActionCMDRegistrationResult (GP_GCM_RegistrationResult res) {
 		if(res.isSuccess) {
-			AN_PoupsProxy.showMessage ("Regstred", "GCM REG ID: " + GoogleCloudMessageService.instance.registrationId);
+			AN_PoupsProxy.showMessage ("Regstred", "GCM REG ID: " + GoogleCloudMessageService.Instance.registrationId);
 		} else {
 			AN_PoupsProxy.showMessage ("Reg Failed", "GCM Registration failed :(");
 		}
@@ -102,7 +102,7 @@ public class NotificationsExample : MonoBehaviour {
 
 	
 	private void OnMessageLoaded(string msg) {
-		AN_PoupsProxy.showMessage ("Message Loaded", "Last GCM Message: " + GoogleCloudMessageService.instance.lastMessage);
+		AN_PoupsProxy.showMessage ("Message Loaded", "Last GCM Message: " + GoogleCloudMessageService.Instance.lastMessage);
 	}
 	
 	//--------------------------------------

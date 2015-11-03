@@ -13,20 +13,20 @@ public class UM_Camera : SA_Singleton<UM_Camera> {
 	void Awake() {
 		DontDestroyOnLoad(gameObject);
 
-		AndroidCamera.instance.OnImagePicked += OnAndroidImagePicked;
+		AndroidCamera.Instance.OnImagePicked += OnAndroidImagePicked;
 		IOSCamera.OnImagePicked += OnIOSImagePicked;
 
-		AndroidCamera.instance.OnImageSaved += OnAndroidImageSaved;
+		AndroidCamera.Instance.OnImageSaved += OnAndroidImageSaved;
 		IOSCamera.OnImageSaved += OnIOSImageSaved;
 	}
 
 	public void SaveImageToGalalry(Texture2D image) {
 		switch(Application.platform) {
 			case RuntimePlatform.Android:
-				AndroidCamera.instance.SaveImageToGallery(image);
+				AndroidCamera.Instance.SaveImageToGallery(image);
 				break;
 			case RuntimePlatform.IPhonePlayer:
-				IOSCamera.instance.SaveTextureToCameraRoll(image);
+				IOSCamera.Instance.SaveTextureToCameraRoll(image);
 				break;
 		}
 		
@@ -36,10 +36,10 @@ public class UM_Camera : SA_Singleton<UM_Camera> {
 	public void SaveScreenshotToGallery() {
 		switch(Application.platform) {
 			case RuntimePlatform.Android:
-				AndroidCamera.instance.SaveScreenshotToGallery();
+				AndroidCamera.Instance.SaveScreenshotToGallery();
 				break;
 			case RuntimePlatform.IPhonePlayer:
-				IOSCamera.instance.SaveScreenshotToCameraRoll();
+				IOSCamera.Instance.SaveScreenshotToCameraRoll();
 				break;
 		}
 	}
@@ -48,10 +48,10 @@ public class UM_Camera : SA_Singleton<UM_Camera> {
 	public void GetImageFromGallery() {
 		switch(Application.platform) {
 			case RuntimePlatform.Android:
-				AndroidCamera.instance.GetImageFromGallery();
+				AndroidCamera.Instance.GetImageFromGallery();
 				break;
 			case RuntimePlatform.IPhonePlayer:
-				IOSCamera.instance.PickImage(ISN_ImageSource.Library);
+				IOSCamera.Instance.PickImage(ISN_ImageSource.Library);
 				break;
 		}
 	}
@@ -61,10 +61,10 @@ public class UM_Camera : SA_Singleton<UM_Camera> {
 	public void GetImageFromCamera() {
 		switch(Application.platform) {
 		case RuntimePlatform.Android:
-			AndroidCamera.instance.GetImageFromCamera();
+			AndroidCamera.Instance.GetImageFromCamera();
 			break;
 		case RuntimePlatform.IPhonePlayer:
-			IOSCamera.instance.PickImage(ISN_ImageSource.Camera);
+			IOSCamera.Instance.PickImage(ISN_ImageSource.Camera);
 			break;
 		}
 	}

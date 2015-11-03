@@ -145,7 +145,7 @@ public class PaymentManagerExample {
 		if(result.IsSucceeded) {
 
 			int avaliableProductsCount = 0;
-			foreach(IOSProductTemplate tpl in IOSInAppPurchaseManager.instance.Products) {
+			foreach(IOSProductTemplate tpl in IOSInAppPurchaseManager.Instance.Products) {
 				if(tpl.IsAvaliable) {
 					avaliableProductsCount++;
 				}

@@ -15,25 +15,25 @@ public class UM_NotificationsExample : BaseIOSFeaturePreview {
 		GUI.Label(new Rect(StartX, StartY, Screen.width, 40), "Local Notifications API", style);
 		StartY+= YLableStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth + 10, buttonHeight), "Show Notification Popup ")) {
-			UM_NotificationController.instance.ShowNotificationPoup("Hello", "Notification popup test");
+			UM_NotificationController.Instance.ShowNotificationPoup("Hello", "Notification popup test");
 		}
 
 
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth + 10, buttonHeight), "Schedule Local Notification")) {
-			LastNotificationId = UM_NotificationController.instance.ScheduleLocalNotification("Hello Locacl", "Local Notification Example", 5);
+			LastNotificationId = UM_NotificationController.Instance.ScheduleLocalNotification("Hello Locacl", "Local Notification Example", 5);
 		}
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth + 10, buttonHeight), "Cansel Last Notification")) {
-			UM_NotificationController.instance.CancelLocalNotification(LastNotificationId);
+			UM_NotificationController.Instance.CancelLocalNotification(LastNotificationId);
 		}
 
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth + 10, buttonHeight), "Cansel All Last Notifications")) {
-			UM_NotificationController.instance.CancelAllLocalNotifications();
+			UM_NotificationController.Instance.CancelAllLocalNotifications();
 		}
 
 

@@ -98,19 +98,19 @@ public class iAdUseExample : MonoBehaviour {
 
 		StartY+= 40;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Start Interstitial Ad")) {
-			iAdBannerController.instance.StartInterstitialAd ();
+			iAdBannerController.Instance.StartInterstitialAd ();
 		}
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Load Interstitial Ad")) {
-			iAdBannerController.instance.LoadInterstitialAd ();
+			iAdBannerController.Instance.LoadInterstitialAd ();
 		}
 
 
 		StartX += 170;
 		GUI.enabled = iAdBannerController.Instance.IsInterstisialsAdReady;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Show Interstitial Ad")) {
-			iAdBannerController.instance.ShowInterstitialAd ();
+			iAdBannerController.Instance.ShowInterstitialAd ();
 		}
 		GUI.enabled  = true;
 
@@ -126,40 +126,40 @@ public class iAdUseExample : MonoBehaviour {
 
 		StartY+= 40;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Custom Pos")) {
-			banner1 = iAdBannerController.instance.CreateAdBanner(300, 100);
+			banner1 = iAdBannerController.Instance.CreateAdBanner(300, 100);
 		}
 
 		StartY+= 80;
 		StartX = 10;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Top Left")) {
-			banner1 = iAdBannerController.instance.CreateAdBanner(TextAnchor.UpperLeft);
+			banner1 = iAdBannerController.Instance.CreateAdBanner(TextAnchor.UpperLeft);
 		}
 
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Top Center")) {
-			banner1 = iAdBannerController.instance.CreateAdBanner(TextAnchor.UpperCenter);
+			banner1 = iAdBannerController.Instance.CreateAdBanner(TextAnchor.UpperCenter);
 		}
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Top Right")) {
-			banner1 = iAdBannerController.instance.CreateAdBanner(TextAnchor.UpperRight);
+			banner1 = iAdBannerController.Instance.CreateAdBanner(TextAnchor.UpperRight);
 		}
 
 		StartY+= 80;
 		StartX = 10;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Bottom Left")) {
-			banner1 = iAdBannerController.instance.CreateAdBanner(TextAnchor.LowerLeft);
+			banner1 = iAdBannerController.Instance.CreateAdBanner(TextAnchor.LowerLeft);
 		}
 		
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Bottom Center")) {
-			banner1 = iAdBannerController.instance.CreateAdBanner(TextAnchor.LowerCenter);
+			banner1 = iAdBannerController.Instance.CreateAdBanner(TextAnchor.LowerCenter);
 		}
 		
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Bottom Right")) {
-			banner1 = iAdBannerController.instance.CreateAdBanner(TextAnchor.LowerRight);
+			banner1 = iAdBannerController.Instance.CreateAdBanner(TextAnchor.LowerRight);
 		}
 
 
@@ -199,7 +199,7 @@ public class iAdUseExample : MonoBehaviour {
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Destroy")) {
 			Debug.Log("Destroy banner with ID: " + banner1.id);
-			iAdBannerController.instance.DestroyBanner(banner1.id);
+			iAdBannerController.Instance.DestroyBanner(banner1.id);
 			banner1 = null;
 
 		}

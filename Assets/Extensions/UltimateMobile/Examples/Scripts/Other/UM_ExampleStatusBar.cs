@@ -29,11 +29,11 @@ public class UM_ExampleStatusBar : SA_Singleton<UM_ExampleStatusBar> {
 
 	public static string text {
 		get {
-			return instance._text;
+			return Instance._text;
 		}
 
 		set {
-			instance._text = value;
+            Instance._text = value;
 		}
 	}
 }

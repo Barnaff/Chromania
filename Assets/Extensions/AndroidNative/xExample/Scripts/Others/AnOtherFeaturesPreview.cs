@@ -11,39 +11,39 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 
 
 	public void SaveToGalalry() {
-		AndroidCamera.instance.OnImageSaved += OnImageSaved;
-		AndroidCamera.instance.SaveImageToGallery(helloWorldTexture);
+		AndroidCamera.Instance.OnImageSaved += OnImageSaved;
+		AndroidCamera.Instance.SaveImageToGallery(helloWorldTexture);
 
 	}
 
 	public void SaveScreenshot() {
-		AndroidCamera.instance.OnImageSaved += OnImageSaved;
-		AndroidCamera.instance.SaveScreenshotToGallery();
+		AndroidCamera.Instance.OnImageSaved += OnImageSaved;
+		AndroidCamera.Instance.SaveScreenshotToGallery();
 
 	}
 
 
 	public void GetImageFromGallery() {
-		AndroidCamera.instance.OnImagePicked += OnImagePicked;
-		AndroidCamera.instance.GetImageFromGallery();
+		AndroidCamera.Instance.OnImagePicked += OnImagePicked;
+		AndroidCamera.Instance.GetImageFromGallery();
 	}
 	
 	
 	
 	public void GetImageFromCamera() {
-		AndroidCamera.instance.OnImagePicked += OnImagePicked;
-		AndroidCamera.instance.GetImageFromCamera();
+		AndroidCamera.Instance.OnImagePicked += OnImagePicked;
+		AndroidCamera.Instance.GetImageFromCamera();
 	}
 
 
 	public void CheckForTV() {
 		TVAppController.DeviceTypeChecked += OnDeviceTypeChecked;
-		TVAppController.instance.CheckForATVDevice();
+		TVAppController.Instance.CheckForATVDevice();
 	}
 
 
 	public void LoadNetworkInfo() {
-		AndroidNativeUtility.instance.LoadNetworkInfo();
+		AndroidNativeUtility.Instance.LoadNetworkInfo();
 		AndroidNativeUtility.ActionNetworkInfoLoaded += HandleActionNetworkInfoLoaded;
 	}
 
@@ -67,7 +67,7 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 	public void CheckAppInstalation() {
 
 		AndroidNativeUtility.OnPackageCheckResult += OnPackageCheckResult;
-		AndroidNativeUtility.instance.CheckIsPackageInstalled("com.google.android.youtube");
+		AndroidNativeUtility.Instance.CheckIsPackageInstalled("com.google.android.youtube");
 	}
 
 
@@ -80,7 +80,7 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 	public void CheckAppLicense() {
 
 		AN_LicenseManager.OnLicenseRequestResult += LicenseRequestResult;
-		AN_LicenseManager.instance.StartLicenseRequest (AndroidNativeSettings.Instance.base64EncodedPublicKey);
+		AN_LicenseManager.Instance.StartLicenseRequest (AndroidNativeSettings.Instance.base64EncodedPublicKey);
 		SA_StatusBar.text =  "Get App License Request STARTED";
 	}
 
@@ -92,13 +92,13 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 
 
 	private void EnableImmersiveMode() {
-		ImmersiveMode.instance.EnableImmersiveMode();
+		ImmersiveMode.Instance.EnableImmersiveMode();
 	}
 	
 
 	public void GetAndroidId() {
 		AndroidNativeUtility.OnAndroidIdLoaded += OnAndroidIdLoaded;
-		AndroidNativeUtility.instance.LoadAndroidId();
+		AndroidNativeUtility.Instance.LoadAndroidId();
 	}
 	
 	void OnAndroidIdLoaded (string id) {
@@ -109,7 +109,7 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 	private void LoadAppInfo() {
 
 		AndroidAppInfoLoader.ActionPacakgeInfoLoaded += OnPackageInfoLoaded; 
-		AndroidAppInfoLoader.instance.LoadPackageInfo ();
+		AndroidAppInfoLoader.Instance.LoadPackageInfo ();
 	}
 
 
@@ -122,7 +122,7 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 
 
 	void OnDeviceTypeChecked () {
-		AN_PoupsProxy.showMessage("Check for a TV Device Result" , TVAppController.instance.IsRuningOnTVDevice.ToString());
+		AN_PoupsProxy.showMessage("Check for a TV Device Result" , TVAppController.Instance.IsRuningOnTVDevice.ToString());
 		TVAppController.DeviceTypeChecked -= OnDeviceTypeChecked;
 	}
 
@@ -142,7 +142,7 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 
 	void OnContactsLoaded () {
 		AddressBookController.OnContactsLoadedAction -= OnContactsLoaded;
-		AN_PoupsProxy.showMessage("On Contacts Loaded" , "Andress book has " + AddressBookController.instance.contacts.Count + " Contacts");
+		AN_PoupsProxy.showMessage("On Contacts Loaded" , "Andress book has " + AddressBookController.Instance.contacts.Count + " Contacts");
 	}
 	
 
@@ -155,12 +155,12 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 			AN_PoupsProxy.showMessage ("Image Pick Rsult", "Failed");
 		}
 
-		AndroidCamera.instance.OnImagePicked -= OnImagePicked;
+		AndroidCamera.Instance.OnImagePicked -= OnImagePicked;
 	}
 
 	void OnImageSaved (GallerySaveResult result) {
 
-		AndroidCamera.instance.OnImageSaved -= OnImageSaved;
+		AndroidCamera.Instance.OnImageSaved -= OnImageSaved;
 
 		if(result.IsSucceeded) {
 			AN_PoupsProxy.showMessage("Saved", "Image saved to gallery \n" + "Path: " + result.imagePath);
@@ -193,18 +193,18 @@ public class AnOtherFeaturesPreview : MonoBehaviour {
 
 	public void LoadInternal() {
 		AndroidNativeUtility.InternalStoragePathLoaded += InternalStoragePathLoaded;
-		AndroidNativeUtility.instance.GetInternalStoragePath();
+		AndroidNativeUtility.Instance.GetInternalStoragePath();
 
 	}
 
 	public void LoadExternal() {
 		AndroidNativeUtility.ExternalStoragePathLoaded += ExternalStoragePathLoaded;
-		AndroidNativeUtility.instance.GetExternalStoragePath();
+		AndroidNativeUtility.Instance.GetExternalStoragePath();
 	}
 
 	public void LoadLocaleInfo() {
 		AndroidNativeUtility.LocaleInfoLoaded += LocaleInfoLoaded;
-		AndroidNativeUtility.instance.LoadLocaleInfo();
+		AndroidNativeUtility.Instance.LoadLocaleInfo();
 	}
 
 	void LocaleInfoLoaded (AN_Locale locale){

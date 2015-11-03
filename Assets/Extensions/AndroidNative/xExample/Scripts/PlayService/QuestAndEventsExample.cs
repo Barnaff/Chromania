@@ -38,11 +38,11 @@ public class QuestAndEventsExample : MonoBehaviour {
 		GooglePlayConnection.ActionConnectionResultReceived += OnConnectionResult;
 		
 		//listen for events, we will use action in this example
-		GooglePlayEvents.instance.OnEventsLoaded += OnEventsLoaded;
+		GooglePlayEvents.Instance.OnEventsLoaded += OnEventsLoaded;
 
-		GooglePlayQuests.instance.OnQuestsAccepted += OnQuestsAccepted;
-		GooglePlayQuests.instance.OnQuestsCompleted += OnQuestsCompleted;
-		GooglePlayQuests.instance.OnQuestsLoaded += OnQuestsLoaded;
+		GooglePlayQuests.Instance.OnQuestsAccepted += OnQuestsAccepted;
+		GooglePlayQuests.Instance.OnQuestsCompleted += OnQuestsCompleted;
+		GooglePlayQuests.Instance.OnQuestsLoaded += OnQuestsLoaded;
 		
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			//checking if player already connected
@@ -55,10 +55,10 @@ public class QuestAndEventsExample : MonoBehaviour {
 		Debug.Log("GooglePlayManager State  -> " + GooglePlayConnection.State.ToString());
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			SA_StatusBar.text = "Disconnecting from Play Service...";
-			GooglePlayConnection.instance.Disconnect ();
+			GooglePlayConnection.Instance.Disconnect ();
 		} else {
 			SA_StatusBar.text = "Connecting to Play Service...";
-			GooglePlayConnection.instance.Connect ();
+			GooglePlayConnection.Instance.Connect ();
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class QuestAndEventsExample : MonoBehaviour {
 	
 	void FixedUpdate() {
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
-			if(GooglePlayManager.instance.player.icon != null) {
+			if(GooglePlayManager.Instance.player.icon != null) {
 				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.Instance.player.icon;
 			}
 		}  else {
@@ -108,37 +108,37 @@ public class QuestAndEventsExample : MonoBehaviour {
 	//--------------------------------------
 
 	public void LoadEvents() {
-		GooglePlayEvents.instance.LoadEvents();
+		GooglePlayEvents.Instance.LoadEvents();
 	}
 
 	public void IncrementEvent() {
-		GooglePlayEvents.instance.SumbitEvent(EVENT_ID);
+		GooglePlayEvents.Instance.SumbitEvent(EVENT_ID);
 	}
 	
 
 
 	public void ShowAllQuests() {
-		GooglePlayQuests.instance.ShowQuests();
+		GooglePlayQuests.Instance.ShowQuests();
 	}
 
 	public void ShowAcceptedQuests() {
-		GooglePlayQuests.instance.ShowQuests(GP_QuestsSelect.SELECT_ACCEPTED);
+		GooglePlayQuests.Instance.ShowQuests(GP_QuestsSelect.SELECT_ACCEPTED);
 	}
 
 	public void ShowCompletedQuests() {
-		GooglePlayQuests.instance.ShowQuests(GP_QuestsSelect.SELECT_COMPLETED);
+		GooglePlayQuests.Instance.ShowQuests(GP_QuestsSelect.SELECT_COMPLETED);
 	}
 
 	public void ShowOpenQuests() {
-		GooglePlayQuests.instance.ShowQuests(GP_QuestsSelect.SELECT_OPEN);
+		GooglePlayQuests.Instance.ShowQuests(GP_QuestsSelect.SELECT_OPEN);
 	}
 
 	public void AcceptQuest() {
-		GooglePlayQuests.instance.AcceptQuest(QUEST_ID);
+		GooglePlayQuests.Instance.AcceptQuest(QUEST_ID);
 	}
 
 	public void LoadQuests() {
-		GooglePlayQuests.instance.LoadQuests(GP_QuestSortOrder.SORT_ORDER_ENDING_SOON_FIRST);
+		GooglePlayQuests.Instance.LoadQuests(GP_QuestSortOrder.SORT_ORDER_ENDING_SOON_FIRST);
 	}
 
 
@@ -150,11 +150,11 @@ public class QuestAndEventsExample : MonoBehaviour {
 	//--------------------------------------
 
 	private void OnEventsLoaded (GooglePlayResult result) {
-		Debug.Log ("Total Events: " + GooglePlayEvents.instance.Events.Count);
-		AN_PoupsProxy.showMessage ("Events Loaded", "Total Events: " + GooglePlayEvents.instance.Events.Count);
+		Debug.Log ("Total Events: " + GooglePlayEvents.Instance.Events.Count);
+		AN_PoupsProxy.showMessage ("Events Loaded", "Total Events: " + GooglePlayEvents.Instance.Events.Count);
 		SA_StatusBar.text = "OnEventsLoaded:  " + result.response.ToString();
 
-		foreach(GP_Event ev in GooglePlayEvents.instance.Events) {
+		foreach(GP_Event ev in GooglePlayEvents.Instance.Events) {
 			Debug.Log(ev.Id);
 			Debug.Log(ev.Description);
 			Debug.Log(ev.FormattedValue);
@@ -179,12 +179,12 @@ public class QuestAndEventsExample : MonoBehaviour {
 	}
 
 	private void OnQuestsLoaded (GooglePlayResult result) {
-		Debug.Log ("Total Quests: " + GooglePlayQuests.instance.GetQuests().Count);
-		AN_PoupsProxy.showMessage ("Quests Loaded", "Total Quests: " + GooglePlayQuests.instance.GetQuests().Count);
+		Debug.Log ("Total Quests: " + GooglePlayQuests.Instance.GetQuests().Count);
+		AN_PoupsProxy.showMessage ("Quests Loaded", "Total Quests: " + GooglePlayQuests.Instance.GetQuests().Count);
 
 		SA_StatusBar.text = "OnQuestsLoaded:  " + result.response.ToString();
 
-		foreach(GP_Quest quest in GooglePlayQuests.instance.GetQuests()) {
+		foreach(GP_Quest quest in GooglePlayQuests.Instance.GetQuests()) {
 			Debug.Log(quest.Id);
 		}
 	}
@@ -196,7 +196,7 @@ public class QuestAndEventsExample : MonoBehaviour {
 	
 	private void OnPlayerConnected() {
 		SA_StatusBar.text = "Player Connected";
-		playerLabel.text = GooglePlayManager.instance.player.name;
+		playerLabel.text = GooglePlayManager.Instance.player.name;
 	}
 	
 	private void OnConnectionResult(GooglePlayConnectionResult result) {

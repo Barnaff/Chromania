@@ -61,7 +61,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		
 		StartY+= 40;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Post")) {
-			IOSSocialManager.instance.TwitterPost("Twitter posting test");
+			IOSSocialManager.Instance.TwitterPost("Twitter posting test");
 		}
 		
 		StartX += 170;
@@ -78,7 +78,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		
 		StartY+= 40;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Post")) {
-			IOSSocialManager.instance.FacebookPost("Facebook posting test");
+			IOSSocialManager.Instance.FacebookPost("Facebook posting test");
 		}
 		
 		StartX += 170;
@@ -91,7 +91,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		StartX += 170;
 		
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Post Image")) {
-			IOSSocialManager.instance.FacebookPost("Hello world", "https://www.assetstore.unity3d.com/en/#!/publisher/2256", textureForPost);
+			IOSSocialManager.Instance.FacebookPost("Hello world", "https://www.assetstore.unity3d.com/en/#!/publisher/2256", textureForPost);
 		}
 		
 		
@@ -102,7 +102,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		
 		StartY+= 40;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Text")) {
-			IOSSocialManager.instance.ShareMedia("Some text to share");
+			IOSSocialManager.Instance.ShareMedia("Some text to share");
 		}
 		
 		StartX += 170;
@@ -115,7 +115,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		StartX += 170;
 		
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Send Mail")) {
-			IOSSocialManager.instance.SendMail("Mail Subject", "Mail Body  <strong> text html </strong> ", "mail1@gmail.com, mail2@gmail.com", textureForPost);
+			IOSSocialManager.Instance.SendMail("Mail Subject", "Mail Body  <strong> text html </strong> ", "mail1@gmail.com, mail2@gmail.com", textureForPost);
 		}
 		
 		StartY+= 80;
@@ -165,7 +165,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		} else {
 			IOSMessage.Create("ERROR", "Image Load Failed");
 		}
-		IOSSocialManager.instance.InstagramPost(drawTexture ,"Some text to share");
+		IOSSocialManager.Instance.InstagramPost(drawTexture ,"Some text to share");
 		IOSCamera.OnImagePicked -= OnPostImageInstagram;
 	}
 
@@ -180,7 +180,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		tex.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
 		tex.Apply();
 		
-		IOSSocialManager.instance.InstagramPost(tex, "Some text to share");
+		IOSSocialManager.Instance.InstagramPost(tex, "Some text to share");
 		
 		Destroy(tex);
 		
@@ -198,7 +198,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		tex.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
 		tex.Apply();
 		
-		IOSSocialManager.instance.ShareMedia("Some text to share", tex);
+		IOSSocialManager.Instance.ShareMedia("Some text to share", tex);
 		
 		Destroy(tex);
 		
@@ -215,7 +215,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		tex.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
 		tex.Apply();
 		
-		IOSSocialManager.instance.TwitterPost("My app Screenshot", null,  tex);
+		IOSSocialManager.Instance.TwitterPost("My app Screenshot", null,  tex);
 		
 		Destroy(tex);
 		
@@ -233,7 +233,7 @@ public class IOSSocialUseExample : MonoBehaviour {
 		tex.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
 		tex.Apply();
 		
-		IOSSocialManager.instance.FacebookPost("My app Screenshot", null, tex);
+		IOSSocialManager.Instance.FacebookPost("My app Screenshot", null, tex);
 		
 		Destroy(tex);
 		

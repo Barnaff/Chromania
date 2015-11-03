@@ -19,7 +19,7 @@ public class UM_ShareUtility : MonoBehaviour {
 
 			break;
 		case RuntimePlatform.IPhonePlayer:
-			IOSSocialManager.instance.TwitterPost(status, null, texture);
+			IOSSocialManager.Instance.TwitterPost(status, null, texture);
 			break;
 
 		case RuntimePlatform.WP8Player:
@@ -50,7 +50,7 @@ public class UM_ShareUtility : MonoBehaviour {
 			break;
 		case RuntimePlatform.IPhonePlayer:
 			
-			IOSSocialManager.instance.TwitterPost(status, null, texture);
+			IOSSocialManager.Instance.TwitterPost(status, null, texture);
 			break;
 			
 		case RuntimePlatform.WP8Player:
@@ -76,7 +76,7 @@ public class UM_ShareUtility : MonoBehaviour {
 
 			break;
 		case RuntimePlatform.IPhonePlayer:
-			IOSSocialManager.instance.FacebookPost(message, null, texture);
+			IOSSocialManager.Instance.FacebookPost(message, null, texture);
 			break;
 		case RuntimePlatform.WP8Player:
 			WP8SocialManager.instance.FacebookPost(message, texture);
@@ -100,7 +100,7 @@ public class UM_ShareUtility : MonoBehaviour {
 
 			break;
 		case RuntimePlatform.IPhonePlayer:
-			IOSSocialManager.instance.ShareMedia(message, texture);
+			IOSSocialManager.Instance.ShareMedia(message, texture);
 			break;
 		case RuntimePlatform.WP8Player:
 			WP8SocialManager.instance.ShareMedia(message, texture);
@@ -121,7 +121,7 @@ public class UM_ShareUtility : MonoBehaviour {
 			AndroidSocialGate.SendMail("Send Mail", body, subject, recipients, texture);
 			break;
 		case RuntimePlatform.IPhonePlayer:
-			IOSSocialManager.instance.SendMail(subject, body, recipients, texture);
+			IOSSocialManager.Instance.SendMail(subject, body, recipients, texture);
 			break;
 		case RuntimePlatform.WP8Player:
 			WP8SocialManager.instance.SendMail(subject, body, recipients, texture);

@@ -25,7 +25,7 @@ public class iCloudUseExample : MonoBehaviour {
 		iCloudManager.OnCloundInitAction += OnCloundInitAction;
 		iCloudManager.OnCloudDataReceivedAction += OnCloudDataReceivedAction;
 
-		iCloudManager.instance.init ();
+		iCloudManager.Instance.init ();
 	
 
 	
@@ -37,11 +37,11 @@ public class iCloudUseExample : MonoBehaviour {
 
 	void OnGUI() {
 		if(GUI.Button(new Rect(170, 70, 150, 50), "Set String")) {
-			iCloudManager.instance.setString ("TestStringKey", "Hello World");
+			iCloudManager.Instance.setString ("TestStringKey", "Hello World");
 		}
 
 		if(GUI.Button(new Rect(170, 130, 150, 50), "Get String")) {
-			iCloudManager.instance.requestDataForKey ("TestStringKey");
+			iCloudManager.Instance.requestDataForKey ("TestStringKey");
 		}
 
 
@@ -49,11 +49,11 @@ public class iCloudUseExample : MonoBehaviour {
 
 		if(GUI.Button(new Rect(330, 70, 150, 50), "Set Float")) {
 			v += 1.1f;
-			iCloudManager.instance.setFloat ("TestFloatKey", v);
+			iCloudManager.Instance.setFloat ("TestFloatKey", v);
 		}
 
 		if(GUI.Button(new Rect(330, 130, 150, 50), "Get Float")) {
-			iCloudManager.instance.requestDataForKey ("TestFloatKey");
+			iCloudManager.Instance.requestDataForKey ("TestFloatKey");
 		}
 
 
@@ -61,11 +61,11 @@ public class iCloudUseExample : MonoBehaviour {
 			string msg = "hello world";
 			System.Text.UTF8Encoding  encoding = new System.Text.UTF8Encoding();
 			byte[] data = encoding.GetBytes(msg);
-			iCloudManager.instance.setData ("TestByteKey", data);
+			iCloudManager.Instance.setData ("TestByteKey", data);
 		}
 
 		if(GUI.Button(new Rect(490, 130, 150, 50), "Get Bytes")) {
-			iCloudManager.instance.requestDataForKey ("TestByteKey");
+			iCloudManager.Instance.requestDataForKey ("TestByteKey");
 		}
 
 		if(GUI.Button(new Rect(170, 500, 150, 50), "TestConnection")) {

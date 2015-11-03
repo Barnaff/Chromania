@@ -25,7 +25,7 @@ public class GoogleCloudUseExample : MonoBehaviour {
 
 		GoogleCloudManager.ActionStateConflict += OnStateConflict;
 
-		GooglePlayConnection.instance.Connect ();
+		GooglePlayConnection.Instance.Connect ();
 	}
 
 	void FixedUpdate() {
@@ -50,22 +50,22 @@ public class GoogleCloudUseExample : MonoBehaviour {
 
 
 	private void LoadAllStates() {
-		GoogleCloudManager.instance.loadAllStates ();
+		GoogleCloudManager.Instance.loadAllStates ();
 	}
 
 	private void LoadState() {
-		GoogleCloudManager.instance.loadState (GoogleCloudSlot.SLOT_0);
+		GoogleCloudManager.Instance.loadState (GoogleCloudSlot.SLOT_0);
 	}
 
 	private void UpdateState() {
 		string msg = "Hello bytes data";
 		System.Text.UTF8Encoding  encoding = new System.Text.UTF8Encoding();
 		byte[] data = encoding.GetBytes(msg);
-		GoogleCloudManager.instance.updateState (GoogleCloudSlot.SLOT_0, data);
+		GoogleCloudManager.Instance.updateState (GoogleCloudSlot.SLOT_0, data);
 	}
 
 	private void DeleteState() {
-		GoogleCloudManager.instance.deleteState(GoogleCloudSlot.SLOT_0);
+		GoogleCloudManager.Instance.deleteState(GoogleCloudSlot.SLOT_0);
 		GoogleCloudManager.ActionStateDeleted += OnStateDeleted;
 	}
 
@@ -85,7 +85,7 @@ public class GoogleCloudUseExample : MonoBehaviour {
 		//Resolving conflict with our local data
 		//you should create your own resolve logic for your game. Read more about resolving conflict on Android developer website
 
-		GoogleCloudManager.instance.resolveState (result.stateKey, result.stateData, result.resolvedVersion);
+		GoogleCloudManager.Instance.resolveState (result.stateKey, result.stateData, result.resolvedVersion);
 	}
 
 
@@ -98,7 +98,7 @@ public class GoogleCloudUseExample : MonoBehaviour {
 
 
 	private void OnAllLoaded(GoogleCloudResult result) {
-		AN_PoupsProxy.showMessage ("All States Loaded", result.message + "\n" + "Total states: " + GoogleCloudManager.instance.states.Count);
+		AN_PoupsProxy.showMessage ("All States Loaded", result.message + "\n" + "Total states: " + GoogleCloudManager.Instance.states.Count);
 	}
 
 	private void OnStateDeleted(GoogleCloudResult result) {

@@ -31,7 +31,7 @@ public class GooglePlayTBM : SA_Singleton<GooglePlayTBM>
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        GooglePlayInvitationManager.instance.Init();
+        GooglePlayInvitationManager.Instance.Init();
     }
 
     public void Init()

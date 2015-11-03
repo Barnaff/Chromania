@@ -81,14 +81,14 @@ public class UM_InAppPurchaseManager : SA_Singleton<UM_InAppPurchaseManager> {
 			foreach(UM_InAppProduct product in UltimateMobileSettings.Instance.InAppProducts) {
 				AndroidInAppPurchaseManager.Instance.AddProduct(product.AndroidId);
 			}
-			AndroidInAppPurchaseManager.instance.LoadStore();
+			AndroidInAppPurchaseManager.Instance.LoadStore();
 			break;
 			
 		case RuntimePlatform.IPhonePlayer:
 			foreach(UM_InAppProduct product in UltimateMobileSettings.Instance.InAppProducts) {
-				IOSInAppPurchaseManager.instance.AddProductId(product.IOSId);
+				IOSInAppPurchaseManager.Instance.AddProductId(product.IOSId);
 			}
-			IOSInAppPurchaseManager.instance.LoadStore();
+			IOSInAppPurchaseManager.Instance.LoadStore();
 			break;
 			
 			
@@ -123,12 +123,12 @@ public class UM_InAppPurchaseManager : SA_Singleton<UM_InAppPurchaseManager> {
 				
 				
 			case RuntimePlatform.Android:
-				AndroidInAppPurchaseManager.instance.Purchase(p.AndroidId);
+				AndroidInAppPurchaseManager.Instance.Purchase(p.AndroidId);
 				break;
 				
 			case RuntimePlatform.IPhonePlayer:
 				
-				IOSInAppPurchaseManager.instance.BuyProduct(p.IOSId);
+				IOSInAppPurchaseManager.Instance.BuyProduct(p.IOSId);
 				break;
 				
 				
@@ -167,7 +167,7 @@ public class UM_InAppPurchaseManager : SA_Singleton<UM_InAppPurchaseManager> {
 			
 		case RuntimePlatform.Android:
 
-			if(AndroidInAppPurchaseManager.instance.IsInventoryLoaded) {
+			if(AndroidInAppPurchaseManager.Instance.IsInventoryLoaded) {
 				return AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(product.AndroidId);
 			} else {
 				#if ATC_SUPPORT_ENABLED
@@ -226,7 +226,7 @@ public class UM_InAppPurchaseManager : SA_Singleton<UM_InAppPurchaseManager> {
 			
 			
 		case RuntimePlatform.IPhonePlayer:
-			IOSInAppPurchaseManager.instance.RestorePurchases();
+			IOSInAppPurchaseManager.Instance.RestorePurchases();
 			break;
 			
 		}
@@ -349,7 +349,7 @@ public class UM_InAppPurchaseManager : SA_Singleton<UM_InAppPurchaseManager> {
 			
 			foreach(UM_InAppProduct product in UltimateMobileSettings.Instance.InAppProducts) {
 				
-				IOSProductTemplate tpl = IOSInAppPurchaseManager.instance.GetProductById(product.IOSId); 
+				IOSProductTemplate tpl = IOSInAppPurchaseManager.Instance.GetProductById(product.IOSId); 
 				if(tpl != null) {
 					product.SetTemplate(tpl);
 				}
@@ -389,7 +389,7 @@ public class UM_InAppPurchaseManager : SA_Singleton<UM_InAppPurchaseManager> {
 		
 		if(p != null) {
 			if(p.IsConsumable && result.isSuccess) {
-				AndroidInAppPurchaseManager.instance.Consume(result.purchase.SKU);
+				AndroidInAppPurchaseManager.Instance.Consume(result.purchase.SKU);
 			} else {
 				
 				UM_PurchaseResult r =  new UM_PurchaseResult();
@@ -429,7 +429,7 @@ public class UM_InAppPurchaseManager : SA_Singleton<UM_InAppPurchaseManager> {
 		if(result.isSuccess) {
 			//Store connection is Successful. Next we loading product and customer purchasing details
 			AndroidInAppPurchaseManager.ActionBillingSetupFinished -= Android_OnBillingConnected;
-			AndroidInAppPurchaseManager.instance.RetrieveProducDetails();
+			AndroidInAppPurchaseManager.Instance.RetrieveProducDetails();
 			
 		} else {
 			UM_BillingConnectionResult r =  new UM_BillingConnectionResult();
@@ -461,7 +461,7 @@ public class UM_InAppPurchaseManager : SA_Singleton<UM_InAppPurchaseManager> {
 				if(tpl != null) {
 					product.SetTemplate(tpl);
 					if(product.IsConsumable && AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(product.AndroidId)) {
-						AndroidInAppPurchaseManager.instance.Consume(product.AndroidId);
+						AndroidInAppPurchaseManager.Instance.Consume(product.AndroidId);
 					}
 
 					if(!product.IsConsumable && AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(product.AndroidId)) {

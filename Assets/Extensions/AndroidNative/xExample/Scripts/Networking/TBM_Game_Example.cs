@@ -99,16 +99,16 @@ public class TBM_Game_Example : AndroidNativeExampleBase {
 	
 	public void InitTBM() {
 		int variant = 1;
-		GooglePlayTBM.instance.SetVariant (variant);
+		GooglePlayTBM.Instance.SetVariant (variant);
 
 		int ROLE_WIZARD = 0x4; // 100 in binary
-		GooglePlayTBM.instance.SetExclusiveBitMask (ROLE_WIZARD);
+		GooglePlayTBM.Instance.SetExclusiveBitMask (ROLE_WIZARD);
 
-		GooglePlayTBM.instance.RegisterMatchUpdateListener();
+		GooglePlayTBM.Instance.RegisterMatchUpdateListener();
 	}
 
 	public void ShowInboxUI() {
-		GooglePlayTBM.instance.ShowInbox();
+		GooglePlayTBM.Instance.ShowInbox();
 	}
 
 	public void FinishMathc() {
@@ -127,7 +127,7 @@ public class TBM_Game_Example : AndroidNativeExampleBase {
 		int maxPlayers = 2; 
 		bool allowAutomatch = true;
 
-		GooglePlayTBM.instance.StartSelectOpponentsView (minPlayers, maxPlayers, allowAutomatch);
+		GooglePlayTBM.Instance.StartSelectOpponentsView (minPlayers, maxPlayers, allowAutomatch);
 
 
 	}
@@ -159,11 +159,11 @@ public class TBM_Game_Example : AndroidNativeExampleBase {
 	}
 
 	public void LoadAllMatchersInfo() {
-		GooglePlayTBM.instance.LoadAllMatchesInfo (GP_TBM_MatchesSortOrder.SORT_ORDER_MOST_RECENT_FIRST);
+		GooglePlayTBM.Instance.LoadAllMatchesInfo (GP_TBM_MatchesSortOrder.SORT_ORDER_MOST_RECENT_FIRST);
 	}
 
 	public void LoadActiveMatchesInfo() {
-		GooglePlayTBM.instance.LoadMatchesInfo (GP_TBM_MatchesSortOrder.SORT_ORDER_MOST_RECENT_FIRST, GP_TBM_MatchTurnStatus.MATCH_TURN_STATUS_MY_TURN, GP_TBM_MatchTurnStatus.MATCH_TURN_STATUS_THEIR_TURN);
+		GooglePlayTBM.Instance.LoadMatchesInfo (GP_TBM_MatchesSortOrder.SORT_ORDER_MOST_RECENT_FIRST, GP_TBM_MatchTurnStatus.MATCH_TURN_STATUS_MY_TURN, GP_TBM_MatchTurnStatus.MATCH_TURN_STATUS_THEIR_TURN);
 	}
 
 
@@ -230,7 +230,7 @@ public class TBM_Game_Example : AndroidNativeExampleBase {
 	
 	private void OnPlayerConnected() {
 		SA_StatusBar.text = "Player Connected";
-		playerLabel.text = GooglePlayManager.instance.player.name;
+		playerLabel.text = GooglePlayManager.Instance.player.name;
 	}
 
 	private void OnConnectionResult(GooglePlayConnectionResult result) {

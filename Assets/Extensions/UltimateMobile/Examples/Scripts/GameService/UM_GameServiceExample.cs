@@ -43,7 +43,7 @@ public class UM_GameServiceExample : BaseIOSFeaturePreview {
 		UM_GameServiceManager.OnPlayerDisconnected += OnPlayerDisconnected;
 
 
-		if(UM_GameServiceManager.instance.ConnectionSate == UM_ConnectionState.CONNECTED) {
+		if(UM_GameServiceManager.Instance.ConnectionSate == UM_ConnectionState.CONNECTED) {
 			OnPlayerConnected();
 		}
 
@@ -56,7 +56,7 @@ public class UM_GameServiceExample : BaseIOSFeaturePreview {
 	void OnGUI() {
 
 
-		if(UM_GameServiceManager.instance.ConnectionSate == UM_ConnectionState.CONNECTED) {
+		if(UM_GameServiceManager.Instance.ConnectionSate == UM_ConnectionState.CONNECTED) {
 			GUI.enabled = true;
 		} else {
 			GUI.enabled = false;
@@ -89,27 +89,27 @@ public class UM_GameServiceExample : BaseIOSFeaturePreview {
 		StartY+= YLableStep;
 		
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Show Leaderboards")) {
-			UM_GameServiceManager.instance.ShowLeaderBoardsUI();
+			UM_GameServiceManager.Instance.ShowLeaderBoardsUI();
 			UM_ExampleStatusBar.text = "Showing Leader Boards UI";
 		}
 
 
 		StartY+= YButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Show Leader Board1")) {
-			UM_GameServiceManager.instance.ShowLeaderBoardUI(leaderBoardId);
+			UM_GameServiceManager.Instance.ShowLeaderBoardUI(leaderBoardId);
 			UM_ExampleStatusBar.text = "Showing " + leaderBoardId + " UI";
 		}
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Report Score LB 1")) {
 			hiScore++;
-			UM_GameServiceManager.instance.SubmitScore(leaderBoardId, hiScore);
+			UM_GameServiceManager.Instance.SubmitScore(leaderBoardId, hiScore);
 			UM_ExampleStatusBar.text = "Score " + hiScore + " Submited to " + leaderBoardId;
 		}
 		
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Get Score LB 1")) {
-			long s = UM_GameServiceManager.instance.GetCurrentPlayerScore(leaderBoardId).LongScore;
+			long s = UM_GameServiceManager.Instance.GetCurrentPlayerScore(leaderBoardId).LongScore;
 			UM_ExampleStatusBar.text = "GetCurrentPlayerScore from  " + leaderBoardId + " is: " + s;
 		}
 
@@ -117,7 +117,7 @@ public class UM_GameServiceExample : BaseIOSFeaturePreview {
 		StartX = XStartPos;
 		StartY+= YButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Show Leader Board2")) {
-			UM_GameServiceManager.instance.ShowLeaderBoardUI(leaderBoardId2);
+			UM_GameServiceManager.Instance.ShowLeaderBoardUI(leaderBoardId2);
 			UM_ExampleStatusBar.text = "Showing " + leaderBoardId2 + " UI";
 
 		}
@@ -127,14 +127,14 @@ public class UM_GameServiceExample : BaseIOSFeaturePreview {
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Report Score LB2")) {
 			hiScore++;
-			UM_GameServiceManager.instance.SubmitScore(leaderBoardId2, hiScore);
+			UM_GameServiceManager.Instance.SubmitScore(leaderBoardId2, hiScore);
 			UM_ExampleStatusBar.text = "Score " + hiScore + " Submited to " + leaderBoardId2;
 		}
 
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Get Score LB 2")) {
-			long s = UM_GameServiceManager.instance.GetCurrentPlayerScore(leaderBoardId2).LongScore;
+			long s = UM_GameServiceManager.Instance.GetCurrentPlayerScore(leaderBoardId2).LongScore;
 			UM_ExampleStatusBar.text = "GetCurrentPlayerScore from  " + leaderBoardId2 + " is: " + s;
 		}
 
@@ -145,27 +145,27 @@ public class UM_GameServiceExample : BaseIOSFeaturePreview {
 
 		StartY+= YLableStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Show Achievements")) {
-			UM_GameServiceManager.instance.ShowAchievementsUI();
+			UM_GameServiceManager.Instance.ShowAchievementsUI();
 			UM_ExampleStatusBar.text = "Showing Achievements UI";
 		}
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Reset Achievements")) {
 
-			UM_GameServiceManager.instance.ResetAchievements();
+			UM_GameServiceManager.Instance.ResetAchievements();
 			UM_ExampleStatusBar.text = "Al acievmnets reseted";
 		}
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Report Achievements1")) {
-			UM_GameServiceManager.instance.UnlockAchievement(TEST_ACHIEVEMENT_1_ID);
+			UM_GameServiceManager.Instance.UnlockAchievement(TEST_ACHIEVEMENT_1_ID);
 			UM_ExampleStatusBar.text = "Achievement " + TEST_ACHIEVEMENT_1_ID  + " Reported";
 
 		}
 
 		StartX += XButtonStep;
 		if(GUI.Button(new Rect(StartX, StartY, buttonWidth, buttonHeight), "Increment Achievements2")) {
-			UM_GameServiceManager.instance.IncrementAchievement(TEST_ACHIEVEMENT_2_ID, 20f);
+			UM_GameServiceManager.Instance.IncrementAchievement(TEST_ACHIEVEMENT_2_ID, 20f);
 			UM_ExampleStatusBar.text = "Achievement " + TEST_ACHIEVEMENT_2_ID  + " Oncremented by 20%";
 
 		}

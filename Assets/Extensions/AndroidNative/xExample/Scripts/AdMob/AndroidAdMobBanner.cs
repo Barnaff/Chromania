@@ -30,12 +30,12 @@ public class AndroidAdMobBanner : MonoBehaviour {
 	// --------------------------------------
 	
 	void Awake() {
-		if(AndroidAdMobController.instance.IsInited) {
-			if(!AndroidAdMobController.instance.BannersUunitId.Equals(BannersUnityId)) {
-				AndroidAdMobController.instance.SetBannersUnitID(BannersUnityId);
+		if(AndroidAdMobController.Instance.IsInited) {
+			if(!AndroidAdMobController.Instance.BannersUunitId.Equals(BannersUnityId)) {
+				AndroidAdMobController.Instance.SetBannersUnitID(BannersUnityId);
 			} 
 		} else {
-			AndroidAdMobController.instance.Init(BannersUnityId);
+			AndroidAdMobController.Instance.Init(BannersUnityId);
 		}
 	}
 
@@ -57,7 +57,7 @@ public class AndroidAdMobBanner : MonoBehaviour {
 		if(registerdBanners.ContainsKey(sceneBannerId)) {
 			banner = registerdBanners[sceneBannerId];
 		}  else {
-			banner = AndroidAdMobController.instance.CreateAdBanner(anchor, size);
+			banner = AndroidAdMobController.Instance.CreateAdBanner(anchor, size);
 			registerdBanners.Add(sceneBannerId, banner);
 		}
 

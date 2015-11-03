@@ -36,20 +36,20 @@ public class AndroidGoogleAdsExample_old : MonoBehaviour {
 	void Start() {
 
 
-		AndroidAdMobController.instance.Init(MY_BANNERS_AD_UNIT_ID);
+		AndroidAdMobController.Instance.Init(MY_BANNERS_AD_UNIT_ID);
 
 		//I whant to use Interstisial ad also, so I have to set additional id for it
-		AndroidAdMobController.instance.SetInterstisialsUnitID(MY_INTERSTISIALS_AD_UNIT_ID);
+		AndroidAdMobController.Instance.SetInterstisialsUnitID(MY_INTERSTISIALS_AD_UNIT_ID);
 
 		
 		//Optional, add data for better ad targeting
-		AndroidAdMobController.instance.SetGender(GoogleGender.Male);
-		AndroidAdMobController.instance.AddKeyword("game");
-		AndroidAdMobController.instance.SetBirthday(1989, AndroidMonth.MARCH, 18);
-		AndroidAdMobController.instance.TagForChildDirectedTreatment(false);
+		AndroidAdMobController.Instance.SetGender(GoogleGender.Male);
+		AndroidAdMobController.Instance.AddKeyword("game");
+		AndroidAdMobController.Instance.SetBirthday(1989, AndroidMonth.MARCH, 18);
+		AndroidAdMobController.Instance.TagForChildDirectedTreatment(false);
 
 		//Causes a device to receive test ads. The deviceId can be obtained by viewing the logcat output after creating a new ad
-		AndroidAdMobController.instance.AddTestDevice("6B9FA8031AEFDC4758B7D8987F77A5A6");
+		AndroidAdMobController.Instance.AddTestDevice("6B9FA8031AEFDC4758B7D8987F77A5A6");
 
 
 		AndroidAdMobController.Instance.OnInterstitialLoaded += OnInterstisialsLoaded;
@@ -89,19 +89,19 @@ public class AndroidGoogleAdsExample_old : MonoBehaviour {
 
 		StartY+= 40;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Start Interstitial Ad")) {
-			AndroidAdMobController.instance.StartInterstitialAd ();
+			AndroidAdMobController.Instance.StartInterstitialAd ();
 		}
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Load Interstitial Ad")) {
-			AndroidAdMobController.instance.LoadInterstitialAd ();
+			AndroidAdMobController.Instance.LoadInterstitialAd ();
 		}
 
 
 		StartX += 170;
 		GUI.enabled = IsInterstisialsAdReady;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Show Interstitial Ad")) {
-			AndroidAdMobController.instance.ShowInterstitialAd ();
+			AndroidAdMobController.Instance.ShowInterstitialAd ();
 		}
 		GUI.enabled  = true;
 
@@ -117,38 +117,38 @@ public class AndroidGoogleAdsExample_old : MonoBehaviour {
 
 		StartY+= 40;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Custom Pos")) {
-			banner1 = AndroidAdMobController.instance.CreateAdBanner(300, 100, GADBannerSize.BANNER);
+			banner1 = AndroidAdMobController.Instance.CreateAdBanner(300, 100, GADBannerSize.BANNER);
 
 		}
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Top Left")) {
-			banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperLeft, GADBannerSize.BANNER);
+			banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.UpperLeft, GADBannerSize.BANNER);
 		}
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Top Center")) {
-			banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.BANNER);
+			banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.BANNER);
 		}
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Top Right")) {
-			banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperRight, GADBannerSize.BANNER);
+			banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.UpperRight, GADBannerSize.BANNER);
 		}
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Bottom Left")) {
-			banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerLeft, GADBannerSize.BANNER);
+			banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.LowerLeft, GADBannerSize.BANNER);
 		}
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Bottom Center")) {
-			banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.BANNER);
+			banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.BANNER);
 		}
 
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Banner Bottom Right")) {
-			banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerRight, GADBannerSize.BANNER);
+			banner1 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.LowerRight, GADBannerSize.BANNER);
 		}
 
 
@@ -199,7 +199,7 @@ public class AndroidGoogleAdsExample_old : MonoBehaviour {
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Destroy")) {
 
-			AndroidAdMobController.instance.DestroyBanner(banner1.id);
+			AndroidAdMobController.Instance.DestroyBanner(banner1.id);
 			banner1 = null;
 
 		}
@@ -217,7 +217,7 @@ public class AndroidGoogleAdsExample_old : MonoBehaviour {
 
 		StartY+= 40;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Smart Banner")) {
-			banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerLeft, GADBannerSize.SMART_BANNER);
+			banner2 = AndroidAdMobController.Instance.CreateAdBanner(TextAnchor.LowerLeft, GADBannerSize.SMART_BANNER);
 		}
 
 
@@ -265,7 +265,7 @@ public class AndroidGoogleAdsExample_old : MonoBehaviour {
 		}
 		StartX += 170;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Destroy")) {
-			AndroidAdMobController.instance.DestroyBanner(banner2.id);
+			AndroidAdMobController.Instance.DestroyBanner(banner2.id);
 			banner2 = null;
 			
 		}

@@ -345,7 +345,7 @@ public class IOSADBanner :  GoogleMobileAdBanner  {
 	
 	public void OnBannerAdLoaded()  {
 		if(destroyOnLoad) {
-			IOSAdMobController.instance.DirectBannerDestory(id);
+			IOSAdMobController.Instance.DirectBannerDestory(id);
 			return;
 		}
 

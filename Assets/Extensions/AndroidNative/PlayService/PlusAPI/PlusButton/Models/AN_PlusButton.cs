@@ -19,7 +19,7 @@ public class AN_PlusButton {
 
 		_ButtonId = nextId;
 		AN_PlusButtonProxy.createPlusButton(_ButtonId, url, (int)btnSize, (int) annotation);
-		AN_PlusButtonsManager.instance.RegisterButton(this);
+		AN_PlusButtonsManager.Instance.RegisterButton(this);
 	}
 	
 

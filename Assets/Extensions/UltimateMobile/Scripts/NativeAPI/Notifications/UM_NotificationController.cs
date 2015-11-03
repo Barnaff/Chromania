@@ -21,7 +21,7 @@ public class UM_NotificationController : SA_Singleton<UM_NotificationController>
 				GoogleCloudMessageService.ActionCMDRegistrationResult += HandleActionCMDRegistrationResult;
 			}
 
-			GoogleCloudMessageService.instance.RgisterDevice();
+			GoogleCloudMessageService.Instance.RgisterDevice();
 
 			break;
 		case RuntimePlatform.IPhonePlayer:
@@ -30,7 +30,7 @@ public class UM_NotificationController : SA_Singleton<UM_NotificationController>
 			#if UNITY_3_5 || UNITY_4_0 || UNITY_4_1	|| UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6
 			IOSNotificationController.instance.RegisterForRemoteNotifications(RemoteNotificationType.Alert | RemoteNotificationType.Badge | RemoteNotificationType.Sound);
 			#else
-			IOSNotificationController.instance.RegisterForRemoteNotifications(UnityEngine.iOS.NotificationType.Alert | UnityEngine.iOS.NotificationType.Badge | UnityEngine.iOS.NotificationType.Sound);
+			IOSNotificationController.Instance.RegisterForRemoteNotifications(UnityEngine.iOS.NotificationType.Alert | UnityEngine.iOS.NotificationType.Badge | UnityEngine.iOS.NotificationType.Sound);
 			#endif
 
 
@@ -55,7 +55,7 @@ public class UM_NotificationController : SA_Singleton<UM_NotificationController>
 			AndroidNotificationManager.Instance.ShowToastNotification(messgae);
 			break;
 		case RuntimePlatform.IPhonePlayer:
-			IOSNotificationController.instance.ShowGmaeKitNotification(title, messgae);
+			IOSNotificationController.Instance.ShowGmaeKitNotification(title, messgae);
 			break;
 		}
 	}
@@ -63,7 +63,7 @@ public class UM_NotificationController : SA_Singleton<UM_NotificationController>
 	public int ScheduleLocalNotification(string title, string message, int seconds) {
 		switch(Application.platform) {
 		case RuntimePlatform.Android:
-			return AndroidNotificationManager.instance.ScheduleLocalNotification(title, message, seconds);
+			return AndroidNotificationManager.Instance.ScheduleLocalNotification(title, message, seconds);
 		case RuntimePlatform.IPhonePlayer:
 			ISN_LocalNotification notification = new ISN_LocalNotification(DateTime.Now.AddSeconds(seconds), message, true);
 			notification.Schedule();
@@ -76,10 +76,10 @@ public class UM_NotificationController : SA_Singleton<UM_NotificationController>
 	public void CancelLocalNotification(int id) {
 		switch(Application.platform) {
 		case RuntimePlatform.Android:
-			AndroidNotificationManager.instance.CancelLocalNotification(id);
+			AndroidNotificationManager.Instance.CancelLocalNotification(id);
 			break;
 		case RuntimePlatform.IPhonePlayer:
-			IOSNotificationController.instance.CancelLocalNotificationById(id);
+			IOSNotificationController.Instance.CancelLocalNotificationById(id);
 			break;
 		}
 	}
@@ -87,10 +87,10 @@ public class UM_NotificationController : SA_Singleton<UM_NotificationController>
 	public void CancelAllLocalNotifications() {
 		switch(Application.platform) {
 		case RuntimePlatform.Android:
-			AndroidNotificationManager.instance.CancelAllLocalNotifications();
+			AndroidNotificationManager.Instance.CancelAllLocalNotifications();
 			break;
 		case RuntimePlatform.IPhonePlayer:
-			IOSNotificationController.instance.CancelAllLocalNotifications();
+			IOSNotificationController.Instance.CancelAllLocalNotifications();
 			break;
 		}
 	}
@@ -111,7 +111,7 @@ public class UM_NotificationController : SA_Singleton<UM_NotificationController>
 	
 
 	private void OnRegstred() {
-		UM_PushRegistrationResult result = new UM_PushRegistrationResult(GoogleCloudMessageService.instance.registrationId, true);
+		UM_PushRegistrationResult result = new UM_PushRegistrationResult(GoogleCloudMessageService.Instance.registrationId, true);
 		OnPushIdLoadResult(result);
 	}
 

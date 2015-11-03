@@ -75,8 +75,8 @@ public class SavedGamesExample : MonoBehaviour {
 	
 	void FixedUpdate() {
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
-			if(GooglePlayManager.instance.player.icon != null) {
-				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.instance.player.icon;
+			if(GooglePlayManager.Instance.player.icon != null) {
+				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.Instance.player.icon;
 			}
 		}  else {
 			avatar.GetComponent<Renderer>().material.mainTexture = defaulttexture;
@@ -120,13 +120,13 @@ public class SavedGamesExample : MonoBehaviour {
 
 	private void ShowSavedGamesUI() {
 		int maxNumberOfSavedGamesToShow = 5;
-		GooglePlaySavedGamesManager.instance.ShowSavedGamesUI("See My Saves", maxNumberOfSavedGamesToShow);
+		GooglePlaySavedGamesManager.Instance.ShowSavedGamesUI("See My Saves", maxNumberOfSavedGamesToShow);
 	}
 
 
 	public void LoadSavedGames() {
 		GooglePlaySavedGamesManager.ActionAvailableGameSavesLoaded += ActionAvailableGameSavesLoaded;
-		GooglePlaySavedGamesManager.instance.LoadAvailableSavedGames();
+		GooglePlaySavedGamesManager.Instance.LoadAvailableSavedGames();
 
 		SA_StatusBar.text = "Loading saved games.. ";
 	}
@@ -135,7 +135,7 @@ public class SavedGamesExample : MonoBehaviour {
 
 		GooglePlaySavedGamesManager.ActionAvailableGameSavesLoaded -= ActionAvailableGameSavesLoaded;
 		if(res.isSuccess) {
-			foreach(GP_SnapshotMeta meta in GooglePlaySavedGamesManager.instance.AvailableGameSaves) {
+			foreach(GP_SnapshotMeta meta in GooglePlaySavedGamesManager.Instance.AvailableGameSaves) {
 				Debug.Log("Meta.Title: " 					+ meta.Title);
 				Debug.Log("Meta.Description: " 				+ meta.Description);
 				Debug.Log("Meta.CoverImageUrl): " 			+ meta.CoverImageUrl);
@@ -143,8 +143,8 @@ public class SavedGamesExample : MonoBehaviour {
 				Debug.Log("Meta.TotalPlayedTime" 			+ meta.TotalPlayedTime);
 			}
 
-			if(GooglePlaySavedGamesManager.instance.AvailableGameSaves.Count > 0) {
-				GP_SnapshotMeta s =  GooglePlaySavedGamesManager.instance.AvailableGameSaves[0];
+			if(GooglePlaySavedGamesManager.Instance.AvailableGameSaves.Count > 0) {
+				GP_SnapshotMeta s =  GooglePlaySavedGamesManager.Instance.AvailableGameSaves[0];
 				AndroidDialog dialog = AndroidDialog.Create("Load Snapshot?", "Would you like to load " + s.Title);
 				dialog.ActionComplete += OnSpanshotLoadDialogComplete;
 			}
@@ -156,8 +156,8 @@ public class SavedGamesExample : MonoBehaviour {
 
 	void OnSpanshotLoadDialogComplete (AndroidDialogResult res) {
 		if(res == AndroidDialogResult.YES) {
-			GP_SnapshotMeta s =  GooglePlaySavedGamesManager.instance.AvailableGameSaves[0];
-			GooglePlaySavedGamesManager.instance.LoadSpanshotByName(s.Title);
+			GP_SnapshotMeta s =  GooglePlaySavedGamesManager.Instance.AvailableGameSaves[0];
+			GooglePlaySavedGamesManager.Instance.LoadSpanshotByName(s.Title);
 		}
 	}
 
@@ -231,7 +231,7 @@ public class SavedGamesExample : MonoBehaviour {
 	
 	private void OnPlayerConnected() {
 		SA_StatusBar.text = "Player Connected";
-		playerLabel.text = GooglePlayManager.instance.player.name;
+		playerLabel.text = GooglePlayManager.Instance.player.name;
 	}
 	
 	private void OnConnectionResult(GooglePlayConnectionResult result) {
@@ -266,7 +266,7 @@ public class SavedGamesExample : MonoBehaviour {
 
 
 		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
-		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, "some save data, for example you can use JSON or byte array", TotalPlayedTime);
+		GooglePlaySavedGamesManager.Instance.CreateNewSnapshot(currentSaveName, description, Screenshot, "some save data, for example you can use JSON or byte array", TotalPlayedTime);
 		
 		
 		

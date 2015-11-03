@@ -58,16 +58,16 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 		Debug.Log("GooglePlayManager State  -> " + GooglePlayConnection.State.ToString());
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
 			SA_StatusBar.text = "Disconnecting from Play Service...";
-			GooglePlayConnection.instance.Disconnect ();
+			GooglePlayConnection.Instance.Disconnect ();
 		} else {
 			SA_StatusBar.text = "Connecting to Play Service...";
-			GooglePlayConnection.instance.Connect ();
+			GooglePlayConnection.Instance.Connect ();
 		}
 	}
 
 	
 	private void ShowWatingRoom() {
-		GooglePlayRTM.instance.ShowWaitingRoomIntent();
+		GooglePlayRTM.Instance.ShowWaitingRoomIntent();
 	}
 
 
@@ -89,13 +89,13 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 		int minPlayers = 1;
 		int maxPlayers = 2;
 
-		GooglePlayRTM.instance.FindMatch(minPlayers, maxPlayers);
+		GooglePlayRTM.Instance.FindMatch(minPlayers, maxPlayers);
 	}
 
 	private void InviteFriends() {
 		int minPlayers = 1;
 		int maxPlayers = 2;
-		GooglePlayRTM.instance.OpenInvitationBoxUI(minPlayers, maxPlayers);
+		GooglePlayRTM.Instance.OpenInvitationBoxUI(minPlayers, maxPlayers);
 	}
 
 
@@ -111,15 +111,15 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 	}
 
 	private void LeaveRoom() {
-		GooglePlayRTM.instance.LeaveRoom();
+		GooglePlayRTM.Instance.LeaveRoom();
 	}
 
 
 
 	private void DrawParticipants() {
 
-		UpdateGameState("Room State: " + GooglePlayRTM.instance.currentRoom.status.ToString());
-		parisipants.text = "Total Room Participants: " + GooglePlayRTM.instance.currentRoom.participants.Count;
+		UpdateGameState("Room State: " + GooglePlayRTM.Instance.currentRoom.status.ToString());
+		parisipants.text = "Total Room Participants: " + GooglePlayRTM.Instance.currentRoom.participants.Count;
 			
 
 
@@ -128,7 +128,7 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 		}
 		
 		int i = 0;
-		foreach(GP_Participant p in GooglePlayRTM.instance.currentRoom.participants) {
+		foreach(GP_Participant p in GooglePlayRTM.Instance.currentRoom.participants) {
 			patricipants[i].gameObject.SetActive(true);
 			patricipants[i].SetParticipant(p);
 			i++;
@@ -144,7 +144,7 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 	void FixedUpdate() {
 		DrawParticipants();
 
-		if(GooglePlayRTM.instance.currentRoom.status!= GP_RTM_RoomStatus.ROOM_VARIANT_DEFAULT && GooglePlayRTM.instance.currentRoom.status!= GP_RTM_RoomStatus.ROOM_STATUS_ACTIVE) {
+		if(GooglePlayRTM.Instance.currentRoom.status!= GP_RTM_RoomStatus.ROOM_VARIANT_DEFAULT && GooglePlayRTM.Instance.currentRoom.status!= GP_RTM_RoomStatus.ROOM_STATUS_ACTIVE) {
 			showRoomButton.EnabledButton();
 		} else {
 			showRoomButton.DisabledButton();
@@ -152,13 +152,13 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 
 
 
-		if(GooglePlayRTM.instance.currentRoom.status == GP_RTM_RoomStatus.ROOM_VARIANT_DEFAULT) {
+		if(GooglePlayRTM.Instance.currentRoom.status == GP_RTM_RoomStatus.ROOM_VARIANT_DEFAULT) {
 			leaveRoomButton.DisabledButton();
 		} else {
 			leaveRoomButton.EnabledButton();
 		}
 
-		if(GooglePlayRTM.instance.currentRoom.status == GP_RTM_RoomStatus.ROOM_STATUS_ACTIVE) {
+		if(GooglePlayRTM.Instance.currentRoom.status == GP_RTM_RoomStatus.ROOM_STATUS_ACTIVE) {
 			helloButton.EnabledButton();
 			hi.SetActive(true);
 		} else {
@@ -167,8 +167,8 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 		}
 
 		if(GooglePlayConnection.State == GPConnectionState.STATE_CONNECTED) {
-			if(GooglePlayManager.instance.player.icon != null) {
-				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.instance.player.icon;
+			if(GooglePlayManager.Instance.player.icon != null) {
+				avatar.GetComponent<Renderer>().material.mainTexture = GooglePlayManager.Instance.player.icon;
 			}
 		}  else {
 			avatar.GetComponent<Renderer>().material.mainTexture = defaulttexture;
@@ -207,9 +207,9 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 	
 	private void OnPlayerConnected() {
 		SA_StatusBar.text = "Player Connected";
-		playerLabel.text = GooglePlayManager.instance.player.name;
+		playerLabel.text = GooglePlayManager.Instance.player.name;
 
-		GooglePlayInvitationManager.instance.RegisterInvitationListener();
+		GooglePlayInvitationManager.Instance.RegisterInvitationListener();
 
 
 		GooglePlayManager.ActionFriendsListLoaded +=  OnFriendListLoaded;
@@ -224,7 +224,7 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 			Debug.Log("Friends Load Success");
 
 			int i = 0;
-			foreach(string fId in GooglePlayManager.instance.friendsList) {
+			foreach(string fId in GooglePlayManager.Instance.friendsList) {
 				if(i < 3) {
 					friends[i].SetFriendId(fId);
 				}
@@ -262,7 +262,7 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 
 		Debug.Log("Starting The Game");
 		//make sure you have prepared your scene to start the game before you accepting the invite. Room join even will be triggered
-		GooglePlayRTM.instance.AcceptInvitation(invitation.Id);
+		GooglePlayRTM.Instance.AcceptInvitation(invitation.Id);
 	}
 
 	private void OnRoomCreated(GP_GamesStatusCodes code) {
@@ -282,7 +282,7 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 			dialog.ActionComplete += OnInvManageDialogComplete;
 			break;
 		case AndroidDialogResult.NO:
-			GooglePlayRTM.instance.OpenInvitationInBoxUI();
+			GooglePlayRTM.Instance.OpenInvitationInBoxUI();
 			break;
 			
 		}
@@ -291,10 +291,10 @@ public class RTM_Game_Example : AndroidNativeExampleBase {
 	private void OnInvManageDialogComplete(AndroidDialogResult result) {
 		switch(result) {
 		case AndroidDialogResult.YES:
-			GooglePlayRTM.instance.AcceptInvitation(inviteId);
+			GooglePlayRTM.Instance.AcceptInvitation(inviteId);
 			break;
 		case AndroidDialogResult.NO:
-			GooglePlayRTM.instance.DeclineInvitation(inviteId);
+			GooglePlayRTM.Instance.DeclineInvitation(inviteId);
 			break;
 		}
 	}

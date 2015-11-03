@@ -25,7 +25,7 @@ public class iAdIOSInterstitial : MonoBehaviour {
 	// --------------------------------------
 
 	public void ShowBanner() {
-		iAdBannerController.instance.StartInterstitialAd();
+		iAdBannerController.Instance.StartInterstitialAd();
 	}
 
 

@@ -26,7 +26,7 @@ public class SA_PartisipantUI : MonoBehaviour {
 		avatar.GetComponent<Renderer>().material.mainTexture = defaulttexture;
 
 
-		GooglePlayerTemplate player = GooglePlayManager.instance.GetPlayerById(p.playerId);
+		GooglePlayerTemplate player = GooglePlayManager.Instance.GetPlayerById(p.playerId);
 		if(player != null) {
 			playerId.text = "Player Id: " + p.playerId;
 			playerName.text = "Name: " + player.name;
