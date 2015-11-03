@@ -4,8 +4,12 @@ using System.Collections;
 public class MainLoader : MonoBehaviour {
 
 	#region Public Properties
+    
+    [SerializeField]
+	public GameObject _componentFactoryPrefab;
 
-	public GameObject ComponentsFactoryPrefab;
+    [SerializeField]
+    public GameObject _loadingSplash;
 
 	#endregion
 
@@ -25,7 +29,7 @@ public class MainLoader : MonoBehaviour {
 
 	private void StartLoadingSequance()
 	{
-		GameObject componentFactory = Instantiate(ComponentsFactoryPrefab) as GameObject;
+		GameObject componentFactory = Instantiate(_componentFactoryPrefab) as GameObject;
 		if (componentFactory != null)
 		{
 			IGameDataLoader gameDataLoader = ComponentsFactory.GetAComponent<IGameDataLoader>() as IGameDataLoader;
@@ -51,12 +55,18 @@ public class MainLoader : MonoBehaviour {
 
     IEnumerator StartGameScene()
     {
+        DontDestroyOnLoad(_loadingSplash);
         yield return new WaitForSeconds(1.0f);
         IScreensFlow screenFlowManager = ComponentsFactory.GetAComponent<IScreensFlow>() as IScreensFlow;
         if (screenFlowManager != null)
         {
             Debug.Log("load lobby scene");
-           screenFlowManager.DisplayMenuScene();
+            screenFlowManager.DisplayMenuScene();
+
+            GameUtils.StartDelayedCall(1.0f, "", () =>
+            {
+                Destroy(_loadingSplash);
+            });
         }
     }
 

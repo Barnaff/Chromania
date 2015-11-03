@@ -46,10 +46,12 @@ public class MenuScreensManager : MonoBehaviour {
 
 	#region Initialize
 
-	void Awake()
+	IEnumerator Start()
 	{
 		DisableAllPanels();
-
+        yield return null;
+        yield return null;
+        Debug.Log("menu start");
         DisplayMenuScreen(_selectedScreen);
     }
 
@@ -57,6 +59,14 @@ public class MenuScreensManager : MonoBehaviour {
 
 
 	#region Public
+
+    public MenuScreenType SelectedScreen
+    {
+        set
+        {
+            _selectedScreen = value;
+        }
+    }
 
 	/// <summary>
 	/// Displaies the menu screen.
@@ -73,6 +83,7 @@ public class MenuScreensManager : MonoBehaviour {
 			{
                 _currentScreen.DisplayExitAnimationWithCompletion(()=>
 				                                                  {
+                                                                   
 					_currentScreen.ScreenWillBeRemoved();
 					_currentScreen.gameObject.SetActive(false);
 					//DisableAllPanels();
@@ -102,12 +113,13 @@ public class MenuScreensManager : MonoBehaviour {
 		}
 	}
 
-	#endregion
+
+    #endregion
 
 
-	#region Private
+    #region Private
 
-	private GameObject GetPanel(MenuScreenType screenType)
+    private GameObject GetPanel(MenuScreenType screenType)
 	{
 		GameObject panel = null;
 		switch (screenType) 

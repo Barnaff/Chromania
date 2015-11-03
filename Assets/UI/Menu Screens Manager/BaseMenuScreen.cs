@@ -4,23 +4,21 @@ using System;
 
 public class BaseMenuScreen : MonoBehaviour {
 
-	#region Private Properties
 
-	private Action _enterAnimationCompletion;
+    #region Private Properties
+
+    private Action _enterAnimationCompletion;
 	private Action _exitAnimationCompletion;
 
     private bool _needToDisplayEnterAnimation;
 
+    [SerializeField]
+    private MenuItemController[] _menuItems;
+
 	#endregion
 
 
-    void LateUpdate()
-    {
-        if (_needToDisplayEnterAnimation)
-        {
-            DisplayEnterAnimationWithCompletion(_enterAnimationCompletion);
-        }
-    }
+  
 
 	#region Public
 
@@ -31,32 +29,8 @@ public class BaseMenuScreen : MonoBehaviour {
 	public void DisplayEnterAnimationWithCompletion(Action completion)
 	{
 		_enterAnimationCompletion = completion;
-        if (!_needToDisplayEnterAnimation)
-        {
-            _needToDisplayEnterAnimation = true;
-            return;
-        }
-        _needToDisplayEnterAnimation = false;
-        MenuItemController[] menuItems = GameObject.FindObjectsOfType(typeof(MenuItemController)) as MenuItemController[];
-		if (menuItems != null)
-		{
-			for (int i=0; i < menuItems.Length; i++)
-			{
-				MenuItemController itemController = menuItems[i];
-				if (i == menuItems.Length - 1)
-				{
-					itemController.MoveIn(0.2f, ()=>
-					{
-						EnterAnimationCompleted();
-					});
-				}
-				else
-				{
-					itemController.MoveIn();
+        StartCoroutine(EnterAnimationCorutine());
 
-				}
-			}
-		}
     }
 
 	/// <summary>
@@ -66,27 +40,9 @@ public class BaseMenuScreen : MonoBehaviour {
 	public void DisplayExitAnimationWithCompletion(Action completion)
 	{
 		_exitAnimationCompletion = completion;
+        StartCoroutine(ExitAnimationCorutine());
 
-		MenuItemController[] menuItems = GameObject.FindObjectsOfType(typeof(MenuItemController)) as MenuItemController[];
-		if (menuItems != null)
-		{
-			for (int i=0; i < menuItems.Length; i++)
-			{
-				MenuItemController itemController = menuItems[i];
-				if (i == menuItems.Length - 1)
-				{
-					itemController.MoveOut(0.2f, ()=>
-					                      {
-						ExitAnimationFinished();
-					});
-					
-				}
-				else
-				{
-					itemController.MoveOut();
-				}
-			}
-		}
+		
 	}
 
 	/// <summary>
@@ -151,6 +107,37 @@ public class BaseMenuScreen : MonoBehaviour {
 		_exitAnimationCompletion = null;
 	}
 
-	#endregion
+    #endregion
+
+    IEnumerator EnterAnimationCorutine()
+    {
+        for (int i = 0; i < _menuItems.Length; i++)
+        {
+            _menuItems[i].gameObject.SetActive(false);
+        }
+
+        yield return null;
+
+        for (int i=0; i< _menuItems.Length; i++)
+        {
+            _menuItems[i].gameObject.SetActive(true);
+            _menuItems[i].MoveIn();
+        }
+        yield return new WaitForSeconds(0.2f);
+        EnterAnimationCompleted();
+
+    }
+
+    IEnumerator ExitAnimationCorutine()
+    {
+        yield return null;
+        for (int i = 0; i < _menuItems.Length; i++)
+        {
+            _menuItems[i].MoveOut();
+            yield return null;
+        }
+        yield return new WaitForSeconds(0.2f);
+        ExitAnimationFinished();
+    }
 
 }

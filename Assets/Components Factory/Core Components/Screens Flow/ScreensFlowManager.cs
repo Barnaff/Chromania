@@ -7,7 +7,12 @@ public class ScreensFlowManager : MonoBehaviour, IScreensFlow {
 
 	#region IScreensFlow Implementation
 
-	public void DisplayMenuScene()
+    public void InitializeMainMenu()
+    {
+
+    }
+
+    public void DisplayMenuScene()
 	{
 		Application.LoadLevel("MenuScene");
 	}
@@ -37,12 +42,12 @@ public class ScreensFlowManager : MonoBehaviour, IScreensFlow {
 			{
 				if (_isEndgame)
 				{
-					menuScreenManager.GetComponent<MenuScreensManager>().DisplayMenuScreen(MenuScreenType.EndGame);
-					_isEndgame = false;
+                    menuScreenManager.GetComponent<MenuScreensManager>().SelectedScreen = MenuScreenType.EndGame;
+                    _isEndgame = false;
 				}
 				else
 				{
-					menuScreenManager.GetComponent<MenuScreensManager>().DisplayMenuScreen(MenuScreenType.MainMenu);
+                    menuScreenManager.GetComponent<MenuScreensManager>().SelectedScreen = MenuScreenType.MainMenu;
 				}
 			}
 			else
