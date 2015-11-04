@@ -49,7 +49,7 @@ public class WP8SocialManager : WPN_Singletone<WP8SocialManager>
         {
 
 
-#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
+#if (UNITY_WP8 && !UNITY_EDITOR) || SA_DEBUG_MODE
             byte[] val = texture.EncodeToPNG();
             string bytesString = System.Convert.ToBase64String(val);
 

@@ -106,7 +106,7 @@ public static class UM_AdManager  {
 			if(UltimateMobileSettings.Instance.IOSAdEdngine == UM_IOSAdEngineOprions.GoogleMobileAd)  {
 				return GoogleMobileAd.GetBanner(id).IsLoaded;
 			} else {
-				return iAdBannerController.instance.GetBanner(id).IsLoaded;
+				return iAdBannerController.Instance.GetBanner(id).IsLoaded;
 			}
 		case RuntimePlatform.Android:
 			return GoogleMobileAd.GetBanner(id).IsLoaded;
