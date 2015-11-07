@@ -50,7 +50,6 @@ public class MainLoader : MonoBehaviour {
 			Debug.LogError("ERROR: Components Factory could not be loaded!");
 		}
 
-  
     }
 
     IEnumerator StartGameScene()
