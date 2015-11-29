@@ -25,17 +25,17 @@ public class WP8NativeSettings : ScriptableObject {
 				instance = Resources.Load(WP8NativeSettingsAssetName) as WP8NativeSettings;
 				
 				if (instance == null) {				
-					// If not found, autocreate the asset object. 
+					// If not found, autocreate the asset object.
 					instance = CreateInstance<WP8NativeSettings>();
-
-#if UNITY_EDITOR && UNITY_WP8
+				
+#if UNITY_EDITOR					
 					FileStaticAPI.CreateFolder(WP8NativeSettingsPath);
 					string fullPath = Path.Combine(Path.Combine("Assets", WP8NativeSettingsPath),
 					                               WP8NativeSettingsAssetName + WP8NativeSettingsAssetExtension);
 					AssetDatabase.CreateAsset(instance, fullPath);
 #endif
-                }
-            }
+				}
+			}
 			return instance;
 		}
 	}

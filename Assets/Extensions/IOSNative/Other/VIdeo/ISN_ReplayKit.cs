@@ -1,4 +1,4 @@
-//#define REPLAY_KIT
+#define REPLAY_KIT
 
 using UnityEngine;
 using System;
