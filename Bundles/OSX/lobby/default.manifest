@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 1754295802
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 85fa2c5369fa4651a3402418a1796fcb
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 75957c18d05791510cbdd301a328d69f
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/42GamesArena/Textures/Lobby/LobbyBackground.PNG
+- Assets/42GamesArena/Textures/Lobby/TopBarBackground.jpg
+- Assets/42GamesArena/Textures/Lobby/BottomBarBackground.jpg
+Dependencies: []

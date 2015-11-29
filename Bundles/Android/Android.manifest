@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: slots/mau/slots_egyptian
+      Dependencies: {}
+    Info_1:
+      Name: slots/mau/slots_farm
+      Dependencies: {}
+    Info_2:
+      Name: slots/mau/slots_royal
+      Dependencies: {}
+    Info_3:
+      Name: slots/mau/slots_candy
+      Dependencies: {}
+    Info_4:
+      Name: bubbles/default
+      Dependencies: {}
+    Info_5:
+      Name: blackjack/mau/pro
+      Dependencies: {}
+    Info_6:
+      Name: blackjack/mau/advanced
+      Dependencies: {}
+    Info_7:
+      Name: slots/mau/slots_mexican
+      Dependencies: {}
+    Info_8:
+      Name: slots/default
+      Dependencies: {}
+    Info_9:
+      Name: blackjack/mau/beginner
+      Dependencies: {}
+    Info_10:
+      Name: frozen/default
+      Dependencies: {}
+    Info_11:
+      Name: blackjack/mau/highroller
+      Dependencies: {}
+    Info_12:
+      Name: lobby/default
+      Dependencies: {}

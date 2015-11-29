@@ -1,0 +1,58 @@
+ManifestFileVersion: 0
+CRC: 243309234
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ebe56587495fea47f105ff18e6551250
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a74ed7f4c5ff289592df565a1e9af070
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9b63baa97f0134ba28f68bd8a9153467, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Games/BlackJack/Targets/default/Textures/coins_pile.png
+- Assets/Games/BlackJack/Targets/default/Textures/bg.png
+- Assets/Games/BlackJack/Targets/default/Textures/btn_plus_header.png
+- Assets/Games/BlackJack/Targets/default/Textures/table_green.png
+- Assets/Games/BlackJack/Targets/default/Textures/btn_plus.png
+- Assets/Games/BlackJack/Targets/default/Textures/you_win.png
+- Assets/Games/BlackJack/Targets/default/Textures/header.png
+- Assets/Games/BlackJack/Targets/default/Textures/btn_deal.png
+- Assets/Games/BlackJack/Targets/default/Textures/btn_minus.png
+- Assets/Games/BlackJack/Targets/default/Textures/btn_double.png
+- Assets/Games/BlackJack/Targets/default/Textures/table_blue.png
+- Assets/Games/BlackJack/Targets/default/Textures/Card Back.png
+- Assets/Games/BlackJack/Targets/default/Textures/cards.png
+- Assets/Games/BlackJack/Targets/default/Textures/btn_hit.png
+- Assets/Games/BlackJack/Targets/default/Prefabs/BJCard.prefab
+- Assets/Games/BlackJack/Targets/default/Textures/card_back.png
+- Assets/Games/BlackJack/Targets/default/Textures/back_btn.png
+- Assets/Games/BlackJack/Targets/default/Textures/table_black.png
+- Assets/Games/BlackJack/Targets/default/Textures/bet_text.png
+- Assets/Games/BlackJack/Targets/default/Textures/table_red.png
+- Assets/Games/BlackJack/Targets/default/Textures/coin_header.png
+- Assets/Games/BlackJack/Targets/default/Textures/btn_stand.png
+- Assets/Games/BlackJack/Targets/default/Textures/btn_split.png
+- Assets/Games/BlackJack/Targets/default/Textures/text_field.png
+- Assets/Games/BlackJack/Targets/default/Textures/green.jpg
+Dependencies: []
