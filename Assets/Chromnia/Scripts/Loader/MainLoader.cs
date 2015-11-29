@@ -15,11 +15,5 @@ public class MainLoader : MonoBehaviour {
 	
 	}
 
-    void OnGUI()
-    {
-        _loadCount++;
-
-        GUILayout.Label(_loadCount.ToString());
-
-    }
+  
 }
