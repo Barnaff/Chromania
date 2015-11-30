@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{CB030EA1-7099-32F9-97DB-37105DAE22DC}</ProjectGuid>
+	<ProjectGuid>{EB409A2A-4FB7-8573-3065-1E8AD35477E3}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_5_1_2;UNITY_5_1;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_LICENSE;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_EDITOR_METRICS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;ENABLE_LOCALIZATION;UNITY_IPHONE;ENABLE_RUNTIME_GI;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_NETWORK;UNITY_IPHONE_API;UNITY_IOS;ENABLE_TEXTUREID_MAP;PLAYERCONNECTION_LISTENS_FIXED_PORT;DEBUGGER_LISTENS_FIXED_PORT;ENABLE_IL2CPP;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_5_1_3;UNITY_5_1;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_LICENSE;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_EDITOR_METRICS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_MONO;DEVELOPMENT_BUILD;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -39,113 +39,13 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\42GamesArena\Components Factory\Components Container\ComponentFactory.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Ads\AdsManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Ads\IAds.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Analytics\AnalyticsEvents.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Analytics\IPortalAnalytics.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Analytics\PortalAnalyticsManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Assets\AssetImageController.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Assets\AssetManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Assets\LoadScene.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Back Button\BackButtonManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Back Button\IBackButton.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Cache Data Loader\CacheUtil.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Console\Console.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Debug\DebugManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\GameLoader\GameLoaderUtil.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Gameplay Wrapper\GameplayWrapper.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Hearts\HeartsManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Hearts\IHearts.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Inventory\IInventory.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Inventory\InventoryManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Network\INetwork.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Network\JSON.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Network\NetworkManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Popups\IPopups.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Popups\PopupBaseController.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Popups\PopupsManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Portal Managment\IPortal.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Portal Managment\PortalManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Server Requests\IServerRequests.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Server Requests\ServerCommands.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Server Requests\ServerRequestKeys.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Server Requests\ServerRequestsManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Shop\IShop.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Shop\ShopManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Social\FacebookManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Social\FacebookProfile.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Social\IFacebookManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Social\IFacebookProfile.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Stickers\IStickers.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Stickers\StickersManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\User Account\AccountManager.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\User Account\IAccount.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Web Image Cache\IWebImageCache.cs" />
-     <Compile Include="Assets\42GamesArena\Components Factory\Core Components\Web Image Cache\WebImageCache.cs" />
-     <Compile Include="Assets\42GamesArena\Data\AdDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Enums\AdPersentationTypes.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Enums\ProductsTypes.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Enums\StoreTypes.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Enums\TileBehaviorType.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Enums\ePriceActions.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Enums\eTileSizes.cs" />
-     <Compile Include="Assets\42GamesArena\Data\ErrorObj.cs" />
-     <Compile Include="Assets\42GamesArena\Data\InventoryItemDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Data\LobbyDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Data\PriceDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Data\ProductDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Data\ShopItemDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Tiles\AdTileDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Tiles\GameDefenitionDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Tiles\GameTileDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Data\Tiles\TileDataModelAbstract.cs" />
-     <Compile Include="Assets\42GamesArena\Data\UserAccountDataModel.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Gameplay\GameplayBase.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Gameplay\GameplayHUDController.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Loader\MainLoader.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Utils\BackgroundThreadUtil.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Utils\ObjectsSerializer\ObjectSerializerUtil.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Utils\ObjectsSerializer\Surrogates\ColorSurrogate.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Utils\ObjectsSerializer\Surrogates\RectSurrogate.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Utils\ObjectsSerializer\Surrogates\SpriteSurrogate.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Utils\ObjectsSerializer\Surrogates\Vector2Surrogate.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Utils\PlayerPrefsUtil.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Utils\RunningNumbersUtil.cs" />
-     <Compile Include="Assets\42GamesArena\Scripts\Utils\SceneLoaderUtil.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Asset Loading\AssetLoaderController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Game Over Screen\GameOverScreenController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Games List Screen\Controllers\LobbyListController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Games List Screen\Controllers\LobbyTileController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Games List Screen\Controllers\TermsOfUseCellController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Hearts Controller\HeartsController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Game Loader Popup\GameLoaderPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Game Over Popup\BaseGameOverPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Game Over Popup\EndlessGameOverPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Game Over Popup\SagaGameOverPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Hearts Shop Popup\HeartsShopPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Item Aquired Popup\ItemAquiredPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Loading Indicator Popup\LoadingIndicatorPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Not Ehougn Hearts Popup\NotEnoughHeartsPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Not Enough Currency Popup\NotEnoughCurrencyPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Pre Game Turnement Popup\PreGameTurnementPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Shop Popup\BaseShopCellController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Shop Popup\BaseShopPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Shop Popup\Coins Shop Popup\CoinsShopPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Shop Popup\Hearts Shop Popup\HeartsShopItemCellController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Tile Unlock Popup\TileUnlockCellController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Popups\Tile Unlock Popup\TileUnlockPopupController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Slide Menu\SlideMenuController.cs" />
-     <Compile Include="Assets\42GamesArena\UI\Slide Menu\SlideMenuDebugPanelController.cs" />
-     <Compile Include="Assets\Assets Creator\App Configuration\PortalConfiguration.cs" />
-     <Compile Include="Assets\Assets Creator\Scriptable Object Utility\ScriptableObjectUtility.cs" />
      <Compile Include="Assets\Extensions\AndroidManifestManager\AN_ManifestManager.cs" />
      <Compile Include="Assets\Extensions\AndroidManifestManager\Core\AMMSettings.cs" />
      <Compile Include="Assets\Extensions\AndroidManifestManager\Models\AN_ActivityTemplate.cs" />
@@ -640,60 +540,6 @@
      <Compile Include="Assets\Extensions\WP8Native\xExamples\Scripts\Market\WPM_MarketExample.cs" />
      <Compile Include="Assets\Extensions\WP8Native\xExamples\Scripts\Market\WPN_BillingManagerExample.cs" />
      <Compile Include="Assets\Extensions\WP8Native\xExamples\Scripts\Other\WPN_PopUpExamples.cs" />
-     <Compile Include="Assets\Facebook\Scripts\AndroidFacebook.cs" />
-     <Compile Include="Assets\Facebook\Scripts\AndroidFacebookLoader.cs" />
-     <Compile Include="Assets\Facebook\Scripts\CanvasFacebookLoader.cs" />
-     <Compile Include="Assets\Facebook\Scripts\EditorFacebook.cs" />
-     <Compile Include="Assets\Facebook\Scripts\EditorFacebookAccessToken.cs" />
-     <Compile Include="Assets\Facebook\Scripts\EditorFacebookLoader.cs" />
-     <Compile Include="Assets\Facebook\Scripts\FB.cs" />
-     <Compile Include="Assets\Facebook\Scripts\FBAppRequestsFilterGroup.cs" />
-     <Compile Include="Assets\Facebook\Scripts\FBScreen.cs" />
-     <Compile Include="Assets\Facebook\Scripts\FBSettings.cs" />
-     <Compile Include="Assets\Facebook\Scripts\IOSFacebook.cs" />
-     <Compile Include="Assets\Facebook\Scripts\IOSFacebookLoader.cs" />
-     <Compile Include="Assets\Facebook\Scripts\NativeDialogModes.cs" />
-     <Compile Include="Assets\Games\BlackJack\Base\Scripts\BJButtonsController.cs" />
-     <Compile Include="Assets\Games\BlackJack\Base\Scripts\BJCardController.cs" />
-     <Compile Include="Assets\Games\BlackJack\Base\Scripts\BJGameManager.cs" />
-     <Compile Include="Assets\Games\BlackJack\Base\Scripts\BJModels.cs" />
-     <Compile Include="Assets\Games\BlackJack\Base\Scripts\BJPopupsController.cs" />
-     <Compile Include="Assets\Games\Bubbles Depth\Base\Scripts\BubbleDepthBallController.cs" />
-     <Compile Include="Assets\Games\Bubbles Depth\Base\Scripts\BubbleDepthBombController.cs" />
-     <Compile Include="Assets\Games\Bubbles Depth\Base\Scripts\BubbleDepthCannonController.cs" />
-     <Compile Include="Assets\Games\Bubbles Depth\Base\Scripts\BubbleDepthLayoutController.cs" />
-     <Compile Include="Assets\Games\Bubbles Depth\Base\Scripts\BubbleDepthLevelDefenition.cs" />
-     <Compile Include="Assets\Games\Bubbles Depth\Base\Scripts\BubbleDepthSwapButtonController.cs" />
-     <Compile Include="Assets\Games\Bubbles Depth\Base\Scripts\BubbleDepthWallController.cs" />
-     <Compile Include="Assets\Games\Bubbles Depth\Base\Scripts\BubblesGameplayManager.cs" />
-     <Compile Include="Assets\Games\Frozen\Base\Scripts\BlockController.cs" />
-     <Compile Include="Assets\Games\Frozen\Base\Scripts\FrozenBallController.cs" />
-     <Compile Include="Assets\Games\Frozen\Base\Scripts\FrozenGameplayManager.cs" />
-     <Compile Include="Assets\Games\Frozen\Base\Scripts\FrozenLayoutController.cs" />
-     <Compile Include="Assets\Games\Frozen\Base\Scripts\FrozenPlayerController.cs" />
-     <Compile Include="Assets\Games\Frozen\Base\Scripts\FrozenWallController.cs" />
-     <Compile Include="Assets\Games\Slots\Base\Scripts\SlotsButtonsController.cs" />
-     <Compile Include="Assets\Games\Slots\Base\Scripts\SlotsDataObjects.cs" />
-     <Compile Include="Assets\Games\Slots\Base\Scripts\SlotsGameController.cs" />
-     <Compile Include="Assets\Games\Slots\Base\Scripts\SlotsPayTableCellController.cs" />
-     <Compile Include="Assets\Games\Slots\Base\Scripts\SlotsPayTablePopupController.cs" />
-     <Compile Include="Assets\Games\Slots\Base\Scripts\SlotsTileController.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_New.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RandomDir.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RandomDirectionTranslate.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_Translate.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\UI\CFX_Demo_GTButton.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\UI\CFX_Demo_GTToggle.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_AutoDestructShuriken.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_AutoRotate.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_AutodestructWhenNoChildren.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_InspectorHelp.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_ShurikenThreadFix.cs" />
-     <Compile Include="Assets\JMO Assets\Cartoon FX\Spawn System\CFX_SpawnSystem.cs" />
      <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\DemoPart1.cs" />
      <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\DemoPart2.cs" />
      <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\DemoPart3.cs" />
@@ -717,167 +563,81 @@
      <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_SFX_Internal.cs" />
      <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Variables_Music.cs" />
      <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Variables_SFX.cs" />
-     <Compile Include="Assets\UniWeb\Examples\ConditionalGet.cs" />
-     <Compile Include="Assets\UniWeb\Examples\ForceProxyExample.cs" />
-     <Compile Include="Assets\UniWeb\Examples\KeepAliveExample.cs" />
-     <Compile Include="Assets\UniWeb\Examples\RequestBenchmark.cs" />
-     <Compile Include="Assets\UniWeb\Examples\UniWebExamples.cs" />
-     <Compile Include="Assets\UniWeb\Examples\WebsocketClientEcho.cs" />
-     <Compile Include="Assets\UniWeb\Examples\WebsocketClientExample.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\BaseHTTP.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\HTTPProtocol.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Headers.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\HttpConnection.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\HttpException.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Network\NetworkStream.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Network\TcpClient.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\RC4.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Request.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Response.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\UniWeb.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Utility.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\WebSocket.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Zlib\Crc32.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Zlib\Deflate.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Zlib\InfTree.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Zlib\Inflate.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Zlib\ZTree.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Zlib\Zlib.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Zlib\ZlibCodec.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Zlib\ZlibConstants.cs" />
-     <Compile Include="Assets\UniWeb\Plugins\HTTP\Zlib\ZlibStream.cs" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_top_background.xml" />
-     <None Include="Assets\UniWeb\FAQ.txt" />
-     <None Include="Assets\Plugins\Android\facebook\proguard-project.txt" />
      <None Include="Assets\Plugins\StansAssets\Android\OneSignalSDK.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_usersettingsfragment.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\res\values\analytics.xml" />
      <None Include="Assets\Plugins\StansAssets\Versions\MNP_VersionInfo.txt" />
-     <None Include="Assets\JMO Assets\Cartoon FX\Shaders (Mobile)\CFXM_MobileParticleAdd_Alpha8.shader" />
-     <None Include="Assets\Plugins\Android\facebook\res\values-es\strings.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_picker_top_button.xml" />
-     <None Include="Assets\Resources\Levels.xml" />
      <None Include="Assets\Plugins\StansAssets\IOS\GMA_SA_Lib_Proxy.mm.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\values-iw\strings.xml" />
      <None Include="Assets\Extensions\IOSNative\Documentation\ISN_VersionNotes.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\GMA_SA_Lib.m.txt" />
-     <None Include="Assets\UniWeb\Plugins\HTTP\Zlib\LICENSE.txt" />
      <None Include="Assets\Plugins\Android\res\xml\file_paths.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\values\styles.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\google_play\google-play-services.txt" />
-     <None Include="Assets\UniWeb\CHANGES.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_iAd.mm.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_NSData+Base64.h.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\values\strings.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\AndroidManifest.xml" />
-     <None Include="Assets\UniWeb\TODO.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_title_bar.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\social\twitter4j-core-3.0.5.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_search_box.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_placepickerfragment.xml" />
      <None Include="Assets\Plugins\StansAssets\IOS\GMA_SA_Lib.h.txt" />
      <None Include="Assets\Extensions\AndroidManifestManager\default.xml" />
      <None Include="Assets\Extensions\AndroidNative\Documentation\AN_VersionNotes.txt" />
-     <None Include="Assets\Resources\LevelLayouts.xml" />
      <None Include="Assets\Plugins\StansAssets\Versions\UM_VersionInfo.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_list_section_header.xml" />
      <None Include="Assets\Plugins\StansAssets\Versions\ISN_VersionInfo.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_loginbutton_silver.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_search_bar_layout.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_tooltip_bubble.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\values-ldpi\dimens.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\libs\image-chooser-library-1.3.0.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_NativeCore.mm.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_Camera.mm.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_picker_list_selector_background_transition.xml" />
      <None Include="Assets\Plugins\Android\res\values\ids.xml" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_InApp.mm.txt" />
-     <None Include="Assets\JMO Assets\Cartoon FX Easy Editor\CartoonFX Easy Editor Readme.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_title_bar_stub.xml" />
      <None Include="Assets\Plugins\StansAssets\Versions\MSP_VersionInfo.txt" />
-     <None Include="Assets\UniWeb\README.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\values\drawables.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\app_licensing\an_licensing_library.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_friendpickerfragment.xml" />
-     <None Include="Assets\JMO Assets\!JMO Assets Readme.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_SocialGate.mm.txt" />
-     <None Include="Assets\Plugins\Android\facebook\build.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\values-hdpi\dimens.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_checkbox.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\values-he\strings.xml" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_NativeCore.h.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_Soomla.mm.txt" />
      <None Include="Assets\Plugins\StansAssets\Android\libs\android-support-v4.txt" />
-     <None Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_WaterWiggle.shader" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
      <None Include="Assets\Plugins\StansAssets\Android\google_play\an_googleplay.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\values\attrs.xml" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_ReplayKit.mm.txt" />
      <None Include="Assets\Plugins\StansAssets\Android\billing\an_billing.txt" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\social\an_social.txt" />
      <None Include="Assets\Plugins\StansAssets\Android\libs\an_sa_soomla.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_activity_circle_row.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_button_like_selected.xml" />
      <None Include="Assets\Extensions\GoogleMobileAd\Documentation\GMA_VersionNotes.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_NSData+Base64.m.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_GameCenter.mm.txt" />
      <None Include="Assets\Plugins\IOS\UM_IOS_INSTALATION_MARK.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_Media.mm.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\values\colors.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_placepickerfragment_list_row.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_picker_item_background.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\values-mdpi\dimens.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_button_check.xml" />
      <None Include="Assets\Extensions\UltimateMobile\Documentation\UM_VersionNotes.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_list_row.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_login_activity_layout.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_button_blue.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_button_like.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\res\values\version.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_top_button.xml" />
-     <None Include="Assets\Plugins\Android\facebook\AndroidManifest.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\mobilenativepopups.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_usersettingsfragment_background_gradient.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\res\xml\file_paths.xml" />
      <None Include="Assets\Plugins\StansAssets\Android\res\values\ids.xml" />
-     <None Include="Assets\Plugins\Android\facebook\res\layout\com_facebook_picker_image.xml" />
      <None Include="Assets\Plugins\Android\res\values\version.xml" />
      <None Include="Assets\Plugins\StansAssets\Versions\AN_VersionInfo.txt" />
      <None Include="Assets\Plugins\StansAssets\Android\androidnative.txt" />
-     <None Include="Assets\JMO Assets\Cartoon FX\CartoonFX Readme.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\values-xhdpi\dimens.xml" />
      <None Include="Assets\Plugins\Android\res\values\analytics.xml" />
      <None Include="Assets\Plugins\StansAssets\Versions\GMA_VersionInfo.txt" />
-     <None Include="Assets\Plugins\Android\facebook\res\drawable\com_facebook_picker_list_selector.xml" />
  <Reference Include="UnityEngine.UI">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
- </Reference>
- <Reference Include="IFacebook">
- <HintPath>/Users/Kobi/Documents/Projects/42/42GamesArena/Assets/Facebook/Scripts/IFacebook.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="GoogleAdsWP8">
- <HintPath>/Users/Kobi/Documents/Projects/42/42GamesArena/Assets/Plugins/GoogleAdsWP8.dll</HintPath>
+ <HintPath>E:/Copy/Projects/Unity/Chromania/Assets/Plugins/GoogleAdsWP8.dll</HintPath>
  </Reference>
  <Reference Include="WP8Native">
- <HintPath>/Users/Kobi/Documents/Projects/42/42GamesArena/Assets/Plugins/WP8Native.dll</HintPath>
+ <HintPath>E:/Copy/Projects/Unity/Chromania/Assets/Plugins/WP8Native.dll</HintPath>
  </Reference>
  <Reference Include="WP8PopUps">
- <HintPath>/Users/Kobi/Documents/Projects/42/42GamesArena/Assets/Plugins/WP8PopUps.dll</HintPath>
+ <HintPath>E:/Copy/Projects/Unity/Chromania/Assets/Plugins/WP8PopUps.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
- <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{85A2A981-AAEB-C998-62D6-4961CC27B7A6}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
+      <Project>{36B6E371-92C0-9A19-2369-8CEC685BC44B}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
