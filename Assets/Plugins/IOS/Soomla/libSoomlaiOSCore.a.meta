@@ -1,16 +1,33 @@
 fileFormatVersion: 2
 guid: 55516e660c58f43f892c18e95d3504d6
-timeCreated: 1448543533
-licenseType: Free
-PluginImporter:
-  serializedVersion: 1
-  iconMap: {}
-  executionOrder: {}
-  isPreloaded: 0
-  platformData:
-    Any:
-      enabled: 1
-      settings: {}
+labels:
+- soomla
+- store
+- storekit
+- native
+- unibill
+- prime31
+- codiwans
+- simpleiap
+- iap
+- in app billing
+- billing
+- iap
+- in app purchase
+- coins
+- fraud
+- receipt
+- verification
+- monetization
+- OpenIAB
+- photon
+- builder
+- in app purchase builder
+- stan
+- stans assets
+- transaction
+- payment
+DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
