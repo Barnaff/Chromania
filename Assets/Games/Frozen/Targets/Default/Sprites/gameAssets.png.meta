@@ -1,0 +1,190 @@
+fileFormatVersion: 2
+guid: 47bac037b1af50344bbfd00dbf5f7ad5
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Player
+    21300002: Block Red
+    21300004: Block Blue
+    21300006: Block Yellow
+    21300008: Block Green
+    21300010: Wall
+    21300012: Block Purple
+    21300014: Block Gray 1
+    21300016: Ball
+    21300018: Block White 1
+    21300020: Block Gray 2
+    21300022: Block White 2
+    21300024: Block White 3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 1
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Player
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 262
+        width: 142
+        height: 43
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block Red
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 259
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block Blue
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 259
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block Yellow
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 199
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block Green
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 199
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Wall
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 99
+        width: 34
+        height: 85
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block Purple
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 140
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block Gray 1
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 138
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ball
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 41
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block White 1
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 81
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block Gray 2
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 86
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block White 2
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 20
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Block White 3
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 21
+        width: 103
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

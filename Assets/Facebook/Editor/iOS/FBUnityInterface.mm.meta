@@ -50,7 +50,7 @@ PluginImporter:
     iOS:
       enabled: 1
       settings:
-        CompileFlags: 
+        CompileFlags: -fno-objc-arc
         FrameworkDependencies: 
   userData: 
   assetBundleName: 
