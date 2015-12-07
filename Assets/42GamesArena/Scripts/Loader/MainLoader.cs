@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.CrashLog;
+
 
 
 public class MainLoader : MonoBehaviour {
@@ -49,7 +49,7 @@ public class MainLoader : MonoBehaviour {
 			{
 				authToken = PlayerPrefsUtil.GetString(ServerRequestKeys.SERVER_KEY_AUTH_TOKEN);
 			}
-			CrashReporting.Init(_unityPerfID, _version, authToken);
+			
 		}
 
 		if (_progressLabel != null)
