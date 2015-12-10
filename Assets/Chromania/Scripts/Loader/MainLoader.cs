@@ -25,7 +25,7 @@ public class MainLoader : MonoBehaviour {
 
     #endregion
 
- 
+
 
     #region Private
 
@@ -33,17 +33,16 @@ public class MainLoader : MonoBehaviour {
     {
         yield return new WaitForSeconds(1.0f);
 
-        GameObject mainMenuControllerPrefab = Resources.Load("MainMenuController") as GameObject;
-        if (mainMenuControllerPrefab != null)
-        {
-            GameObject mainMenuController = Instantiate(mainMenuControllerPrefab) as GameObject;
-            mainMenuController.transform.position = Vector3.zero;
-        }
+        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.MainMenu);
 
         if (_loaderController != null)
         {
             Destroy(_loaderController);
         }
+
+        yield return null;
+
+        Destroy(this.gameObject);
     }
 
     #endregion

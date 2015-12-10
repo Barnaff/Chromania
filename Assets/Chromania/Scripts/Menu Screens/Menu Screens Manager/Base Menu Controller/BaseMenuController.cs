@@ -3,7 +3,21 @@ using System.Collections;
 
 public class BaseMenuController : MonoBehaviour {
 
+
+    #region Public Properties
+
+    public eMenuScreenType ScreenType;
+
+    #endregion
+
+    #region Private
+
     private Animator _animator;
+
+    #endregion
+
+
+    #region Initialize
 
     // Use this for initialization
     void Start () {
@@ -13,15 +27,15 @@ public class BaseMenuController : MonoBehaviour {
             Debug.LogError("ERROR - Menu screen missing animaotr controller");
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-	}
+    #endregion
 
 
-	public virtual void OnEnterAnimationComplete() {}
+    #region Subclassing
+
+    public virtual void OnEnterAnimationComplete() {}
 
 	public virtual void OnExitAnimationComplete() {}
 
+    #endregion
 }

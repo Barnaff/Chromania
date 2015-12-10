@@ -5,17 +5,11 @@ using System;
 public class MainMenuController : BaseMenuController {
 
 
-	// Use this for initialization
-	void Start () {
-       
-	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-	public override void OnEnterAnimationComplete ()
+    #region BaseMenuController Implementation
+
+    public override void OnEnterAnimationComplete ()
 	{
 		Debug.Log("Enter animation complete");
 	}
@@ -24,4 +18,16 @@ public class MainMenuController : BaseMenuController {
     {
         throw new NotImplementedException();
     }
+
+    #endregion
+
+
+    #region User Interactions
+
+    public void PlayButtonAction()
+    {
+        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.ModeSelection);
+    }
+
+    #endregion
 }
