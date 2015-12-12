@@ -37,9 +37,9 @@ public class MainLoader : MonoBehaviour {
 
         if (_componentFactoryContainer != null)
         {
-            GameObject componentFactory = Instantiate(_componentFactoryContainer.gameObject) as GameObject;
+            Instantiate(_componentFactoryContainer.gameObject);
             yield return StartCoroutine(InitializeComponents());
-        }
+        } 
 
         MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.MainMenu);
 

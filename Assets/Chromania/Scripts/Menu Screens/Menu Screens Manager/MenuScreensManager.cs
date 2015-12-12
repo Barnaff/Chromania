@@ -34,6 +34,11 @@ public class MenuScreensManager : MonoBehaviour {
         {
             screen.gameObject.SetActive(false);
         }
+
+        if (_selectedScreenOnStart != eMenuScreenType.None)
+        {
+            DisplayMenuScreen(_selectedScreenOnStart);
+        }
     }
 
     #endregion
@@ -69,16 +74,21 @@ public class MenuScreensManager : MonoBehaviour {
     {
         if (_currentScreen != null)
         {
-            yield return null;
+            if (animated)
+            {
+                yield return _currentScreen.DisplayExitAnimationCorutine();
+            }
             _currentScreen.gameObject.SetActive(false);
         }
-
 
         _currentScreen = GetScreen(screenType);
 
         _currentScreen.gameObject.SetActive(true);
+        if (animated)
+        {
+            yield return _currentScreen.DisplayEnterAnimationCorutine();
+        }
 
-        yield return null;
     }
 
     private BaseMenuController GetScreen(eMenuScreenType screenType)

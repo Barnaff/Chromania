@@ -20,8 +20,6 @@ public class BaseMenuController : MonoBehaviour {
     [SerializeField]
     private float _fixedAnimationDuration = 1.0f;
 
-    private bool _isAnimating = false;
-
     [SerializeField]
     private string _enterAnimationName;
 
@@ -34,7 +32,7 @@ public class BaseMenuController : MonoBehaviour {
     #region Initialize
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         _animator = this.gameObject.GetComponent<Animator>();
         if (_animator == null)
         {
@@ -54,9 +52,10 @@ public class BaseMenuController : MonoBehaviour {
 
     public IEnumerator DisplayEnterAnimationCorutine(System.Action completionAction = null)
     {
-        
+        _animator.Play(_enterAnimationName);
+        float animationDuration = _animator.GetCurrentAnimatorStateInfo(0).length;
         float animationTimeCount = 0;
-        while (_isAnimating && animationTimeCount < _fixedAnimationDuration)
+        while (animationTimeCount < animationDuration)
         {
             animationTimeCount += Time.deltaTime;
             yield return null;
@@ -76,8 +75,11 @@ public class BaseMenuController : MonoBehaviour {
 
     public IEnumerator DisplayExitAnimationCorutine(System.Action completionAction = null)
     {
+        _animator.Play(_exitAnimationName);
+
+        float animationDuration = _animator.GetCurrentAnimatorStateInfo(0).length;
         float animationTimeCount = 0;
-        while (_isAnimating && animationTimeCount < _fixedAnimationDuration)
+        while (animationTimeCount < animationDuration)
         {
             animationTimeCount += Time.deltaTime;
             yield return null;
@@ -93,22 +95,10 @@ public class BaseMenuController : MonoBehaviour {
     #endregion
 
 
-    #region Screen Events
+    #region Private
 
-    public void OnEnterAnimationComplete()
-    {
-        _isAnimating = false;
-    }
-
-    public void OnExitAnimationComplete()
-    {
-        _isAnimating = false;
-    }
 
     #endregion
-
-
-  
 
 
 

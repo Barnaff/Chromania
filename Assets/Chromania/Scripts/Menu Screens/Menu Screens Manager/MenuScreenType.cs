@@ -1,5 +1,6 @@
 ﻿public enum eMenuScreenType
 {
+    None,
     MainMenu,
     ModeSelection,
     ChromiezSelection,
