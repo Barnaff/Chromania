@@ -16,15 +16,7 @@ public class ModeSelectionController : BaseMenuController
 
     }
 
-    public override void OnEnterAnimationComplete()
-    {
-        base.OnEnterAnimationComplete();
-    }
 
-    public override void OnExitAnimationComplete()
-    {
-        base.OnExitAnimationComplete();
-    }
 
 
     public void BackButtonAction()
@@ -34,11 +26,11 @@ public class ModeSelectionController : BaseMenuController
 
     public void RushButtonAction()
     {
-
+        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.ChromiezSelection);
     }
 
     public void ClassicButtonAction()
     {
-
+        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.ChromiezSelection);
     }
 }

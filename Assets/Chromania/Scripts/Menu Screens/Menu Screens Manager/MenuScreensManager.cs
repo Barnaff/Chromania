@@ -9,6 +9,9 @@ public class MenuScreensManager : MonoBehaviour {
     [SerializeField]
     public List<BaseMenuController> _menuScreens;
 
+    [SerializeField]
+    private eMenuScreenType _selectedScreenOnStart;
+
     #endregion
 
     #region Private Properties
@@ -27,7 +30,6 @@ public class MenuScreensManager : MonoBehaviour {
     void Awake ()
     {
         MenuScreensManager._instance = this;
-
         foreach (BaseMenuController screen in _menuScreens)
         {
             screen.gameObject.SetActive(false);

@@ -2,7 +2,7 @@
 {
     MainMenu,
     ModeSelection,
-    ColorSelection,
+    ChromiezSelection,
     GameOver,
     Shop,
 }

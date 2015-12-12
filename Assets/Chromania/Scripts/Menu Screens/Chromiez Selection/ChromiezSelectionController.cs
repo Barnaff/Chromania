@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-public class MainMenuController : BaseMenuController {
+public class ChromiezSelectionController : BaseMenuController {
 
+    #region Private Properties
 
-	
+    #endregion
+
 
     #region BaseMenuController Implementation
 
@@ -14,11 +15,16 @@ public class MainMenuController : BaseMenuController {
     #endregion
 
 
-    #region User Interactions
+    #region User Interaction
 
-    public void PlayButtonAction()
+    public void BackButtonAction()
     {
         MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.ModeSelection);
+    }
+
+    public void LetsGoButtonAction()
+    {
+
     }
 
     #endregion

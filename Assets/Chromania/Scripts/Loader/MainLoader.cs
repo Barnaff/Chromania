@@ -11,6 +11,9 @@ public class MainLoader : MonoBehaviour {
     [SerializeField]
     private GameObject _loaderController;
 
+    [SerializeField]
+    private ComponentFactory _componentFactoryContainer;
+
     #endregion
 
 
@@ -26,12 +29,17 @@ public class MainLoader : MonoBehaviour {
     #endregion
 
 
-
     #region Private
 
     IEnumerator GameInitializationCorutine()
     {
         yield return new WaitForSeconds(1.0f);
+
+        if (_componentFactoryContainer != null)
+        {
+            GameObject componentFactory = Instantiate(_componentFactoryContainer.gameObject) as GameObject;
+            yield return StartCoroutine(InitializeComponents());
+        }
 
         MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.MainMenu);
 
@@ -43,6 +51,11 @@ public class MainLoader : MonoBehaviour {
         yield return null;
 
         Destroy(this.gameObject);
+    }
+
+    IEnumerator InitializeComponents()
+    {
+        yield return null;
     }
 
     #endregion
