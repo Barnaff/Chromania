@@ -24,7 +24,11 @@ public class ChromiezSelectionController : BaseMenuController {
 
     public void LetsGoButtonAction()
     {
-
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.StartGame();
+        }
     }
 
     #endregion

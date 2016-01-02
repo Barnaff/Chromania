@@ -4,14 +4,18 @@ using System;
 
 public class GameDataManager : FactoryComponent, IGameData {
 
+    #region FactoryComponent Implementation
 
-    public override IEnumerator InitComponent()
+    public override void InitComponentAtStart()
     {
-        throw new NotImplementedException();
+
     }
 
-    public override void StartComponent()
+    public override void InitComponentAtAwake()
     {
-        throw new NotImplementedException();
+
     }
+
+    #endregion
+
 }

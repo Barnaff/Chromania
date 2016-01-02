@@ -4,8 +4,14 @@ using System.Collections;
 public abstract class FactoryComponent : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-        StartComponent();
+	void Awake ()
+    {
+        InitComponentAtAwake();
+    }
+
+    void Start()
+    {
+        InitComponentAtStart();
     }
 	
 	// Update is called once per frame
@@ -13,7 +19,7 @@ public abstract class FactoryComponent : MonoBehaviour {
 	
 	}
 
-    public abstract IEnumerator InitComponent();
+    public abstract void InitComponentAtStart();
+    public abstract void InitComponentAtAwake();
 
-    public abstract void StartComponent();
 }
