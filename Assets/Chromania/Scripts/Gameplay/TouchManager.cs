@@ -135,6 +135,7 @@ public class TouchManager : MonoBehaviour {
 		Vector3 position = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 0.0f));
 		position.z = 0.0f;
 		GameObject touchController = Lean.LeanPool.Spawn(TouchPrefab, position, Quaternion.identity) as GameObject;
+        touchController.GetComponent<TouchController>().Init();
         if (_touches.Contains (touch.fingerId)) 
 		{
 			RemoveTouch(touch);
