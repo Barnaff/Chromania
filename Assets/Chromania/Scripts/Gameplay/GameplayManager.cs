@@ -51,10 +51,17 @@ public class GameplayManager : MonoBehaviour {
 
     private void InitializeGameplay()
     {
+        IGameSetup gameSetupManager = ComponentFactory.GetAComponent<IGameSetup>();
+        if (gameSetupManager != null)
+        {
+            _selectedChromiez = gameSetupManager.SelectedChromiez;
+            _selectedGameMode = gameSetupManager.SelectedGameMode;
+        }
+
         _spwanController.Init(_selectedChromiez, 1);
         _colorZonesManager.Init(_selectedChromiez);
 
-        switch(_selectedGameMode)
+        switch (_selectedGameMode)
         {
             case eGameMode.Classic:
                 {

@@ -12,6 +12,9 @@ public class GameSetupManager : FactoryComponent, IGameSetup
     [SerializeField]
     private eChromieType[] _selectedChromiez;
 
+    [SerializeField]
+    private eGameMode _selectedGameMode;
+
     #endregion
 
 
@@ -64,6 +67,16 @@ public class GameSetupManager : FactoryComponent, IGameSetup
         return -1;
     }
 
+    public bool RemoveChromieAtIndex(int index)
+    {
+        if (_selectedChromiez[index] != eChromieType.None)
+        {
+            _selectedChromiez[index] = eChromieType.None;
+            return true;
+        }
+        return false;
+    }
+
     public bool IsSelected(eChromieType chromieType)
     {
         for (int i = 0; i < _selectedChromiez.Length; i++)
@@ -87,6 +100,18 @@ public class GameSetupManager : FactoryComponent, IGameSetup
     public bool CanAddChromie()
     {
         return IsSelected(eChromieType.None);
+    }
+
+    public eGameMode SelectedGameMode
+    {
+        get
+        {
+            return _selectedGameMode;
+        }
+        set
+        {
+            _selectedGameMode = value;
+        }
     }
 
     #endregion

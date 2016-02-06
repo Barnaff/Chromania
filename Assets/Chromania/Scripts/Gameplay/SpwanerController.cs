@@ -9,9 +9,6 @@ public class SpwanerController : MonoBehaviour {
     private eChromieType[] _selectedChromies;
 
     [SerializeField]
-    private GameObject[] _chromiesPrefabs;
-
-    [SerializeField]
     private Vector3 _spwanBasePosition;
 
     private const float FORCE_VECTOR_MODIFIER = 450;
@@ -35,6 +32,8 @@ public class SpwanerController : MonoBehaviour {
 
     public void Init(eChromieType[] selectedCollors, int level)
     {
+        _spwanBasePosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, 0, 10));
+
         _selectedChromies = selectedCollors;
 
         InvokeRepeating("MockSpwan", 1.0f, 1.0f);
@@ -70,14 +69,11 @@ public class SpwanerController : MonoBehaviour {
 
     private GameObject GetChromiePrefab(eChromieType chromieType)
     {
-        for (int i=0; i< _chromiesPrefabs.Length; i++)
+        IChromiezAssetsCache chromiezAssetsCache = ComponentFactory.GetAComponent<IChromiezAssetsCache>();
+        if (chromiezAssetsCache != null)
         {
-           if (_chromiesPrefabs[i].GetComponent<ChromieController>().ChromieType == chromieType)
-            {
-                return _chromiesPrefabs[i];
-            }
+            return chromiezAssetsCache.GetGameplayChromie(chromieType);
         }
-        Debug.LogError("ERROR - Missing prefab fro chromie " + chromieType);
         return null;
     }
 

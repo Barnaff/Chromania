@@ -50,14 +50,20 @@ public class GameDataManager : FactoryComponent, IGameData {
         }
     }
 
-    public GameData GetGameData()
+    public GameData GameData
     {
-        return _gameData;
+        get
+        {
+            return _gameData;
+        }
     }
 
-    public List<ChromieDataObject> GetAllChromiezData()
+    public List<ChromieDataObject> ChromiezList
     {
-        return _gameData.ChromiezData;
+        get
+        { 
+            return _gameData.ChromiezData;
+       }
     }
 
 
