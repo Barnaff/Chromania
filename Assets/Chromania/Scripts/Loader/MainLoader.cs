@@ -22,7 +22,8 @@ public class MainLoader : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-
+        Application.targetFrameRate = 60;
+        
         StartCoroutine(GameInitializationCorutine());
 	}
 
