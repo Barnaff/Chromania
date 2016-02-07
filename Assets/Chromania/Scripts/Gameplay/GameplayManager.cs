@@ -35,7 +35,9 @@ public class GameplayManager : MonoBehaviour {
         {
             throw new System.Exception("Missing color zones manager!");
         }
-       InitializeGameplay();
+
+        GameplayEventsDispatcher.Instance().OnChromieHitColorZone += OnChromieHitColorZoneHandler;
+        InitializeGameplay();
     }
 	
 	// Update is called once per frame
@@ -89,6 +91,19 @@ public class GameplayManager : MonoBehaviour {
     {
         _timerPanelController.gameObject.SetActive(true);
         _livesPanelController.gameObject.SetActive(false);
+    }
+
+    #endregion
+
+
+    #region Events
+
+    private void OnChromieHitColorZoneHandler(ChromieController chromieController, ColorZoneController colorZone)
+    {
+        if (chromieController.ChromieType == colorZone.ColorZoneType)
+        {
+            chromieController.CollectChromie();
+        }
     }
 
     #endregion

@@ -67,11 +67,11 @@ public class ColorZoneController : MonoBehaviour {
 
     public void SetColorZone(eChromieType colorType)
     {
-        /*
+        
         ColorZoneType = colorType;
 
-        IGameDataLoader gameDataLoader = ComponentsFactory.GetAComponent<IGameDataLoader>() as IGameDataLoader;
-        _colorDefenition = gameDataLoader.GetGameData().GetChromie(ColorZoneType);
+        IGameData gameDataLoader = ComponentFactory.GetAComponent<IGameData>();
+        _colorDefenition = gameDataLoader.GameData.GetChromie(ColorZoneType);
         if (_colorDefenition != null)
         {
             Color overlayColor = _colorDefenition.ColorValue;
@@ -91,7 +91,7 @@ public class ColorZoneController : MonoBehaviour {
         }
 
         _baseScale = this.gameObject.transform.localScale;
-        */
+        
     }
 
     public void CollectChromie(ChromieController chromieController)

@@ -52,12 +52,9 @@ public class ChromiezAsseetsCacheManager : FactoryComponent, IChromiezAssetsCach
         }
 
         string chromiePath = GAMEPLAY_CHROMIEZ_PATH + colorType.ToString();
-        Debug.Log(chromiePath);
         GameObject chromieGameobject = Resources.Load(chromiePath) as GameObject;
         if (chromieGameobject != null)
         {
-            Debug.Log(">>> " + chromieGameobject);
-            Debug.Log(">>> name " + chromieGameobject.name);
             _loadedChromiezGameobjects.Add(colorType, chromieGameobject);
             return chromieGameobject;
         }

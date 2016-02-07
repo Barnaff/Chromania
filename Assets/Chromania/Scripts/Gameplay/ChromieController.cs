@@ -90,6 +90,11 @@ public class ChromieController : MonoBehaviour, IDraggable {
         }
     }
 
+    public void CollectChromie()
+    {
+        Lean.LeanPool.Despawn(this.gameObject);
+    }
+
     #endregion
 
 
@@ -98,6 +103,19 @@ public class ChromieController : MonoBehaviour, IDraggable {
     private void ChromieDropped()
     {
         GameplayEventsDispatcher.SendChromieDroppedd(this);
+    }
+
+    #endregion
+
+
+    #region Physics
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "ColorZone")
+        {
+            GameplayEventsDispatcher.SendChromieHitColorZone(this, collider.GetComponent<ColorZoneController>());
+        }
     }
 
     #endregion

@@ -10,6 +10,7 @@ public class GameplayEventsDispatcher : MonoBehaviour {
 
     public event ChromieSpawnedDelegate OnChromieSpawned;
     public event ChromieDroppedDelegate OnChromieDropped;
+    public event ChromieHitColorzoneDelegate OnChromieHitColorZone;
 
     private static GameplayEventsDispatcher _instance;
 
@@ -37,9 +38,12 @@ public class GameplayEventsDispatcher : MonoBehaviour {
 
     #region Events
 
-    public static void SendChromieSpwaned(ChromieController chromieController)
+    public void ChromieHitColorZone(ChromieController chromieController, ColorZoneController colorZone)
     {
-        GameplayEventsDispatcher.Instance().ChromieSpwaned(chromieController);
+        if (OnChromieHitColorZone != null)
+        {
+            OnChromieHitColorZone(chromieController, colorZone);
+        }
     }
 
     public void ChromieSpwaned(ChromieController cheomieController)
@@ -50,17 +54,32 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
-    public static void SendChromieDroppedd(ChromieController chromieController)
-    {
-        GameplayEventsDispatcher.Instance().ChromieDropped(chromieController);
-    }
-
     public void ChromieDropped(ChromieController chromieController)
     {
         if (OnChromieDropped != null)
         {
             OnChromieDropped(chromieController);
         }
+    }
+
+    #endregion
+
+
+    #region Static Helpers
+
+    public static void SendChromieHitColorZone(ChromieController chromieController, ColorZoneController colorZone)
+    {
+        GameplayEventsDispatcher.Instance().ChromieHitColorZone(chromieController, colorZone);
+    }
+
+    public static void SendChromieSpwaned(ChromieController chromieController)
+    {
+        GameplayEventsDispatcher.Instance().ChromieSpwaned(chromieController);
+    }
+
+    public static void SendChromieDroppedd(ChromieController chromieController)
+    {
+        GameplayEventsDispatcher.Instance().ChromieDropped(chromieController);
     }
 
     #endregion
