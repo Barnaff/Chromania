@@ -41,15 +41,17 @@ public class GameSetupManager : FactoryComponent, IGameSetup
 
     public int AddChromie(eChromieType chromieType)
     {
-        for (int i = 0; i < _selectedChromiez.Length; i++)
+        if (!IsSelected(chromieType))
         {
-            if (_selectedChromiez[i] == eChromieType.None)
+            for (int i = 0; i < _selectedChromiez.Length; i++)
             {
-                _selectedChromiez[i] = chromieType;
-                return i;
+                if (_selectedChromiez[i] == eChromieType.None)
+                {
+                    _selectedChromiez[i] = chromieType;
+                    return i;
+                }
             }
         }
-        Debug.LogError("ERROR - trying to add chromie when there is no room!");
         return -1;
     }
 

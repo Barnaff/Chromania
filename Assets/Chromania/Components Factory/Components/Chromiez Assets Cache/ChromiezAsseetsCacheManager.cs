@@ -12,6 +12,7 @@ public class ChromiezAsseetsCacheManager : FactoryComponent, IChromiezAssetsCach
     private Dictionary<eChromieType, Sprite> _loadedChromiezSprites;
 
     private const string GAMEPLAY_CHROMIEZ_PATH = "Gameplay Chromiez/";
+    private const string GAMEPLAY_CHROMIEZ_SPRITES_PATH = "Chromiez Sprites/";
 
     #endregion
 
@@ -41,7 +42,21 @@ public class ChromiezAsseetsCacheManager : FactoryComponent, IChromiezAssetsCach
 
     public Sprite GetChromieSprite(eChromieType colorType)
     {
-        throw new System.NotImplementedException();
+        if (_loadedChromiezSprites.ContainsKey(colorType))
+        {
+            return _loadedChromiezSprites[colorType];
+        }
+
+        string chromiePath = GAMEPLAY_CHROMIEZ_SPRITES_PATH + colorType.ToString();
+        Sprite chromieSprite = Resources.Load<Sprite>(chromiePath);
+
+        if (chromieSprite != null)
+        {
+            _loadedChromiezSprites.Add(colorType, chromieSprite);
+            return chromieSprite;
+        }
+
+        return null;
     }
 
     public GameObject GetGameplayChromie(eChromieType colorType)

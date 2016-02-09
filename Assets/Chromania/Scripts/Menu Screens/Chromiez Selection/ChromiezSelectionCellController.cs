@@ -41,6 +41,15 @@ public class ChromiezSelectionCellController : MonoBehaviour {
             color.a = 1;
             _background.color = color;
         }
+
+        if (_chromieIcon != null)
+        {
+            IChromiezAssetsCache chromieAssetCache = ComponentFactory.GetAComponent<IChromiezAssetsCache>();
+            if (chromieAssetCache != null)
+            {
+                _chromieIcon.sprite = chromieAssetCache.GetChromieSprite(_chromieData.ChromieColor);
+            }
+        }
     }
 
     public void CellClickAction()

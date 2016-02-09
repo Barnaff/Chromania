@@ -57,6 +57,8 @@ public class ChromiezSelectionController : BaseMenuController {
         Debug.Log("remove selection: " + index);
 
         _gameSetup.RemoveChromieAtIndex(index);
+
+        UpdateSelectionIndicators();
     }
 
     #endregion
@@ -74,6 +76,8 @@ public class ChromiezSelectionController : BaseMenuController {
         }
 
         PopulateChromiezInventory();
+
+        UpdateSelectionIndicators();
     }
 
     #endregion
@@ -101,8 +105,22 @@ public class ChromiezSelectionController : BaseMenuController {
                 }
             }
         }
-       
+    }
 
+    private void UpdateSelectionIndicators()
+    {
+        IChromiezAssetsCache chromieAssetCache = ComponentFactory.GetAComponent<IChromiezAssetsCache>();
+        if (chromieAssetCache != null)
+        {
+            for (int i=0; i< _selecttedIconsImages.Count; i++)
+            {
+                eChromieType selectedChromie = _gameSetup.SelectedChromiez[i];
+                Sprite chromieSprite = chromieAssetCache.GetChromieSprite(selectedChromie);
+                Image selectedChromieImage = _selecttedIconsImages[i];
+                selectedChromieImage.sprite = chromieSprite;
+            }
+        }
+       
     }
 
 
@@ -118,9 +136,10 @@ public class ChromiezSelectionController : BaseMenuController {
         if (_gameSetup.CanAddChromie())
         {
             int result = _gameSetup.AddChromie(cellController.ChromieData.ChromieColor);
-            if (result > 0)
+            if (result > -1)
             {
                 cellController.SetSelected(true);
+                UpdateSelectionIndicators();
             }
         }
        
