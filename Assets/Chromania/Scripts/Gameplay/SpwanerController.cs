@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SpwanerController : MonoBehaviour {
 
@@ -14,6 +15,50 @@ public class SpwanerController : MonoBehaviour {
     private const float FORCE_VECTOR_MODIFIER = 450;
     private const float SPWAN_POSITION_MULTIPLIER = 0.032f;
 
+
+    private enum eSpwanerPhase
+    {
+        None,
+        WaveStarted,
+        SequanceStarted,
+        SpwanItems,
+        SequenceFinished,
+        WaveFinished,
+    }
+
+    private bool _paused;
+
+    private eChromieType _overrideColor;
+
+    private eSpwanerPhase _phase;
+
+    public bool Paused
+    {
+        get
+        {
+            return _paused;
+        }
+
+        set
+        {
+            _paused = value;
+        }
+    }
+
+    private List<WaveDefenition> _wavesList;
+
+    private int _currentLevel;
+
+    private WaveDefenition _currentWave;
+
+    private SequanceDefenition _currentSequance;
+
+    private float _waveTimeCount;
+
+    private float _sequanceTimeCount;
+
+    private int _currentSequanceIndex;
+
     #endregion
 
 
@@ -24,9 +69,66 @@ public class SpwanerController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	void Update ()
+    {
+        if (!Paused)
+        {
+            switch (_phase)
+            {
+                case eSpwanerPhase.None:
+                    {
+                        StartNewWave();
+                        break;
+                    }
+                case eSpwanerPhase.WaveStarted:
+                    {
+                        _waveTimeCount += Time.deltaTime;
+                        if (_waveTimeCount > _currentWave.StartDelay)
+                        {
+                            StartNextSequance();
+                        }
+                        break;
+                    }
+                case eSpwanerPhase.SequanceStarted:
+                    {
+                        _sequanceTimeCount += Time.deltaTime;
+                        if (_sequanceTimeCount > _currentSequance.StartInterval)
+                        {
+                            _phase = eSpwanerPhase.SpwanItems;
+                        }
+                        break;
+                    }
+                case eSpwanerPhase.SpwanItems:
+                    {
+                        SpwanItems();
+                        break;
+                    }
+                case eSpwanerPhase.SequenceFinished:
+                    {
+                        _sequanceTimeCount += Time.deltaTime;
+                        if (_sequanceTimeCount > _currentSequance.EndInterval)
+                        {
+                            EndSequance();
+                        }
+                        break;
+                    }
+                case eSpwanerPhase.WaveFinished:
+                    {
+                        _waveTimeCount += Time.deltaTime;
+                        if (_waveTimeCount > _currentWave.EndDelay)
+                        {
+                            _phase = eSpwanerPhase.None;
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        _phase = eSpwanerPhase.None;
+                        break;
+                    }
+            }
+        }
+    }
 
     #region Public 
 
@@ -36,7 +138,9 @@ public class SpwanerController : MonoBehaviour {
 
         _selectedChromies = selectedCollors;
 
-        InvokeRepeating("MockSpwan", 1.0f, 1.0f);
+        _wavesList = WavesDataLoader.WavesList();
+
+        // InvokeRepeating("MockSpwan", 1.0f, 1.0f);
     }
 
     #endregion
@@ -92,4 +196,124 @@ public class SpwanerController : MonoBehaviour {
     }
 
     #endregion
+
+
+    #region Private
+
+    private void StartNewWave()
+    {
+        _currentWave = GetNewWave();
+        _waveTimeCount = 0;
+        _currentSequanceIndex = 0;
+        _phase = eSpwanerPhase.WaveStarted;
+    }
+
+    private void StartNextSequance()
+    {
+        if (_currentWave.SequanceList.Count > _currentSequanceIndex)
+        {
+            _currentSequance = _currentWave.SequanceList[_currentSequanceIndex];
+            _currentSequanceIndex++;
+            _sequanceTimeCount = 0;
+            _phase = eSpwanerPhase.SequanceStarted;
+        }
+        else
+        {
+            _phase = eSpwanerPhase.WaveFinished;
+        }
+    }
+
+    private void EndSequance()
+    {
+        StartNextSequance();
+    }
+
+    private void SpwanItems()
+    {
+        foreach (SpwanedItemDefenition spwanItem in _currentSequance.SpwanItemList)
+        {
+            SpwanItem(spwanItem);
+        }
+        _sequanceTimeCount = 0;
+        _phase = eSpwanerPhase.SequenceFinished;
+    }
+
+    private WaveDefenition GetNewWave()
+    {
+        WaveDefenition wave = _wavesList[Random.Range(0, _wavesList.Count)];
+        return wave;
+    }
+
+    private void SpwanItem(SpwanedItemDefenition spwanedItem)
+    {
+        eChromieType colorType;
+        if (_overrideColor != eChromieType.None)
+        {
+            colorType = _overrideColor;
+        }
+        else
+        {
+            colorType = ColorForSpwanColorType(spwanedItem.SpwanedColor);
+        }
+        GameObject chromie = CreateChromie(colorType);
+
+        Vector3 spwanPosition = _spwanBasePosition;
+        spwanPosition.x += spwanedItem.XPosition * 0.032f;
+        chromie.transform.position = spwanPosition;
+
+        Vector2 spwanForce = spwanedItem.ForceVector;
+        spwanForce.y += 450;
+        chromie.GetComponent<Rigidbody2D>().AddForce(spwanForce);
+        chromie.GetComponent<Rigidbody2D>().angularVelocity = Random.Range(-90, 90);
+
+        GameplayEventsDispatcher.SendChromieSpwaned(chromie.GetComponent<ChromieController>());
+    }
+
+    private eChromieType ColorForSpwanColorType(eSpwanedColorType spwanColorType)
+    {
+        eChromieType colorType = eChromieType.None;
+        switch (spwanColorType)
+        {
+            case eSpwanedColorType.RandomCorner:
+                {
+                    colorType = _selectedChromies[Random.Range(0, _selectedChromies.Length)];
+                    break;
+                }
+            case eSpwanedColorType.BottomLeft:
+                {
+                    colorType = _selectedChromies[3];
+                    break;
+                }
+            case eSpwanedColorType.TopLeft:
+                {
+                    colorType = _selectedChromies[0];
+                    break;
+                }
+            case eSpwanedColorType.TopRight:
+                {
+                    colorType = _selectedChromies[1];
+                    break;
+                }
+            case eSpwanedColorType.BottomRight:
+                {
+                    colorType = _selectedChromies[2];
+                    break;
+                }
+        }
+        return colorType;
+    }
+
+    private GameObject CreateChromie(eChromieType colorType)
+    {
+        GameObject chromiePrefab = GetChromiePrefab(colorType);
+        GameObject newChromie = Lean.LeanPool.Spawn(chromiePrefab);
+        ChromieController chromieController = newChromie.GetComponent<ChromieController>();
+        chromieController.Init();
+
+        return newChromie;
+
+    }
+
+    #endregion
+
 }

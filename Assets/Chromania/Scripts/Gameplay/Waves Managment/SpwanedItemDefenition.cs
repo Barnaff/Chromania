@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public enum SpwanedColorType
+public enum eSpwanedColorType
 {
 	RandomCorner,
 	BottomLeft,
@@ -17,7 +17,7 @@ public class SpwanedItemDefenition  {
 	public int ID;
 	public Vector2 ForceVector;
 	public float XPosition;
-	public SpwanedColorType SpwanedColor;
+	public eSpwanedColorType SpwanedColor;
 
 	#endregion
 
@@ -30,7 +30,7 @@ public class SpwanedItemDefenition  {
 		string[] forceVectorStringArray = jsonObject["forceVector"].ToString().Replace("\"", "").Split(","[0]);
 		ForceVector = new Vector2(float.Parse(forceVectorStringArray[0]), float.Parse(forceVectorStringArray[1]));
 		XPosition = float.Parse(jsonObject["xPosition"].ToString());
-		SpwanedColor = (SpwanedColorType)int.Parse(jsonObject["colorType"].ToString());
+		SpwanedColor = (eSpwanedColorType)int.Parse(jsonObject["colorType"].ToString());
 	}
 	
 	#endregion
