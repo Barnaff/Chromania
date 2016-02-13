@@ -18,9 +18,6 @@ public class BaseMenuController : MonoBehaviour {
     private System.Action _animationCompletionAction;
 
     [SerializeField]
-    private float _fixedAnimationDuration = 1.0f;
-
-    [SerializeField]
     private string _enterAnimationName;
 
     [SerializeField]

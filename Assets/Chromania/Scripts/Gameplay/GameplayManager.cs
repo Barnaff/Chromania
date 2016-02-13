@@ -36,7 +36,7 @@ public class GameplayManager : MonoBehaviour {
             throw new System.Exception("Missing color zones manager!");
         }
 
-        GameplayEventsDispatcher.Instance().OnChromieHitColorZone += OnChromieHitColorZoneHandler;
+        GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
         InitializeGameplay();
     }
 	
@@ -83,8 +83,7 @@ public class GameplayManager : MonoBehaviour {
 
     private void InitializeClassicMode()
     {
-        _timerPanelController.gameObject.SetActive(false);
-        _livesPanelController.gameObject.SetActive(true);
+        _livesPanelController.Init();
     }
 
     private void InitializeRushMode()

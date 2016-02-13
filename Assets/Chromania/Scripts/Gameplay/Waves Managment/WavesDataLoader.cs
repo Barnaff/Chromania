@@ -25,9 +25,9 @@ public class WavesDataLoader : MonoBehaviour {
 
 	private void LoadWavesData()
 	{
-		Debug.Log("load waves data");
+		//Debug.Log("load waves data");
 		TextAsset textAsset = Resources.Load(DataFileName) as TextAsset;
-		Debug.Log(textAsset.text);
+		//Debug.Log(textAsset.text);
 
 		JSONObject j = new JSONObject(textAsset.text);
 		JSONObject waves = j["wavesArray"];
