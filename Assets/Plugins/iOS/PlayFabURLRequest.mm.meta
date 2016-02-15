@@ -47,7 +47,7 @@ PluginImporter:
       enabled: 1
       settings:
         CompileFlags: 
-        FrameworkDependencies: Accounts;CoreFoundation;GameKit;MobileCoreServices;Security;Social;StoreKit;Twitter;
+        FrameworkDependencies: AdSupport;
   userData: 
   assetBundleName: 
   assetBundleVariant: 
