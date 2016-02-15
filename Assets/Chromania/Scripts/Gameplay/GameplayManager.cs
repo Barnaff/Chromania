@@ -37,6 +37,7 @@ public class GameplayManager : MonoBehaviour {
         }
 
         GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
+        GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandler;
         InitializeGameplay();
     }
 	
@@ -103,6 +104,11 @@ public class GameplayManager : MonoBehaviour {
         {
             chromieController.CollectChromie();
         }
+    }
+
+    private void OnGameOverHandler()
+    {
+        Debug.Log("Game over");
     }
 
     #endregion

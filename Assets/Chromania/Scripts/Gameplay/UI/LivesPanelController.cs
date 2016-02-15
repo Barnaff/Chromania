@@ -47,11 +47,7 @@ public class LivesPanelController : MonoBehaviour {
 
     private void OnChromieDroppedHandler(ChromieController chromieController)
     {
-        _currentLivesCount--;
-        if (_currentLivesCount <= 0)
-        {
-            Debug.Log("Game Over!");
-        }
+        ReduceLive();
     }
 
     #endregion
@@ -59,7 +55,19 @@ public class LivesPanelController : MonoBehaviour {
 
     #region Private
 
-    
+    private void AddLive()
+    {
+
+    }
+
+    private void ReduceLive()
+    {
+        _currentLivesCount--;
+        if (_currentLivesCount <= 0)
+        {
+            GameplayEventsDispatcher.SendGameOver();
+        }
+    }
 
     #endregion
 }

@@ -9,6 +9,7 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public delegate void ChromieDroppedDelegate(ChromieController chromieController);
     public delegate void ChromieHitColorzoneDelegate(ChromieController chromieController, ColorZoneController colorZone);
     public delegate void ChromieCollectedDelegate(ChromieController chromieController);
+    public delegate void GameoverDelegate();
 
     #endregion
 
@@ -18,6 +19,7 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public event ChromieDroppedDelegate OnChromieDropped;
     public event ChromieHitColorzoneDelegate OnChromieHitColorZone;
     public event ChromieCollectedDelegate OnChromieCollected;
+    public event GameoverDelegate OnGameOver;
 
     #endregion
 
@@ -87,6 +89,14 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
+    public void GameOver()
+    {
+        if (OnGameOver != null)
+        {
+            OnGameOver();
+        }
+    }
+
     #endregion
 
 
@@ -105,6 +115,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public static void SendChromieDroppedd(ChromieController chromieController)
     {
         GameplayEventsDispatcher.Instance.ChromieDropped(chromieController);
+    }
+
+    public static void SendGameOver()
+    {
+        GameplayEventsDispatcher.Instance.GameOver();
     }
 
     #endregion
