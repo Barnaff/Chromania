@@ -111,7 +111,8 @@ public class ColorZoneController : MonoBehaviour {
     public void DisplayIntroAnimation(System.Action completionAction)
     {
         _completionAction = completionAction;
-        iTween.PunchScale(this.gameObject, iTween.Hash("time", 0.5f, "x", _scaleValue, "y", _scaleValue, "z", _scaleValue, "easetype", iTween.EaseType.easeOutElastic, "oncomplete", "FinishedIntroAnimation", "oncompletetarget", this.gameObject));
+        iTween.PunchScale(this.gameObject, iTween.Hash("time", 0.5f, "x", _scaleValue, "y", _scaleValue, "z", _scaleValue, "easetype",
+            iTween.EaseType.easeOutElastic, "oncomplete", "FinishedIntroAnimation", "oncompletetarget", this.gameObject));
 
     }
 
@@ -131,11 +132,13 @@ public class ColorZoneController : MonoBehaviour {
 
     private IEnumerator DisplayCollectAnimation()
     {
-        iTween.Stop(this.gameObject);
-        yield return new WaitForEndOfFrame();
+       // iTween.Stop(Glow);
+       // iTween.Stop(Whirlwind);
+        yield return null;
 
-        this.gameObject.transform.localScale = _baseScale * _scaleValue;
-        iTween.PunchScale(this.gameObject, iTween.Hash("time", 1.0f, "x", 4.0f, "y", 4.0f, "z", 4.0f));
+        // this.gameObject.transform.localScale = _baseScale * _scaleValue;
+        iTween.PunchScale(Glow, iTween.Hash("time", 1.0f, "amount", new Vector3(1.0f, 1.0f, 1.0f)));
+        iTween.PunchScale(Whirlwind, iTween.Hash("time", 1.0f, "amount", new Vector3(1.0f, 1.0f, 1.0f)));
 
         yield return null;
     }

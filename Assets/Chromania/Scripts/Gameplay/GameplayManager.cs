@@ -118,6 +118,11 @@ public class GameplayManager : MonoBehaviour {
         if (chromieController.ChromieType == colorZone.ColorZoneType)
         {
             chromieController.CollectChromie();
+
+            if (colorZone != null)
+            {
+                colorZone.CollectChromie(chromieController);
+            }
         }
     }
 
