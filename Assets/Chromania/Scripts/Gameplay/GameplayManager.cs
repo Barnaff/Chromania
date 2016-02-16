@@ -61,9 +61,7 @@ public class GameplayManager : MonoBehaviour {
             _selectedGameMode = gameSetupManager.SelectedGameMode;
         }
 
-        _spwanController.Init(_selectedChromiez, 1);
-        _colorZonesManager.Init(_selectedChromiez);
-
+        // do game mode initializations
         switch (_selectedGameMode)
         {
             case eGameMode.Classic:
@@ -77,6 +75,11 @@ public class GameplayManager : MonoBehaviour {
                     break;
                 }
         }
+
+        _colorZonesManager.Init(_selectedChromiez);
+
+        // TODO: display game intro, then start everything
+        StartPlaying();
     }
 
 
@@ -85,12 +88,24 @@ public class GameplayManager : MonoBehaviour {
     private void InitializeClassicMode()
     {
         _livesPanelController.Init();
+        _timerPanelController.gameObject.SetActive(false);
     }
 
     private void InitializeRushMode()
     {
-        _timerPanelController.gameObject.SetActive(true);
+        _timerPanelController.Init();
         _livesPanelController.gameObject.SetActive(false);
+    }
+
+    #endregion
+
+
+    #region Private
+
+    private void StartPlaying()
+    {
+        _spwanController.Init(_selectedChromiez, 1);
+        _timerPanelController.StartTimer();
     }
 
     #endregion

@@ -5,21 +5,20 @@ public class GameplayEventsDispatcher : MonoBehaviour {
 
     #region Delegates
 
-    public delegate void ChromieSpawnedDelegate(ChromieController chromieController);
-    public delegate void ChromieDroppedDelegate(ChromieController chromieController);
-    public delegate void ChromieHitColorzoneDelegate(ChromieController chromieController, ColorZoneController colorZone);
-    public delegate void ChromieCollectedDelegate(ChromieController chromieController);
+    public delegate void ChromieActionDelegate(ChromieController chromieController);
+    public delegate void ChromieColorZoneActionDelegate(ChromieController chromieController, ColorZoneController colorZone);
     public delegate void GameoverDelegate();
 
     #endregion
 
     #region Events
 
-    public event ChromieSpawnedDelegate OnChromieSpawned;
-    public event ChromieDroppedDelegate OnChromieDropped;
-    public event ChromieHitColorzoneDelegate OnChromieHitColorZone;
-    public event ChromieCollectedDelegate OnChromieCollected;
+    public event ChromieActionDelegate OnChromieSpawned;
+    public event ChromieActionDelegate OnChromieDropped;
+    public event ChromieColorZoneActionDelegate OnChromieHitColorZone;
+    public event ChromieActionDelegate OnChromieCollected;
     public event GameoverDelegate OnGameOver;
+    public event GameoverDelegate OnTimeUp;
 
     #endregion
 
@@ -97,6 +96,14 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
+    public void TimeUp()
+    {
+        if (OnTimeUp != null)
+        {
+            OnTimeUp();
+        }
+    }
+
     #endregion
 
 
@@ -120,6 +127,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public static void SendGameOver()
     {
         GameplayEventsDispatcher.Instance.GameOver();
+    }
+
+    public static void SendTimeUp()
+    {
+        GameplayEventsDispatcher.Instance.TimeUp();
     }
 
     #endregion
