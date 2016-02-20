@@ -110,7 +110,7 @@ public class ChromiezSelectionController : BaseMenuController {
     private void UpdateSelectionIndicators()
     {
         IChromiezAssetsCache chromieAssetCache = ComponentFactory.GetAComponent<IChromiezAssetsCache>();
-        if (chromieAssetCache != null)
+        if (chromieAssetCache != null && _gameSetup != null)
         {
             for (int i=0; i< _selecttedIconsImages.Count; i++)
             {

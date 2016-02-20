@@ -25,6 +25,8 @@ public class ColorZoneController : MonoBehaviour {
     /// </summary>
     public float RotationSpeed = 20.0f;
 
+    private Vector3 _originalScale;
+
     #endregion
 
 
@@ -132,13 +134,19 @@ public class ColorZoneController : MonoBehaviour {
 
     private IEnumerator DisplayCollectAnimation()
     {
-       // iTween.Stop(Glow);
-       // iTween.Stop(Whirlwind);
+        iTween tween = this.gameObject.GetComponent<iTween>();
+
+        if (tween != null)
+        {
+            Destroy(tween);
+        }
         yield return null;
 
-        // this.gameObject.transform.localScale = _baseScale * _scaleValue;
-        iTween.PunchScale(Glow, iTween.Hash("time", 1.0f, "amount", new Vector3(1.0f, 1.0f, 1.0f)));
-        iTween.PunchScale(Whirlwind, iTween.Hash("time", 1.0f, "amount", new Vector3(1.0f, 1.0f, 1.0f)));
+        yield return null;
+
+        this.gameObject.transform.localScale = _baseScale * _scaleValue;
+        iTween.PunchScale(this.gameObject, iTween.Hash("time", 1.0f, "amount", new Vector3(4.0f, 4.0f, 4.0f)));
+        
 
         yield return null;
     }
