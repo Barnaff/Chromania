@@ -90,7 +90,6 @@ public class iTween : MonoBehaviour{
 	
 	private Transform thisTransform;
 
-
 	/// <summary>
 	/// The type of easing to use based on Robert Penner's open source easing equations (http://www.robertpenner.com/easing_terms_of_use.html).
 	/// </summary>
@@ -425,7 +424,7 @@ public class iTween : MonoBehaviour{
 		//clean args:
 		args = iTween.CleanArgs(args);
 		
-		if (!args.Contains("onupdate") || !args.Contains("from") || !args.Contains("to")) {
+		if ( (!args.Contains("onupdate") && !args.Contains("onupdateaction")) || !args.Contains("from") || !args.Contains("to")) {
 			Debug.LogError("iTween Error: ValueTo() requires an 'onupdate' callback function and a 'from' and 'to' property.  The supplied 'onupdate' callback must accept a single argument that is the same type as the supplied 'from' and 'to' properties!");
 			return;
 		}else{
@@ -4597,6 +4596,7 @@ public class iTween : MonoBehaviour{
 	
 	void TweenStart(){		
 		CallBack("onstart");
+		CallBackAction("onstartaction");
 		
 		if(!loop){//only if this is not a loop
 			ConflictCheck();
@@ -4628,6 +4628,7 @@ public class iTween : MonoBehaviour{
 	void TweenUpdate(){
 		apply();
 		CallBack("onupdate");
+		CallBackAction("onupdateaction");
 		UpdatePercentage();		
 	}
 			
@@ -4645,6 +4646,7 @@ public class iTween : MonoBehaviour{
 		apply();
 		if(type == "value"){
 			CallBack("onupdate"); //CallBack run for ValueTo since it only calculates and applies in the update callback
+			CallBackAction("onupdateaction");
 		}
 		
 		//loop or dispose?
@@ -4655,6 +4657,7 @@ public class iTween : MonoBehaviour{
 		}
 		
 		CallBack("oncomplete");
+		CallBackAction("oncompleteaction");
 	}
 	
 	void TweenLoop(){
@@ -7067,6 +7070,25 @@ public class iTween : MonoBehaviour{
 				Debug.LogError("iTween Error: Callback method references must be passed as a String!");
 				Destroy (this);
 			}
+		}
+	}
+
+	void CallBackAction(string callbackType)
+	{
+		if (tweenArguments.Contains(callbackType)) {
+
+
+			if (callbackType == "onupdateaction")
+			{
+				System.Action <float>  callbackAction =  (System.Action <float> )tweenArguments[callbackType];
+				callbackAction(percentage);
+			}
+			else
+			{
+				System.Action  callbackAction = (System.Action)tweenArguments[callbackType];
+				callbackAction();
+			}
+
 		}
 	}
 	
