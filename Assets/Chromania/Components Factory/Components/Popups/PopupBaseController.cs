@@ -207,7 +207,8 @@ public class PopupBaseController : MonoBehaviour
 				Debug.LogWarning("WARNING - Popup does not contain CanvasGroup, adding new CanvasGroup");
 				canvasGroup = this.gameObject.AddComponent<CanvasGroup>();
 			}
-			System.Action <float> updateAction = (float value)=>
+            canvasGroup.alpha = 0;
+            System.Action <float> updateAction = (float value)=>
 			{
 				canvasGroup.alpha = value;
 			};

@@ -33,7 +33,15 @@ public class TimerPanelController : MonoBehaviour {
             _currentTime -= Time.deltaTime;
             UpdateTimerLabel();
         }
-	}
+
+#if UNITY_EDITOR
+        if (Input.GetKey(KeyCode.T))
+        {
+            _currentTime--;
+        }
+
+#endif
+    }
 
     #endregion
 

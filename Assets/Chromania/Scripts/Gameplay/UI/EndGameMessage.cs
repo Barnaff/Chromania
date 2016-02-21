@@ -28,8 +28,9 @@ public class EndGameMessage : MonoBehaviour {
 
     #region Public
 
-    private void PlayMessageAnimation(System.Action completionAction)
+    public void PlayMessageAnimation(System.Action completionAction)
     {
+        this.gameObject.SetActive(true);
         StartCoroutine(DisplayMessageCorutine(completionAction));
     }
 
@@ -40,7 +41,6 @@ public class EndGameMessage : MonoBehaviour {
 
     private IEnumerator DisplayMessageCorutine(System.Action completionAction)
     {
-        this.gameObject.SetActive(true);
         _messageImage.gameObject.SetActive(false);
         _overlayImage.CrossFadeAlpha(0, 0, true);
 
@@ -52,11 +52,13 @@ public class EndGameMessage : MonoBehaviour {
 
         _messageImage.gameObject.SetActive(true);
 
-        float animationDuration = 0.5f;
+        float animationDuration = 1.0f;
 
         iTween.PunchScale(_messageImage.gameObject, iTween.Hash("time", animationDuration, "amount", new Vector3(2,2,2)));
 
-        yield return new WaitForSeconds(animationDuration); 
+        yield return new WaitForSeconds(animationDuration);
+
+        yield return new WaitForSeconds(1.5f);
 
         if (completionAction != null)
         {

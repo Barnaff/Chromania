@@ -25,6 +25,9 @@ public class GameplayManager : MonoBehaviour {
     [SerializeField]
     private bool _isGameOver;
 
+    [SerializeField]
+    private EndGameMessage _timeUpMessage;
+
     // Use this for initialization
     void Start () {
 
@@ -40,7 +43,7 @@ public class GameplayManager : MonoBehaviour {
         }
 
         GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
-        GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandler;
+       
         InitializeGameplay();
     }
 	
@@ -92,12 +95,14 @@ public class GameplayManager : MonoBehaviour {
     {
         _livesPanelController.Init();
         _timerPanelController.gameObject.SetActive(false);
+        GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandler;
     }
 
     private void InitializeRushMode()
     {
         _timerPanelController.Init();
         _livesPanelController.gameObject.SetActive(false);
+        GameplayEventsDispatcher.Instance.OnTimeUp += OnTimeUpHandler;
     }
 
     #endregion
@@ -114,6 +119,23 @@ public class GameplayManager : MonoBehaviour {
         if (_selectedGameMode == eGameMode.Rush)
         { 
            _timerPanelController.StartTimer();
+        }
+    }
+
+    private void FinishGame()
+    {
+        if (_isGameOver)
+        {
+            return;
+        }
+
+        _isGameOver = true;
+        Debug.Log("Game over");
+
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.FinishGame();
         }
     }
 
@@ -139,20 +161,23 @@ public class GameplayManager : MonoBehaviour {
 
     private void OnGameOverHandler()
     {
-        if (_isGameOver)
-        {
-            return;
-        }
+        FinishGame();
+    }
 
-        _isGameOver = true;
-        Debug.Log("Game over");
-
-        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
-        if (flowManager != null)
+    private void OnTimeUpHandler()
+    {
+        Debug.Log("time up!");
+        if (_timeUpMessage != null)
         {
-            flowManager.FinishGame();
+            _timeUpMessage.PlayMessageAnimation(() =>
+            {
+                FinishGame();
+            });
         }
     }
+
+
+   
 
     #endregion
 
