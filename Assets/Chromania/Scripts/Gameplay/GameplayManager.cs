@@ -22,6 +22,9 @@ public class GameplayManager : MonoBehaviour {
     [SerializeField]
     private ScorePanelController _scorePanelController;
 
+    [SerializeField]
+    private bool _isGameOver;
+
     // Use this for initialization
     void Start () {
 
@@ -104,8 +107,14 @@ public class GameplayManager : MonoBehaviour {
 
     private void StartPlaying()
     {
+        _isGameOver = false; 
+
         _spwanController.Init(_selectedChromiez, 1);
-        _timerPanelController.StartTimer();
+
+        if (_selectedGameMode == eGameMode.Rush)
+        { 
+           _timerPanelController.StartTimer();
+        }
     }
 
     #endregion
@@ -122,13 +131,27 @@ public class GameplayManager : MonoBehaviour {
             if (colorZone != null)
             {
                 colorZone.CollectChromie(chromieController);
+
+                _scorePanelController.AddScore(1);
             }
         }
     }
 
     private void OnGameOverHandler()
     {
+        if (_isGameOver)
+        {
+            return;
+        }
+
+        _isGameOver = true;
         Debug.Log("Game over");
+
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.FinishGame();
+        }
     }
 
     #endregion
