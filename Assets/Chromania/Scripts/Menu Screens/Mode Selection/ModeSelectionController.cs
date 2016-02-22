@@ -21,16 +21,28 @@ public class ModeSelectionController : BaseMenuController
 
     public void BackButtonAction()
     {
-        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.MainMenu);
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.DisplayMenuScreen(eMenuScreenType.MainMenu);
+        }
     }
 
     public void RushButtonAction()
     {
-        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.ChromiezSelection);
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.DisplayMenuScreen(eMenuScreenType.ChromiezSelection);
+        }
     }
 
     public void ClassicButtonAction()
     {
-        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.ChromiezSelection);
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.DisplayMenuScreen(eMenuScreenType.ChromiezSelection);
+        }
     }
 }

@@ -32,8 +32,12 @@ public class ChromiezSelectionController : BaseMenuController {
 
     public void BackButtonAction()
     {
-     
-        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.ModeSelection);
+
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.DisplayMenuScreen(eMenuScreenType.ModeSelection);
+        }
     }
 
     public void LetsGoButtonAction()

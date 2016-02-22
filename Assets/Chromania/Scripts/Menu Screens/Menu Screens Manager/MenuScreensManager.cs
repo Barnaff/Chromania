@@ -16,10 +16,6 @@ public class MenuScreensManager : MonoBehaviour {
 
     #region Private Properties
 
-    private static MenuScreensManager _instance;
-
-    private const string MAIN_MENU_CONTROLLER_PREFAB_NAME = "MainMenuController";
-
     private BaseMenuController _currentScreen;
 
     #endregion
@@ -29,7 +25,7 @@ public class MenuScreensManager : MonoBehaviour {
     // Use this for initialization
     void Awake ()
     {
-        MenuScreensManager._instance = this;
+       
         foreach (BaseMenuController screen in _menuScreens)
         {
             screen.gameObject.SetActive(false);
@@ -46,20 +42,7 @@ public class MenuScreensManager : MonoBehaviour {
 
     #region Public
 
-    public static MenuScreensManager Instance()
-    {
-        if (MenuScreensManager._instance == null)
-        {
-            GameObject mainMenuControllerPrefab = Resources.Load(MAIN_MENU_CONTROLLER_PREFAB_NAME) as GameObject;
-            if (mainMenuControllerPrefab != null)
-            {
-                GameObject mainMenuController = Instantiate(mainMenuControllerPrefab) as GameObject;
-                mainMenuController.transform.position = Vector3.zero;
-            } 
-        }
-        return MenuScreensManager._instance;
-    }
-
+   
     public void DisplayMenuScreen(eMenuScreenType screenType, bool animated = true)
     {
         StartCoroutine(DisplayScreen(screenType, animated));

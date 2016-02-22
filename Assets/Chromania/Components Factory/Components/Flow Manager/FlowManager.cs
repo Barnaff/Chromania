@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 public class FlowManager : FactoryComponent, IFlow
 {
 
+    #region Private Properties
+
+    [SerializeField]
+    private MenuScreensManager _menuScreenManager;
+
+    #endregion
+
     #region FactoryComponent Implementation
 
     public override void InitComponentAtStart()
@@ -20,6 +27,8 @@ public class FlowManager : FactoryComponent, IFlow
     #endregion
 
 
+    #region IFlow Implementation
+
     public void StartGame()
     {
 
@@ -34,5 +43,34 @@ public class FlowManager : FactoryComponent, IFlow
             popupsManager.DisplayPopup<GameEndedPopupController>();
         }
     }
-   
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Menu Scene");
+
+    }
+
+    public void DisplayMenuScreen(eMenuScreenType menuScreenType, bool animated = true)
+    {
+        MenuManager.DisplayMenuScreen(menuScreenType, animated);
+    }
+
+    #endregion
+
+
+    #region Private 
+
+    private MenuScreensManager MenuManager
+    {
+        get
+        {
+            if (_menuScreenManager == null)
+            {
+                _menuScreenManager = GameObject.FindObjectOfType<MenuScreensManager>();
+            }
+            return _menuScreenManager;
+        }
+    }
+
+    #endregion
 }

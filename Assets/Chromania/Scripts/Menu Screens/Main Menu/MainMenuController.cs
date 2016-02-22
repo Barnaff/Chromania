@@ -18,7 +18,12 @@ public class MainMenuController : BaseMenuController {
 
     public void PlayButtonAction()
     {
-        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.ModeSelection);
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.DisplayMenuScreen(eMenuScreenType.ModeSelection);
+        }
+        
     }
 
     #endregion

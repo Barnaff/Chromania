@@ -54,8 +54,12 @@ public class GameplayManager : MonoBehaviour {
 
 
     public void QuitGame()
-    {  
-        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.MainMenu); 
+    {
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.MainMenu();
+        }
     }
 
     private void InitializeGameplay()

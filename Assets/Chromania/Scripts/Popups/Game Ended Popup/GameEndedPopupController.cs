@@ -16,12 +16,28 @@ public class GameEndedPopupController : PopupBaseController {
 
     public void PlayAgainButtonAction()
     {
+        ClosePopup(() =>
+        {
+            IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+            if (flowManager != null)
+            {
+                flowManager.StartGame();
+            }
 
+        });
+        
     }
 
     public void MenuButtonAction()
     {
-
+        ClosePopup(() =>
+        {
+            IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+            if (flowManager != null)
+            {
+                flowManager.MainMenu();
+            }
+        });
     }
 
     #endregion

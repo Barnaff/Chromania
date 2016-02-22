@@ -40,9 +40,13 @@ public class MainLoader : MonoBehaviour {
         {
             Instantiate(_componentFactoryContainer.gameObject);
             yield return StartCoroutine(InitializeComponents());
-        } 
+        }
 
-        MenuScreensManager.Instance().DisplayMenuScreen(eMenuScreenType.MainMenu);
+        IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
+        if (flowManager != null)
+        {
+            flowManager.MainMenu();
+        }
 
         if (_loaderController != null)
         {
