@@ -40,6 +40,9 @@ public class ColorZoneController : MonoBehaviour {
 
     private System.Action _completionAction;
 
+    private Vector3 _whirlwindBaseScale;
+    private Vector3 _glowBaseScale;
+
     #endregion
 
 
@@ -81,10 +84,12 @@ public class ColorZoneController : MonoBehaviour {
             if (Whirlwind != null)
             {
                 Whirlwind.GetComponent<SpriteRenderer>().color = overlayColor;
+                _whirlwindBaseScale = Whirlwind.transform.localScale;
             }
             if (Glow != null)
             {
                 Glow.GetComponent<SpriteRenderer>().color = overlayColor;
+                _glowBaseScale = Glow.transform.localScale;
             }
         }
         else
@@ -134,19 +139,21 @@ public class ColorZoneController : MonoBehaviour {
 
     private IEnumerator DisplayCollectAnimation()
     {
-        iTween tween = this.gameObject.GetComponent<iTween>();
 
-        if (tween != null)
-        {
-            Destroy(tween);
-        }
+        iTween.Stop(Whirlwind);
+        iTween.Stop(Glow);
+
+        Whirlwind.transform.localScale = _whirlwindBaseScale;
+        Glow.transform.localScale = _glowBaseScale;
+
         yield return null;
 
-        yield return null;
+        //  this.gameObject.transform.localScale = _baseScale * _scaleValue;
 
-        this.gameObject.transform.localScale = _baseScale * _scaleValue;
-        iTween.PunchScale(this.gameObject, iTween.Hash("time", 1.0f, "amount", new Vector3(4.0f, 4.0f, 4.0f)));
-        
+        float punchScaleValue = _whirlwindBaseScale.magnitude * 1.5f;
+        iTween.PunchScale(Whirlwind, iTween.Hash("time", 1.0f, "amount", new Vector3(punchScaleValue, punchScaleValue, punchScaleValue)));
+        iTween.PunchScale(Glow, iTween.Hash("time", 1.0f, "amount", new Vector3(punchScaleValue, punchScaleValue, punchScaleValue)));
+
 
         yield return null;
     }
