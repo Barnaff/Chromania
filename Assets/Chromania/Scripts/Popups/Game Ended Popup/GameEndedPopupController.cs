@@ -12,6 +12,19 @@ public class GameEndedPopupController : PopupBaseController {
     #endregion
 
 
+    #region Public
+
+    public void SetGameplayData(GameplayTrackingData gameplayTrackingData)
+    {
+        if (gameplayTrackingData != null)
+        {
+            _scoreLabel.text = gameplayTrackingData.Score.ToString();
+        }
+    }
+
+    #endregion
+
+
     #region User Interaction
 
     public void PlayAgainButtonAction()

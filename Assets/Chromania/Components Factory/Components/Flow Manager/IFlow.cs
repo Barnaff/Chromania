@@ -5,7 +5,7 @@ public interface IFlow  {
 
     void StartGame();
 
-    void FinishGame();
+    void FinishGame(GameplayTrackingData gameplayTrackingData);
 
     void MainMenu();
 

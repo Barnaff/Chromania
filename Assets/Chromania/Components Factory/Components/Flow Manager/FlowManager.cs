@@ -35,12 +35,16 @@ public class FlowManager : FactoryComponent, IFlow
         SceneManager.LoadScene("Gameplay Scene");
     }
 
-    public void FinishGame()
+    public void FinishGame(GameplayTrackingData gameplayTrackingData)
     {
         IPopups popupsManager = ComponentFactory.GetAComponent<IPopups>();
         if (popupsManager != null)
         {
-            popupsManager.DisplayPopup<GameEndedPopupController>();
+            GameEndedPopupController gameEndedPopupController = popupsManager.DisplayPopup<GameEndedPopupController>();
+            if (gameEndedPopupController != null)
+            {
+                gameEndedPopupController.SetGameplayData(gameplayTrackingData);
+            }
         }
     }
 

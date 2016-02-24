@@ -28,8 +28,13 @@ public class GameplayManager : MonoBehaviour {
     [SerializeField]
     private EndGameMessage _timeUpMessage;
 
+    [SerializeField]
+    private GameplayTrackingData _gameplayTrackingData;
+
     // Use this for initialization
     void Start () {
+
+        _gameplayTrackingData = new GameplayTrackingData();
 
         _spwanController = this.gameObject.GetComponent<SpwanerController>();
         if (_spwanController == null)
@@ -70,6 +75,8 @@ public class GameplayManager : MonoBehaviour {
             _selectedChromiez = gameSetupManager.SelectedChromiez;
             _selectedGameMode = gameSetupManager.SelectedGameMode;
         }
+
+        _scorePanelController.GameplayTrackingData = _gameplayTrackingData;
 
         // do game mode initializations
         switch (_selectedGameMode)
@@ -139,7 +146,7 @@ public class GameplayManager : MonoBehaviour {
         IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
         if (flowManager != null)
         {
-            flowManager.FinishGame();
+            flowManager.FinishGame(_gameplayTrackingData);
         }
     }
 
