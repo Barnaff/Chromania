@@ -17,12 +17,12 @@ public class MovingTiledBackground : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 	
         if (_backgroundMaterial != null)
         {
             Vector2 offset = _backgroundMaterial.mainTextureOffset;
-            _backgroundMaterial.mainTextureOffset = new Vector2(offset.x + Time.deltaTime * _speed.x, offset.y + Time.deltaTime * _speed.y);
+            _backgroundMaterial.mainTextureOffset = new Vector2(offset.x + (Time.deltaTime * _speed.x), offset.y + (Time.deltaTime * _speed.y));
         }
 	}
 }
