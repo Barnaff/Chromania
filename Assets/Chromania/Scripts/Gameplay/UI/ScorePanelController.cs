@@ -41,6 +41,14 @@ public class ScorePanelController : MonoBehaviour {
         UpdateScoreLabel(true);
     }
 
+    public int Score
+    {
+        get
+        {
+            return _gameplayTrackingData.Score;
+        }
+    }
+
     #endregion
 
 

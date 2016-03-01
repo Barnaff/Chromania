@@ -27,12 +27,17 @@ public class SpwanerController : MonoBehaviour {
     private eChromieType _overrideColor;
     private eSpwanerPhase _phase;
     private List<WaveDefenition> _wavesList;
-    private int _currentLevel;
+    private List<WaveDefenition> _usedWavesList = new List<WaveDefenition>();
+
     private WaveDefenition _currentWave;
     private SequanceDefenition _currentSequance;
     private float _waveTimeCount;
     private float _sequanceTimeCount;
     private int _currentSequanceIndex;
+
+
+    private int _currentLevel;
+    private eGameMode _currentGameMode;
 
     #endregion
 
@@ -117,13 +122,16 @@ public class SpwanerController : MonoBehaviour {
 
     #region Public 
 
-    public void Init(eChromieType[] selectedCollors, int level)
+    public void Init(eGameMode gameMode, eChromieType[] selectedCollors, int level)
     {
         _spwanBasePosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, 0, 10));
 
         _selectedChromies = selectedCollors;
 
         _wavesList = WavesDataLoader.WavesList();
+
+        _currentGameMode = gameMode;
+        _currentLevel = level;
 
         // InvokeRepeating("MockSpwan", 1.0f, 1.0f);
     }
@@ -144,6 +152,11 @@ public class SpwanerController : MonoBehaviour {
         {
             _paused = value;
         }
+    }
+
+    public void UpdateLevel(int newlevel)
+    {
+        _currentLevel = newlevel;
     }
 
     #endregion
@@ -217,8 +230,54 @@ public class SpwanerController : MonoBehaviour {
 
     private WaveDefenition GetNewWave()
     {
-        WaveDefenition wave = _wavesList[Random.Range(0, _wavesList.Count)];
+        List<WaveDefenition> avalableWaves = GetAvalableWaves();
+
+        WaveDefenition wave = avalableWaves[Random.Range(0, avalableWaves.Count)];
         return wave;
+    }
+
+    private List<WaveDefenition> GetAvalableWaves()
+    {
+        List<WaveDefenition> avalableWaves = new List<WaveDefenition>();
+
+        foreach (WaveDefenition wave in _wavesList)
+        {
+            bool avalable = false;
+
+            if (wave.MinLevel == 0 && wave.MaxLevel == 0)
+            {
+                avalable = true;
+            }
+           
+            if (wave.MinLevel <= _currentLevel && wave.MaxLevel >= _currentLevel)
+            {
+                avalable = true;
+            }
+
+            if (wave.GameMode != _currentGameMode && wave.GameMode != eGameMode.Default)
+            {
+                avalable = false;
+            }
+
+            if (_usedWavesList.Contains(wave))
+            {
+                avalable = false;
+            }
+
+            if (avalable)
+            {
+                avalableWaves.Add(wave);
+            }
+        }
+
+        Debug.Log("current Level: " + _currentLevel + ", waves: "  + avalableWaves.Count);
+        if (avalableWaves.Count == 0)
+        {
+            _usedWavesList.Clear();
+            return GetAvalableWaves();
+        }
+
+        return avalableWaves;
     }
 
     private void SpwanItem(SpwanedItemDefenition spwanedItem)

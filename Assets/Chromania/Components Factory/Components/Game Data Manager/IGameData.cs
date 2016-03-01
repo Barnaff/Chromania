@@ -8,4 +8,6 @@ public interface IGameData  {
 
     List<ChromieDataObject> ChromiezList { get; }
 
+    int[] LevelsForgameplayMode(eGameMode gameMode);
+
 }

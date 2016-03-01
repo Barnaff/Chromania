@@ -22,6 +22,9 @@ public class GameDataManager : FactoryComponent, IGameData {
 
     public GameData _gameData;
 
+    [SerializeField]
+    private List<LevelRequiermentInfo> _levelRequirements;
+
     #endregion
 
 
@@ -66,6 +69,19 @@ public class GameDataManager : FactoryComponent, IGameData {
        }
     }
 
+    public int[] LevelsForgameplayMode(eGameMode gameMode)
+    {
+        foreach (LevelRequiermentInfo levelRequiermentInfo in _levelRequirements)
+        {
+            if (levelRequiermentInfo.GameplayMode == gameMode)
+            {
+                return levelRequiermentInfo.Levels;
+            }
+        }
+
+        return new int[0];
+    }
+
 
     #endregion
 
@@ -75,5 +91,16 @@ public class GameDataManager : FactoryComponent, IGameData {
 
 
     #endregion
+
+}
+
+[System.Serializable]
+public class LevelRequiermentInfo
+{
+    [SerializeField]
+    public eGameMode GameplayMode;
+
+    [SerializeField]
+    public int[] Levels;
 
 }

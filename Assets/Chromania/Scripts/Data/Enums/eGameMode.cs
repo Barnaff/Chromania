@@ -2,4 +2,5 @@
 {
     Classic,
     Rush,
+    Default,
 }

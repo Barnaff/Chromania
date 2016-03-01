@@ -31,6 +31,10 @@ public class GameplayManager : MonoBehaviour {
     [SerializeField]
     private GameplayTrackingData _gameplayTrackingData;
 
+    private int[] _levelRequierments;
+
+    private int _currentLevel;
+
     // Use this for initialization
     void Start () {
 
@@ -48,7 +52,7 @@ public class GameplayManager : MonoBehaviour {
         }
 
         GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
-       
+
         InitializeGameplay();
     }
 	
@@ -76,6 +80,12 @@ public class GameplayManager : MonoBehaviour {
             _selectedGameMode = gameSetupManager.SelectedGameMode;
         }
 
+        IGameData gameDataManager = ComponentFactory.GetAComponent<IGameData>();
+        if (gameDataManager != null)
+        {
+            _levelRequierments = gameDataManager.LevelsForgameplayMode(_selectedGameMode);
+        }
+
         _scorePanelController.GameplayTrackingData = _gameplayTrackingData;
 
         // do game mode initializations
@@ -93,6 +103,7 @@ public class GameplayManager : MonoBehaviour {
                 }
         }
 
+        _currentLevel = 0;
         _colorZonesManager.Init(_selectedChromiez);
 
         // TODO: display game intro, then start everything
@@ -125,7 +136,7 @@ public class GameplayManager : MonoBehaviour {
     {
         _isGameOver = false; 
 
-        _spwanController.Init(_selectedChromiez, 1);
+        _spwanController.Init(_selectedGameMode, _selectedChromiez, 1);
 
         if (_selectedGameMode == eGameMode.Rush)
         { 
@@ -150,6 +161,21 @@ public class GameplayManager : MonoBehaviour {
         }
     }
 
+    private void AddScore(int scoreToAdd)
+    {
+        _scorePanelController.AddScore(scoreToAdd);
+
+        int currentLevelRequirment = _levelRequierments[_currentLevel];
+        if (_scorePanelController.Score > currentLevelRequirment)
+        {
+            _currentLevel++;
+
+            _spwanController.UpdateLevel(_currentLevel);
+
+            Debug.Log("Level up : " + _currentLevel);
+        }
+    }
+
     #endregion
 
 
@@ -165,7 +191,7 @@ public class GameplayManager : MonoBehaviour {
             {
                 colorZone.CollectChromie(chromieController);
 
-                _scorePanelController.AddScore(1);
+                AddScore(1);
             }
         }
     }
@@ -188,7 +214,6 @@ public class GameplayManager : MonoBehaviour {
     }
 
 
-   
 
     #endregion
 
