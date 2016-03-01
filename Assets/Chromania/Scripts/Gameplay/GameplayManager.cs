@@ -177,7 +177,7 @@ public class GameplayManager : MonoBehaviour {
 
     private void OnTimeUpHandler()
     {
-        Debug.Log("time up!");
+        _spwanController.StopSpwaning();
         if (_timeUpMessage != null)
         {
             _timeUpMessage.PlayMessageAnimation(() =>

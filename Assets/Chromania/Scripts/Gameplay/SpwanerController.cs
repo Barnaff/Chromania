@@ -128,6 +128,11 @@ public class SpwanerController : MonoBehaviour {
         // InvokeRepeating("MockSpwan", 1.0f, 1.0f);
     }
 
+    public void StopSpwaning()
+    {
+        _paused = true;
+    }
+
     public bool Paused
     {
         get

@@ -7,6 +7,7 @@ public class LivesPanelController : MonoBehaviour {
 
     #region Private properties
 
+
     [SerializeField]
     private GameObject _liveIndicatorPrefab;
 
@@ -33,6 +34,16 @@ public class LivesPanelController : MonoBehaviour {
     [SerializeField]
     private float _scaleMultiplierPerIcon;
 
+
+    [Header("Dropped Chromie Indicator")]
+    [SerializeField]
+    private bool _disaplyDropppedChromieIndication;
+
+    [SerializeField]
+    private GameObject _dropedChromieIndicatorPrefab;
+
+
+    [Header("Debug")]
     [SerializeField]
     private bool _enableDebug;
 
@@ -68,6 +79,10 @@ public class LivesPanelController : MonoBehaviour {
     private void OnChromieDroppedHandler(ChromieController chromieController)
     {
         ReduceLive();
+        if (_disaplyDropppedChromieIndication)
+        {
+            StartCoroutine(DisplayHit(chromieController.transform.position));
+        }
     }
 
     #endregion
@@ -134,6 +149,43 @@ public class LivesPanelController : MonoBehaviour {
                 }
             }
         }
+    }
+
+
+    public IEnumerator DisplayHit(Vector3 chromiePosition)
+    {
+        Vector3 screenPosition = Camera.main.WorldToScreenPoint(chromiePosition);
+        Vector3 indicatorPosition = screenPosition;
+
+        if (screenPosition.x < 0)
+        {
+            indicatorPosition.x = 50;
+        }
+
+        if (screenPosition.x > Screen.width)
+        {
+            indicatorPosition.x = Screen.width - 50;
+        }
+
+        if (screenPosition.y < 0)
+        {
+            indicatorPosition.y = 50;
+        }
+
+        if (screenPosition.y > Screen.height)
+        {
+            indicatorPosition.y = Screen.height - 50;
+        }
+        indicatorPosition = Camera.main.ScreenToWorldPoint(indicatorPosition);
+
+        GameObject hitIndicator = Lean.LeanPool.Spawn(_dropedChromieIndicatorPrefab, indicatorPosition, Quaternion.identity);
+        hitIndicator.transform.localScale = new Vector3(2, 2, 2);
+        iTween.PunchScale(hitIndicator, iTween.Hash("time", 0.5f, "x", 1.2f, "y", 1.2f));
+        iTween.ScaleTo(hitIndicator, iTween.Hash("time", 0.5f, "x", 0, "y", 0, "delay", 1.0f));
+
+        yield return new WaitForSeconds(1.5f);
+
+        Lean.LeanPool.Despawn(hitIndicator);
     }
 
     #endregion
