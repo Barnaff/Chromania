@@ -1,17 +1,12 @@
 ﻿public enum eChromieType
 {
     None = 0,
-    Red = 1,
-    Blue = 2,
-    Green = 3,
-    Yellow = 4,
-    Purple = 5,
-    Orange = 6,
-    Yeti = 7,
-    Jester = 8,
-    Zombie = 9,
-    Ninja = 10,
-    Robot = 11,
+    Blue = 1,
+    Green = 2,
+    Orange = 3,
+    Pink = 4,
+    Turquoise = 5,
+
 }
 
 /*

@@ -2,43 +2,17 @@
 <GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <name>GameData</name>
   <hideFlags>None</hideFlags>
-  <Version>1.0</Version>
+  <Version>1.1</Version>
   <Chromiez>
     <Chromie>
-      <ChromieID>1</ChromieID>
-      <ChromieColor>Red</ChromieColor>
-      <ChromieName>Redy</ChromieName>
-      <ColorValue>
-        <r>1</r>
-        <g>0</g>
-        <b>0</b>
-        <a>0</a>
-      </ColorValue>
-      <ColorName>Red</ColorName>
-      <PassiveDescription />
-      <ActiveDescription />
-      <UnlockedAtStart>true</UnlockedAtStart>
-      <UnlockPrice>0</UnlockPrice>
-      <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
-      <UnlockAtLevel>0</UnlockAtLevel>
-      <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>10</CountForPowerup>
-      <PowerupDuration>0</PowerupDuration>
-      <PassivePowerupValue>1</PassivePowerupValue>
-      <ActivePowerupValue>1</ActivePowerupValue>
-      <CritValue>0</CritValue>
-      <CritMultipier>0</CritMultipier>
-    </Chromie>
-    <Chromie>
-      <ChromieID>2</ChromieID>
+      <ChromieID>0</ChromieID>
       <ChromieColor>Blue</ChromieColor>
-      <ChromieName>Blob</ChromieName>
+      <ChromieName>Blue</ChromieName>
       <ColorValue>
-        <r>0.158620834</r>
-        <g>0</g>
-        <b>1</b>
-        <a>0</a>
+        <r>0.08627451</r>
+        <g>0.384313762</g>
+        <b>0.8313726</b>
+        <a>1</a>
       </ColorValue>
       <ColorName>Blue</ColorName>
       <PassiveDescription />
@@ -49,238 +23,97 @@
       <UnlockShopItem />
       <UnlockAtLevel>0</UnlockAtLevel>
       <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>10</CountForPowerup>
+      <CountForPowerup>0</CountForPowerup>
       <PowerupDuration>0</PowerupDuration>
-      <PassivePowerupValue>5</PassivePowerupValue>
-      <ActivePowerupValue>5</ActivePowerupValue>
+      <PassivePowerupValue>0</PassivePowerupValue>
+      <ActivePowerupValue>0</ActivePowerupValue>
+      <CritValue>0</CritValue>
+      <CritMultipier>0</CritMultipier>
+    </Chromie>
+    <Chromie>
+      <ChromieID>1</ChromieID>
+      <ChromieColor>Green</ChromieColor>
+      <ChromieName>Green</ChromieName>
+      <ColorValue>
+        <r>0.21960786</r>
+        <g>0.647058845</g>
+        <b>0.129411772</b>
+        <a>1</a>
+      </ColorValue>
+      <ColorName>Green</ColorName>
+      <UnlockedAtStart>true</UnlockedAtStart>
+      <UnlockPrice>0</UnlockPrice>
+      <UnlockWithAchievment>0</UnlockWithAchievment>
+      <UnlockAtLevel>0</UnlockAtLevel>
+      <InventorySlotId>0</InventorySlotId>
+      <CountForPowerup>0</CountForPowerup>
+      <PowerupDuration>0</PowerupDuration>
+      <PassivePowerupValue>0</PassivePowerupValue>
+      <ActivePowerupValue>0</ActivePowerupValue>
+      <CritValue>0</CritValue>
+      <CritMultipier>0</CritMultipier>
+    </Chromie>
+    <Chromie>
+      <ChromieID>2</ChromieID>
+      <ChromieColor>Orange</ChromieColor>
+      <ChromieName>Orange</ChromieName>
+      <ColorValue>
+        <r>0.941176534</r>
+        <g>0.5529412</g>
+        <b>0.1137255</b>
+        <a>1</a>
+      </ColorValue>
+      <ColorName>Orange</ColorName>
+      <UnlockedAtStart>true</UnlockedAtStart>
+      <UnlockPrice>0</UnlockPrice>
+      <UnlockWithAchievment>0</UnlockWithAchievment>
+      <UnlockAtLevel>0</UnlockAtLevel>
+      <InventorySlotId>0</InventorySlotId>
+      <CountForPowerup>0</CountForPowerup>
+      <PowerupDuration>0</PowerupDuration>
+      <PassivePowerupValue>0</PassivePowerupValue>
+      <ActivePowerupValue>0</ActivePowerupValue>
       <CritValue>0</CritValue>
       <CritMultipier>0</CritMultipier>
     </Chromie>
     <Chromie>
       <ChromieID>3</ChromieID>
-      <ChromieColor>Green</ChromieColor>
-      <ChromieName>Grog</ChromieName>
+      <ChromieColor>Pink</ChromieColor>
+      <ChromieName>Pink</ChromieName>
       <ColorValue>
-        <r>0</r>
-        <g>1</g>
-        <b>0.2965517</b>
-        <a>0</a>
+        <r>0.6509804</r>
+        <g>0.2627451</g>
+        <b>0.549019635</b>
+        <a>1</a>
       </ColorValue>
-      <ColorName />
-      <PassiveDescription />
-      <ActiveDescription />
+      <ColorName>Pink</ColorName>
       <UnlockedAtStart>true</UnlockedAtStart>
       <UnlockPrice>0</UnlockPrice>
       <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
       <UnlockAtLevel>0</UnlockAtLevel>
       <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>10</CountForPowerup>
-      <PowerupDuration>10</PowerupDuration>
-      <PassivePowerupValue>1.5</PassivePowerupValue>
-      <ActivePowerupValue>2</ActivePowerupValue>
+      <CountForPowerup>0</CountForPowerup>
+      <PowerupDuration>0</PowerupDuration>
+      <PassivePowerupValue>0</PassivePowerupValue>
+      <ActivePowerupValue>0</ActivePowerupValue>
       <CritValue>0</CritValue>
       <CritMultipier>0</CritMultipier>
     </Chromie>
     <Chromie>
       <ChromieID>4</ChromieID>
-      <ChromieColor>Yellow</ChromieColor>
-      <ChromieName>Yelo</ChromieName>
+      <ChromieColor>Turquoise</ChromieColor>
+      <ChromieName>Turquoise</ChromieName>
       <ColorValue>
-        <r>1</r>
-        <g>1</g>
-        <b>0</b>
-        <a>0</a>
+        <r>0.24313727</r>
+        <g>0.670588255</g>
+        <b>0.5568628</b>
+        <a>1</a>
       </ColorValue>
-      <ColorName />
-      <PassiveDescription />
-      <ActiveDescription />
+      <ColorName>Turquoise</ColorName>
+      <PassiveDescription> </PassiveDescription>
       <UnlockedAtStart>true</UnlockedAtStart>
       <UnlockPrice>0</UnlockPrice>
       <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
-      <UnlockAtLevel>0</UnlockAtLevel>
-      <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>2</CountForPowerup>
-      <PowerupDuration>10</PowerupDuration>
-      <PassivePowerupValue>1.2</PassivePowerupValue>
-      <ActivePowerupValue>0</ActivePowerupValue>
-      <CritValue>0</CritValue>
-      <CritMultipier>0</CritMultipier>
-    </Chromie>
-    <Chromie>
-      <ChromieID>5</ChromieID>
-      <ChromieColor>Purple</ChromieColor>
-      <ChromieName>Purpl</ChromieName>
-      <ColorValue>
-        <r>0.8161765</r>
-        <g>0</g>
-        <b>0.8161765</b>
-        <a>0</a>
-      </ColorValue>
-      <ColorName />
-      <PassiveDescription />
-      <ActiveDescription />
-      <UnlockedAtStart>false</UnlockedAtStart>
-      <UnlockPrice>0</UnlockPrice>
-      <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
-      <UnlockAtLevel>0</UnlockAtLevel>
-      <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>10</CountForPowerup>
-      <PowerupDuration>10</PowerupDuration>
-      <PassivePowerupValue>1</PassivePowerupValue>
-      <ActivePowerupValue>0</ActivePowerupValue>
-      <CritValue>0</CritValue>
-      <CritMultipier>0</CritMultipier>
-    </Chromie>
-    <Chromie>
-      <ChromieID>6</ChromieID>
-      <ChromieColor>Orange</ChromieColor>
-      <ChromieName>Carrot</ChromieName>
-      <ColorValue>
-        <r>1</r>
-        <g>0.490196079</g>
-        <b>0</b>
-        <a>0</a>
-      </ColorValue>
-      <ColorName />
-      <PassiveDescription />
-      <ActiveDescription />
-      <UnlockedAtStart>false</UnlockedAtStart>
-      <UnlockPrice>0</UnlockPrice>
-      <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
-      <UnlockAtLevel>0</UnlockAtLevel>
-      <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>10</CountForPowerup>
-      <PowerupDuration>0</PowerupDuration>
-      <PassivePowerupValue>1.2</PassivePowerupValue>
-      <ActivePowerupValue>5</ActivePowerupValue>
-      <CritValue>0</CritValue>
-      <CritMultipier>0</CritMultipier>
-    </Chromie>
-    <Chromie>
-      <ChromieID>7</ChromieID>
-      <ChromieColor>Yeti</ChromieColor>
-      <ChromieName>Yeti</ChromieName>
-      <ColorValue>
-        <r>0.742647052</r>
-        <g>0.9787019</g>
-        <b>1</b>
-        <a>0</a>
-      </ColorValue>
-      <ColorName />
-      <PassiveDescription />
-      <ActiveDescription />
-      <UnlockedAtStart>false</UnlockedAtStart>
-      <UnlockPrice>0</UnlockPrice>
-      <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
-      <UnlockAtLevel>0</UnlockAtLevel>
-      <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>0</CountForPowerup>
-      <PowerupDuration>0</PowerupDuration>
-      <PassivePowerupValue>0</PassivePowerupValue>
-      <ActivePowerupValue>0</ActivePowerupValue>
-      <CritValue>0</CritValue>
-      <CritMultipier>0</CritMultipier>
-    </Chromie>
-    <Chromie>
-      <ChromieID>8</ChromieID>
-      <ChromieColor>Jester</ChromieColor>
-      <ChromieName>Jester</ChromieName>
-      <ColorValue>
-        <r>0.411764681</r>
-        <g>1</g>
-        <b>0.756592035</b>
-        <a>0</a>
-      </ColorValue>
-      <ColorName />
-      <PassiveDescription />
-      <ActiveDescription />
-      <UnlockedAtStart>false</UnlockedAtStart>
-      <UnlockPrice>0</UnlockPrice>
-      <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
-      <UnlockAtLevel>0</UnlockAtLevel>
-      <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>0</CountForPowerup>
-      <PowerupDuration>0</PowerupDuration>
-      <PassivePowerupValue>0</PassivePowerupValue>
-      <ActivePowerupValue>0</ActivePowerupValue>
-      <CritValue>0</CritValue>
-      <CritMultipier>0</CritMultipier>
-    </Chromie>
-    <Chromie>
-      <ChromieID>9</ChromieID>
-      <ChromieColor>Zombie</ChromieColor>
-      <ChromieName>Zombie</ChromieName>
-      <ColorValue>
-        <r>0.320740342</r>
-        <g>0.8088235</g>
-        <b>0.3033088</b>
-        <a>0</a>
-      </ColorValue>
-      <ColorName />
-      <PassiveDescription />
-      <ActiveDescription />
-      <UnlockedAtStart>false</UnlockedAtStart>
-      <UnlockPrice>0</UnlockPrice>
-      <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
-      <UnlockAtLevel>0</UnlockAtLevel>
-      <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>0</CountForPowerup>
-      <PowerupDuration>0</PowerupDuration>
-      <PassivePowerupValue>0</PassivePowerupValue>
-      <ActivePowerupValue>0</ActivePowerupValue>
-      <CritValue>0</CritValue>
-      <CritMultipier>0</CritMultipier>
-    </Chromie>
-    <Chromie>
-      <ChromieID>10</ChromieID>
-      <ChromieColor>Ninja</ChromieColor>
-      <ChromieName>Ninja</ChromieName>
-      <ColorValue>
-        <r>0.316176474</r>
-        <g>0.316176474</g>
-        <b>0.316176474</b>
-        <a>0</a>
-      </ColorValue>
-      <ColorName />
-      <PassiveDescription />
-      <ActiveDescription />
-      <UnlockedAtStart>false</UnlockedAtStart>
-      <UnlockPrice>0</UnlockPrice>
-      <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
-      <UnlockAtLevel>0</UnlockAtLevel>
-      <InventorySlotId>0</InventorySlotId>
-      <CountForPowerup>0</CountForPowerup>
-      <PowerupDuration>0</PowerupDuration>
-      <PassivePowerupValue>0</PassivePowerupValue>
-      <ActivePowerupValue>0</ActivePowerupValue>
-      <CritValue>0</CritValue>
-      <CritMultipier>0</CritMultipier>
-    </Chromie>
-    <Chromie>
-      <ChromieID>10</ChromieID>
-      <ChromieColor>Robot</ChromieColor>
-      <ChromieName>Robot</ChromieName>
-      <ColorValue>
-        <r>0.7835163</r>
-        <g>0.738754332</g>
-        <b>0.897058845</b>
-        <a>0</a>
-      </ColorValue>
-      <ColorName />
-      <PassiveDescription />
-      <ActiveDescription />
-      <UnlockedAtStart>false</UnlockedAtStart>
-      <UnlockPrice>0</UnlockPrice>
-      <UnlockWithAchievment>0</UnlockWithAchievment>
-      <UnlockShopItem />
       <UnlockAtLevel>0</UnlockAtLevel>
       <InventorySlotId>0</InventorySlotId>
       <CountForPowerup>0</CountForPowerup>
