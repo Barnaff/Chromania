@@ -20,9 +20,6 @@ public class GameplayManager : MonoBehaviour {
     private LivesPanelController _livesPanelController;
 
     [SerializeField]
-    private ScorePanelController _scorePanelController;
-
-    [SerializeField]
     private bool _isGameOver;
 
     [SerializeField]
@@ -85,8 +82,6 @@ public class GameplayManager : MonoBehaviour {
         {
             _levelRequierments = gameDataManager.LevelsForgameplayMode(_selectedGameMode);
         }
-
-        _scorePanelController.GameplayTrackingData = _gameplayTrackingData;
 
         // do game mode initializations
         switch (_selectedGameMode)
@@ -163,6 +158,7 @@ public class GameplayManager : MonoBehaviour {
 
     private void AddScore(int scoreToAdd)
     {
+        /*
         _scorePanelController.AddScore(scoreToAdd);
 
         if (_levelRequierments.Length <= _currentLevel)
@@ -177,6 +173,7 @@ public class GameplayManager : MonoBehaviour {
                 Debug.Log("Level up : " + _currentLevel);
             }
         }
+        */
     }
 
     #endregion
@@ -194,7 +191,7 @@ public class GameplayManager : MonoBehaviour {
             {
                 colorZone.CollectChromie(chromieController);
 
-                AddScore(1);
+                GameplayEventsDispatcher.SendChromieCollected(chromieController);
             }
         }
     }

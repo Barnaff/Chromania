@@ -134,6 +134,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         GameplayEventsDispatcher.Instance.TimeUp();
     }
 
+    public static void SendChromieCollected(ChromieController chromieController)
+    {
+        GameplayEventsDispatcher.Instance.ChromieCollected(chromieController);
+    }
+
     #endregion
 
 

@@ -9,8 +9,6 @@ public class ScorePanelController : MonoBehaviour {
     [SerializeField]
     private Text _scoreLabel;
 
-    [SerializeField]
-    private GameplayTrackingData _gameplayTrackingData;
 
     #endregion
 
@@ -19,15 +17,7 @@ public class ScorePanelController : MonoBehaviour {
 
     void Start ()
     {
-        UpdateScoreLabel(false);
-    }
-
-    public GameplayTrackingData GameplayTrackingData
-    {
-        set
-        {
-            _gameplayTrackingData = value;
-        }
+        UpdateScoreLabel(0,0,false);
     }
 
     #endregion
@@ -35,34 +25,23 @@ public class ScorePanelController : MonoBehaviour {
 
     #region Public
 
-    public void AddScore(int scoreToAdd)
+    public void AddScore(int currentScore, int scoreToAdd)
     {
-        _gameplayTrackingData.Score += scoreToAdd;
-        UpdateScoreLabel(true);
+        UpdateScoreLabel(currentScore, scoreToAdd, true);
     }
 
-    public int Score
-    {
-        get
-        {
-            return _gameplayTrackingData.Score;
-        }
-    }
 
     #endregion
 
 
     #region Private
 
-    private void UpdateScoreLabel(bool animated)
+    private void UpdateScoreLabel(int currentScore, int scoreToAdd, bool animated = true)
     {
-        if (_gameplayTrackingData != null)
+        _scoreLabel.text = currentScore.ToString();
+        if (animated)
         {
-            _scoreLabel.text = _gameplayTrackingData.Score.ToString();
-            if (animated)
-            {
-                iTween.PunchScale(_scoreLabel.gameObject, iTween.Hash("time", 0.5f, "amount", new Vector3(1.1f, 1.1f, 1.1f)));
-            }
+            iTween.PunchScale(_scoreLabel.gameObject, iTween.Hash("time", 0.5f, "amount", new Vector3(1.1f, 1.1f, 1.1f)));
         }
         else
         {
