@@ -165,14 +165,17 @@ public class GameplayManager : MonoBehaviour {
     {
         _scorePanelController.AddScore(scoreToAdd);
 
-        int currentLevelRequirment = _levelRequierments[_currentLevel];
-        if (_scorePanelController.Score > currentLevelRequirment)
+        if (_levelRequierments.Length <= _currentLevel)
         {
-            _currentLevel++;
+            int currentLevelRequirment = _levelRequierments[_currentLevel];
+            if (_scorePanelController.Score > currentLevelRequirment)
+            {
+                _currentLevel++;
 
-            _spwanController.UpdateLevel(_currentLevel);
+                _spwanController.UpdateLevel(_currentLevel);
 
-            Debug.Log("Level up : " + _currentLevel);
+                Debug.Log("Level up : " + _currentLevel);
+            }
         }
     }
 
