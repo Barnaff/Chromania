@@ -156,24 +156,30 @@ public class GameplayManager : MonoBehaviour {
         }
     }
 
-    private void AddScore(int scoreToAdd)
+    private void ChromieCollected(ChromieController chromieController, ColorZoneController colorZone)
     {
-        /*
-        _scorePanelController.AddScore(scoreToAdd);
 
-        if (_levelRequierments.Length <= _currentLevel)
+        chromieController.CollectChromie();
+
+        if (colorZone != null)
+        {
+            colorZone.CollectChromie(chromieController);
+        }
+
+        GameplayEventsDispatcher.SendChromieCollected(chromieController);
+
+        int currentScore = this.gameObject.GetComponent<ScoreCounterManager>().Score;
+
+        if (_currentLevel < _levelRequierments.Length)
         {
             int currentLevelRequirment = _levelRequierments[_currentLevel];
-            if (_scorePanelController.Score > currentLevelRequirment)
+            if (currentScore > currentLevelRequirment)
             {
                 _currentLevel++;
-
                 _spwanController.UpdateLevel(_currentLevel);
-
                 Debug.Log("Level up : " + _currentLevel);
             }
         }
-        */
     }
 
     #endregion
@@ -185,14 +191,7 @@ public class GameplayManager : MonoBehaviour {
     {
         if (chromieController.ChromieType == colorZone.ColorZoneType)
         {
-            chromieController.CollectChromie();
-
-            if (colorZone != null)
-            {
-                colorZone.CollectChromie(chromieController);
-
-                GameplayEventsDispatcher.SendChromieCollected(chromieController);
-            }
+            ChromieCollected(chromieController, colorZone);
         }
     }
 

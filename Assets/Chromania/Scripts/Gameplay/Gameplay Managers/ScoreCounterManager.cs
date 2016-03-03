@@ -40,10 +40,15 @@ public class ScoreCounterManager : MonoBehaviour {
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
 	}
 	
-	// Update is called once per frame
-	void Update () {
 	
-	}
+
+    public int Score
+    {
+        get
+        {
+            return _currentScore;
+        }
+    }
 
     private void OnChromieCollectedHandler(ChromieController chromieController)
     {
