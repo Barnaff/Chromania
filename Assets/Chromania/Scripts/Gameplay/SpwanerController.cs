@@ -39,6 +39,8 @@ public class SpwanerController : MonoBehaviour {
     private int _currentLevel;
     private eGameMode _currentGameMode;
 
+    private float _currentTimeCountTarget;
+
     #endregion
 
 
@@ -70,7 +72,8 @@ public class SpwanerController : MonoBehaviour {
                 case eSpwanerPhase.WaveStarted:
                     {
                         _waveTimeCount += Time.deltaTime;
-                        if (_waveTimeCount > _currentWave.StartDelay)
+                        _currentTimeCountTarget = TimeFactorMultiplier(_currentWave.StartDelay, _currentWave.LevelModier, _currentWave.MinLevel);
+                        if (_waveTimeCount > _currentTimeCountTarget)
                         {
                             StartNextSequance();
                         }
@@ -79,7 +82,8 @@ public class SpwanerController : MonoBehaviour {
                 case eSpwanerPhase.SequanceStarted:
                     {
                         _sequanceTimeCount += Time.deltaTime;
-                        if (_sequanceTimeCount > _currentSequance.StartInterval)
+                        _currentTimeCountTarget = TimeFactorMultiplier(_currentSequance.StartInterval, _currentSequance.LevelModifier, _currentSequance.MinLevel);
+                        if (_sequanceTimeCount > _currentTimeCountTarget)
                         {
                             _phase = eSpwanerPhase.SpwanItems;
                         }
@@ -93,7 +97,8 @@ public class SpwanerController : MonoBehaviour {
                 case eSpwanerPhase.SequenceFinished:
                     {
                         _sequanceTimeCount += Time.deltaTime;
-                        if (_sequanceTimeCount > _currentSequance.EndInterval)
+                        _currentTimeCountTarget = TimeFactorMultiplier(_currentSequance.EndInterval, _currentSequance.LevelModifier, _currentSequance.MinLevel);
+                        if (_sequanceTimeCount > _currentTimeCountTarget)
                         {
                             EndSequance();
                         }
@@ -102,7 +107,8 @@ public class SpwanerController : MonoBehaviour {
                 case eSpwanerPhase.WaveFinished:
                     {
                         _waveTimeCount += Time.deltaTime;
-                        if (_waveTimeCount > _currentWave.EndDelay)
+                        _currentTimeCountTarget = TimeFactorMultiplier(_currentWave.EndDelay, _currentWave.LevelModier, _currentWave.MinLevel);
+                        if (_waveTimeCount > _currentTimeCountTarget)
                         {
                             _phase = eSpwanerPhase.None;
                         }
@@ -348,6 +354,22 @@ public class SpwanerController : MonoBehaviour {
 
         return newChromie;
 
+    }
+
+    private float TimeFactorMultiplier(float time, float multiplier, int minLevel)
+    {
+        if (multiplier == 1.0f)
+        {
+            return 1.0f;
+        }
+
+        float factor = Mathf.Pow((multiplier * 0.99f), (_currentLevel - minLevel));
+        float factoredTime = time * factor;
+        if (factoredTime < 0.1f)
+        {
+            return 0.1f;
+        }
+        return factoredTime;
     }
 
     #endregion
