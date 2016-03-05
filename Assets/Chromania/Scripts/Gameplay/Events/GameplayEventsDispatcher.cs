@@ -7,6 +7,7 @@ public class GameplayEventsDispatcher : MonoBehaviour {
 
     public delegate void ChromieActionDelegate(ChromieController chromieController);
     public delegate void ChromieColorZoneActionDelegate(ChromieController chromieController, ColorZoneController colorZone);
+    public delegate void PowerupActivationDelegate(ePowerups.Active powerupType, float duration, float value);
     public delegate void GameoverDelegate();
 
     #endregion
@@ -19,6 +20,7 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public event ChromieActionDelegate OnChromieCollected;
     public event GameoverDelegate OnGameOver;
     public event GameoverDelegate OnTimeUp;
+    public event PowerupActivationDelegate OnPowerupActivation;
 
     #endregion
 
@@ -104,6 +106,14 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
+    public void PowerupActivation(ePowerups.Active powerupType, float duration, float value)
+    {
+        if (OnPowerupActivation != null)
+        {
+            OnPowerupActivation(powerupType, duration, value);
+        }
+    }
+
     #endregion
 
 
@@ -137,6 +147,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public static void SendChromieCollected(ChromieController chromieController)
     {
         GameplayEventsDispatcher.Instance.ChromieCollected(chromieController);
+    }
+
+    public static void SendPowerupActivation(ePowerups.Active powerupType, float duration, float value)
+    {
+        GameplayEventsDispatcher.Instance.PowerupActivation(powerupType, duration, value);
     }
 
     #endregion

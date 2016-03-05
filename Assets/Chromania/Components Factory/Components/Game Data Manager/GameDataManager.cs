@@ -45,7 +45,11 @@ public class GameDataManager : FactoryComponent, IGameData {
     {
         //_gameData = GameData.Load(Path.Combine(Application.dataPath + "/Resources" , "GameData.xml"));
 
-        _gameData = GameData.LoadResource("GameData");
+        if (_gameData == null)
+        {
+            _gameData = GameData.LoadResource("GameData");
+        }
+       
 
         if (dataLoadedAction != null)
         {

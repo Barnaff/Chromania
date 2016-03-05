@@ -3,9 +3,10 @@ using System.Collections;
 
 public interface IChromiezAssetsCache  {
 
-    GameObject GetGameplayChromie(eChromieType colorType);
 
     Sprite GetChromieSprite(eChromieType colorType);
+
+    GameObject GetChromieCharacter(eChromieType colorType);
 
     void LoadAll();
 

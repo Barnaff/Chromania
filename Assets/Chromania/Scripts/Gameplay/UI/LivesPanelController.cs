@@ -47,6 +47,9 @@ public class LivesPanelController : MonoBehaviour {
     [SerializeField]
     private bool _enableDebug;
 
+    [SerializeField]
+    private bool _endlessLives = false;
+
     #endregion
 
     #region Initialization
@@ -68,6 +71,7 @@ public class LivesPanelController : MonoBehaviour {
     {
         this.gameObject.SetActive(true);
         GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
+        GameplayEventsDispatcher.Instance.OnPowerupActivation += OnPowerupActivationHandler;
         PopulateLivesIndicators();
     }
     
@@ -82,6 +86,17 @@ public class LivesPanelController : MonoBehaviour {
         if (_disaplyDropppedChromieIndication)
         {
             StartCoroutine(DisplayHit(chromieController.transform.position));
+
+            Camera.main.gameObject.GetComponent<CameraController>().Shake();
+        }
+    }
+
+
+    private void OnPowerupActivationHandler(ePowerups.Active powerupType, float duration, float value)
+    {
+        if (powerupType == ePowerups.Active.AddLife)
+        {
+            AddLive();
         }
     }
 
@@ -127,7 +142,11 @@ public class LivesPanelController : MonoBehaviour {
 
     private void ReduceLive()
     {
-        _currentLivesCount--;
+        if (!_endlessLives)
+        {
+            _currentLivesCount--;
+        }
+       
         AnimateLiveIndicator(_currentLivesCount, _emptyLiveSprite, true);
         if (_currentLivesCount <= 0)
         {
@@ -186,6 +205,8 @@ public class LivesPanelController : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);
 
         Lean.LeanPool.Despawn(hitIndicator);
+
+       
     }
 
     #endregion

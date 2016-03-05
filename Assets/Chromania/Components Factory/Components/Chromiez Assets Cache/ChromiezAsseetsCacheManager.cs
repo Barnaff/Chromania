@@ -7,11 +7,11 @@ public class ChromiezAsseetsCacheManager : FactoryComponent, IChromiezAssetsCach
 {
     #region Private Properties
 
-    private Dictionary<eChromieType, GameObject> _loadedChromiezGameobjects;
+    private Dictionary<eChromieType, GameObject> _loadedChromiezCharacters;
 
     private Dictionary<eChromieType, Sprite> _loadedChromiezSprites;
 
-    private const string GAMEPLAY_CHROMIEZ_PATH = "Gameplay Chromiez/";
+    private const string GAMEPLAY_CHROMIEZ_PATH = "Chromiez Characters/";
     private const string GAMEPLAY_CHROMIEZ_SPRITES_PATH = "Chromiez Sprites/";
 
     #endregion
@@ -26,7 +26,7 @@ public class ChromiezAsseetsCacheManager : FactoryComponent, IChromiezAssetsCach
 
     public override void InitComponentAtStart()
     {
-        _loadedChromiezGameobjects = new Dictionary<eChromieType, GameObject>();
+        _loadedChromiezCharacters = new Dictionary<eChromieType, GameObject>();
         _loadedChromiezSprites = new Dictionary<eChromieType, Sprite>();
     }
 
@@ -37,7 +37,7 @@ public class ChromiezAsseetsCacheManager : FactoryComponent, IChromiezAssetsCach
 
     public void ClearCache()
     {
-        _loadedChromiezGameobjects.Clear();
+        _loadedChromiezCharacters.Clear();
     }
 
     public Sprite GetChromieSprite(eChromieType colorType)
@@ -59,24 +59,25 @@ public class ChromiezAsseetsCacheManager : FactoryComponent, IChromiezAssetsCach
         return null;
     }
 
-    public GameObject GetGameplayChromie(eChromieType colorType)
+    public GameObject GetChromieCharacter(eChromieType colorType)
     {
-        if (_loadedChromiezGameobjects.ContainsKey(colorType))
+        if (_loadedChromiezCharacters.ContainsKey(colorType))
         {
-            return _loadedChromiezGameobjects[colorType];
+            return _loadedChromiezCharacters[colorType];
         }
 
         string chromiePath = GAMEPLAY_CHROMIEZ_PATH + colorType.ToString();
-        GameObject chromieGameobject = Resources.Load(chromiePath) as GameObject;
-        if (chromieGameobject != null)
+        GameObject chromieCharacterGameobject = Resources.Load(chromiePath) as GameObject;
+        if (chromieCharacterGameobject != null)
         {
-            _loadedChromiezGameobjects.Add(colorType, chromieGameobject);
-            return chromieGameobject;
+            _loadedChromiezCharacters.Add(colorType, chromieCharacterGameobject);
+            return chromieCharacterGameobject;
         }
 
         Debug.LogError("ERROR loading asset for chromie " + colorType);
         return null;
     }
+
 
     public void LoadAll()
     {

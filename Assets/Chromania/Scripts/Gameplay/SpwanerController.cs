@@ -7,6 +7,9 @@ public class SpwanerController : MonoBehaviour {
     #region Private Properties
 
     [SerializeField]
+    private ChromieController _chromieControllerPrefab;
+
+    [SerializeField]
     private Vector3 _spwanBasePosition;
 
     private const float FORCE_VECTOR_MODIFIER = 450;
@@ -41,6 +44,8 @@ public class SpwanerController : MonoBehaviour {
 
     private float _currentTimeCountTarget;
 
+    private GameData _gameData;
+
     #endregion
 
 
@@ -50,7 +55,13 @@ public class SpwanerController : MonoBehaviour {
     void Start () {
 
         GameplayEventsDispatcher.Instance.OnChromieDropped += ChromieDroppedHandler;
-	}
+
+        IGameData gameDataManager = ComponentFactory.GetAComponent<IGameData>();
+        if (gameDataManager != null)
+        {
+            _gameData = gameDataManager.GameData;
+        }
+    }
 
     #endregion
 
@@ -180,16 +191,6 @@ public class SpwanerController : MonoBehaviour {
 
     #region Private
 
-    private GameObject GetChromiePrefab(eChromieType chromieType)
-    {
-        IChromiezAssetsCache chromiezAssetsCache = ComponentFactory.GetAComponent<IChromiezAssetsCache>();
-        if (chromiezAssetsCache != null)
-        {
-            return chromiezAssetsCache.GetGameplayChromie(chromieType);
-        }
-        return null;
-    }
-
     private eChromieType GetRandomChromieForSpwan()
     {
         eChromieType randomChromie = _selectedChromies[Random.Range(0, _selectedChromies.Length - 1)];
@@ -276,7 +277,6 @@ public class SpwanerController : MonoBehaviour {
             }
         }
 
-        Debug.Log("current Level: " + _currentLevel + ", waves: "  + avalableWaves.Count);
         if (avalableWaves.Count == 0)
         {
             _usedWavesList.Clear();
@@ -297,18 +297,18 @@ public class SpwanerController : MonoBehaviour {
         {
             colorType = ColorForSpwanColorType(spwanedItem.SpwanedColor);
         }
-        GameObject chromie = CreateChromie(colorType);
+        ChromieController chromieController = CreateChromie(colorType);
 
         Vector3 spwanPosition = _spwanBasePosition;
         spwanPosition.x += spwanedItem.XPosition * 0.032f;
-        chromie.transform.position = spwanPosition;
+        chromieController.gameObject.transform.position = spwanPosition;
 
         Vector2 spwanForce = spwanedItem.ForceVector;
         spwanForce.y += 450;
-        chromie.GetComponent<Rigidbody2D>().AddForce(spwanForce);
-        chromie.GetComponent<Rigidbody2D>().angularVelocity = Random.Range(-90, 90);
+        chromieController.gameObject.GetComponent<Rigidbody2D>().AddForce(spwanForce);
+        chromieController.gameObject.GetComponent<Rigidbody2D>().angularVelocity = Random.Range(-90, 90);
 
-        GameplayEventsDispatcher.SendChromieSpwaned(chromie.GetComponent<ChromieController>());
+        GameplayEventsDispatcher.SendChromieSpwaned(chromieController);
     }
 
     private eChromieType ColorForSpwanColorType(eSpwanedColorType spwanColorType)
@@ -345,14 +345,17 @@ public class SpwanerController : MonoBehaviour {
         return colorType;
     }
 
-    private GameObject CreateChromie(eChromieType colorType)
+    private ChromieController CreateChromie(eChromieType colorType)
     {
-        GameObject chromiePrefab = GetChromiePrefab(colorType);
-        GameObject newChromie = Lean.LeanPool.Spawn(chromiePrefab);
-        ChromieController chromieController = newChromie.GetComponent<ChromieController>();
-        chromieController.Init();
+      //  GameObject chromiePrefab = GetChromiePrefab(colorType);
+        ChromieController newChromieController = Lean.LeanPool.Spawn(_chromieControllerPrefab);
 
-        return newChromie;
+
+        ChromieDataObject chromieData = _gameData.GetChromie(colorType);
+
+        newChromieController.Init(chromieData);
+
+        return newChromieController;
 
     }
 

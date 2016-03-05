@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using System.IO;
 
-[CustomEditor(typeof(GameData)), CanEditMultipleObjects]
+//[CustomEditor(typeof(GameData)), CanEditMultipleObjects]
 public class GameDataEditor : Editor {
 
 	private GameData _gameData;

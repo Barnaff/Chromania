@@ -20,9 +20,9 @@ public class ChromieDataObject  {
 
     public string ActiveDescription;
 
-   // public eActivePowerup ActivePowerup;
+    public ePowerups.Active ActivePowerup;
 
-   // public ePassivePowerup PassivePowerup;
+    public ePowerups.Passive PassivePowerup;
 
     public bool UnlockedAtStart;
 

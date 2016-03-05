@@ -170,6 +170,8 @@ public class GameplayManager : MonoBehaviour {
 
         int currentScore = this.gameObject.GetComponent<ScoreCounterManager>().Score;
 
+        _gameplayTrackingData.Score = currentScore;
+
         if (_currentLevel < _levelRequierments.Length)
         {
             int currentLevelRequirment = _levelRequierments[_currentLevel];
@@ -177,7 +179,6 @@ public class GameplayManager : MonoBehaviour {
             {
                 _currentLevel++;
                 _spwanController.UpdateLevel(_currentLevel);
-                Debug.Log("Level up : " + _currentLevel);
             }
         }
     }

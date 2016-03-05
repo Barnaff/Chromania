@@ -5,15 +5,31 @@ using System;
 public class ChromieController : MonoBehaviour, IDraggable {
 
     #region Private properties
-
+    
+    [Header("Chromie Setup")]
     [SerializeField]
     private eChromieType _chromieType;
+
+    [SerializeField]
+    private ChromieDataObject _chromieData;
+
+    [SerializeField]
+    private ChromieCaharcterController _characterController;
+
+    [Header("Powerups")]
+    [SerializeField]
+    private bool _isPowerup;
+
+    [SerializeField]
+    private GameObject _powerupIndicator;
+
 
     private bool _isDragged;
 
     private Bounds _screenBounds;
 
     private bool _isActive;
+
 
     #endregion
 
@@ -26,10 +42,40 @@ public class ChromieController : MonoBehaviour, IDraggable {
         _screenBounds = Camera.main.gameObject.GetComponent<CameraController>().OrthographicBounds();
     }
 
-    public void Init()
+    public void Init(ChromieDataObject chromieData)
     {
         _isActive = false;
         _isDragged = false;
+        _chromieData = chromieData;
+        _isPowerup = false;
+
+        _chromieType = chromieData.ChromieColor;
+
+        if (_characterController != null)
+        {
+            Lean.LeanPool.Despawn(_characterController);
+        }
+
+        IChromiezAssetsCache chromiezAssetsCache = ComponentFactory.GetAComponent<IChromiezAssetsCache>();
+        if (chromiezAssetsCache != null)
+        {
+            GameObject characterPrefab = chromiezAssetsCache.GetChromieCharacter(chromieData.ChromieColor);
+            if (characterPrefab != null)
+            {
+                GameObject newCharacter = Lean.LeanPool.Spawn(characterPrefab);
+                _characterController = newCharacter.GetComponent<ChromieCaharcterController>();
+                if (_characterController != null)
+                {
+                    _characterController.transform.SetParent(this.transform);
+                    _characterController.transform.localPosition = Vector3.zero;
+                }
+            }
+        }
+
+        if (_powerupIndicator != null)
+        {
+            _powerupIndicator.SetActive(false);
+        }
     }
 
     #endregion
@@ -40,7 +86,6 @@ public class ChromieController : MonoBehaviour, IDraggable {
     // Update is called once per frame
     void LateUpdate()
     {
-
         if (this.transform.position.x < -_screenBounds.size.x || this.transform.position.x > _screenBounds.size.x ||
             this.transform.position.y < -_screenBounds.size.y || this.transform.position.y > _screenBounds.size.y)
         {
@@ -93,6 +138,31 @@ public class ChromieController : MonoBehaviour, IDraggable {
     public void CollectChromie()
     {
         Lean.LeanPool.Despawn(this.gameObject);
+    }
+
+    public ChromieDataObject ChromieData
+    {
+        get
+        {
+            return _chromieData;
+        }
+    }
+
+    public void SetAsPowerup()
+    {
+        _isPowerup = true;
+        if (_powerupIndicator != null)
+        {
+            _powerupIndicator.SetActive(true);
+        }
+    }
+
+    public bool IsPowerup
+    {
+        get
+        {
+            return _isPowerup;
+        }
     }
 
     #endregion
