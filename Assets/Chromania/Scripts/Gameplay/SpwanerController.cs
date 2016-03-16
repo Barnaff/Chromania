@@ -31,6 +31,7 @@ public class SpwanerController : MonoBehaviour {
     private eSpwanerPhase _phase;
     private List<WaveDefenition> _wavesList;
     private List<WaveDefenition> _usedWavesList = new List<WaveDefenition>();
+    private List<ChromieController> _allChromiez = new List<ChromieController>();
 
     private WaveDefenition _currentWave;
     private SequanceDefenition _currentSequance;
@@ -174,6 +175,23 @@ public class SpwanerController : MonoBehaviour {
     public void UpdateLevel(int newlevel)
     {
         _currentLevel = newlevel;
+    }
+
+    public void ChangeAllActiveChromiezToColor(eChromieType chromieType)
+    {
+        ChromieDataObject chromieData = _gameData.GetChromie(chromieType);
+        foreach (ChromieController chromieController in _allChromiez)
+        {
+            if (chromieController.isActiveAndEnabled && chromieController.ChromieType != chromieType)
+            {
+                chromieController.ChangeChromie(chromieData);
+            }
+        }
+    }
+
+    public void SetSpwanColorOverride(eChromieType overrideColor)
+    {
+        _overrideColor = overrideColor;
     }
 
     #endregion
@@ -347,13 +365,18 @@ public class SpwanerController : MonoBehaviour {
 
     private ChromieController CreateChromie(eChromieType colorType)
     {
-      //  GameObject chromiePrefab = GetChromiePrefab(colorType);
         ChromieController newChromieController = Lean.LeanPool.Spawn(_chromieControllerPrefab);
-
-
+        if (_overrideColor != eChromieType.None)
+        {
+            colorType = _overrideColor;
+        }
         ChromieDataObject chromieData = _gameData.GetChromie(colorType);
-
         newChromieController.Init(chromieData);
+
+        if (!_allChromiez.Contains(newChromieController))
+        {
+            _allChromiez.Add(newChromieController);
+        }
 
         return newChromieController;
 

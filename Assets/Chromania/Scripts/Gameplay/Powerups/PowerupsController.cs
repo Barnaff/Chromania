@@ -35,7 +35,8 @@ public class PowerupsController : MonoBehaviour {
             return true;
         }
 
-        if (_collectedColorsCounter.ContainsKey(chromieController.ChromieType) && _collectedColorsCounter[chromieController.ChromieType] > chromieController.ChromieData.CountForPowerup)
+        if (_collectedColorsCounter.ContainsKey(chromieController.ChromieType) &&
+            _collectedColorsCounter[chromieController.ChromieType] > chromieController.ChromieData.CountForPowerup)
         {
             return true;
         }
@@ -51,21 +52,28 @@ public class PowerupsController : MonoBehaviour {
         {
             case ePowerups.Active.AddLife:
                 {
+                    ActivePowerupExtraLife((int)chromieController.ChromieData.ActivePowerupValue);
                     break;
                 }
             case ePowerups.Active.AddTime:
                 {
-
+                    ActivePowerupExtraTime(chromieController.ChromieData.ActivePowerupValue);
                     break;
                 }
             case ePowerups.Active.DoubleScore:
                 {
+                    StartCoroutine(ActivePowerupScoreMultiplier((int)chromieController.ChromieData.ActivePowerupValue, chromieController.ChromieData.PowerupDuration));
+                    break;
+                }
+            case ePowerups.Active.AllSameColor:
+                {
+                    StartCoroutine(ActivePowerupAllSameColor(chromieController.ChromieType, chromieController.ChromieData.PowerupDuration));
                     break;
                 }
         }
 
 
-        GameplayEventsDispatcher.SendPowerupActivation(chromieController.ChromieData.ActivePowerup, 0, 0);
+       // GameplayEventsDispatcher.SendPowerupActivation(chromieController.ChromieData.ActivePowerup, 0, 0);
     }
 
     #region Events
@@ -104,6 +112,53 @@ public class PowerupsController : MonoBehaviour {
                 _collectedColorsCounter.Add(chromieController.ChromieType, 1);
             }
         }
+    }
+
+    #endregion
+
+
+    #region Private - Active Powerups
+
+    private void ActivePowerupExtraLife(int livesToAdd = 1)
+    {
+        LivesPanelController livesController = GameObject.FindObjectOfType<LivesPanelController>();
+        if (livesController != null)
+        {
+            for (int i = 0; i < livesToAdd; i++)
+            {
+                livesController.AddLife();
+            }
+        }
+    }
+
+    private void ActivePowerupExtraTime(float timeToAdd)
+    {
+        TimerPanelController timerController = GameObject.FindObjectOfType<TimerPanelController>();
+        if (timerController != null)
+        {
+            timerController.AddTimer(timeToAdd);
+        }
+    }
+
+    private IEnumerator ActivePowerupAllSameColor(eChromieType chromieType, float duration)
+    {
+        SpwanerController spwanController = GameObject.FindObjectOfType<SpwanerController>();
+        if (spwanController != null)
+        {
+            spwanController.ChangeAllActiveChromiezToColor(chromieType);
+
+            spwanController.SetSpwanColorOverride(chromieType);
+
+            yield return new WaitForSeconds(duration);
+
+            spwanController.SetSpwanColorOverride(eChromieType.None);
+        }
+ 
+    }
+
+    private IEnumerator ActivePowerupScoreMultiplier(int multiplier, float duration)
+    {
+        yield return null;
     }
 
     #endregion

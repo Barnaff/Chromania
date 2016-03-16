@@ -9,6 +9,13 @@ public static class ePowerups  {
         AddLife,
         AddTime,
         DoubleScore,
+        AllSameColor,
+        Shield,
+        SpwanSpecialWave,
+        SwitchColorZones,
+        GiveCoins,
+
+
     }
 
     public enum Passive

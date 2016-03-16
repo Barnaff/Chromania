@@ -8,9 +8,6 @@ public class ChromieController : MonoBehaviour, IDraggable {
     
     [Header("Chromie Setup")]
     [SerializeField]
-    private eChromieType _chromieType;
-
-    [SerializeField]
     private ChromieDataObject _chromieData;
 
     [SerializeField]
@@ -48,8 +45,6 @@ public class ChromieController : MonoBehaviour, IDraggable {
         _isDragged = false;
         _chromieData = chromieData;
         _isPowerup = false;
-
-        _chromieType = chromieData.ChromieColor;
 
         if (_characterController != null)
         {
@@ -131,7 +126,7 @@ public class ChromieController : MonoBehaviour, IDraggable {
     {
         get
         {
-            return _chromieType;
+            return _chromieData.ChromieColor;
         }
     }
 
@@ -162,6 +157,30 @@ public class ChromieController : MonoBehaviour, IDraggable {
         get
         {
             return _isPowerup;
+        }
+    }
+
+    public void ChangeChromie(ChromieDataObject chromieData)
+    {
+        _chromieData = chromieData;
+        IChromiezAssetsCache chromiezAssetsCache = ComponentFactory.GetAComponent<IChromiezAssetsCache>();
+        if (chromiezAssetsCache != null)
+        {
+            GameObject characterPrefab = chromiezAssetsCache.GetChromieCharacter(chromieData.ChromieColor);
+            if (characterPrefab != null)
+            {
+                if (_characterController != null)
+                {
+                    Lean.LeanPool.Despawn(_characterController);
+                }
+                GameObject newCharacter = Lean.LeanPool.Spawn(characterPrefab);
+                _characterController = newCharacter.GetComponent<ChromieCaharcterController>();
+                if (_characterController != null)
+                {
+                    _characterController.transform.SetParent(this.transform);
+                    _characterController.transform.localPosition = Vector3.zero;
+                }
+            }
         }
     }
 

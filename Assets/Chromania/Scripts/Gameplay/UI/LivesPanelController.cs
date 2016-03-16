@@ -71,8 +71,12 @@ public class LivesPanelController : MonoBehaviour {
     {
         this.gameObject.SetActive(true);
         GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
-        GameplayEventsDispatcher.Instance.OnPowerupActivation += OnPowerupActivationHandler;
         PopulateLivesIndicators();
+    }
+
+    public void AddLife()
+    {
+        AddLive();
     }
     
     #endregion
@@ -88,15 +92,6 @@ public class LivesPanelController : MonoBehaviour {
             StartCoroutine(DisplayHit(chromieController.transform.position));
 
             Camera.main.gameObject.GetComponent<CameraController>().Shake();
-        }
-    }
-
-
-    private void OnPowerupActivationHandler(ePowerups.Active powerupType, float duration, float value)
-    {
-        if (powerupType == ePowerups.Active.AddLife)
-        {
-            AddLive();
         }
     }
 
