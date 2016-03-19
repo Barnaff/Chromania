@@ -34,13 +34,18 @@ public class ScoreCounterManager : MonoBehaviour {
 
     #endregion
 
-    // Use this for initialization
+
+    #region Initialization
+
     void Start ()
     {
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
 	}
-	
-	
+
+    #endregion
+
+
+    #region Public
 
     public int Score
     {
@@ -49,6 +54,23 @@ public class ScoreCounterManager : MonoBehaviour {
             return _currentScore;
         }
     }
+
+    public void AddScoreMultiplier(int scoreMultiplierToAdd)
+    {
+        _scoreMultiplier += scoreMultiplierToAdd;
+        _scorePanelController.UpdateScoreMultiplier(_scoreMultiplier);
+    }
+
+    public void RemoveScoreMultiplier(int scoreMultiplierToRemove)
+    {
+        _scoreMultiplier -= scoreMultiplierToRemove;
+        _scorePanelController.UpdateScoreMultiplier(_scoreMultiplier);
+    }
+
+    #endregion
+
+
+    #region private
 
     private void OnChromieCollectedHandler(ChromieController chromieController)
     {
@@ -68,10 +90,11 @@ public class ScoreCounterManager : MonoBehaviour {
 
             scoreToAdd += _currentCombo;
 
+            scoreToAdd *= _scoreMultiplier;
+
             _currentScore += scoreToAdd;
 
             _scorePanelController.AddScore(_currentScore, scoreToAdd);
-
 
             Vector3 position = Camera.main.WorldToScreenPoint(chromieController.transform.position);
 
@@ -102,4 +125,6 @@ public class ScoreCounterManager : MonoBehaviour {
 
         Lean.LeanPool.Despawn(scoreIndicator);
     }
+
+    #endregion
 }

@@ -11,6 +11,8 @@ public class PowerupsController : MonoBehaviour {
     [SerializeField]
     private bool _makeAllChromiezPowerups = false;
 
+    private Dictionary<eChromieType, PowerupActivatorController> _activePowerupups = new Dictionary<eChromieType, PowerupActivatorController>();
+
     #endregion
 
     // Use this for initialization
@@ -47,33 +49,12 @@ public class PowerupsController : MonoBehaviour {
 
     private void ActivatePowerupFromChromie(ChromieController chromieController)
     {
-        Debug.Log("Activate powerup: " + chromieController.ChromieData.ActivePowerup);
-        switch(chromieController.ChromieData.ActivePowerup)
+        if (!_activePowerupups.ContainsKey(chromieController.ChromieType))
         {
-            case ePowerups.Active.AddLife:
-                {
-                    ActivePowerupExtraLife((int)chromieController.ChromieData.ActivePowerupValue);
-                    break;
-                }
-            case ePowerups.Active.AddTime:
-                {
-                    ActivePowerupExtraTime(chromieController.ChromieData.ActivePowerupValue);
-                    break;
-                }
-            case ePowerups.Active.DoubleScore:
-                {
-                    StartCoroutine(ActivePowerupScoreMultiplier((int)chromieController.ChromieData.ActivePowerupValue, chromieController.ChromieData.PowerupDuration));
-                    break;
-                }
-            case ePowerups.Active.AllSameColor:
-                {
-                    StartCoroutine(ActivePowerupAllSameColor(chromieController.ChromieType, chromieController.ChromieData.PowerupDuration));
-                    break;
-                }
+            PowerupActivatorController activePowerupController = PowerupActivatorController.ActivatePowerup(chromieController.ChromieData);
+            activePowerupController.OnFinishActivatedPowerup += OnFinishedPowerupHandler;
+            _activePowerupups.Add(chromieController.ChromieType, activePowerupController);
         }
-
-
-       // GameplayEventsDispatcher.SendPowerupActivation(chromieController.ChromieData.ActivePowerup, 0, 0);
     }
 
     #region Events
@@ -114,52 +95,16 @@ public class PowerupsController : MonoBehaviour {
         }
     }
 
+    private void OnFinishedPowerupHandler(PowerupActivatorController powerupActivatorController)
+    {
+        if (_activePowerupups.ContainsValue(powerupActivatorController))
+        {
+            _activePowerupups.Remove(powerupActivatorController.PowerupChromieType);
+        }
+    }
+
     #endregion
 
 
-    #region Private - Active Powerups
 
-    private void ActivePowerupExtraLife(int livesToAdd = 1)
-    {
-        LivesPanelController livesController = GameObject.FindObjectOfType<LivesPanelController>();
-        if (livesController != null)
-        {
-            for (int i = 0; i < livesToAdd; i++)
-            {
-                livesController.AddLife();
-            }
-        }
-    }
-
-    private void ActivePowerupExtraTime(float timeToAdd)
-    {
-        TimerPanelController timerController = GameObject.FindObjectOfType<TimerPanelController>();
-        if (timerController != null)
-        {
-            timerController.AddTimer(timeToAdd);
-        }
-    }
-
-    private IEnumerator ActivePowerupAllSameColor(eChromieType chromieType, float duration)
-    {
-        SpwanerController spwanController = GameObject.FindObjectOfType<SpwanerController>();
-        if (spwanController != null)
-        {
-            spwanController.ChangeAllActiveChromiezToColor(chromieType);
-
-            spwanController.SetSpwanColorOverride(chromieType);
-
-            yield return new WaitForSeconds(duration);
-
-            spwanController.SetSpwanColorOverride(eChromieType.None);
-        }
- 
-    }
-
-    private IEnumerator ActivePowerupScoreMultiplier(int multiplier, float duration)
-    {
-        yield return null;
-    }
-
-    #endregion
 }

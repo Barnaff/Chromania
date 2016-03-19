@@ -18,6 +18,12 @@ public class ChromiezSelectionController : BaseMenuController {
 
     private IGameSetup _gameSetup;
 
+    [SerializeField]
+    private Text _chromieNameLabel;
+
+    [SerializeField]
+    private Text _chromieDecriptionLabel;
+
     #endregion
 
 
@@ -38,6 +44,9 @@ public class ChromiezSelectionController : BaseMenuController {
         {
             flowManager.DisplayMenuScreen(eMenuScreenType.ModeSelection);
         }
+
+        _chromieNameLabel.text = "";
+        _chromieDecriptionLabel.text = "";
     }
 
     public void LetsGoButtonAction()
@@ -146,7 +155,13 @@ public class ChromiezSelectionController : BaseMenuController {
                 UpdateSelectionIndicators();
             }
         }
-       
+
+        _chromieNameLabel.text = cellController.ChromieData.ChromieName;
+        _chromieNameLabel.color = cellController.ChromieData.ColorValue;
+        string chromieDescription = "Passive Powerup: " + cellController.ChromieData.PassivePowerup.ToString() + "\n" +
+            "Active Powerup: " + cellController.ChromieData.ActivePowerup.ToString();
+        _chromieDecriptionLabel.text = chromieDescription;
+
     }
 
     #endregion
