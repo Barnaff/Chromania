@@ -12,9 +12,10 @@ public class TimerPanelController : MonoBehaviour {
     [SerializeField]
     private Text _timerLabel;
 
+    [SerializeField]
     private float _currentTime;
 
-    private bool _isTimerRunning;
+    private bool _isTimerRunning = false;
 
     #endregion
 
@@ -64,9 +65,9 @@ public class TimerPanelController : MonoBehaviour {
         _isTimerRunning = false;
     }
 
-    public void AddTimer(float timeToAdd)
+    public void AddTime(float timeToAdd)
     {
-        _currentTime += timeToAdd;
+        _currentTime = (int)_currentTime + (int)timeToAdd;
         UpdateTimerLabel();
     }
 

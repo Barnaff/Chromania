@@ -97,7 +97,8 @@ public class PowerupsController : MonoBehaviour {
 
     private void OnFinishedPowerupHandler(PowerupActivatorController powerupActivatorController)
     {
-        if (_activePowerupups.ContainsValue(powerupActivatorController))
+        Debug.Log("finished powerup");
+        if (_activePowerupups.ContainsKey(powerupActivatorController.PowerupChromieType))
         {
             _activePowerupups.Remove(powerupActivatorController.PowerupChromieType);
         }

@@ -34,17 +34,18 @@ public class PowerupActivatorController : MonoBehaviour {
 
     public void StartPowerup(ChromieDataObject chromieData)
     {
+        _chromieData = chromieData;
         Debug.Log("Activate powerup: " + chromieData.ActivePowerup);
         switch (chromieData.ActivePowerup)
         {
             case ePowerups.Active.AddLife:
                 {
-                    ActivePowerupExtraLife((int)chromieData.ActivePowerupValue);
+                    StartCoroutine(ActivePowerupExtraLife((int)chromieData.ActivePowerupValue));
                     break;
                 }
             case ePowerups.Active.AddTime:
                 {
-                    ActivePowerupExtraTime(chromieData.ActivePowerupValue);
+                    StartCoroutine(ActivePowerupExtraTime(chromieData.ActivePowerupValue));
                     break;
                 }
             case ePowerups.Active.DoubleScore:
@@ -82,7 +83,7 @@ public class PowerupActivatorController : MonoBehaviour {
 
     #region Private - Active Powerups
 
-    private void ActivePowerupExtraLife(int livesToAdd = 1)
+    private IEnumerator ActivePowerupExtraLife(int livesToAdd = 1)
     {
         LivesPanelController livesController = GameObject.FindObjectOfType<LivesPanelController>();
         if (livesController != null)
@@ -92,18 +93,18 @@ public class PowerupActivatorController : MonoBehaviour {
                 livesController.AddLife();
             }
         }
-
+        yield return null;
         FinishPowerup();
     }
 
-    private void ActivePowerupExtraTime(float timeToAdd)
+    private IEnumerator ActivePowerupExtraTime(float timeToAdd)
     {
         TimerPanelController timerController = GameObject.FindObjectOfType<TimerPanelController>();
         if (timerController != null)
         {
-            timerController.AddTimer(timeToAdd);
+            timerController.AddTime(timeToAdd);
         }
-
+        yield return null;
         FinishPowerup();
     }
 
@@ -120,7 +121,7 @@ public class PowerupActivatorController : MonoBehaviour {
 
             spwanController.SetSpwanColorOverride(eChromieType.None);
         }
-
+        yield return null;
         FinishPowerup();
     }
 
@@ -134,7 +135,7 @@ public class PowerupActivatorController : MonoBehaviour {
 
             scoreCounterManager.RemoveScoreMultiplier(multiplier);
         }
-
+        yield return null;
         FinishPowerup();
     }
 

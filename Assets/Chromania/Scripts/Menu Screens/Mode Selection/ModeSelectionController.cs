@@ -30,6 +30,12 @@ public class ModeSelectionController : BaseMenuController
 
     public void RushButtonAction()
     {
+        IGameSetup gameSetupManager = ComponentFactory.GetAComponent<IGameSetup>();
+        if (gameSetupManager != null)
+        {
+            gameSetupManager.SelectedGameMode = eGameMode.Rush;
+        }
+
         IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
         if (flowManager != null)
         {
@@ -39,6 +45,12 @@ public class ModeSelectionController : BaseMenuController
 
     public void ClassicButtonAction()
     {
+        IGameSetup gameSetupManager = ComponentFactory.GetAComponent<IGameSetup>();
+        if (gameSetupManager != null)
+        {
+            gameSetupManager.SelectedGameMode = eGameMode.Classic;
+        }
+
         IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
         if (flowManager != null)
         {

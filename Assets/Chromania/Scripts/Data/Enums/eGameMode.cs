@@ -1,6 +1,8 @@
 ﻿public enum eGameMode
 {
+    Default,
     Classic,
     Rush,
-    Default,
+    Special,
+    Tutorial,
 }
