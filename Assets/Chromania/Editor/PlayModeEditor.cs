@@ -66,8 +66,7 @@ public class PlayModeEditor : EditorWindow {
         EditorGUILayout.EndFadeGroup();
 
         EditorGUILayout.BeginHorizontal("Box");
-        GUI.skin.button.fontSize = 20;
-        if( GUILayout.Button("►", GUILayout.Width(50), GUILayout.Height(50)))
+        if ( GUILayout.Button("►", GUILayout.Width(25), GUILayout.Height(25)))
         {
             EditorApplication.isPlaying = true;
         }

@@ -11,7 +11,6 @@ public class PlayFabManager : MonoBehaviour, IBackend {
     [SerializeField]
     private string _apiKey;
 
-
     [SerializeField]
     private string PlayerId;
 

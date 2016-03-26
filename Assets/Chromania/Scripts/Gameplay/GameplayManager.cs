@@ -102,7 +102,11 @@ public class GameplayManager : MonoBehaviour {
         _colorZonesManager.Init(_selectedChromiez);
 
         // TODO: display game intro, then start everything
-        StartPlaying();
+        GameplayIntroController.DisplayGameplayIntro(_selectedChromiez, _selectedGameMode, () =>
+        {
+            StartPlaying();
+        });
+       
     }
 
 

@@ -194,6 +194,20 @@ public class SpwanerController : MonoBehaviour {
         _overrideColor = overrideColor;
     }
 
+    public ChromieController CreateChromie(eChromieType colorType)
+    {
+        ChromieController newChromieController = Lean.LeanPool.Spawn(_chromieControllerPrefab);
+        if (_overrideColor != eChromieType.None)
+        {
+            colorType = _overrideColor;
+        }
+        ChromieDataObject chromieData = _gameData.GetChromie(colorType);
+        newChromieController.Init(chromieData);
+
+        return newChromieController;
+
+    }
+
     #endregion
 
 
@@ -317,6 +331,11 @@ public class SpwanerController : MonoBehaviour {
         }
         ChromieController chromieController = CreateChromie(colorType);
 
+        if (!_allChromiez.Contains(chromieController))
+        {
+            _allChromiez.Add(chromieController);
+        }
+
         Vector3 spwanPosition = _spwanBasePosition;
         spwanPosition.x += spwanedItem.XPosition * 0.032f;
         chromieController.gameObject.transform.position = spwanPosition;
@@ -361,25 +380,6 @@ public class SpwanerController : MonoBehaviour {
                 }
         }
         return colorType;
-    }
-
-    private ChromieController CreateChromie(eChromieType colorType)
-    {
-        ChromieController newChromieController = Lean.LeanPool.Spawn(_chromieControllerPrefab);
-        if (_overrideColor != eChromieType.None)
-        {
-            colorType = _overrideColor;
-        }
-        ChromieDataObject chromieData = _gameData.GetChromie(colorType);
-        newChromieController.Init(chromieData);
-
-        if (!_allChromiez.Contains(newChromieController))
-        {
-            _allChromiez.Add(newChromieController);
-        }
-
-        return newChromieController;
-
     }
 
     private float TimeFactorMultiplier(float time, float multiplier, int minLevel)
