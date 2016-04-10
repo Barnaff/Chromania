@@ -45,7 +45,15 @@ public class MainLoader : MonoBehaviour {
         IFlow flowManager = ComponentFactory.GetAComponent<IFlow>();
         if (flowManager != null)
         {
-            flowManager.MainMenu();
+            flowManager.Autologin(() =>
+            {
+                flowManager.FacebookConnect(() =>
+                {
+                   
+                });
+
+                flowManager.MainMenu();
+            }); 
         }
 
         if (_loaderController != null)

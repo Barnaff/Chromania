@@ -29,6 +29,47 @@ public class FlowManager : FactoryComponent, IFlow
 
     #region IFlow Implementation
 
+    public void Autologin(System.Action completionAction)
+    {
+        IBackend serverBackend = ComponentFactory.GetAComponent<IBackend>();
+        if (serverBackend != null)
+        {
+            serverBackend.Login(() =>
+            {
+                if (completionAction != null)
+                { 
+                    completionAction();
+                }
+            });
+        }
+    }
+
+    public void FacebookConnect(System.Action completionAction)
+    {
+        IFacebookManager facebookManager = ComponentFactory.GetAComponent<IFacebookManager>();
+        if (facebookManager != null)
+        {
+            facebookManager.FacebookLogin(() =>
+            {
+                if (facebookManager.IsLoggedIn)
+                {
+                    IBackend serverBackend = ComponentFactory.GetAComponent<IBackend>();
+                    if (serverBackend != null)
+                    {
+                        serverBackend.FacebookConnect(facebookManager.AcsessToken, () =>
+                        {
+                            if (completionAction != null)
+                            {
+                                completionAction();
+                            }
+                        });
+                    }
+                }
+
+            });
+        }
+    }
+
     public void StartGame()
     {
 

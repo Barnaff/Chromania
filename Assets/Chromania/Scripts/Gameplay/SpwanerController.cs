@@ -62,6 +62,8 @@ public class SpwanerController : MonoBehaviour {
         {
             _gameData = gameDataManager.GameData;
         }
+
+        _paused = true;
     }
 
     #endregion
@@ -152,6 +154,11 @@ public class SpwanerController : MonoBehaviour {
         _currentLevel = level;
 
         // InvokeRepeating("MockSpwan", 1.0f, 1.0f);
+    }
+
+    public void StartSpwaning()
+    {
+        _paused = false;
     }
 
     public void StopSpwaning()

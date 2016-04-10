@@ -40,16 +40,27 @@ public class GameplayIntroController : MonoBehaviour {
 
         SpwanerController spwanerController = GameObject.FindObjectOfType<SpwanerController>();
 
+        ColorZonesManager colorZonesManager = GameObject.FindObjectOfType<ColorZonesManager>();
+
+       
+
         for (int i = 0; i < _selectedColors.Length; i++)
         {
             eChromieType chromieType = _selectedColors[i];
             ChromieController chromieController = spwanerController.CreateChromie(chromieType);
             chromieController.gameObject.transform.position = new Vector3(-3.0f + (i * 2.0f), 0, 0);
             chromieController.GetComponent<Rigidbody2D>().isKinematic = true;
+            chromieController.gameObject.GetComponent<Collider2D>().enabled = false;
+
+            ColorZoneController colorZoneController = colorZonesManager.ColorZoneForColor(chromieType);
+
+            StartCoroutine(IntroForChromie(chromieController, colorZoneController, i));
+
+         
         }
        
 
-        yield return null;
+        yield return new WaitForSeconds(6.0f);
 
         if (_completionAction != null)
         {
@@ -60,6 +71,23 @@ public class GameplayIntroController : MonoBehaviour {
     }
 
 
+    IEnumerator IntroForChromie(ChromieController chromieController, ColorZoneController colorZoneController, int index)
+    {
+        colorZoneController.SetForIntro();
+
+        yield return new WaitForSeconds(1.0f + index);
+
+        iTween.MoveTo(chromieController.gameObject, iTween.Hash("time", 0.5f, "position", colorZoneController.gameObject.transform.position, "easetype", iTween.EaseType.easeInCirc));
+
+        yield return new WaitForSeconds(0.5f);
+
+        chromieController.gameObject.SetActive(false);
+
+        colorZoneController.DisplayIntroAnimation(() =>
+        {
+
+        });
+    }
 
     #endregion
 }

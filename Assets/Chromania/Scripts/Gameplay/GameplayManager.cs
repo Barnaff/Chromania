@@ -77,6 +77,8 @@ public class GameplayManager : MonoBehaviour {
             _selectedGameMode = gameSetupManager.SelectedGameMode;
         }
 
+        _spwanController.Init(_selectedGameMode, _selectedChromiez, 1);
+
         IGameData gameDataManager = ComponentFactory.GetAComponent<IGameData>();
         if (gameDataManager != null)
         {
@@ -133,9 +135,9 @@ public class GameplayManager : MonoBehaviour {
 
     private void StartPlaying()
     {
-        _isGameOver = false; 
+        _isGameOver = false;
 
-        _spwanController.Init(_selectedGameMode, _selectedChromiez, 1);
+        _spwanController.StartSpwaning();
 
         if (_selectedGameMode == eGameMode.Rush)
         { 

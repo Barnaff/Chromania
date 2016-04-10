@@ -5,6 +5,8 @@ using PlayFab.ClientModels;
 
 public class PlayFabManager : MonoBehaviour, IBackend {
 
+    #region Private Properties
+
     [SerializeField]
     private string _appID;
 
@@ -14,23 +16,22 @@ public class PlayFabManager : MonoBehaviour, IBackend {
     [SerializeField]
     private string PlayerId;
 
-	// Use this for initialization
-	void Start () {
+    #endregion
+
+
+    #region Initialization
+
+    void Start () {
 
         PlayFabSettings.TitleId = _appID;
        // PlayFabSettings.key = _apiKey;
-
-        Login();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-
-        
     }
 
+    #endregion
 
-    void Login()
+    #region IBackend Implementation
+
+    public void Login(System.Action completionAction)
     {
         LoginWithCustomIDRequest request = new LoginWithCustomIDRequest()
         {
@@ -51,10 +52,77 @@ public class PlayFabManager : MonoBehaviour, IBackend {
             {
                 Debug.Log("(existing account)");
             }
+
+            if (completionAction != null)
+            {
+                completionAction();
+            }
         },
         (error) => {
-            Debug.Log("Error logging in player with custom ID:");
-            Debug.Log(error.ErrorMessage);
+            Debug.LogError(error.ErrorMessage);
         });
     }
+
+    public void FacebookConnect(string facebookAcsessToken, System.Action completionAction)
+    {
+        Debug.Log("linling facebook account");
+
+        LinkFacebookAccountRequest request = new LinkFacebookAccountRequest()
+        {
+            AccessToken = facebookAcsessToken
+        };
+
+        PlayFabClientAPI.LinkFacebookAccount(request, (result) =>
+        {
+            Debug.Log("account linked with facebook");
+            if (completionAction != null)
+            {
+                completionAction();
+            }
+        },
+        (error) =>
+        {
+            Debug.LogError(error.ErrorMessage);
+        });
+    }
+
+    public void PostScore(eGameMode gameMode, int score, eChromieType[] _selectedChromiez, System.Action completionAction)
+    {
+        Debug.Log("Sending score update");
+
+        UpdatePlayerStatisticsRequest request = new UpdatePlayerStatisticsRequest();
+
+        request.Statistics = new System.Collections.Generic.List<StatisticUpdate>();
+
+        request.Statistics.Add(new StatisticUpdate()
+        {
+            StatisticName = "score",
+            Value = score
+        });
+
+        request.Statistics.Add(new StatisticUpdate()
+        {
+            StatisticName = "gameMode",
+            Value = (int)gameMode
+        });
+
+       
+
+        PlayFabClientAPI.UpdatePlayerStatistics(request, (result) =>
+        {
+            Debug.Log("finished sending score Update");
+
+            if (completionAction != null)
+            {
+                completionAction();
+            }
+
+        }, (error) =>
+        {
+            Debug.LogError(error.ErrorMessage);
+        });
+    }
+
+    #endregion
+
 }

@@ -115,10 +115,18 @@ public class ColorZoneController : MonoBehaviour {
         }
     }
 
+    public void SetForIntro()
+    {
+      //  this.gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        this.gameObject.SetActive(false);
+        _scaleValue = 1.0f;
+    }
+
     public void DisplayIntroAnimation(System.Action completionAction)
     {
+        this.gameObject.SetActive(true);
         _completionAction = completionAction;
-        iTween.PunchScale(this.gameObject, iTween.Hash("time", 0.5f, "x", _scaleValue, "y", _scaleValue, "z", _scaleValue, "easetype",
+        iTween.ScaleFrom(this.gameObject, iTween.Hash("time", 1.5f, "scale", new Vector3(0,0,0), "easetype",
             iTween.EaseType.easeOutElastic, "oncomplete", "FinishedIntroAnimation", "oncompletetarget", this.gameObject));
 
     }

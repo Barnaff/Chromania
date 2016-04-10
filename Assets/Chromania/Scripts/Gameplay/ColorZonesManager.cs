@@ -4,43 +4,43 @@ using System.Collections.Generic;
 
 public class ColorZonesManager : MonoBehaviour {
 
-	public GameObject ColorZonePrefab;
+    #region Private Properties
 
-	public eChromieType[] ColorZonesTypes;
+    [SerializeField]
+    private GameObject _colorZonePrefab;
 
-	public Vector2[] ColorZonesPositions;
+    [SerializeField]
+    private eChromieType[] _colorZonesTypes;
+
+    [SerializeField]
+    private Vector2[] _colorZonesPositions;
 
     private List<ColorZoneController> _colorZones = new List<ColorZoneController>();
 
     private float _colorZoneSclae = 1.0f;
 
-	// Use this for initialization
-	void Start () {
+    #endregion
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
 
-	}
+    #region Public
 
-	public void Init(eChromieType[] colorTypes = null)
+    public void Init(eChromieType[] colorTypes = null)
 	{
 		if (colorTypes != null)
 		{
-			ColorZonesTypes = colorTypes;
+			_colorZonesTypes = colorTypes;
 		}
         _colorZones = new List<ColorZoneController>();
-        for (int i=0; i< ColorZonesTypes.Length ; i++)
+        for (int i=0; i< _colorZonesTypes.Length ; i++)
 		{
-            CreateColorZoneObject(ColorZonesTypes[i] , i);
+            CreateColorZoneObject(_colorZonesTypes[i] , i);
 		}
 	}
 
 
     public Vector3 PositionForColorZone(int index)
     {
-        Vector2 colorZonePosition = ColorZonesPositions[index];
+        Vector2 colorZonePosition = _colorZonesPositions[index];
         colorZonePosition.x *= Screen.width;
         colorZonePosition.y *= Screen.height;
         colorZonePosition = Camera.main.ScreenToWorldPoint(colorZonePosition);
@@ -49,7 +49,7 @@ public class ColorZonesManager : MonoBehaviour {
 
     public GameObject CreateColorZoneObject(eChromieType color, int index, bool animated = true, System.Action completionAction = null)
 	{
-        GameObject colorZone = Lean.LeanPool.Spawn(ColorZonePrefab, PositionForColorZone(index), Quaternion.identity);
+        GameObject colorZone = Lean.LeanPool.Spawn(_colorZonePrefab, PositionForColorZone(index), Quaternion.identity);
 		ColorZoneController colorZoneController = colorZone.GetComponent<ColorZoneController>() as ColorZoneController;
 		if (colorZoneController != null)
 		{
@@ -58,7 +58,7 @@ public class ColorZonesManager : MonoBehaviour {
             colorZoneController.SetColorZoneScale(_colorZoneSclae, false);
             if (animated)
             {
-                colorZoneController.DisplayIntroAnimation(completionAction);
+              //  colorZoneController.DisplayIntroAnimation(completionAction);
             }
         }
 
@@ -76,11 +76,22 @@ public class ColorZonesManager : MonoBehaviour {
                 colorZone.SetColorZoneScale(_colorZoneSclae, true);
             }
         }
-
     }
 
+    public ColorZoneController ColorZoneForColor(eChromieType chromieType)
+    {
+        foreach (ColorZoneController colorZone in _colorZones)
+        {
+            if (colorZone.ColorZoneType == chromieType)
+            {
+                return colorZone;
+            }
+        }
+        return null;
+    }
 
-    
+    #endregion
+
 
 
 }
