@@ -27,6 +27,7 @@
 @protocol LUConsoleControllerDelegate <NSObject>
 
 @optional
+- (void)consoleControllerDidOpen:(LUConsoleController *)controller;
 - (void)consoleControllerDidClose:(LUConsoleController *)controller;
 
 @end
@@ -42,8 +43,6 @@
 @end
 
 @interface LUConsoleControllerState : NSObject
-
-@property (nonatomic, assign) BOOL scrollLocked;
 
 + (instancetype)sharedControllerState;
 

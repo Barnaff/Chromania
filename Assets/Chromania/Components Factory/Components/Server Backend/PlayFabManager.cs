@@ -65,7 +65,7 @@ public class PlayFabManager : MonoBehaviour, IBackend {
 
     public void FacebookConnect(string facebookAcsessToken, System.Action completionAction)
     {
-        Debug.Log("linling facebook account");
+        Debug.Log("linking facebook account token: " + facebookAcsessToken);
 
         LinkFacebookAccountRequest request = new LinkFacebookAccountRequest()
         {

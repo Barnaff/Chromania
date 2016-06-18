@@ -14,7 +14,29 @@ public class PlayfabManagerInspeector : Editor {
 
         if (GUILayout.Button("Link Facebook"))
         {
+            IFacebookManager facebookManager = ComponentFactory.GetAComponent<IFacebookManager>();
+            if (facebookManager != null)
+            {
+                if (facebookManager.IsLoggedIn)
+                {
+                    costumEditor.FacebookConnect(facebookManager.AcsessToken, () =>
+                    {
 
+                    });
+                }
+                else
+                {
+                    facebookManager.FacebookLogin(() =>
+                    {
+                        costumEditor.FacebookConnect(facebookManager.AcsessToken, () =>
+                        {
+
+                        });
+
+                    });
+                }
+            }
+           
         }
 
         GUILayout.BeginHorizontal("Box");

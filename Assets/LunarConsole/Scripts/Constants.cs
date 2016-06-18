@@ -22,11 +22,11 @@
 using UnityEngine;
 using System.Collections;
 
-namespace LunarConsoleInternal
+namespace LunarConsolePluginInternal
 {
     public static class Constants
     {
-        public static readonly string Version = "0.2.0b";
+        public static readonly string Version = "0.3.0b";
         public static readonly string UpdateJsonURL = "https://raw.githubusercontent.com/SpaceMadness/lunar-unity-console/master/Builder/updater.json";
 
         public static readonly string PluginName = "LunarConsole";

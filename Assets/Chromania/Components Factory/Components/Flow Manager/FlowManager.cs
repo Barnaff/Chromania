@@ -58,6 +58,7 @@ public class FlowManager : FactoryComponent, IFlow
                     {
                         serverBackend.FacebookConnect(facebookManager.AcsessToken, () =>
                         {
+                            Debug.Log("Facebook connect sucsess");
                             if (completionAction != null)
                             {
                                 completionAction();

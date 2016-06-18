@@ -118,7 +118,7 @@ static LUConsoleControllerState * _sharedControllerState;
     _toggleCollapseButton.delegate = self;
     
     // scroll lock
-    _scrollLocked = [self controllerState].scrollLocked;
+    _scrollLocked = YES; // scroll is locked by default
     _scrollLockButton.on = _scrollLocked;
     _scrollLockButton.delegate = self;
     
@@ -161,7 +161,14 @@ static LUConsoleControllerState * _sharedControllerState;
     
     // overflow warning
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateOverflowWarning]; // give the table a chance to layout
+        // give the table a chance to layout
+        [self updateOverflowWarning];
+        
+        // scroll to the end
+        if (_scrollLocked)
+        {
+            [self scrollToBottomAnimated:NO];
+        }
     });
 }
 
@@ -169,6 +176,16 @@ static LUConsoleControllerState * _sharedControllerState;
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if ([_delegate respondsToSelector:@selector(consoleControllerDidOpen:)])
+    {
+        [_delegate consoleControllerDidOpen:self];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -400,8 +417,11 @@ static LUConsoleControllerState * _sharedControllerState;
 
 - (void)scrollToBottomAnimated:(BOOL)animated
 {
-    NSIndexPath *path = [NSIndexPath indexPathForRow:_console.entriesCount-1 inSection:0];
-    [_tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+    if (_console.entriesCount > 0)
+    {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:_console.entriesCount-1 inSection:0];
+        [_tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+    }
 }
 
 - (void)scrollToTopAnimated:(BOOL)animated
@@ -663,7 +683,7 @@ static LUConsoleControllerState * _sharedControllerState;
     [_tableView insertRowsAtIndexPaths:indices withRowAnimation:UITableViewRowAnimationNone];
     LU_RELEASE(indices);
 
-    // scroll to end
+    // scroll to the end
     if (_scrollLocked)
     {
         [self scrollToBottomAnimated:NO];
@@ -764,12 +784,6 @@ static LUConsoleControllerState * _sharedControllerState;
     return [LUConsoleControllerState sharedControllerState];
 }
 
-- (void)setScrollLocked:(BOOL)scrollLocked
-{
-    _scrollLocked = scrollLocked;
-    [self controllerState].scrollLocked = _scrollLocked;
-}
-
 @end
 
 @implementation LUConsoleControllerState
@@ -779,7 +793,7 @@ static LUConsoleControllerState * _sharedControllerState;
     self = [super init];
     if (self)
     {
-        _scrollLocked = YES;
+        // TODO: init state variables
     }
     return self;
 }

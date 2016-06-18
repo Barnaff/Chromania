@@ -36,7 +36,7 @@ public class GameplayIntroController : MonoBehaviour {
 
     private IEnumerator DisplayGameplayIntroCorutine()
     {
-        yield return null;
+        yield return new WaitForSeconds(1.0f);
 
         SpwanerController spwanerController = GameObject.FindObjectOfType<SpwanerController>();
 
@@ -60,22 +60,26 @@ public class GameplayIntroController : MonoBehaviour {
         }
        
 
-        yield return new WaitForSeconds(6.0f);
+        yield return new WaitForSeconds(5.0f);
 
         if (_completionAction != null)
         {
             _completionAction();
         }
 
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
 
     IEnumerator IntroForChromie(ChromieController chromieController, ColorZoneController colorZoneController, int index)
     {
+        iTween.MoveFrom(chromieController.gameObject, iTween.Hash("time", 0.5f + Random.Range(0.0f, 0.2f), "position", Vector3.zero, "easetype", iTween.EaseType.easeOutElastic));
+        iTween.ScaleFrom(chromieController.gameObject, iTween.Hash("time", 0.8f, "scale", Vector3.zero, "easetype",  iTween.EaseType.easeOutElastic));
         colorZoneController.SetForIntro();
 
-        yield return new WaitForSeconds(1.0f + index);
+
+        yield return new WaitForSeconds(1.5f + (index * 0.5f));
+
 
         iTween.MoveTo(chromieController.gameObject, iTween.Hash("time", 0.5f, "position", colorZoneController.gameObject.transform.position, "easetype", iTween.EaseType.easeInCirc));
 

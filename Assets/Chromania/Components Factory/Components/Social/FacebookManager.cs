@@ -63,7 +63,8 @@ public class FacebookManager : FactoryComponent , IFacebookManager {
         Debug.Log("starting facebook login");
         FB.LogInWithPublishPermissions(_writePermissions, (result)=>
         {
-            Debug.Log("facebook Login finished");
+
+            Debug.Log("facebook Login finished token: " + result.AccessToken);
             if (completionAction != null)
             {
                 completionAction();

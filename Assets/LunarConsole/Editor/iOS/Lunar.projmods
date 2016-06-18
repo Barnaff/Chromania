@@ -77,6 +77,8 @@
     "Plugin/LUConsolePlugin.m",
     "Plugin/lunar_unity_native_interface.h",
     "Plugin/lunar_unity_native_interface.m",
+    "Plugin/LUUnityScriptMessenger.h",
+    "Plugin/LUUnityScriptMessenger.m",
     "UI/LUConsoleTableCell.h",
     "UI/LUConsoleTableCell.m",
     "UI/LULogTypeButton.h",
