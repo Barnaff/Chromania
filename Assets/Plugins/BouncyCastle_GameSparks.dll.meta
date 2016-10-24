@@ -6,10 +6,6 @@ PluginImporter:
   executionOrder: {}
   isPreloaded: 0
   platformData:
-    Android:
-      enabled: 1
-      settings:
-        CPU: AnyCPU
     Any:
       enabled: 0
       settings: {}
@@ -43,12 +39,6 @@ PluginImporter:
       enabled: 1
       settings:
         CPU: AnyCPU
-    PS4:
-      enabled: 1
-      settings: {}
-    WebGL:
-      enabled: 1
-      settings: {}
     Win:
       enabled: 1
       settings:
@@ -61,19 +51,11 @@ PluginImporter:
       enabled: 0
       settings:
         CPU: AnyCPU
-        DontProcess: False
-        PlaceholderPath: 
-        SDK: AnySDK
-        ScriptingBackend: AnyScriptingBackend
-    XboxOne:
+    iOS:
       enabled: 1
-      settings: {}
-	iOS:
-      enabled: 1
-      settings: {}
-    tvOS:
-      enabled: 1
-      settings: {}
+      settings:
+        CompileFlags: 
+        FrameworkDependencies: 
   userData: 
   assetBundleName: 
   assetBundleVariant: 
