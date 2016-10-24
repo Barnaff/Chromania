@@ -33,12 +33,16 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
 
     public void PlayButtonAction()
     {
+        if (GameSetupManager.Instance.SelectedChromiez.Contains(null))
+        {
+            return;
+        }
         FlowManager.Instance.StartGame();
     }
 
     public void BackButtonAction()
     {
-
+        MenuScreensController.Instance.DisplayScreen(MenuScreensController.eMenuScreenType.ModeSelection);
     }
 
     #endregion
