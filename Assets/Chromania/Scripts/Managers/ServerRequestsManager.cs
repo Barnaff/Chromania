@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using GameSparks.Api;
-using GameSparks.Api.Messages;
-using GameSparks.Api.Requests;
-using GameSparks.Api.Responses;
-using GameSparks.Core;
+//using GameSparks.Api;
+//using GameSparks.Api.Messages;
+//using GameSparks.Api.Requests;
+//using GameSparks.Api.Responses;
+//using GameSparks.Core;
 using System.Collections.Generic;
 
 public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
@@ -20,7 +20,8 @@ public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
     {
         get
         {
-            return GS.Available;
+            return true;
+            //return GS.Available;
         }
     }
 
@@ -28,7 +29,8 @@ public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
     {
         get
         {
-            return GS.Version.ToString();
+            return "";
+           // return GS.Version.ToString();
         }
     }
 
@@ -36,11 +38,12 @@ public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
     {
         get
         {
-            return GS.Authenticated;
+            return true;
+           // return GS.Authenticated;
         }
     }
 
-
+/*
     public void ConnectFacebook(string facebookToken, System.Action <AuthenticationResponse> completionAction, bool durable = false)
     {
         new FacebookConnectRequest().SetDurable(durable).SetAccessToken(facebookToken).Send((response) =>
@@ -93,6 +96,7 @@ public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
     {
 
     }
+    */
 
     #endregion
 
@@ -101,7 +105,7 @@ public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
 
     private IEnumerator InitNetworkCorutine(System.Action completionAction)
     {
-        this.gameObject.AddComponent<GameSparksUnity>();
+      //  this.gameObject.AddComponent<GameSparksUnity>();
 
         while (!NetworkAvalable)
         {

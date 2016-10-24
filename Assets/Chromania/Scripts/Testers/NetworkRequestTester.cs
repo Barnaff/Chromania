@@ -24,7 +24,7 @@ public class NetworkRequestTester : MonoBehaviour {
 
     void OnGUI()
     {
-
+        /*
         GUILayout.BeginVertical("Box");
         {
 
@@ -92,7 +92,7 @@ public class NetworkRequestTester : MonoBehaviour {
 
         }
         GUILayout.EndVertical();
-
+        */
     }
 
 
