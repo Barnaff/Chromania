@@ -151,11 +151,11 @@ namespace GeneratedConstants
         /// <summary>
         /// Bundle Identifier
         /// </summary>
-        public const string BundleIdentifier = "com.Company.ProductName";
+        public const string BundleIdentifier = "com.Kobapps.Unity.Chromania";
         /// <summary>
         /// Bundle Version
         /// </summary>
-        public const string BundleVersion = "1.0";
+        public const string BundleVersion = "1.0.115";
     }
 
 }
