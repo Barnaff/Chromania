@@ -14,8 +14,6 @@ public static class ePowerups  {
         SpwanSpecialWave,
         SwitchColorZones,
         GiveCoins,
-
-
     }
 
     public enum Passive
@@ -24,6 +22,5 @@ public static class ePowerups  {
         AddLifeAtStart,
         AddLifeLostAtStart,
         AddTimeAtStart,
-
     }
 }

@@ -41,11 +41,11 @@ public class SpwanerController : MonoBehaviour {
 
 
     private int _currentLevel;
-    private eGameMode _currentGameMode;
+    private eGameplayMode _currentGameMode;
 
     private float _currentTimeCountTarget;
 
-    private GameData _gameData;
+   // private GameData _gameData;
 
     #endregion
 
@@ -53,16 +53,19 @@ public class SpwanerController : MonoBehaviour {
     #region Initialization
 
     // Use this for initialization
-    void Start () {
-
+    void Start()
+    {
+        GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
         GameplayEventsDispatcher.Instance.OnChromieDropped += ChromieDroppedHandler;
+        /*
+       
 
         IGameData gameDataManager = ComponentFactory.GetAComponent<IGameData>();
         if (gameDataManager != null)
         {
             _gameData = gameDataManager.GameData;
         }
-
+        */
         _paused = true;
     }
 
@@ -72,7 +75,7 @@ public class SpwanerController : MonoBehaviour {
     #region Update
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         if (!Paused)
         {
@@ -142,11 +145,15 @@ public class SpwanerController : MonoBehaviour {
 
     #region Public 
 
-    public void Init(eGameMode gameMode, eChromieType[] selectedCollors, int level)
+    public void Init(eGameplayMode gameMode, List<ChromieDefenition> selectedColors, int level)
     {
         _spwanBasePosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, 0, 10));
 
-        _selectedChromies = selectedCollors;
+        _selectedChromies = new eChromieType[selectedColors.Count];
+        for (int i=0; i< selectedColors.Count; i++)
+        {
+            _selectedChromies[i] = selectedColors[i].ChromieColor;
+        }
 
         _wavesList = WavesDataLoader.WavesList();
 
@@ -186,12 +193,12 @@ public class SpwanerController : MonoBehaviour {
 
     public void ChangeAllActiveChromiezToColor(eChromieType chromieType)
     {
-        ChromieDataObject chromieData = _gameData.GetChromie(chromieType);
+        ChromieDefenition chromieData = ChromezData.Instance.GetChromie(chromieType);
         foreach (ChromieController chromieController in _allChromiez)
         {
             if (chromieController.isActiveAndEnabled && chromieController.ChromieType != chromieType)
             {
-                chromieController.ChangeChromie(chromieData);
+              //  chromieController.ChangeChromie(chromieData);
             }
         }
     }
@@ -203,22 +210,30 @@ public class SpwanerController : MonoBehaviour {
 
     public ChromieController CreateChromie(eChromieType colorType)
     {
+       
         ChromieController newChromieController = Lean.LeanPool.Spawn(_chromieControllerPrefab);
         if (_overrideColor != eChromieType.None)
         {
             colorType = _overrideColor;
         }
-        ChromieDataObject chromieData = _gameData.GetChromie(colorType);
-        newChromieController.Init(chromieData);
+        ChromieDefenition chromieDefenition = ChromezData.Instance.GetChromie(colorType);
+        newChromieController.SetChromie(chromieDefenition);
 
         return newChromieController;
 
     }
 
+
+
     #endregion
 
 
     #region Events
+
+    public void OnChromieCollectedHandler(ChromieController chromieController, ColorZoneController colorZone)
+    {
+        Lean.LeanPool.Despawn(chromieController.gameObject);
+    }
 
     private void ChromieDroppedHandler(ChromieController chromieController)
     {
@@ -294,13 +309,13 @@ public class SpwanerController : MonoBehaviour {
             {
                 avalable = true;
             }
-           
+
             if (wave.MinLevel <= _currentLevel && wave.MaxLevel >= _currentLevel)
             {
                 avalable = true;
             }
 
-            if (wave.GameMode != _currentGameMode && wave.GameMode != eGameMode.Default)
+            if (wave.GameMode != _currentGameMode && wave.GameMode != eGameplayMode.Default)
             {
                 avalable = false;
             }
@@ -344,11 +359,11 @@ public class SpwanerController : MonoBehaviour {
         }
 
         Vector3 spwanPosition = _spwanBasePosition;
-        spwanPosition.x += spwanedItem.XPosition * 0.032f;
+        spwanPosition.x += spwanedItem.XPosition * SPWAN_POSITION_MULTIPLIER;
         chromieController.gameObject.transform.position = spwanPosition;
 
         Vector2 spwanForce = spwanedItem.ForceVector;
-        spwanForce.y += 450;
+        spwanForce.y += FORCE_VECTOR_MODIFIER;
         chromieController.gameObject.GetComponent<Rigidbody2D>().AddForce(spwanForce);
         chromieController.gameObject.GetComponent<Rigidbody2D>().angularVelocity = Random.Range(-90, 90);
 
@@ -406,5 +421,4 @@ public class SpwanerController : MonoBehaviour {
     }
 
     #endregion
-
 }
