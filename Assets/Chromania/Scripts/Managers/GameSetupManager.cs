@@ -51,7 +51,11 @@ public class GameSetupManager : Kobapps.Singleton<GameSetupManager> {
         }
         else
         {
-            _selectedChromiez = new List<ChromieDefenition>() { null, null, null, null };
+            _selectedChromiez = new List<ChromieDefenition>();
+            for (int i=0; i < GameplaySettings.Instance.NumberOfChromiezSlots; i++)
+            {
+                _selectedChromiez.Add(null);
+            }
         }
 
         if (PlayerPrefsUtil.HasKey(SELECTED_GAMEPLAY_MODE_PREFS))

@@ -72,7 +72,7 @@ public class GameplayController : MonoBehaviour {
         {
             case eGameplayMode.Classic:
                 {
-                    gameObject.AddComponent<GameplayLivesManager>().Init(3, _gameplayTrackingData);
+                    gameObject.AddComponent<GameplayLivesManager>().Init(GameplaySettings.Instance.BaseClassicNumberOfLives, _gameplayTrackingData);
                     break;
                 }
             case eGameplayMode.Rush:
