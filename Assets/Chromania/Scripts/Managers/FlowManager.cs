@@ -49,4 +49,9 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
             }
         });
     }
+
+    public void QuitGame()
+    {
+        DisplayMainMenu();
+    }
 }

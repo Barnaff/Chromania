@@ -1,15 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObjectivesManager : MonoBehaviour {
+public class ObjectivesManager : Kobapps.Singleton<ObjectivesManager> {
 
-	// Use this for initialization
-	void Start () {
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

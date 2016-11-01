@@ -6,12 +6,21 @@ public class ChromieController : MonoBehaviour, IDraggable {
 
     #region Private Properties
 
+    [Header("Chromie")]
     [SerializeField]
     private ChromieDefenition _chromieDefenition;
 
     [SerializeField]
     private ChromieCharacterController _characterController;
 
+    [Header("Powerups")]
+    [SerializeField]
+    private bool _isPowerup;
+
+    [SerializeField]
+    private GameObject _powerupIndicator;
+
+    [Header("Controlls")]
     [SerializeField]
     private bool _isDragged;
 
@@ -44,10 +53,17 @@ public class ChromieController : MonoBehaviour, IDraggable {
         }
     }
 
-  
+    public ChromieDefenition ChromieDefenition
+    {
+        get
+        {
+            return _chromieDefenition;
+        } 
+    }
 
     public void SetChromie(ChromieDefenition chromieDefenition)
     {
+       
         _chromieDefenition = chromieDefenition;
         if (_characterController != null)
         {
@@ -61,6 +77,25 @@ public class ChromieController : MonoBehaviour, IDraggable {
         characterGameobject.transform.localScale = Vector3.one;
 
         _characterController = characterGameobject.GetComponent<ChromieCharacterController>();
+
+        IsPowerup = false;
+    }
+
+    public bool IsPowerup
+    {
+        get
+        {
+            return _isPowerup;
+        }
+        set
+        {
+            _isPowerup = value;
+
+            if (_characterController != null)
+            {
+                _characterController.IsPowerup = _isPowerup;
+            }
+        }
     }
 
     #endregion

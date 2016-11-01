@@ -33,6 +33,21 @@ public class GameplayLivesManager : MonoBehaviour {
         GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
     }
 
+    public void AddLife(int amount = 1)
+    {
+        if (_currentLives < _maxLives)
+        {
+            _currentLives += amount;
+            GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
+        }
+    }
+
+    public void AddLifeSlot(int amount = 1)
+    {
+        _maxLives += amount;
+        GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
+    }
+
     #endregion
 
 
@@ -57,15 +72,6 @@ public class GameplayLivesManager : MonoBehaviour {
         else
         {
             _currentLives--;
-            GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
-        }
-    }
-
-    private void AddLife()
-    {
-        if (_currentLives < _maxLives)
-        {
-            _currentLives++;
             GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
         }
     }

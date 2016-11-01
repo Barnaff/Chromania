@@ -61,6 +61,11 @@ public class GameplayGUIController : MonoBehaviour {
         }
     }
 
+    public void PauseButtonAction()
+    {
+        PauseManager.Instance.PauseGame();
+    }
+
     #endregion
 
 

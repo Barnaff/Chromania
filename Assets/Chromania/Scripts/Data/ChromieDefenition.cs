@@ -20,9 +20,9 @@ public class ChromieDefenition
 
     public string ActiveDescription;
 
-    public ePowerups.Active ActivePowerup;
+   // public ePowerups.Active ActivePowerup;
 
-    public ePowerups.Passive PassivePowerup;
+   // public ePowerups.Passive PassivePowerup;
 
     public int CountForPowerup;
 
@@ -42,6 +42,16 @@ public class ChromieDefenition
     public GameObject CharacterPrefab;
 
     public GameObject ColorZonePrefab;
+
+    #endregion
+
+
+    #region Powerups
+
+    [Header("Powqerups")]
+    public PowerupBase ActivePowerup;
+
+    public PowerupBase PassivePowerup;
 
     #endregion
 }
