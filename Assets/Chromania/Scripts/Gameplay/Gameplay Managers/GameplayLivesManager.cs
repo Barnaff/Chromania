@@ -17,6 +17,9 @@ public class GameplayLivesManager : MonoBehaviour {
     [SerializeField]
     private GameplayTrackingData _gameplayTrackingData;
 
+    [SerializeField]
+    private bool _isImmune;
+
     #endregion
 
 
@@ -48,6 +51,11 @@ public class GameplayLivesManager : MonoBehaviour {
         GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
     }
 
+    public void SetImmune(bool isImmune)
+    {
+        _isImmune = isImmune;
+    }
+
     #endregion
 
 
@@ -65,6 +73,11 @@ public class GameplayLivesManager : MonoBehaviour {
 
     private void LooseLife()
     {
+        if (_isImmune)
+        {
+            return;
+        }
+
         if (_currentLives <= 0)
         {
             GameplayEventsDispatcher.SendGameOver();

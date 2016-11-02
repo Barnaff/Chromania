@@ -18,11 +18,20 @@ public class PowerupAddScoreMultiplier : PowerupBase
 
     protected override void StartPowerupInternal(ChromieController chromieController)
     {
-      
+        GameplayScoreManager scoreManager = GameObject.FindObjectOfType<GameplayScoreManager>();
+        if (scoreManager != null)
+        {
+            scoreManager.AddScoreMultiplier(SocreMultiplier);
+            PlayPowerup(Duration);
+        }
     }
 
     protected override void StopPowerupInternal()
     {
-      
+        GameplayScoreManager scoreManager = GameObject.FindObjectOfType<GameplayScoreManager>();
+        if (scoreManager != null)
+        {
+            scoreManager.RemoveScoreMultiplier(SocreMultiplier);
+        }
     }
 }

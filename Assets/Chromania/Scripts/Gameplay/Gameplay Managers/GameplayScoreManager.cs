@@ -13,6 +13,9 @@ public class GameplayScoreManager : MonoBehaviour {
     private int _currentScore;
 #endif
 
+    [SerializeField]
+    private int _currentScoreMultiplier = 1;
+
     #endregion
 
 
@@ -21,8 +24,18 @@ public class GameplayScoreManager : MonoBehaviour {
     public void Init(GameplayTrackingData gameplayTrackingData)
     {
         _gameplayTrackingData = gameplayTrackingData;
-
+        _currentScoreMultiplier = 1;
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
+    }
+
+    public void AddScoreMultiplier(int scoreMultiplierToAdd)
+    {
+        _currentScoreMultiplier += scoreMultiplierToAdd;
+    }
+
+    public void RemoveScoreMultiplier(int scoreMultiplierToRemove)
+    {
+        _currentScoreMultiplier -= scoreMultiplierToRemove;
     }
 
     #endregion

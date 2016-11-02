@@ -5,7 +5,7 @@ public class NetworkRequestTester : MonoBehaviour {
 
     #region Private Properties
 
-    private string _facebookToken = "";
+   // private string _facebookToken = "";
 
     #endregion
 

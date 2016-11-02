@@ -40,6 +40,10 @@ public class GameSetupManager : Kobapps.Singleton<GameSetupManager> {
 
     public void Init()
     {
+        if (_isInitialized)
+        {
+            return;
+        }
         if (PlayerPrefsUtil.HasKey(SELECTED_CHROMIEZ_PREFS))
         {
             List<eChromieType> selectedChromiezColors = (List<eChromieType>)PlayerPrefsUtil.GetObject(SELECTED_CHROMIEZ_PREFS);
@@ -69,6 +73,10 @@ public class GameSetupManager : Kobapps.Singleton<GameSetupManager> {
     {
         set
         {
+            if (!_isInitialized)
+            {
+                Init();
+            }
             _selectedGameplayMode = value;
         }
         get

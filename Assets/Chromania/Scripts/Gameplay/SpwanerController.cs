@@ -52,20 +52,10 @@ public class SpwanerController : MonoBehaviour {
 
     #region Initialization
 
-    // Use this for initialization
     void Start()
     {
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
         GameplayEventsDispatcher.Instance.OnChromieDropped += ChromieDroppedHandler;
-        /*
-       
-
-        IGameData gameDataManager = ComponentFactory.GetAComponent<IGameData>();
-        if (gameDataManager != null)
-        {
-            _gameData = gameDataManager.GameData;
-        }
-        */
         _paused = true;
     }
 
@@ -74,7 +64,6 @@ public class SpwanerController : MonoBehaviour {
 
     #region Update
 
-    // Update is called once per frame
     void Update()
     {
         if (!Paused)
@@ -159,8 +148,6 @@ public class SpwanerController : MonoBehaviour {
 
         _currentGameMode = gameMode;
         _currentLevel = level;
-
-        // InvokeRepeating("MockSpwan", 1.0f, 1.0f);
     }
 
     public void StartSpwaning()
@@ -189,18 +176,6 @@ public class SpwanerController : MonoBehaviour {
     public void UpdateLevel(int newlevel)
     {
         _currentLevel = newlevel;
-    }
-
-    public void ChangeAllActiveChromiezToColor(eChromieType chromieType)
-    {
-        ChromieDefenition chromieData = ChromezData.Instance.GetChromie(chromieType);
-        foreach (ChromieController chromieController in _allChromiez)
-        {
-            if (chromieController.isActiveAndEnabled && chromieController.ChromieType != chromieType)
-            {
-              //  chromieController.ChangeChromie(chromieData);
-            }
-        }
     }
 
     public void SetSpwanColorOverride(eChromieType overrideColor)

@@ -22,6 +22,8 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
 
     public void SelectPlayMode(eGameplayMode gameplayMode)
     {
+        GameSetupManager.Instance.SelectedPlayMode = gameplayMode;
+
         Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.MenuScene, () =>
         {
             MenuScreensController.Instance.DisplayScreen(MenuScreensController.eMenuScreenType.ChromiezSelection);

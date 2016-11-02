@@ -30,7 +30,7 @@ public abstract class PowerupBase : ScriptableObject {
     protected abstract void StopPowerupInternal();
 
 
-    protected void PlayPowerup(float duration, System.Action completionAction)
+    protected void PlayPowerup(float duration, System.Action completionAction = null)
     {
         Timing.RunCoroutine(PlayPowerupCorutine(duration, completionAction), this.GetHashCode().ToString());
     }

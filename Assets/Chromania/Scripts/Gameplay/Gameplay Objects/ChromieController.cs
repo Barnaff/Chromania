@@ -24,9 +24,6 @@ public class ChromieController : MonoBehaviour, IDraggable {
     [SerializeField]
     private bool _isDragged;
 
-    [SerializeField]
-    private bool _isActive;
-
     private Bounds _screenBounds;
 
     #endregion
@@ -98,6 +95,11 @@ public class ChromieController : MonoBehaviour, IDraggable {
         }
     }
 
+    public void SwitchChromie(ChromieDefenition newChromie)
+    {
+        SetChromie(newChromie);
+    }
+
     #endregion
 
     #region Idragable Implementation
@@ -118,7 +120,6 @@ public class ChromieController : MonoBehaviour, IDraggable {
     public void BeginDrag()
     {
         _isDragged = true;
-        _isActive = true;
     }
 
     public void EndDrag()

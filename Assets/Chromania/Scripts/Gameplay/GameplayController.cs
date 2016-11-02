@@ -77,6 +77,9 @@ public class GameplayController : MonoBehaviour {
                 }
             case eGameplayMode.Rush:
                 {
+                    GameplayTimerManager timerManager = gameObject.AddComponent<GameplayTimerManager>();
+                    timerManager.Init(GameplaySettings.Instance.BaseRushGameTime);
+                    timerManager.Run();
                     break;
                 }
         }
@@ -136,7 +139,7 @@ public class GameplayController : MonoBehaviour {
 
     private void OnTimeUpHandler()
     {
-
+      //  FlowManager.Instance.GameOver(_gameplayTrackingData);
     }
 
     #endregion

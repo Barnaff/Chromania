@@ -10,7 +10,11 @@ public class PowerupExtraTime : PowerupBase
 
     protected override void StartPowerupInternal(ChromieController chromieController)
     {
-       
+        GameplayTimerManager timerManager = GameObject.FindObjectOfType<GameplayTimerManager>();
+        if (timerManager != null)
+        {
+            timerManager.AddTime(TimeToAdd);
+        }
     }
 
     protected override void StopPowerupInternal()
