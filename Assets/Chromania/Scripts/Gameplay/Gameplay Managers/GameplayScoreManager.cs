@@ -16,6 +16,12 @@ public class GameplayScoreManager : MonoBehaviour {
     [SerializeField]
     private int _currentScoreMultiplier = 1;
 
+    [SerializeField]
+    private int _currentComboCount = 0;
+
+    [SerializeField]
+    private eChromieType _lastCollectedChromie;
+
     #endregion
 
 
@@ -26,6 +32,7 @@ public class GameplayScoreManager : MonoBehaviour {
         _gameplayTrackingData = gameplayTrackingData;
         _currentScoreMultiplier = 1;
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
+        GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
     }
 
     public void AddScoreMultiplier(int scoreMultiplierToAdd)
@@ -51,6 +58,19 @@ public class GameplayScoreManager : MonoBehaviour {
     {
         int scoreToAdd = 1;
 
+        if (_lastCollectedChromie == chromieController.ChromieType)
+        {
+            _currentComboCount++;
+        }
+        else
+        {
+            _currentComboCount = 0;
+        }
+
+        scoreToAdd += _currentComboCount;
+
+        scoreToAdd *= _currentScoreMultiplier;
+
         _gameplayTrackingData.Score += scoreToAdd;
 
         GameplayEventsDispatcher.Instance.ScoreUpdate(scoreToAdd, _gameplayTrackingData.Score);
@@ -59,6 +79,13 @@ public class GameplayScoreManager : MonoBehaviour {
         _currentScore = _gameplayTrackingData.Score;
 #endif
 
+        _lastCollectedChromie = chromieController.ChromieType;
+    }
+
+    private void OnChromieDroppedHandler(ChromieController chromieController)
+    {
+        _currentComboCount = 0;
+        _lastCollectedChromie = eChromieType.None;
     }
 
     #endregion
