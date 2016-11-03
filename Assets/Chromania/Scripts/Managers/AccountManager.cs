@@ -13,11 +13,7 @@ public class AccountManager : Kobapps.Singleton<AccountManager>
 
     public void Autologin(System.Action completionAction, System.Action failAction)
     {
-        if (completionAction != null)
-        {
-            completionAction();
-        }
-        /*
+
         ServerRequestsManager.Instance.AuthonticateDevice((authonticationResponse) =>
         {
             if (authonticationResponse.HasErrors)
@@ -80,7 +76,7 @@ public class AccountManager : Kobapps.Singleton<AccountManager>
             }
 
         });
-        */
+        
     }
 
 
