@@ -38,11 +38,13 @@ public class GameplayScoreManager : MonoBehaviour {
     public void AddScoreMultiplier(int scoreMultiplierToAdd)
     {
         _currentScoreMultiplier += scoreMultiplierToAdd;
+        GameplayEventsDispatcher.SendScoreMultiplierUpdate(_currentScoreMultiplier);
     }
 
     public void RemoveScoreMultiplier(int scoreMultiplierToRemove)
     {
         _currentScoreMultiplier -= scoreMultiplierToRemove;
+        GameplayEventsDispatcher.SendScoreMultiplierUpdate(_currentScoreMultiplier);
     }
 
     #endregion

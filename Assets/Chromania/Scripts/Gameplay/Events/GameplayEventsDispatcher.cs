@@ -13,6 +13,7 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public delegate void LivesUpdateDelegate(int maxLives, int currentLives);
     public delegate void ScoreUpdateDelegate(int scoreAdded, int newScore);
     public delegate void TimeUpdateDelegate(float currentTime);
+    public delegate void ScoreMultiplierUpdateDelegate(int newScoreMultiplier);
 
     #endregion
 
@@ -29,7 +30,8 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public event LivesUpdateDelegate OnLivesUpdate;
     public event ScoreUpdateDelegate OnScoreUpdate;
     public event TimeUpdateDelegate OnTimeUpdate;
-   
+    public event ScoreMultiplierUpdateDelegate OnScoreMultiplierUpdate;
+
     #endregion
 
 
@@ -146,6 +148,14 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
+    public void ScoreMultiplierUpdate(int scoreMultiplier)
+    {
+        if (OnScoreMultiplierUpdate != null)
+        {
+            OnScoreMultiplierUpdate(scoreMultiplier);
+        }
+    }
+
     #endregion
 
 
@@ -199,6 +209,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public static void SendTimerUpdate(float currentTime)
     {
         GameplayEventsDispatcher.Instance.TimerUpdate(currentTime);
+    }
+
+    public static void SendScoreMultiplierUpdate(int scoreMultiplier)
+    {
+        GameplayEventsDispatcher.Instance.ScoreMultiplierUpdate(scoreMultiplier);
     }
 
     #endregion
