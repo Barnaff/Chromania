@@ -9,6 +9,9 @@ public class ScoreGUIController : MonoBehaviour {
     [SerializeField]
     private Text _scoreLabel;
 
+    [SerializeField]
+    private Text _scoreMultiplierLabel;
+
     #endregion
 
 
@@ -16,7 +19,9 @@ public class ScoreGUIController : MonoBehaviour {
 
     void Start()
     {
+        _scoreMultiplierLabel.gameObject.SetActive(false);
         GameplayEventsDispatcher.Instance.OnScoreUpdate += OnScoreUpdateHandler;
+        GameplayEventsDispatcher.Instance.OnScoreMultiplierUpdate += OnScoreMultiplierUpdateHandler;
         UpdateScoreDisplay(0);
     }
 
@@ -37,6 +42,19 @@ public class ScoreGUIController : MonoBehaviour {
     private void OnScoreUpdateHandler(int scoreAdded, int newScore)
     {
         UpdateScoreDisplay(newScore);
+    }
+
+    private void OnScoreMultiplierUpdateHandler(int scoreMultiplier)
+    {
+        if (scoreMultiplier > 0)
+        {
+            _scoreMultiplierLabel.gameObject.SetActive(true);
+            _scoreMultiplierLabel.text = "X" + scoreMultiplier.ToString();
+        }
+        else
+        {
+            _scoreMultiplierLabel.gameObject.SetActive(false);
+        }
     }
 
     #endregion
