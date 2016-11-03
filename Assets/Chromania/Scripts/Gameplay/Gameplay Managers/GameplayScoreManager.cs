@@ -35,7 +35,7 @@ public class GameplayScoreManager : MonoBehaviour {
         GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
     }
 
-    public void AddScoreMultiplier(int scoreMultiplierToAdd)
+    public void AddScoreMultiplier(int scoreMultiplierToAdd) 
     {
         _currentScoreMultiplier += scoreMultiplierToAdd;
         GameplayEventsDispatcher.SendScoreMultiplierUpdate(_currentScoreMultiplier);

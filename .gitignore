@@ -1,8 +1,10 @@
 Temp
 Library
+Builds
 
 *.csproj
 *.unityproj
 *.pidb
 *.sln
 *.userprefs
+
