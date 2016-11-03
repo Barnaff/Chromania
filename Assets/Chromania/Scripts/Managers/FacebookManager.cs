@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using Facebook.Unity;
+using Facebook.Unity;
 using System.Collections.Generic;
 
 public class FacebookManager : Kobapps.Singleton<FacebookManager> {
@@ -20,7 +20,7 @@ public class FacebookManager : Kobapps.Singleton<FacebookManager> {
         {
             completionAction();
         }
-        /*
+        
         FB.Init(()=>
         {
             
@@ -32,7 +32,7 @@ public class FacebookManager : Kobapps.Singleton<FacebookManager> {
         {
 
         });
-        */
+        
     }
 
     public void Connect(System.Action completionAction, System.Action failAction)
@@ -41,7 +41,7 @@ public class FacebookManager : Kobapps.Singleton<FacebookManager> {
         {
             completionAction();
         }
-        /*
+        
         PerformFacebookAction(() =>
         {
             FB.LogInWithReadPermissions(FacebookConfig.Instance.Permissions, (response) =>
@@ -69,7 +69,7 @@ public class FacebookManager : Kobapps.Singleton<FacebookManager> {
                 }
             });
         });
-        */
+        
     }
 
     public string FacebookAccessToekn
@@ -91,7 +91,7 @@ public class FacebookManager : Kobapps.Singleton<FacebookManager> {
         {
             action();
         }
-        /*
+        
         if (FB.IsInitialized)
         {
             if (action != null)
@@ -109,7 +109,7 @@ public class FacebookManager : Kobapps.Singleton<FacebookManager> {
                 }
             });
         }
-        */
+        
     }
 
     #endregion
