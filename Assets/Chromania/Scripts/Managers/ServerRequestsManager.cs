@@ -84,9 +84,20 @@ public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
         GS.Disconnect();
     }
 
-    public void PostLeaderboardEntry(System.Action completionAction)
+    public void PostLeaderboardEntry(GameplayTrackingData gameplayTrackingData, System.Action completionAction)
     {
-
+        new LogEventRequest_POST_CS_SCORE().Set_SCORE(gameplayTrackingData.Score)
+                .Set_COLOR_1((int)gameplayTrackingData.SelectedColors[0])
+                .Set_COLOR_2((int)gameplayTrackingData.SelectedColors[1])
+                .Set_COLOR_3((int)gameplayTrackingData.SelectedColors[2])
+                .Set_COLOR_4((int)gameplayTrackingData.SelectedColors[3])
+                .Send((response) =>
+                {
+                    if (completionAction != null)
+                    {
+                        completionAction();
+                    }
+                });
     }
 
     public void GetLeaderboard(eGameplayMode gameplayMode, System.Action <List<object>> completionAction)

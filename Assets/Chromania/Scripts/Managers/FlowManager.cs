@@ -40,6 +40,11 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
 
     public void GameOver(GameplayTrackingData gameplayTrackingData)
     {
+        ServerRequestsManager.Instance.PostLeaderboardEntry(gameplayTrackingData, () =>
+        {
+            // posted leaderboard entry to server
+        });
+
         Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.MenuScene, () =>
         {
             MenuScreensController.Instance.DisplayScreen(MenuScreensController.eMenuScreenType.GameOver);

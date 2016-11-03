@@ -105,6 +105,19 @@ public class GameSetupManager : Kobapps.Singleton<GameSetupManager> {
         }
     }
 
+    public List<eChromieType> SelectedChromiezColorsList
+    {
+        get
+        {
+            List<eChromieType> chromiezColors = new List<eChromieType>();
+            for (int i=0; i< _selectedChromiez.Count; i++)
+            {
+                chromiezColors.Add(_selectedChromiez[i].ChromieColor);
+            }
+            return chromiezColors;
+        }
+    }
+
     public void SaveSettings()
     {
         if (_selectedChromiez != null && _selectedChromiez.Count > 0)

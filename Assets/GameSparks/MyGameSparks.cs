@@ -29,6 +29,21 @@ namespace GameSparks.Api.Requests{
 			request.AddNumber("COLOR_1", value);
 			return this;
 		}			
+		public LogEventRequest_POST_CS_SCORE Set_COLOR_2( long value )
+		{
+			request.AddNumber("COLOR_2", value);
+			return this;
+		}			
+		public LogEventRequest_POST_CS_SCORE Set_COLOR_3( long value )
+		{
+			request.AddNumber("COLOR_3", value);
+			return this;
+		}			
+		public LogEventRequest_POST_CS_SCORE Set_COLOR_4( long value )
+		{
+			request.AddNumber("COLOR_4", value);
+			return this;
+		}			
 	}
 	
 	public class LogChallengeEventRequest_POST_CS_SCORE : GSTypedRequest<LogChallengeEventRequest_POST_CS_SCORE, LogChallengeEventResponse>
@@ -57,6 +72,21 @@ namespace GameSparks.Api.Requests{
 		public LogChallengeEventRequest_POST_CS_SCORE Set_COLOR_1( long value )
 		{
 			request.AddNumber("COLOR_1", value);
+			return this;
+		}			
+		public LogChallengeEventRequest_POST_CS_SCORE Set_COLOR_2( long value )
+		{
+			request.AddNumber("COLOR_2", value);
+			return this;
+		}			
+		public LogChallengeEventRequest_POST_CS_SCORE Set_COLOR_3( long value )
+		{
+			request.AddNumber("COLOR_3", value);
+			return this;
+		}			
+		public LogChallengeEventRequest_POST_CS_SCORE Set_COLOR_4( long value )
+		{
+			request.AddNumber("COLOR_4", value);
 			return this;
 		}			
 	}

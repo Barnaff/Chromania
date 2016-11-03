@@ -38,6 +38,7 @@ public class GameplayController : MonoBehaviour {
     IEnumerator Start()
     {
         _gameplayTrackingData = new GameplayTrackingData();
+        _gameplayTrackingData.SelectedColors = GameSetupManager.Instance.SelectedChromiezColorsList;
         GameSetupManager.Instance.Init();
         yield return null;
         PrepareGame();
@@ -139,7 +140,7 @@ public class GameplayController : MonoBehaviour {
 
     private void OnTimeUpHandler()
     {
-      //  FlowManager.Instance.GameOver(_gameplayTrackingData);
+        FlowManager.Instance.GameOver(_gameplayTrackingData);
     }
 
     #endregion
