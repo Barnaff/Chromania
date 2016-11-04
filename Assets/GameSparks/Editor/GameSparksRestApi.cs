@@ -49,16 +49,11 @@ namespace GameSparks.Editor
     	public static String setDownloadable(string apiKey, string username, string password, string shortCode, string fileName){
     		string url = REST_URL + apiKey + "/binarycontent/" + shortCode;
     		String ret = null;
-			string extension = Path.GetExtension (shortCode);
-			if (extension != null && extension.Length > 0) {
-				ret = "{\"responseCode\":-1,\"errorMessage\":\"No extension permitted\"}";
-			} else {
-				try {
-					ret = GameSparksEditorFormUpload.UploadFile (url, fileName, username, password);
-				} catch (WebException we) {
-					ret = "{\"responseCode\":-1,\"errorMessage\":\"" + we.Message + "\"}";
-				}
-			}
+    		try{
+    			ret = GameSparksEditorFormUpload.UploadFile(url, fileName, username, password);
+    		}catch(WebException we){
+    			ret = "{\"responseCode\":-1,\"errorMessage\":\"" + we.Message + "\"}";
+    		}
     		return ret;
     	}
 

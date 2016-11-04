@@ -1,9 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using GameSparks;
 using GameSparks.Api;
 using GameSparks.Api.Messages;
 using GameSparks.Api.Requests;
@@ -24,15 +21,8 @@ public class GameSparksTestUI : MonoBehaviour
 	private const int itemHeight = 30;
 	private const int itemWidth = 200;
 
-	private Boolean testing;
-	private Boolean working;
-	private Boolean result;
-	private int counter;
-	private int numTest;
-
     public Texture cursor;
-
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR 
+#if UNITY_PS4 && !UNITY_EDITOR 
     private const int numButtons = 16;
     private bool clickedButton = false;
     private int currSelectedButton = 0;
@@ -72,7 +62,7 @@ public class GameSparksTestUI : MonoBehaviour
 	void Start(){
 		GSMessageHandler._AllMessages = HandleGameSparksMessageReceived;
 
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR 
+#if UNITY_PS4 && !UNITY_EDITOR 
         if (rectNormalTexture == null)
         {
             rectNormalTexture = new Texture2D(1, 1);
@@ -142,7 +132,7 @@ public class GameSparksTestUI : MonoBehaviour
 
         GUILayout.Label ((GS.Authenticated ? "AUTHENTICATED" : "NOT AUTHENTICATED"), GUILayout.Width (itemWidth), GUILayout.Height (itemHeight));
 
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR
+#if UNITY_PS4 && !UNITY_EDITOR
         GUI.Button(rectClearLog, "Clear Log");
         if (currSelectedButton == 0)
         {
@@ -169,9 +159,10 @@ public class GameSparksTestUI : MonoBehaviour
 		}
 #endif
 
-        if (GS.Available)
-		{
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR
+
+
+        if (GS.Available){
+#if UNITY_PS4 && !UNITY_EDITOR
             GUI.Button(rectDisconnect, "Disconnect");
             if (currSelectedButton == 2)
             {
@@ -181,7 +172,7 @@ public class GameSparksTestUI : MonoBehaviour
             
 #endif
         } else {
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR
+#if UNITY_PS4 && !UNITY_EDITOR
             GUI.Button(rectDisconnect, "Reconnect");
             if (currSelectedButton == 2)
             {
@@ -193,8 +184,8 @@ public class GameSparksTestUI : MonoBehaviour
 			}
 #endif
         }
-			
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR
+
+#if UNITY_PS4 && !UNITY_EDITOR
         GUI.Button(rectDevAuthReq, "DeviceAuthenticationRequest");
         if (currSelectedButton == 3)
         {
@@ -233,7 +224,7 @@ public class GameSparksTestUI : MonoBehaviour
 #endif
         GUILayout.BeginHorizontal();
 
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR
+#if UNITY_PS4 && !UNITY_EDITOR
         GUI.Button(rectFbConnectReq, "facebookConnectRequest");
         if (currSelectedButton == 6)
         {
@@ -254,7 +245,7 @@ public class GameSparksTestUI : MonoBehaviour
 
         GUILayout.EndHorizontal();
 
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR
+#if UNITY_PS4 && !UNITY_EDITOR
         GUI.Button(rectListAchReq, "listAchievementsRequest");
         if (currSelectedButton == 7)
         {
@@ -378,7 +369,7 @@ public class GameSparksTestUI : MonoBehaviour
 
         GUILayout.BeginHorizontal();
 
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR
+#if UNITY_PS4 && !UNITY_EDITOR
         GUILayout.Space(itemWidth + 5.0f);
 
         GUI.Button(rectDismMsgReq, "dismissMessageRequest");
@@ -399,7 +390,7 @@ public class GameSparksTestUI : MonoBehaviour
 
         GUILayout.EndHorizontal();
 
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR
+#if UNITY_PS4 && !UNITY_EDITOR
         GUI.Button(rectTrace, "TRACE " + (GS.TraceMessages ? "ON" : "OFF"));
         if (currSelectedButton == 15)
         {
@@ -413,10 +404,10 @@ public class GameSparksTestUI : MonoBehaviour
 
         GUI.TextArea (new Rect (420, 5, Screen.width - 425, Screen.height - 10), myLog);
     }
-		
-	public void Update()
+
+#if UNITY_PS4 && !UNITY_EDITOR
+    public void Update()
 	{
-#if (UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR
         //if (Input.GetKeyUp(KeyCode.UpArrow))
         if (Input.GetKeyUp(KeyCode.Joystick1Button4))
         {
@@ -596,7 +587,6 @@ public class GameSparksTestUI : MonoBehaviour
                 GS.TraceMessages = !GS.TraceMessages;
             }
         }
+    }
 #endif
-	}
 }
-
