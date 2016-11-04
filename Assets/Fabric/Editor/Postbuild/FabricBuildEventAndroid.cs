@@ -27,13 +27,16 @@
 			Settings settings = Settings.Instance;
 
 			Utils.Log ("Sending build information");
-
-			if (string.IsNullOrEmpty(settings.Organization.ApiKey)) {
+#if UNITY_CLOUD_BUILD
+            settings.Organization.ApiKey = "ffb52e2b5f4b59267466b65b90a7bf0e7f9c6190";
+#else
+            if (string.IsNullOrEmpty(settings.Organization.ApiKey)) {
 				Utils.Error ("API key not found");
 				return;
 			}
+#endif
 
-			var bundleId = PlayerSettings.bundleIdentifier;
+            var bundleId = PlayerSettings.bundleIdentifier;
 			WWWForm form = new WWWForm();
 			form.AddField("app_name", bundleId);
 			form.AddField("app_identifier", bundleId);
