@@ -18,17 +18,6 @@ public class MainLoaderController : MonoBehaviour {
     {
         yield return 0f;
 
-        if (Random.Range(0,10) > 5)
-        {
-            Fabric.Crashlytics.Crashlytics.Crash();
-        }
-        else
-        {
-            Fabric.Crashlytics.Crashlytics.ThrowNonFatal();
-        }
-       
-
-
         bool finishedAutologin = false;
         ServerRequestsManager.Instance.Init(() =>
         {

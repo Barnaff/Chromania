@@ -46,7 +46,7 @@ public class ScoreGUIController : MonoBehaviour {
 
     private void OnScoreMultiplierUpdateHandler(int scoreMultiplier)
     {
-        if (scoreMultiplier > 0)
+        if (scoreMultiplier > 1)
         {
             _scoreMultiplierLabel.gameObject.SetActive(true);
             _scoreMultiplierLabel.text = "X" + scoreMultiplier.ToString();

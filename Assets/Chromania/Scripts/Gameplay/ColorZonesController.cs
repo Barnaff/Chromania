@@ -30,6 +30,22 @@ public class ColorZonesController : MonoBehaviour {
         return _colorZones;
     }
 
+    public void OverrideColorZonesColor(ChromieDefenition chromieDefenition)
+    {
+        foreach (ColorZoneController colorZone in _colorZones)
+        {
+            colorZone.SetOverrideColor(chromieDefenition);
+        }
+    }
+
+    public void ResetColorZonesToOriginalColor()
+    {
+        foreach (ColorZoneController colorZone in _colorZones)
+        {
+            colorZone.SetOverrideColor(null);
+        }
+    }
+
     #endregion
 
 
@@ -52,7 +68,7 @@ public class ColorZonesController : MonoBehaviour {
         colorZoneController.transform.position = PositionForColorzoneAtIndex(index);
         colorZoneController.transform.localScale = Vector3.one;
         colorZoneController.SetColorZone(chromieDefenition);
-        return null;
+        return colorZoneController;
     }
 
     #endregion

@@ -40,7 +40,7 @@ public class GameplayController : MonoBehaviour {
         _gameplayTrackingData = new GameplayTrackingData();
         _gameplayTrackingData.SelectedColors = GameSetupManager.Instance.SelectedChromiezColorsList;
         GameSetupManager.Instance.Init();
-        yield return null;
+        yield return 0f;
         PrepareGame();
     }
 

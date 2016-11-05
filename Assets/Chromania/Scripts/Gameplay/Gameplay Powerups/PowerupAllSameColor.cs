@@ -26,6 +26,12 @@ public class PowerupAllSameColor : PowerupBase {
                 spwanerController.SetSpwanColorOverride(chromieController.ChromieType);
             }
 
+            ColorZonesController colorZonesController = GameObject.FindObjectOfType<ColorZonesController>();
+            if (colorZonesController != null)
+            {
+                colorZonesController.OverrideColorZonesColor(chromieController.ChromieDefenition);
+            }
+
             PlayPowerup(Duration);
         }
       
@@ -37,6 +43,12 @@ public class PowerupAllSameColor : PowerupBase {
         if (spwanerController != null)
         {
             spwanerController.SetSpwanColorOverride(eChromieType.None);
+        }
+
+        ColorZonesController colorZonesController = GameObject.FindObjectOfType<ColorZonesController>();
+        if (colorZonesController != null)
+        {
+            colorZonesController.ResetColorZonesToOriginalColor();
         }
     }
 
