@@ -29,7 +29,7 @@ namespace Fabric.Internal.Editor.Postbuild
 			string projPath = Path.Combine (buildPath, "Unity-iPhone.xcodeproj/project.pbxproj");
 #if UNITY_CLOUD_BUILD
             settings.Organization.ApiKey = "ffb52e2b5f4b59267466b65b90a7bf0e7f9c6190";
-            settings.Organization.BuildSecret = "ea02af54d4caf8f9e7540093a41de2434d870531251762eea27630e070bcb67e"
+           // settings.Organization.BuildSecret = "ea02af54d4caf8f9e7540093a41de2434d870531251762eea27630e070bcb67e"
 #else
             if (string.IsNullOrEmpty(settings.Organization.ApiKey) || string.IsNullOrEmpty(settings.Organization.BuildSecret)) {
 				Utils.Error ("Unable to find API Key or Build Secret. Fabric was not added to the player.");
