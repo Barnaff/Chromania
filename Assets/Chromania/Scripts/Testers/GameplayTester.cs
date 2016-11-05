@@ -13,6 +13,8 @@ public class GameplayTester : MonoBehaviour {
     [SerializeField]
     private ChromieController _selectedChromieController;
 
+#if UNITY_EDITOR
+
     void Start()
     {
         _powerupsAssets = Resources.LoadAll<PowerupBase>("Powerups/");
@@ -20,6 +22,7 @@ public class GameplayTester : MonoBehaviour {
 
         GameplayEventsDispatcher.Instance.OnChromieSpawned += OnChromieSpwanedHandler;
     }
+
 
     void OnGUI()
     {
@@ -32,6 +35,8 @@ public class GameplayTester : MonoBehaviour {
             }
         }
     }
+
+
 
     void Update()
     {
@@ -50,10 +55,13 @@ public class GameplayTester : MonoBehaviour {
             }
         }
     }
-    
+
 
     private void OnChromieSpwanedHandler(ChromieController chromieController)
     {
         _selectedChromieController = chromieController;
     }
+
+#endif
+
 }
