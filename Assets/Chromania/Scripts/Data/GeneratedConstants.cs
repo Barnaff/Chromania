@@ -155,7 +155,7 @@ namespace GeneratedConstants
         /// <summary>
         /// Bundle Version
         /// </summary>
-        public const string BundleVersion = "1.0.119";
+        public const string BundleVersion = "1.0.143";
     }
 
 }
