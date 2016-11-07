@@ -6,7 +6,7 @@ public class MainLoaderController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        Application.targetFrameRate = 60;
+        //Application.targetFrameRate = 60;
 
         StartCoroutine(LoadingSequanceCorutine());
 	}

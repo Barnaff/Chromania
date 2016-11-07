@@ -52,6 +52,7 @@ public class GameplayController : MonoBehaviour {
 
         GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
         GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandler;
+        GameplayEventsDispatcher.Instance.OnTimeUp += OnTimeUpHandler;
 
         if (_gameplayGUIController != null)
         {
