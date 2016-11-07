@@ -25,9 +25,35 @@ public class AccountManager : Kobapps.Singleton<AccountManager>
             }
             else
             {
-                FacebookManager.Instance.Connect(() =>
+                if (FacebookConfig.Instance.IsFacebookEnabled)
                 {
-                    if (!string.IsNullOrEmpty(FacebookManager.Instance.FacebookAccessToekn))
+                    FacebookManager.Instance.Connect(() =>
+                    {
+                        if (!string.IsNullOrEmpty(FacebookManager.Instance.FacebookAccessToekn))
+                        {
+                            ServerRequestsManager.Instance.ConnectFacebook(FacebookManager.Instance.FacebookAccessToekn, (facebookConnectResponse) =>
+                            {
+                                if (facebookConnectResponse.HasErrors)
+                                {
+                                    Debug.Log("Sucsess facebook connect");
+
+                                    if (completionAction != null)
+                                    {
+                                        completionAction();
+                                    }
+                                }
+                                else
+                                {
+                                    if (failAction != null)
+                                    {
+                                        failAction();
+                                    }
+                                }
+
+                            });
+                        }
+
+                    }, () =>
                     {
                         ServerRequestsManager.Instance.ConnectFacebook(FacebookManager.Instance.FacebookAccessToekn, (facebookConnectResponse) =>
                         {
@@ -47,32 +73,17 @@ public class AccountManager : Kobapps.Singleton<AccountManager>
                                     failAction();
                                 }
                             }
-
                         });
-                    }
-
-                }, () =>
-                {
-                    ServerRequestsManager.Instance.ConnectFacebook(FacebookManager.Instance.FacebookAccessToekn, (facebookConnectResponse) =>
-                    {
-                        if (facebookConnectResponse.HasErrors)
-                        {
-                            Debug.Log("Sucsess facebook connect");
-
-                            if (completionAction != null)
-                            {
-                                completionAction();
-                            }
-                        }
-                        else
-                        {
-                            if (failAction != null)
-                            {
-                                failAction();
-                            }
-                        }
                     });
-                });
+                }
+                else
+                {
+                    if (completionAction != null)
+                    {
+                        completionAction();
+                    }
+                }
+               
             }
 
         });
