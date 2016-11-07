@@ -13,6 +13,9 @@ public class ColorZoneController : MonoBehaviour {
 
     private ChromieDefenition _overrideChromieDefenition = null;
 
+    [SerializeField]
+    private float _baseScale = 1f;
+
     #endregion
 
 
@@ -57,6 +60,18 @@ public class ColorZoneController : MonoBehaviour {
         {
             SetColorZoneCharacter(_overrideChromieDefenition);
         }
+    }
+
+    public void AddScaleFactor(float scaleFactorToAdd)
+    {
+        _baseScale += scaleFactorToAdd;
+        this.transform.localScale = Vector3.one * _baseScale;
+    }
+
+    public void RemoveScaleFactor(float scaleFactorToRemove)
+    {
+        _baseScale -= scaleFactorToRemove;
+        this.transform.localScale = Vector3.one * _baseScale;
     }
 
     #endregion

@@ -33,33 +33,43 @@ public class FacebookManager : Kobapps.Singleton<FacebookManager> {
 
     public void Connect(System.Action completionAction, System.Action failAction)
     {
-
         PerformFacebookAction(() =>
         {
-            FB.LogInWithReadPermissions(FacebookConfig.Instance.Permissions, (response) =>
+            if (FB.IsLoggedIn)
             {
-                if (response.Error != null)
+                if (completionAction != null)
                 {
-                    Debug.LogError("FB ERROR: " + response.Error);
+                    completionAction();
+                }
+            }
+            else
+            {
+                FB.LogInWithReadPermissions(FacebookConfig.Instance.Permissions, (response) =>
+                {
+                    if (response.Error != null)
+                    {
+                        Debug.LogError("FB ERROR: " + response.Error);
 
-                    if (failAction != null)
-                    {
-                        failAction();
+                        if (failAction != null)
+                        {
+                            failAction();
+                        }
                     }
-                }
-                else
-                {
-                    if (AccessToken.CurrentAccessToken != null)
+                    else
                     {
-                        _accessToekn = AccessToken.CurrentAccessToken.TokenString;
-                        Debug.Log("token: " + _accessToekn);
+                        if (AccessToken.CurrentAccessToken != null)
+                        {
+                            _accessToekn = AccessToken.CurrentAccessToken.TokenString;
+                            Debug.Log("token: " + _accessToekn);
+                        }
+                        if (completionAction != null)
+                        {
+                            completionAction();
+                        }
                     }
-                    if (completionAction != null)
-                    {
-                        completionAction();
-                    }
-                }
-            });
+                });
+            }
+           
         });
         
     }

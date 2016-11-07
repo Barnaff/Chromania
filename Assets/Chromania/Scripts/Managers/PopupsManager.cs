@@ -65,11 +65,12 @@ public class PopupsManager : Kobapps.Singleton<PopupsManager> {
 
     public PopupBaseController GetPopupPrefab<T>() where T : PopupBaseController
     {
-        T[] popupsPrefabs = Resources.FindObjectsOfTypeAll<T>();
+        T[] popupsPrefabs = Resources.FindObjectsOfTypeAll(typeof(T)) as T[];
         if (popupsPrefabs != null && popupsPrefabs.Length > 0)
         {
             return popupsPrefabs[0] as PopupBaseController;
         }
+        Debug.LogError("Could not load popup: " + typeof(T).ToString());
         return null;
     }
 

@@ -36,6 +36,11 @@ public class GameplayLivesManager : MonoBehaviour {
         GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
     }
 
+    void OnDestroy()
+    {
+        GameplayEventsDispatcher.Instance.OnChromieDropped -= OnChromieDroppedHandler;
+    }
+
     public void AddLife(int amount = 1)
     {
         if (_currentLives < _maxLives)
