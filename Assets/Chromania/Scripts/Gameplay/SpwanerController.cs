@@ -340,7 +340,7 @@ public class SpwanerController : MonoBehaviour {
         chromieController.gameObject.transform.position = spwanPosition;
 
         Vector2 spwanForce = spwanedItem.ForceVector;
-        spwanForce.y += FORCE_VECTOR_MODIFIER;
+        spwanForce.y += FORCE_VECTOR_MODIFIER * (GameplaySettings.Instance.GameSpeedMultiplier * 0.7f);
         chromieController.gameObject.GetComponent<Rigidbody2D>().AddForce(spwanForce);
         chromieController.gameObject.GetComponent<Rigidbody2D>().angularVelocity = Random.Range(-90, 90);
 

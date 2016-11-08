@@ -11,7 +11,7 @@ public class GameplaySettings : Kobapps.ScriptableSingleton<GameplaySettings> {
 
     public float BaseRushGameTime = 90f;
 
-
+    public float GameSpeedMultiplier = 1f;
 
     #endregion
 }

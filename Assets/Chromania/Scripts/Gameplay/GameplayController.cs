@@ -37,6 +37,8 @@ public class GameplayController : MonoBehaviour {
     // Use this for initialization
     IEnumerator Start()
     {
+        Physics2D.gravity = new Vector2(0, -9.81f * GameplaySettings.Instance.GameSpeedMultiplier);
+
         _gameplayTrackingData = new GameplayTrackingData();
         _gameplayTrackingData.SelectedColors = GameSetupManager.Instance.SelectedChromiezColorsList;
         GameSetupManager.Instance.Init();
