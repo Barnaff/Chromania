@@ -56,6 +56,7 @@ public class SpwanerController : MonoBehaviour {
     {
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
         GameplayEventsDispatcher.Instance.OnChromieDropped += ChromieDroppedHandler;
+        GameplayEventsDispatcher.Instance.OnLevelUpdate += OnLevelUpdateHandler;
         _paused = true;
     }
 
@@ -134,7 +135,7 @@ public class SpwanerController : MonoBehaviour {
 
     #region Public 
 
-    public void Init(eGameplayMode gameMode, List<ChromieDefenition> selectedColors, int level)
+    public void Init(eGameplayMode gameMode, List<ChromieDefenition> selectedColors)
     {
         _spwanBasePosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, 0, 10));
 
@@ -147,7 +148,7 @@ public class SpwanerController : MonoBehaviour {
         _wavesList = WavesDataLoader.WavesList();
 
         _currentGameMode = gameMode;
-        _currentLevel = level;
+        _currentLevel = 0;
     }
 
     public void StartSpwaning()
@@ -171,11 +172,6 @@ public class SpwanerController : MonoBehaviour {
         {
             _paused = value;
         }
-    }
-
-    public void UpdateLevel(int newlevel)
-    {
-        _currentLevel = newlevel;
     }
 
     public void SetSpwanColorOverride(eChromieType overrideColor)
@@ -215,6 +211,11 @@ public class SpwanerController : MonoBehaviour {
     {
         GameplayEventsDispatcher.SendChromieDeSpwaned(chromieController);
         Lean.LeanPool.Despawn(chromieController.gameObject);
+    }
+
+    private void OnLevelUpdateHandler(int newLevel)
+    {
+        _currentLevel = newLevel;
     }
 
     #endregion

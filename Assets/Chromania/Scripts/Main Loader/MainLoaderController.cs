@@ -4,8 +4,8 @@ using System.Collections;
 public class MainLoaderController : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+    { 
         Application.targetFrameRate = 60;
 
         StartCoroutine(LoadingSequanceCorutine());

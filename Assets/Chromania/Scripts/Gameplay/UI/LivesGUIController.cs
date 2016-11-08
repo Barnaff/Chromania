@@ -25,7 +25,7 @@ public class LivesGUIController : MonoBehaviour {
 
     #region Events
 
-    private void OnLivesUpdateHandler(int maxLives, int currentLives)
+    private void OnLivesUpdateHandler(int maxLives, int currentLives, int change)
     {
         _currentLives = currentLives;
         _maxLives = maxLives;

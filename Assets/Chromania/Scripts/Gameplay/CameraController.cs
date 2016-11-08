@@ -31,6 +31,8 @@ public class CameraController : MonoBehaviour {
 		{
 			_cameraTransform = GetComponent(typeof(Transform)) as Transform;
 		}
+
+        GameplayEventsDispatcher.Instance.OnLivesUpdate += OnLivesUpdateHandler;
 	}
 	
 	void OnEnable()
@@ -78,6 +80,19 @@ public class CameraController : MonoBehaviour {
 		return bounds;
 	}
 
-	#endregion
+    #endregion
+
+
+    #region Public
+
+    private void OnLivesUpdateHandler(int maxLives, int currentLives, int change)
+    {
+        if (change < 0)
+        {
+            Shake();
+        }
+    }
+
+    #endregion
 
 }

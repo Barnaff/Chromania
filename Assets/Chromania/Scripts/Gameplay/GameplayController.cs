@@ -50,7 +50,7 @@ public class GameplayController : MonoBehaviour {
     {
         _currentLevel = 0;
         _colorZonesController.CreateColorZones(GameSetupManager.Instance.SelectedChromiez);
-        _spwanerController.Init(GameSetupManager.Instance.SelectedPlayMode, GameSetupManager.Instance.SelectedChromiez, 1);
+        _spwanerController.Init(GameSetupManager.Instance.SelectedPlayMode, GameSetupManager.Instance.SelectedChromiez);
 
         GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
         GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandler;

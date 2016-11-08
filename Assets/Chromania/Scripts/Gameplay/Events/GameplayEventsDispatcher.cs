@@ -9,11 +9,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public delegate void ChromieColorZoneActionDelegate(ChromieController chromieController, ColorZoneController colorZone);
     public delegate void PowerupActivationDelegate(ePowerups.Active powerupType, float duration, float value);
     public delegate void GameoverDelegate();
-
-    public delegate void LivesUpdateDelegate(int maxLives, int currentLives);
+    public delegate void LivesUpdateDelegate(int maxLives, int currentLives, int change);
     public delegate void ScoreUpdateDelegate(int scoreAdded, int newScore);
     public delegate void TimeUpdateDelegate(float currentTime);
     public delegate void ScoreMultiplierUpdateDelegate(int newScoreMultiplier);
+    public delegate void LevelUpdateDelegate(int newLevel);
 
     #endregion
 
@@ -27,11 +27,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public event GameoverDelegate OnGameOver;
     public event GameoverDelegate OnTimeUp;
     public event PowerupActivationDelegate OnPowerupActivation;
-
     public event LivesUpdateDelegate OnLivesUpdate;
     public event ScoreUpdateDelegate OnScoreUpdate;
     public event TimeUpdateDelegate OnTimeUpdate;
     public event ScoreMultiplierUpdateDelegate OnScoreMultiplierUpdate;
+    public event LevelUpdateDelegate OnLevelUpdate;
 
     #endregion
 
@@ -133,11 +133,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
-    public void LivesUpdate(int maxLives, int currentLives)
+    public void LivesUpdate(int maxLives, int currentLives, int change)
     {
         if (OnLivesUpdate != null)
         {
-            OnLivesUpdate(maxLives, currentLives);
+            OnLivesUpdate(maxLives, currentLives, change);
         }
     }
 
@@ -162,6 +162,14 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         if (OnScoreMultiplierUpdate != null)
         {
             OnScoreMultiplierUpdate(scoreMultiplier);
+        }
+    }
+
+    public void LevelUpdate(int newLevel)
+    {
+        if (OnLevelUpdate != null)
+        {
+            OnLevelUpdate(newLevel);
         }
     }
 
@@ -210,9 +218,9 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         GameplayEventsDispatcher.Instance.PowerupActivation(powerupType, duration, value);
     }
 
-    public static void SendLiveUpdate(int maxLives, int currentLives)
+    public static void SendLiveUpdate(int maxLives, int currentLives, int change)
     {
-        GameplayEventsDispatcher.Instance.LivesUpdate(maxLives, currentLives);
+        GameplayEventsDispatcher.Instance.LivesUpdate(maxLives, currentLives, change);
     }
 
     public static void SendScoreUpdate(int scoreAdded, int newScore)
@@ -228,6 +236,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public static void SendScoreMultiplierUpdate(int scoreMultiplier)
     {
         GameplayEventsDispatcher.Instance.ScoreMultiplierUpdate(scoreMultiplier);
+    }
+
+    public static void SendLevelUpdate(int newLevel)
+    {
+        GameplayEventsDispatcher.Instance.LevelUpdate(newLevel);
     }
 
     #endregion

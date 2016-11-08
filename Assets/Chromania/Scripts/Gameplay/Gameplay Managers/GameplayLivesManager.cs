@@ -33,7 +33,7 @@ public class GameplayLivesManager : MonoBehaviour {
         _maxLives = _startingLives;
         _currentLives = _startingLives;
 
-        GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
+        GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives, 0);
     }
 
     void OnDestroy()
@@ -46,14 +46,14 @@ public class GameplayLivesManager : MonoBehaviour {
         if (_currentLives < _maxLives)
         {
             _currentLives += amount;
-            GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
+            GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives, amount);
         }
     }
 
     public void AddLifeSlot(int amount = 1)
     {
         _maxLives += amount;
-        GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
+        GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives, 0);
     }
 
     public void SetImmune(bool isImmune)
@@ -90,7 +90,7 @@ public class GameplayLivesManager : MonoBehaviour {
         else
         {
             _currentLives--;
-            GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives);
+            GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives, -1);
         }
     }
 
