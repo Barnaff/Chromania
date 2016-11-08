@@ -20,6 +20,7 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     #region Events
 
     public event ChromieActionDelegate OnChromieSpawned;
+    public event ChromieActionDelegate OnChromieDeSpawned;
     public event ChromieActionDelegate OnChromieDropped;
     public event ChromieColorZoneActionDelegate OnChromieHitColorZone;
     public event ChromieColorZoneActionDelegate OnChromieCollected;
@@ -81,6 +82,14 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         if (OnChromieSpawned != null)
         {
             OnChromieSpawned(cheomieController);
+        }
+    }
+
+    public void ChromieDeSpwaned(ChromieController cheomieController)
+    {
+        if (OnChromieDeSpawned != null)
+        {
+            OnChromieDeSpawned(cheomieController);
         }
     }
 
@@ -169,6 +178,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public static void SendChromieSpwaned(ChromieController chromieController)
     {
         GameplayEventsDispatcher.Instance.ChromieSpwaned(chromieController);
+    }
+
+    public static void SendChromieDeSpwaned(ChromieController chromieController)
+    {
+        GameplayEventsDispatcher.Instance.ChromieDeSpwaned(chromieController);
     }
 
     public static void SendChromieDroppedd(ChromieController chromieController)

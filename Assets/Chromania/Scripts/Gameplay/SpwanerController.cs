@@ -207,11 +207,13 @@ public class SpwanerController : MonoBehaviour {
 
     public void OnChromieCollectedHandler(ChromieController chromieController, ColorZoneController colorZone)
     {
+        GameplayEventsDispatcher.SendChromieDeSpwaned(chromieController);
         Lean.LeanPool.Despawn(chromieController.gameObject);
     }
 
     private void ChromieDroppedHandler(ChromieController chromieController)
     {
+        GameplayEventsDispatcher.SendChromieDeSpwaned(chromieController);
         Lean.LeanPool.Despawn(chromieController.gameObject);
     }
 

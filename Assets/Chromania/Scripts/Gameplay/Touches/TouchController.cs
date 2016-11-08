@@ -14,6 +14,11 @@ public class TouchController : MonoBehaviour {
 
     #region Initialize
 
+    void Start()
+    {
+        GameplayEventsDispatcher.Instance.OnChromieSpawned += OnChromieDespwanedHandler;
+    }
+
     public void Init()
     {
         _isDragging = false;
@@ -85,6 +90,21 @@ public class TouchController : MonoBehaviour {
 			}
 		}
 	}
+
+
+    private void OnChromieDespwanedHandler(ChromieController chromieController)
+    {
+        if (chromieController.gameObject == _draggedObject)
+        {
+            IDraggable draggable = _draggedObject.gameObject.GetComponent<IDraggable>();
+            if (draggable != null)
+            {
+                draggable.EndDrag();
+            }
+            _isDragging = false;
+            _draggedObject = null;
+        }
+    }
 
     #endregion
 }
