@@ -3,7 +3,6 @@ using System.Collections;
 
 public class PowerupSlowMotion : PowerupBase
 {
-    public float Duration;
 
     public float TimeValue = 0.5f;
 
@@ -15,7 +14,6 @@ public class PowerupSlowMotion : PowerupBase
             motionBlur.enabled = true;
         }
         Time.timeScale = TimeValue;
-        PlayPowerup(Duration * TimeValue);
     }
 
     protected override void StopPowerupInternal()

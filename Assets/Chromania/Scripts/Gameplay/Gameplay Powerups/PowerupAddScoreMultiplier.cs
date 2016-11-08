@@ -6,8 +6,6 @@ public class PowerupAddScoreMultiplier : PowerupBase
 {
     public int SocreMultiplier;
 
-    public float Duration;
-
     public enum eScoreMultiplierMethod
     {
         Add,
@@ -22,7 +20,6 @@ public class PowerupAddScoreMultiplier : PowerupBase
         if (scoreManager != null)
         {
             scoreManager.AddScoreMultiplier(SocreMultiplier);
-            PlayPowerup(Duration);
         }
     }
 

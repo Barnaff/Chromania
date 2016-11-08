@@ -4,12 +4,6 @@ using System;
 
 public class PowerupShield : PowerupBase
 {
-    public float Duration;
-
-    public GameObject ShieldEffect;
-
-    private GameObject _shieldEffectInstance;
-
     protected override void StartPowerupInternal(ChromieController chromieController)
     {
         GameplayLivesManager livesManager = GameObject.FindObjectOfType<GameplayLivesManager>();
@@ -17,12 +11,6 @@ public class PowerupShield : PowerupBase
         {
             livesManager.SetImmune(true);
         }
-
-        if (ShieldEffect != null && _shieldEffectInstance == null)
-        {
-            _shieldEffectInstance = Instantiate(ShieldEffect) as GameObject;
-        }
-        PlayPowerup(Duration);
     }
 
     protected override void StopPowerupInternal()
@@ -31,11 +19,6 @@ public class PowerupShield : PowerupBase
         if (livesManager != null)
         {
             livesManager.SetImmune(false);
-        }
-
-        if (_shieldEffectInstance != null)
-        {
-            Destroy(_shieldEffectInstance);
         }
     }
 }

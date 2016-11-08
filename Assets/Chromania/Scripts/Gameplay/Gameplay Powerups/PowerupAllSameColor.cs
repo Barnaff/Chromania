@@ -5,8 +5,6 @@ using System;
 
 public class PowerupAllSameColor : PowerupBase {
 
-    public float Duration = 5.0f;
-
     protected override void StartPowerupInternal(ChromieController chromieController)
     {
         if (chromieController != null)
@@ -31,10 +29,7 @@ public class PowerupAllSameColor : PowerupBase {
             {
                 colorZonesController.OverrideColorZonesColor(chromieController.ChromieDefenition);
             }
-
-            PlayPowerup(Duration);
         }
-      
     }
 
     protected override void StopPowerupInternal()
