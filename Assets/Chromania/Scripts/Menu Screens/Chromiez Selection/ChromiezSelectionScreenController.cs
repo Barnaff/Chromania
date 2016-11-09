@@ -16,6 +16,9 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
     [SerializeField]
     private List<ChromieSelectionSelectedCellController> _selctionsCellsList;
 
+    [SerializeField]
+    private Text _chromieInfoLabel;
+
     #endregion
 
 
@@ -114,6 +117,21 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
         return result;
     }
 
+    private void DisplayInfo(ChromieDefenition chromieDefenition)
+    {
+        string infoString = "";
+        infoString = chromieDefenition.ChromieName + "\n";
+        if (chromieDefenition.PassivePowerup != null)
+        {
+            infoString = "Passivs: " + chromieDefenition.PassivePowerup.name + "\n";
+        }
+        if (chromieDefenition.ActivePowerup != null)
+        {
+            infoString = "active: " + chromieDefenition.ActivePowerup.name + "\n";
+        }
+        _chromieInfoLabel.text = infoString;
+    }
+
     #endregion
 
 
@@ -125,6 +143,7 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
         {
             cellController.Selected = true;
         }
+        DisplayInfo(cellController.ChromieDefenition);
     }
 
     private void SelectionCellSelectedHandler(ChromieSelectionSelectedCellController cellController)
