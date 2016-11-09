@@ -101,6 +101,8 @@ public class ColorZoneController : MonoBehaviour {
         if (colorZone == this)
         {
             //TODO: Display collection animation 
+            _colorZoneCharacter.Collected();
+            
         }
     }
 

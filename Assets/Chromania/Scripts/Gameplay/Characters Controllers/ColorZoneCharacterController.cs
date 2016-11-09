@@ -11,5 +11,30 @@ public class ColorZoneCharacterController : MonoBehaviour {
     [SerializeField]
     private GameObject _glow;
 
+    private Animator _animator;
+
+    #endregion
+
+
+    #region Initialization
+
+    void Start()
+    {
+        _animator = this.gameObject.GetComponent<Animator>();
+    }
+
+    #endregion
+
+
+    #region Public
+
+    public void Collected()
+    {
+        if (_animator != null)
+        {
+            _animator.SetTrigger("Collected");
+        }
+    }
+
     #endregion
 }
