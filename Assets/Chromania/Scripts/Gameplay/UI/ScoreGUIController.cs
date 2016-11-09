@@ -12,6 +12,12 @@ public class ScoreGUIController : MonoBehaviour {
     [SerializeField]
     private Text _scoreMultiplierLabel;
 
+    [SerializeField]
+    private bool _displayScoreIndicationOnCollection;
+
+    [SerializeField]
+    private ScoreIndicatorController _scoreIndicatorPrefab;
+
     #endregion
 
 
@@ -39,9 +45,17 @@ public class ScoreGUIController : MonoBehaviour {
 
     #region Events
 
-    private void OnScoreUpdateHandler(int scoreAdded, int newScore)
+    private void OnScoreUpdateHandler(int scoreAdded, int newScore, ChromieController chromieController)
     {
         UpdateScoreDisplay(newScore);
+
+        if (_displayScoreIndicationOnCollection && chromieController != null)
+        {
+            Vector3 position = chromieController.transform.localPosition;
+            ScoreIndicatorController scoreIndicator = Lean.LeanPool.Spawn(_scoreIndicatorPrefab, position, Quaternion.identity, this.transform);
+            scoreIndicator.transform.position = position;
+            scoreIndicator.DisplayScore(scoreAdded);
+        }
     }
 
     private void OnScoreMultiplierUpdateHandler(int scoreMultiplier)

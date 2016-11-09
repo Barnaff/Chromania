@@ -75,7 +75,7 @@ public class GameplayScoreManager : MonoBehaviour {
 
         _gameplayTrackingData.Score += scoreToAdd;
 
-        GameplayEventsDispatcher.Instance.ScoreUpdate(scoreToAdd, _gameplayTrackingData.Score);
+        GameplayEventsDispatcher.Instance.ScoreUpdate(scoreToAdd, _gameplayTrackingData.Score, chromieController);
 
 #if UNITY_EDITOR
         _currentScore = _gameplayTrackingData.Score;

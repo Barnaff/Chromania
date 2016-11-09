@@ -10,7 +10,7 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public delegate void PowerupActivationDelegate(ePowerups.Active powerupType, float duration, float value);
     public delegate void GameoverDelegate();
     public delegate void LivesUpdateDelegate(int maxLives, int currentLives, int change);
-    public delegate void ScoreUpdateDelegate(int scoreAdded, int newScore);
+    public delegate void ScoreUpdateDelegate(int scoreAdded, int newScore, ChromieController chromieController);
     public delegate void TimeUpdateDelegate(float currentTime);
     public delegate void ScoreMultiplierUpdateDelegate(int newScoreMultiplier);
     public delegate void LevelUpdateDelegate(int newLevel);
@@ -141,11 +141,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
-    public void ScoreUpdate(int scoreAdded, int newScore)
+    public void ScoreUpdate(int scoreAdded, int newScore, ChromieController chromieController)
     {
         if (OnScoreUpdate != null)
         {
-            OnScoreUpdate(scoreAdded, newScore);
+            OnScoreUpdate(scoreAdded, newScore, chromieController);
         }
     }
 
@@ -223,9 +223,9 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         GameplayEventsDispatcher.Instance.LivesUpdate(maxLives, currentLives, change);
     }
 
-    public static void SendScoreUpdate(int scoreAdded, int newScore)
+    public static void SendScoreUpdate(int scoreAdded, int newScore, ChromieController chromieController)
     {
-        GameplayEventsDispatcher.Instance.ScoreUpdate(scoreAdded, newScore);
+        GameplayEventsDispatcher.Instance.ScoreUpdate(scoreAdded, newScore, chromieController);
     }
 
     public static void SendTimerUpdate(float currentTime)
