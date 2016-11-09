@@ -18,8 +18,6 @@ public class GameplayTester : MonoBehaviour {
     void Start()
     {
         _powerupsAssets = Resources.LoadAll<PowerupBase>("Powerups/");
-        Debug.Log("loaded " + _powerupsAssets.Length);
-
         GameplayEventsDispatcher.Instance.OnChromieSpawned += OnChromieSpwanedHandler;
     }
 

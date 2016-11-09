@@ -11,6 +11,9 @@ public class ChromieCharacterController : MonoBehaviour {
     [SerializeField]
     private bool _isPowerup;
 
+    [SerializeField]
+    private GameObject _powerupEffect;
+
     #endregion
 
 
@@ -21,37 +24,13 @@ public class ChromieCharacterController : MonoBehaviour {
         set
         {
             _isPowerup = value;
-        }
-    }
-
-    #endregion
-
-
-
-    #region Update
-
-    void Update()
-    {
-        if (_isPowerup)
-        {
-            if (Time.frameCount % 10 == 0)
+            if (_powerupEffect != null)
             {
-                if (_characterSprite != null)
-                {
-                    Color color = _characterSprite.GetComponent<SpriteRenderer>().color;
-                    if (color.a == 1)
-                    {
-                        color.a = 0.5f;
-                    }
-                    else
-                    {
-                        color.a = 1f;
-                    }
-                    _characterSprite.GetComponent<SpriteRenderer>().color = color;
-                }
+                _powerupEffect.SetActive(_isPowerup);
             }
         }
     }
 
     #endregion
+
 }

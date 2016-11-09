@@ -14,6 +14,12 @@ public class GameplayPowerupsManager : MonoBehaviour {
     [SerializeField]
     private Dictionary<eChromieType, int> _collectedColorsCount;
 
+    [SerializeField]
+    private int _spwanCount;
+
+    [SerializeField]
+    private int _powerupSpwanInterval;
+
     #endregion
 
 
@@ -21,6 +27,7 @@ public class GameplayPowerupsManager : MonoBehaviour {
 
     void Start()
     {
+        _spwanCount = 0;
         GameplayEventsDispatcher.Instance.OnChromieSpawned += OnChromieSpwanedhandler;
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
     }
@@ -63,6 +70,17 @@ public class GameplayPowerupsManager : MonoBehaviour {
             return true;
         }
 #endif
+
+        _spwanCount++;
+
+        if (_spwanCount > _powerupSpwanInterval)
+        {
+            if (Random.Range(0, _powerupSpwanInterval*2) < _spwanCount)
+            {
+                _spwanCount = 0;
+                return true;
+            }
+        }
         return false;
     }
 
