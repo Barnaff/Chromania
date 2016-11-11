@@ -49,8 +49,11 @@ public class GameplayController : MonoBehaviour {
     private void PrepareGame()
     {
         _currentLevel = 0;
+        // create color zones
         _colorZonesController.CreateColorZones(GameSetupManager.Instance.SelectedChromiez);
+        // init the spwaner
         _spwanerController.Init(GameSetupManager.Instance.SelectedPlayMode, GameSetupManager.Instance.SelectedChromiez);
+      
 
         GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
         GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandler;
@@ -86,6 +89,15 @@ public class GameplayController : MonoBehaviour {
                     timerManager.Run();
                     break;
                 }
+        }
+
+        // activate passive powerups
+        foreach (ChromieDefenition chromieDefenition in GameSetupManager.Instance.SelectedChromiez)
+        {
+            if (chromieDefenition.PassivePowerup != null)
+            {
+                chromieDefenition.PassivePowerup.StartPowerup(null);
+            }
         }
     }
 

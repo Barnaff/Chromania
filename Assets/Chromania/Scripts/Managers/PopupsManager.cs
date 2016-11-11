@@ -70,6 +70,13 @@ public class PopupsManager : Kobapps.Singleton<PopupsManager> {
         {
             return popupsPrefabs[0] as PopupBaseController;
         }
+
+        T popupPrefab = Resources.Load<T>(typeof(T).ToString());
+        if (popupPrefab != null)
+        {
+            return popupPrefab;
+        }
+
         Debug.LogError("Could not load popup: " + typeof(T).ToString());
         return null;
     }
