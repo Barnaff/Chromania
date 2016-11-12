@@ -7,7 +7,6 @@ public class PowerupExtraLife : PowerupBase {
 
     public int NumberOfExtraLives = 1;
 
-
     protected override void StartPowerupInternal(ChromieController chromieController)
     {
         GameplayLivesManager livesManager = GameObject.FindObjectOfType<GameplayLivesManager>();

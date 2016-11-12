@@ -26,14 +26,29 @@ public abstract class PowerupBase : ScriptableObject {
 
     private GameObject _durationEffectInstance;
 
+    [SerializeField]
+    public Object PowerupEffect;
+
+
     #endregion
+
 
     #region Public
 
-    public void StartPowerup(ChromieController chromieController)
+    public PowerupBase StartPowerup(ChromieController chromieController)
     {
-        StartPowerupInternal(chromieController);
+        PowerupBase powerupEffect = ScriptableObject.Instantiate(this);
+        if (powerupEffect != null)
+        {
+            powerupEffect.StartPowerup();
+            powerupEffect.StartPowerupInternal(chromieController);
+        }
 
+        return powerupEffect;
+    }
+
+    public void StartPowerup()
+    {
         switch (ActivationType)
         {
             case ePowerupActivationType.ContinuesSingle:
@@ -94,9 +109,6 @@ public abstract class PowerupBase : ScriptableObject {
 
     protected abstract void StopPowerupInternal();
 
-
-
-
     #endregion
 
 
@@ -104,6 +116,7 @@ public abstract class PowerupBase : ScriptableObject {
 
     private void StartPowerupDurationCount(float duration)
     {
+       
         Timing.RunCoroutine(PlayPowerupCorutine(duration), this.GetHashCode().ToString());
     }
 
@@ -112,6 +125,7 @@ public abstract class PowerupBase : ScriptableObject {
         yield return Timing.WaitForSeconds(duration);
 
         StopPowerup();
+       
     }
 
     #endregion

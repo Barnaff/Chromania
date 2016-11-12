@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class GameplayController : MonoBehaviour {
 
     #region Private Properties
@@ -25,11 +26,6 @@ public class GameplayController : MonoBehaviour {
     private GameplayTrackingData _gameplayTrackingData;
 
     #endregion
-
-    // Update is called once per frame
-    void Update () {
-	
-	}
 
 
     #region Initilization

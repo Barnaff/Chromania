@@ -3,7 +3,8 @@ using System.Collections;
 using System;
 
 
-public class PowerupAllSameColor : PowerupBase {
+public class PowerupAllSameColor : PowerupBase
+{
 
     protected override void StartPowerupInternal(ChromieController chromieController)
     {

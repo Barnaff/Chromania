@@ -30,6 +30,7 @@ public class GameplayPowerupsManager : MonoBehaviour {
         _spwanCount = 0;
         GameplayEventsDispatcher.Instance.OnChromieSpawned += OnChromieSpwanedhandler;
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
+        GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
     }
 
     #endregion
@@ -52,8 +53,18 @@ public class GameplayPowerupsManager : MonoBehaviour {
             // activate powerup
             if (chromieController.ChromieDefenition.ActivePowerup != null)
             {
-                chromieController.ChromieDefenition.ActivePowerup.StartPowerup(chromieController);
+                //chromieController.ChromieDefenition.ActivePowerup.StartPowerup(chromieController);
+                ActivatePowerup(chromieController.ChromieDefenition.ActivePowerup, chromieController);
             }
+        }
+    }
+
+    private void OnChromieDroppedHandler(ChromieController chromieController)
+    {
+        if (chromieController.ChromieDefenition.DroppedPowerup != null)
+        {
+            // chromieController.ChromieDefenition.DroppedPowerup.StartPowerup(chromieController);
+            ActivatePowerup(chromieController.ChromieDefenition.DroppedPowerup, chromieController);
         }
     }
 
@@ -61,6 +72,11 @@ public class GameplayPowerupsManager : MonoBehaviour {
 
 
     #region Private 
+
+    private void ActivatePowerup(PowerupBase powerup, ChromieController chromieController)
+    {
+        PowerupBase powerupInstance = powerup.StartPowerup(chromieController);
+    }
 
     private bool ShouldSpwanAsPwerup(ChromieController chromieController)
     {

@@ -4,8 +4,11 @@ using System;
 
 public class PowerupShield : PowerupBase
 {
+
     protected override void StartPowerupInternal(ChromieController chromieController)
     {
+        Debug.Log("Shield!!");
+
         GameplayLivesManager livesManager = GameObject.FindObjectOfType<GameplayLivesManager>();
         if (livesManager != null)
         {

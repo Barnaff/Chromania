@@ -22,6 +22,9 @@ public class ScoreIndicatorController : MonoBehaviour {
     {
         yield return Timing.WaitForSeconds(duration);
 
-        Lean.LeanPool.Despawn(this.gameObject);
+        if (this.gameObject != null)
+        {
+            Lean.LeanPool.Despawn(this.gameObject);
+        } 
     }
 }

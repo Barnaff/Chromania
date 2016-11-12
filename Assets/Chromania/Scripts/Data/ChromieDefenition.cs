@@ -5,7 +5,7 @@ using System.Collections;
 public class ChromieDefenition
 {
     #region Public Properties
-
+    
     public int ChromieID;
 
     public eChromieType ChromieColor;
@@ -52,6 +52,8 @@ public class ChromieDefenition
     public PowerupBase ActivePowerup;
 
     public PowerupBase PassivePowerup;
+
+    public PowerupBase DroppedPowerup;
 
     #endregion
 }
