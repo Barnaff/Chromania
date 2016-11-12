@@ -7,13 +7,13 @@ public class GameplayEventsDispatcher : MonoBehaviour {
 
     public delegate void ChromieActionDelegate(ChromieController chromieController);
     public delegate void ChromieColorZoneActionDelegate(ChromieController chromieController, ColorZoneController colorZone);
-    public delegate void PowerupActivationDelegate(ePowerups.Active powerupType, float duration, float value);
     public delegate void GameoverDelegate();
     public delegate void LivesUpdateDelegate(int maxLives, int currentLives, int change);
     public delegate void ScoreUpdateDelegate(int scoreAdded, int newScore, ChromieController chromieController);
     public delegate void TimeUpdateDelegate(float currentTime);
     public delegate void ScoreMultiplierUpdateDelegate(int newScoreMultiplier);
     public delegate void LevelUpdateDelegate(int newLevel);
+    public delegate void PowerupUpdateDelegate(PowerupBase powerup);
 
     #endregion
 
@@ -26,12 +26,13 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public event ChromieColorZoneActionDelegate OnChromieCollected;
     public event GameoverDelegate OnGameOver;
     public event GameoverDelegate OnTimeUp;
-    public event PowerupActivationDelegate OnPowerupActivation;
     public event LivesUpdateDelegate OnLivesUpdate;
     public event ScoreUpdateDelegate OnScoreUpdate;
     public event TimeUpdateDelegate OnTimeUpdate;
     public event ScoreMultiplierUpdateDelegate OnScoreMultiplierUpdate;
     public event LevelUpdateDelegate OnLevelUpdate;
+    public event PowerupUpdateDelegate OnPowerupStarted;
+    public event PowerupUpdateDelegate OnPowerupStopped;
 
     #endregion
 
@@ -125,14 +126,6 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
-    public void PowerupActivation(ePowerups.Active powerupType, float duration, float value)
-    {
-        if (OnPowerupActivation != null)
-        {
-            OnPowerupActivation(powerupType, duration, value);
-        }
-    }
-
     public void LivesUpdate(int maxLives, int currentLives, int change)
     {
         if (OnLivesUpdate != null)
@@ -170,6 +163,22 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         if (OnLevelUpdate != null)
         {
             OnLevelUpdate(newLevel);
+        }
+    }
+
+    public void PowerupStarted(PowerupBase powerup)
+    {
+        if (OnPowerupStarted != null)
+        {
+            OnPowerupStarted(powerup);
+        }
+    }
+
+    public void PowerupStopped(PowerupBase powerup)
+    {
+        if (OnPowerupStopped != null)
+        {
+            OnPowerupStopped(powerup);
         }
     }
 
@@ -213,11 +222,6 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         GameplayEventsDispatcher.Instance.ChromieCollected(chromieController, colorZone);
     }
 
-    public static void SendPowerupActivation(ePowerups.Active powerupType, float duration, float value)
-    {
-        GameplayEventsDispatcher.Instance.PowerupActivation(powerupType, duration, value);
-    }
-
     public static void SendLiveUpdate(int maxLives, int currentLives, int change)
     {
         GameplayEventsDispatcher.Instance.LivesUpdate(maxLives, currentLives, change);
@@ -241,6 +245,16 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public static void SendLevelUpdate(int newLevel)
     {
         GameplayEventsDispatcher.Instance.LevelUpdate(newLevel);
+    }
+
+    public static void SendPowerupStarted(PowerupBase powerup)
+    {
+        GameplayEventsDispatcher.Instance.PowerupStarted(powerup);
+    }
+
+    public static void SendPowerupStopped(PowerupBase powerup)
+    {
+        GameplayEventsDispatcher.Instance.PowerupStopped(powerup);
     }
 
     #endregion

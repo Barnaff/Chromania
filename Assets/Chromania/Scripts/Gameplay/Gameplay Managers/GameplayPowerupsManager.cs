@@ -20,6 +20,9 @@ public class GameplayPowerupsManager : MonoBehaviour {
     [SerializeField]
     private int _powerupSpwanInterval;
 
+    [SerializeField]
+    private List<PowerupBase> _activePowerups;
+
     #endregion
 
 
@@ -31,6 +34,8 @@ public class GameplayPowerupsManager : MonoBehaviour {
         GameplayEventsDispatcher.Instance.OnChromieSpawned += OnChromieSpwanedhandler;
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
         GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
+        GameplayEventsDispatcher.Instance.OnPowerupStarted += OnPowerupStartedHandler;
+        GameplayEventsDispatcher.Instance.OnPowerupStopped += OnPowerupStoppedHandler;
     }
 
     #endregion
@@ -50,10 +55,8 @@ public class GameplayPowerupsManager : MonoBehaviour {
     {
         if (chromieController.IsPowerup)
         {
-            // activate powerup
             if (chromieController.ChromieDefenition.ActivePowerup != null)
             {
-                //chromieController.ChromieDefenition.ActivePowerup.StartPowerup(chromieController);
                 ActivatePowerup(chromieController.ChromieDefenition.ActivePowerup, chromieController);
             }
         }
@@ -63,8 +66,20 @@ public class GameplayPowerupsManager : MonoBehaviour {
     {
         if (chromieController.ChromieDefenition.DroppedPowerup != null)
         {
-            // chromieController.ChromieDefenition.DroppedPowerup.StartPowerup(chromieController);
             ActivatePowerup(chromieController.ChromieDefenition.DroppedPowerup, chromieController);
+        }
+    }
+
+    private void OnPowerupStartedHandler(PowerupBase powerup)
+    {
+
+    }
+
+    private void OnPowerupStoppedHandler(PowerupBase powerup)
+    {
+        if (_activePowerups.Contains(powerup))
+        {
+            _activePowerups.Remove(powerup);
         }
     }
 
@@ -75,7 +90,21 @@ public class GameplayPowerupsManager : MonoBehaviour {
 
     private void ActivatePowerup(PowerupBase powerup, ChromieController chromieController)
     {
+        if (!powerup.AllowMultiple)
+        {
+            foreach (PowerupBase activePowerup in _activePowerups)
+            {
+                if (activePowerup.GetType() == powerup.GetType())
+                {
+                    // stop the powerup from activate, there is alrady one active!
+                    Debug.Log("stopped powerup: " + powerup.name + " from activate!");
+                    return;
+                }
+            }
+        }
         PowerupBase powerupInstance = powerup.StartPowerup(chromieController);
+
+        _activePowerups.Add(powerupInstance);
     }
 
     private bool ShouldSpwanAsPwerup(ChromieController chromieController)
