@@ -135,8 +135,8 @@ public class ChromieController : MonoBehaviour, IDraggable {
 
     void LateUpdate()
     {
-        if (this.transform.position.x < -_screenBounds.size.x || this.transform.position.x > _screenBounds.size.x ||
-            this.transform.position.y < -_screenBounds.size.y || this.transform.position.y > _screenBounds.size.y)
+        if (this.transform.position.x < -_screenBounds.size.x * 0.5f || this.transform.position.x > _screenBounds.size.x * 0.5f ||
+            this.transform.position.y < -_screenBounds.size.y * 0.5f || this.transform.position.y > _screenBounds.size.y * 0.5f)
         {
             ChromieDropped();
         }

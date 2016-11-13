@@ -35,7 +35,7 @@ public class TouchController : MonoBehaviour {
     {
 		if (_draggedObject != null)
 		{
-			_draggedObject.GetComponent<Rigidbody2D>().MovePosition(Vector2.Lerp(_draggedObject.GetComponent<Rigidbody2D>().position, this.gameObject.GetComponent<Rigidbody2D>().position, Time.deltaTime * 10.0f));
+			_draggedObject.GetComponent<Rigidbody2D>().MovePosition(Vector2.Lerp(_draggedObject.GetComponent<Rigidbody2D>().position, this.gameObject.GetComponent<Rigidbody2D>().position, Time.deltaTime * 20.0f));
 		}
 	}
 
@@ -80,7 +80,7 @@ public class TouchController : MonoBehaviour {
 			}
 
 			this.gameObject.GetComponent<SpringJoint2D>().enabled = false;
-			forceVector *= distance2 * 4.0f;
+			forceVector *= distance2 * 10.0f;
 			_draggedObject.GetComponent<Rigidbody2D>().velocity = forceVector;
 
             IDraggable draggable = _draggedObject.gameObject.GetComponent<IDraggable>();

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using MovementEffects;
 
 public class GameplayLivesManager : MonoBehaviour {
 
@@ -20,6 +22,9 @@ public class GameplayLivesManager : MonoBehaviour {
     [SerializeField]
     private bool _isImmune;
 
+    [SerializeField]
+    private GameObject _hitIndicatorPrefab;
+
     #endregion
 
 
@@ -34,6 +39,12 @@ public class GameplayLivesManager : MonoBehaviour {
         _currentLives = _startingLives;
 
         GameplayEventsDispatcher.SendLiveUpdate(_maxLives, _currentLives, 0);
+
+        _hitIndicatorPrefab = Resources.Load("HitIndicator") as GameObject;
+        if (_hitIndicatorPrefab == null)
+        {
+            Debug.LogError("ERROR - Hit Indicator could not be found in resources!");
+        }
     }
 
     void OnDestroy()
@@ -69,12 +80,46 @@ public class GameplayLivesManager : MonoBehaviour {
     private void OnChromieDroppedHandler(ChromieController chromieController)
     {
         LooseLife();
+
+        if (_hitIndicatorPrefab != null)
+        {
+            Timing.RunCoroutine(DisplayHit(chromieController.transform.position));
+        }
     }
 
     #endregion
 
 
     #region Private
+
+    private IEnumerator<float> DisplayHit(Vector3 position)
+    {
+        Bounds cameraBounds = Camera.main.gameObject.GetComponent<CameraController>().OrthographicBounds();
+        Debug.Log("chromie dropped position: " + position);
+        float margins = 1f;
+        if (position.x < -cameraBounds.size.x * 0.5f)
+        {
+            position.x = -cameraBounds.size.x * 0.5f + margins;
+        }
+        else if (position.x > cameraBounds.size.x * 0.5f)
+        {
+            position.x = cameraBounds.size.x * 0.5f - margins;
+        }
+        else if (position.y < -cameraBounds.size.y * 0.5f)
+        {
+            position.y = -cameraBounds.size.y * 0.5f + margins;
+        }
+        else if (position.y > cameraBounds.size.y * 0.5f)
+        {
+            position.y = cameraBounds.size.y * 0.5f - margins;
+        }
+        Debug.Log("hit indicator position: " + position);
+        GameObject hitIndicator = Lean.LeanPool.Spawn(_hitIndicatorPrefab, position, Quaternion.identity);
+
+        yield return Timing.WaitForSeconds(2.0f);
+
+        Lean.LeanPool.Despawn(hitIndicator);
+    }
 
     private void LooseLife()
     {

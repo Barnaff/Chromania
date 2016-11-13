@@ -31,7 +31,9 @@ public class ScoreIndicatorController : MonoBehaviour {
             }
         }
 
-        Timing.RunCoroutine(DelayRemove(_lifetime));
+      //  Timing.RunCoroutine(DelayRemove(_lifetime));
+
+        Lean.LeanPool.Despawn(this.gameObject, _lifetime);
     }
 
     IEnumerator <float> DelayRemove(float duration)
