@@ -39,18 +39,20 @@ public abstract class PowerupBase : ScriptableObject {
 
     public PowerupBase StartPowerup(ChromieController chromieController)
     {
+        Debug.Log("start powerup: " + this.name);
         PowerupBase powerupEffect = ScriptableObject.Instantiate(this);
         if (powerupEffect != null)
         {
-            powerupEffect.StartPowerup();
-            powerupEffect.StartPowerupInternal(chromieController);
+            powerupEffect.PlayPowerupEffect(chromieController); 
         }
 
         return powerupEffect;
     }
 
-    public void StartPowerup()
+    public void PlayPowerupEffect(ChromieController chromieController)
     {
+        StartPowerupInternal(chromieController);
+
         if (ActivationEffectPrefab != null)
         {
             Instantiate(ActivationEffectPrefab);
@@ -72,12 +74,12 @@ public abstract class PowerupBase : ScriptableObject {
         {
             case ePowerupActivationType.ContinuesSingle:
                 {
-                    StopPowerup();
+                    //StopPowerup();
                     break;
                 }
             case ePowerupActivationType.SingleUse:
                 {
-                    StopPowerup();
+                    //StopPowerup();
                     break;
                 }
             case ePowerupActivationType.OverTime:

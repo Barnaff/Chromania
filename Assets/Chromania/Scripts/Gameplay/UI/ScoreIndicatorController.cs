@@ -29,7 +29,6 @@ public class ScoreIndicatorController : MonoBehaviour {
                 c.a = 1;
                 _particleEffct[i].startColor = c;
             }
-
         }
 
         Timing.RunCoroutine(DelayRemove(_lifetime));
