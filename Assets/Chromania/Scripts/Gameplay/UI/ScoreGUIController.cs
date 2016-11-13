@@ -54,7 +54,7 @@ public class ScoreGUIController : MonoBehaviour {
             Vector3 position = chromieController.transform.localPosition;
             ScoreIndicatorController scoreIndicator = Lean.LeanPool.Spawn(_scoreIndicatorPrefab, position, Quaternion.identity, this.transform);
             scoreIndicator.transform.position = position;
-            scoreIndicator.DisplayScore(scoreAdded);
+            scoreIndicator.DisplayScore(scoreAdded, chromieController.ChromieDefenition.ColorValue);
         }
     }
 

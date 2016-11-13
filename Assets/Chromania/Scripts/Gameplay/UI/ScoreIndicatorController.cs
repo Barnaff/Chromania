@@ -12,9 +12,26 @@ public class ScoreIndicatorController : MonoBehaviour {
     [SerializeField]
     private float _lifetime = 3.0f;
 
-    public void DisplayScore(int amount)
+    [SerializeField]
+    private ParticleSystem[] _particleEffct;
+
+    public void DisplayScore(int amount, Color colorEffct)
     {
         _scoreLabel.text = amount.ToString();
+        if (_particleEffct != null)
+        {
+            for (int i = 0; i < _particleEffct.Length; i++)
+            {
+                Color c = colorEffct;
+                c.r += (i * 0.2f);
+                c.g += (i * 0.2f);
+                c.b += (i * 0.2f);
+                c.a = 1;
+                _particleEffct[i].startColor = c;
+            }
+
+        }
+
         Timing.RunCoroutine(DelayRemove(_lifetime));
     }
 
