@@ -21,6 +21,9 @@ public class GameplayPowerupsManager : MonoBehaviour {
     private int _powerupSpwanInterval;
 
     [SerializeField]
+    private float _powerupSpwanMultiplier = 1;
+
+    [SerializeField]
     private List<PowerupBase> _activePowerups;
 
     #endregion
@@ -36,6 +39,16 @@ public class GameplayPowerupsManager : MonoBehaviour {
         GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
         GameplayEventsDispatcher.Instance.OnPowerupStarted += OnPowerupStartedHandler;
         GameplayEventsDispatcher.Instance.OnPowerupStopped += OnPowerupStoppedHandler;
+    }
+
+    #endregion
+
+
+    #region Public
+
+    public void AddSpwanIntervalMultiplier(float spwanInterval)
+    {
+        _powerupSpwanMultiplier -= spwanInterval;
     }
 
     #endregion
@@ -118,9 +131,14 @@ public class GameplayPowerupsManager : MonoBehaviour {
 
         _spwanCount++;
 
-        if (_spwanCount > _powerupSpwanInterval)
+        if (chromieController.ChromieDefenition.ActivePowerup == null)
         {
-            if (Random.Range(0, _powerupSpwanInterval*2) < _spwanCount)
+            return false;
+        }
+
+        if (_spwanCount > _powerupSpwanInterval * _powerupSpwanMultiplier)
+        {
+            if (Random.Range(0, _powerupSpwanInterval * _powerupSpwanMultiplier * 2f) < _spwanCount)
             {
                 _spwanCount = 0;
                 return true;

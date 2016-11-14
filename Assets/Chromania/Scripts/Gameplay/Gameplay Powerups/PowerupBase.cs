@@ -31,6 +31,9 @@ public abstract class PowerupBase : ScriptableObject {
     [SerializeField]
     public Object PowerupEffect;
 
+    [SerializeField]
+    public string Description;
+
 
     #endregion
 

@@ -17,6 +17,9 @@ public class GameplayScoreManager : MonoBehaviour {
     private int _currentScoreMultiplier = 1;
 
     [SerializeField]
+    private int _currentComboMultiplier = 1;
+
+    [SerializeField]
     private int _currentComboCount = 0;
 
     [SerializeField]
@@ -47,6 +50,16 @@ public class GameplayScoreManager : MonoBehaviour {
         GameplayEventsDispatcher.SendScoreMultiplierUpdate(_currentScoreMultiplier);
     }
 
+    public void AddomboMultiplier(int comboeMultiplierToAdd)
+    {
+        _currentComboMultiplier += comboeMultiplierToAdd;
+    }
+
+    public void RemoveComboMultiplier(int comboMultiplierToRemove)
+    {
+        _currentComboMultiplier -= comboMultiplierToRemove;
+    }
+
     #endregion
 
     #region Private 
@@ -69,7 +82,7 @@ public class GameplayScoreManager : MonoBehaviour {
             _currentComboCount = 0;
         }
 
-        scoreToAdd += _currentComboCount;
+        scoreToAdd += (_currentComboCount * _currentComboMultiplier);
 
         scoreToAdd *= _currentScoreMultiplier;
 
