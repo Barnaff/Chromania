@@ -11,6 +11,9 @@ public class GameplayTimerManager : MonoBehaviour {
     [SerializeField]
     private bool _isTimerRunning;
 
+    [SerializeField]
+    private bool _isActive;
+
     #endregion
 
     #region Public
@@ -34,6 +37,7 @@ public class GameplayTimerManager : MonoBehaviour {
     {
         _currentTime += timeToAdd;
     }
+
 
     #endregion
 

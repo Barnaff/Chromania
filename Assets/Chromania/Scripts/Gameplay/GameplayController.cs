@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using MovementEffects;
 
 public class GameplayController : MonoBehaviour {
 
@@ -103,31 +103,45 @@ public class GameplayController : MonoBehaviour {
 
     private void ChromieCollected(ChromieController chromieController, ColorZoneController colorZone)
     {
-
-        //chromieController.CollectChromie();
-
-        //_spwanerController.ChromieCollected(chromieController);
-
-        //if (colorZone != null)
-        //{
-        //    colorZone.CollectChromie(chromieController);
-        //}
-
         GameplayEventsDispatcher.SendChromieCollected(chromieController, colorZone);
+    }
 
-        //  int currentScore = this.gameObject.GetComponent<ScoreCounterManager>().Score;
+    private IEnumerator<float> GameOverSequance()
+    {
+        _isGameOver = true;
+        _spwanerController.StopSpwaning();
+        switch (GameSetupManager.Instance.SelectedPlayMode)
+        {
+            case eGameplayMode.Classic:
+                {
+                    GameplayLivesManager livesManager = GameObject.FindObjectOfType<GameplayLivesManager>();
+                    if (livesManager != null)
+                    {
+                        livesManager.Active = false;
+                    }
+                    PopupsManager.Instance.DisplayPopup<GameOverMessagePopup>();
+                    break;
+                }
+            case eGameplayMode.Rush:
+                {
+                    GameplayTimerManager timerManager = GameObject.FindObjectOfType<GameplayTimerManager>();
+                    if (timerManager != null)
+                    {
+                        timerManager.Stop();
+                    }
+                    PopupsManager.Instance.DisplayPopup<TimesUpMessagePopupController>();
+                    break;
+                }
+            case eGameplayMode.Default:
+            default:
+                {
+                    break;
+                }
+        }
 
-        //  _gameplayTrackingData.Score = currentScore;
+        yield return Timing.WaitForSeconds(5.0f);
 
-        //if (_currentLevel < _levelRequierments.Length)
-        //{
-        //    int currentLevelRequirment = _levelRequierments[_currentLevel];
-        //    if (currentScore > currentLevelRequirment)
-        //    {
-        //        _currentLevel++;
-        //        _spwanController.UpdateLevel(_currentLevel);
-        //    }
-        //}
+        FlowManager.Instance.GameOver(_gameplayTrackingData);
     }
 
     #endregion
@@ -145,12 +159,12 @@ public class GameplayController : MonoBehaviour {
 
     private void OnGameOverHandler()
     {
-        FlowManager.Instance.GameOver(_gameplayTrackingData);
+        Timing.RunCoroutine(GameOverSequance());
     }
 
     private void OnTimeUpHandler()
     {
-        FlowManager.Instance.GameOver(_gameplayTrackingData);
+        Timing.RunCoroutine(GameOverSequance());
     }
 
     #endregion

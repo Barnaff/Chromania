@@ -25,6 +25,9 @@ public class GameplayLivesManager : MonoBehaviour {
     [SerializeField]
     private GameObject _hitIndicatorPrefab;
 
+    [SerializeField]
+    private bool _isActive;
+
     #endregion
 
 
@@ -32,6 +35,7 @@ public class GameplayLivesManager : MonoBehaviour {
 
     public void Init(int startingLives, GameplayTrackingData gameplayTrackingData)
     {
+        _isActive = true;
         _gameplayTrackingData = gameplayTrackingData;
         GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
         _startingLives = startingLives;
@@ -72,6 +76,14 @@ public class GameplayLivesManager : MonoBehaviour {
         _isImmune = isImmune;
     }
 
+    public bool Active
+    {
+        set
+        {
+            _isActive = value;
+        }
+    }
+
     #endregion
 
 
@@ -79,11 +91,14 @@ public class GameplayLivesManager : MonoBehaviour {
 
     private void OnChromieDroppedHandler(ChromieController chromieController)
     {
-        LooseLife();
-
-        if (_hitIndicatorPrefab != null)
+        if (_isActive)
         {
-            Timing.RunCoroutine(DisplayHit(chromieController.transform.position));
+            LooseLife();
+
+            if (_hitIndicatorPrefab != null)
+            {
+                Timing.RunCoroutine(DisplayHit(chromieController.transform.position));
+            }
         }
     }
 
@@ -95,7 +110,6 @@ public class GameplayLivesManager : MonoBehaviour {
     private IEnumerator<float> DisplayHit(Vector3 position)
     {
         Bounds cameraBounds = Camera.main.gameObject.GetComponent<CameraController>().OrthographicBounds();
-        Debug.Log("chromie dropped position: " + position);
         float margins = 1f;
         if (position.x < -cameraBounds.size.x * 0.5f)
         {
@@ -113,7 +127,6 @@ public class GameplayLivesManager : MonoBehaviour {
         {
             position.y = cameraBounds.size.y * 0.5f - margins;
         }
-        Debug.Log("hit indicator position: " + position);
         GameObject hitIndicator = Lean.LeanPool.Spawn(_hitIndicatorPrefab, position, Quaternion.identity);
 
         yield return Timing.WaitForSeconds(2.0f);
