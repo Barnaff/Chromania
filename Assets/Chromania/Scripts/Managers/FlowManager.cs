@@ -3,6 +3,13 @@ using System.Collections;
 
 public class FlowManager : Kobapps.Singleton<FlowManager> {
 
+    public void DisplayFirstScreenAfterLaunch()
+    {
+        Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.MenuScene, () =>
+        {
+            MenuScreensController.Instance.DisplayScreen(MenuScreensController.eMenuScreenType.MainMenu);
+        });
+    }
 
     public void DisplayMainMenu()
     {

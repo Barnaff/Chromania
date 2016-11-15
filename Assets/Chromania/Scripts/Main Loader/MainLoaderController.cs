@@ -51,6 +51,6 @@ public class MainLoaderController : MonoBehaviour {
 
     private void FinishedLoadingSequance()
     {
-        FlowManager.Instance.DisplayMainMenu();
+        FlowManager.Instance.DisplayFirstScreenAfterLaunch();
     }
 }

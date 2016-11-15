@@ -1,10 +1,19 @@
 using UnityEngine;
+using MovementEffects;
+using System.Collections.Generic;
 
 namespace Kobapps
 {
+    public enum eSceneTransition
+    {
+        None,
+        FadeOut,
+        FadeOutFadeIn,
+    }
+
     public class SceneLoaderutil 
     {
-        public static void LoadSceneAsync(string scenename, System.Action sceneLoadedAction)
+        public static void LoadSceneAsync(string scenename, System.Action sceneLoadedAction, eSceneTransition sceneTransition = eSceneTransition.None)
         {
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == scenename)
             {
@@ -15,11 +24,11 @@ namespace Kobapps
             }
             else
             {
-                CreateSceneLoaderController().LoadSceneAsync(scenename, sceneLoadedAction);
+                CreateSceneLoaderController().LoadSceneAsync(scenename, sceneLoadedAction, sceneTransition);
             }
         }
 
-        public static void LoadSceneAsync(int sceneBuildIndex, System.Action sceneLoadedAction)
+        public static void LoadSceneAsync(int sceneBuildIndex, System.Action sceneLoadedAction, eSceneTransition sceneTransition = eSceneTransition.None)
         {
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == sceneBuildIndex)
             {
@@ -30,7 +39,7 @@ namespace Kobapps
             }
             else
             {
-                CreateSceneLoaderController().LoadSceneAsync(sceneBuildIndex, sceneLoadedAction);
+                CreateSceneLoaderController().LoadSceneAsync(sceneBuildIndex, sceneLoadedAction, sceneTransition);
             }  
         }
 
@@ -47,37 +56,98 @@ namespace Kobapps
 
     internal class SceneLoaderController : MonoBehaviour
     {
-        private AsyncOperation _asyncOperation;
 
-        private System.Action _sceneLoadedAction;
+        private float _fadeValue = 0;
+        private Texture2D _overlayTexture = null;
+        private const float _fadeSpeed = 1f;
+        private bool _displayOverlay = false;
+        private int _fadeDirection = 1;
 
-        public void LoadSceneAsync(string sceneName, System.Action sceneLoadedAction)
+        public void LoadSceneAsync(string sceneName, System.Action sceneLoadedAction, eSceneTransition sceneTransition)
         {
-            _sceneLoadedAction = sceneLoadedAction;
-            _asyncOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
+            int sceneBuildIndex = UnityEngine.SceneManagement.SceneManager.GetSceneByName(sceneName).buildIndex;
+            Timing.RunCoroutine(LoadSceenCorutine(sceneBuildIndex, sceneTransition, sceneLoadedAction));
         }
 
-        public void LoadSceneAsync(int sceneBuildIndex, System.Action sceneLoadedAction)
+        public void LoadSceneAsync(int sceneBuildIndex, System.Action sceneLoadedAction, eSceneTransition sceneTransition)
         {
-            _sceneLoadedAction = sceneLoadedAction;
-            _asyncOperation =  UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneBuildIndex);
+            Timing.RunCoroutine(LoadSceenCorutine(sceneBuildIndex, sceneTransition, sceneLoadedAction));
         }
 
-        void Update()
+        private IEnumerator<float> LoadSceenCorutine(int sceneBuildIndex, eSceneTransition sceneTransition, System.Action completionAction)
         {
-            if (_asyncOperation != null && _asyncOperation.isDone)
+            sceneTransition = eSceneTransition.FadeOutFadeIn;
+
+            switch (sceneTransition)
             {
-                SceneLoaded();
-            }
-        }
+                case eSceneTransition.FadeOut:
+                case eSceneTransition.FadeOutFadeIn:
+                    {
+                        CreateOverlayTexture();
+                        _fadeValue = 0;
+                        _displayOverlay = true;
+                        _fadeDirection = 1;
+                        while (_fadeValue < 1f)
+                        {
+                            yield return 0f;
+                        }
 
-        private void SceneLoaded()
-        {
-            if (_sceneLoadedAction != null)
-            {
-                _sceneLoadedAction();
+                        break;
+                    }
             }
+
+            AsyncOperation sceneLoadOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneBuildIndex);
+
+            while (!sceneLoadOperation.isDone)
+            {
+                yield return 0f;
+            }
+
+            if (completionAction != null)
+            {
+                completionAction();
+            }
+
+            switch (sceneTransition)
+            {
+                case eSceneTransition.FadeOutFadeIn:
+                    {
+                        CreateOverlayTexture();
+                        _fadeValue = 1;
+                        _displayOverlay = true;
+                        _fadeDirection = -1;
+                        while (_fadeValue > 0f)
+                        {
+                            yield return 0f;
+                        }
+
+                        break;
+                    }
+            }
+
             Destroy(this.gameObject);
+
         }
+
+        private void CreateOverlayTexture()
+        {
+            if (_overlayTexture == null)
+            {
+                _overlayTexture = new Texture2D(1, 1);
+                _overlayTexture.SetPixel(0, 0, Color.black);
+            }
+        }
+
+        void OnGUI()
+        {
+            if (_displayOverlay)
+            {
+                _fadeValue += _fadeSpeed * _fadeDirection * Time.deltaTime;
+                GUI.color = new Color(0, 0, 0, _fadeValue); ;
+                GUI.depth = -1000 ;
+                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), _overlayTexture);
+            }
+        }
+
     }
 }

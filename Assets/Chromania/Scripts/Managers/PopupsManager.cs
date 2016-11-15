@@ -29,6 +29,12 @@ public class PopupsManager : Kobapps.Singleton<PopupsManager> {
                 _activePopups = new List<PopupBaseController>();
             }
             _activePopups.Add(popupController);
+
+            if (popupController.DontDestroyOnLoad)
+            {
+                DontDestroyOnLoad(popupController.gameObject);
+            }
+
             return popupController as T;
         }
         return null;
@@ -107,6 +113,14 @@ public class PopupBaseController : MonoBehaviour
 
 
     #region Public
+
+    public bool DontDestroyOnLoad
+    {
+        get
+        {
+            return _dontDestoryOnLoad;
+        }
+    }
 
     public void ClosePopup()
     {
