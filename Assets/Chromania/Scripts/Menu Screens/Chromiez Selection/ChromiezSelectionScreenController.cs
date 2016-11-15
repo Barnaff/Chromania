@@ -120,18 +120,18 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
     private void DisplayInfo(ChromieDefenition chromieDefenition)
     {
         string infoString = "";
-        infoString = chromieDefenition.ChromieName + "\n";
+        infoString = chromieDefenition.ChromieName + "\n\n";
         if (chromieDefenition.PassivePowerup != null)
         {
-            infoString = chromieDefenition.PassivePowerup.Description + "\n";
+            infoString += chromieDefenition.PassivePowerup.Description + "\n\n";
         }
         if (chromieDefenition.ActivePowerup != null)
         {
-            infoString = chromieDefenition.ActivePowerup.Description + "\n";
+            infoString += chromieDefenition.ActivePowerup.Description + "\n\n";
         }
         if (chromieDefenition.DroppedPowerup != null)
         {
-            infoString = chromieDefenition.DroppedPowerup.Description + "\n";
+            infoString += chromieDefenition.DroppedPowerup.Description + "\n\n";
         }
         _chromieInfoLabel.text = infoString;
     }
