@@ -1,54 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
-
+using MovementEffects;
+using System.Collections.Generic;
 
 public class PowerupAllSameColor : PowerupBase
 {
-
-    protected override void StartPowerupInternal(ChromieController chromieController)
+    protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
-        if (chromieController != null)
+        if (cheomieControllerActivator != null)
         {
+            SpwanerController spwanerController;
+            ColorZonesController colorZonesController;
+
             ChromieController[] chromiesControllers = GameObject.FindObjectsOfType<ChromieController>();
             for (int i = 0; i < chromiesControllers.Length; i++)
             {
                 if (chromiesControllers[i].gameObject.activeSelf)
                 {
-                    chromiesControllers[i].SwitchChromie(chromieController.ChromieDefenition);
+                    chromiesControllers[i].SwitchChromie(cheomieControllerActivator.ChromieDefenition);
                 }
             }
 
-            SpwanerController spwanerController = GameObject.FindObjectOfType<SpwanerController>();
-            if (spwanerController != null)
-            {
-                spwanerController.SetSpwanColorOverride(chromieController.ChromieType);
-            }
+            spwanerController = GameObject.FindObjectOfType<SpwanerController>();
+            spwanerController.SetSpwanColorOverride(cheomieControllerActivator.ChromieType);
 
-            ColorZonesController colorZonesController = GameObject.FindObjectOfType<ColorZonesController>();
-            if (colorZonesController != null)
-            {
-                colorZonesController.OverrideColorZonesColor(chromieController.ChromieDefenition);
-            }
-        }
-    }
+            colorZonesController = GameObject.FindObjectOfType<ColorZonesController>();
+            colorZonesController.OverrideColorZonesColor(cheomieControllerActivator.ChromieDefenition);
 
-    protected override void StopPowerupInternal()
-    {
-        SpwanerController spwanerController = GameObject.FindObjectOfType<SpwanerController>();
-        if (spwanerController != null)
-        {
+            yield return Timing.WaitForSeconds(Duration);
+
             spwanerController.SetSpwanColorOverride(eChromieType.None);
-        }
-
-        ColorZonesController colorZonesController = GameObject.FindObjectOfType<ColorZonesController>();
-        if (colorZonesController != null)
-        {
             colorZonesController.ResetColorZonesToOriginalColor();
         }
     }
 
-
-   
-  
 }

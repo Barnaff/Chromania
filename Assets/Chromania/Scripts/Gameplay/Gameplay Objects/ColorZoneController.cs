@@ -62,16 +62,9 @@ public class ColorZoneController : MonoBehaviour {
         }
     }
 
-    public void AddScaleFactor(float scaleFactorToAdd)
+    public void UpdateScaleFactor()
     {
-        _baseScale += scaleFactorToAdd;
-        this.transform.localScale = Vector3.one * _baseScale;
-    }
-
-    public void RemoveScaleFactor(float scaleFactorToRemove)
-    {
-        _baseScale -= scaleFactorToRemove;
-        this.transform.localScale = Vector3.one * _baseScale;
+        this.transform.localScale = Vector3.one * _baseScale * GameplayBuffsManager.GetValue(eBuffType.ColorZoneSizeMultiplier);
     }
 
     #endregion

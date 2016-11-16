@@ -1,25 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using MovementEffects;
+using System.Collections.Generic;
 
 public class PowerupIncreesePowerupChance : PowerupBase
 {
     public float SpwanChanceMultiplier;
 
-    protected override void StartPowerupInternal(ChromieController chromieController)
+    protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
         GameplayPowerupsManager gameplayPowerupsManager = GameObject.FindObjectOfType<GameplayPowerupsManager>();
         if (gameplayPowerupsManager != null)
         {
             gameplayPowerupsManager.AddSpwanIntervalMultiplier(SpwanChanceMultiplier);
-        }
-    }
 
-    protected override void StopPowerupInternal()
-    {
-        GameplayPowerupsManager gameplayPowerupsManager = GameObject.FindObjectOfType<GameplayPowerupsManager>();
-        if (gameplayPowerupsManager != null)
-        {
+            yield return Timing.WaitForSeconds(Duration);
+
             gameplayPowerupsManager.AddSpwanIntervalMultiplier(-SpwanChanceMultiplier);
         }
     }

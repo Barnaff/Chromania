@@ -14,7 +14,7 @@ public class PausePopupController : PopupBaseController {
 
     public void ResumeButtonAction()
     {
-        ClosePopup();
+        ClosePopup(); 
     }
 
     #endregion

@@ -1,27 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using MovementEffects;
+using System.Collections.Generic;
 
 public class PowerupShield : PowerupBase
 {
-
-    protected override void StartPowerupInternal(ChromieController chromieController)
+    protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
-        Debug.Log("Shield!!");
-
         GameplayLivesManager livesManager = GameObject.FindObjectOfType<GameplayLivesManager>();
         if (livesManager != null)
         {
             livesManager.SetImmune(true);
-        }
-    }
 
-    protected override void StopPowerupInternal()
-    {
-        GameplayLivesManager livesManager = GameObject.FindObjectOfType<GameplayLivesManager>();
-        if (livesManager != null)
-        {
+            yield return Timing.WaitForSeconds(Duration);
+
             livesManager.SetImmune(false);
         }
     }
+
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using System.Collections.Generic;
 
 public class PowerupExtraTime : PowerupBase
 {
@@ -8,17 +8,14 @@ public class PowerupExtraTime : PowerupBase
 
     public bool AddToMaxTime = true;
 
-    protected override void StartPowerupInternal(ChromieController chromieController)
+    protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
         GameplayTimerManager timerManager = GameObject.FindObjectOfType<GameplayTimerManager>();
         if (timerManager != null)
         {
             timerManager.AddTime(TimeToAdd);
         }
-    }
 
-    protected override void StopPowerupInternal()
-    {
-        
+        yield return 0f;
     }
 }

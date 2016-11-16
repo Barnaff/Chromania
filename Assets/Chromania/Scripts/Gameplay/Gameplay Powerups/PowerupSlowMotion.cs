@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MovementEffects;
+using System.Collections.Generic;
 
 public class PowerupSlowMotion : PowerupBase
 {
-
     public float TimeValue = 0.5f;
 
-    protected override void StartPowerupInternal(ChromieController chromieController)
+    protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
         UnityStandardAssets.ImageEffects.MotionBlur motionBlur = Camera.main.gameObject.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>();
         if (motionBlur != null)
@@ -14,17 +15,17 @@ public class PowerupSlowMotion : PowerupBase
             motionBlur.enabled = true;
         }
         Time.timeScale = TimeValue;
-    }
 
-    protected override void StopPowerupInternal()
-    {
+        yield return Timing.WaitForSeconds(Duration);
+
         Time.timeScale = 1f;
-        UnityStandardAssets.ImageEffects.MotionBlur motionBlur = Camera.main.gameObject.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>();
+       
         if (motionBlur != null)
         {
             motionBlur.enabled = false;
         }
     }
+
 }
 
 

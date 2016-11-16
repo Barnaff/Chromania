@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using System.Collections.Generic;
+using MovementEffects;
 
 public class PowerupAddScoreMultiplier : PowerupBase
 {
@@ -14,20 +15,16 @@ public class PowerupAddScoreMultiplier : PowerupBase
 
     public eScoreMultiplierMethod Method;
 
-    protected override void StartPowerupInternal(ChromieController chromieController)
+
+    protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
         GameplayScoreManager scoreManager = GameObject.FindObjectOfType<GameplayScoreManager>();
         if (scoreManager != null)
         {
             scoreManager.AddScoreMultiplier(SocreMultiplier);
-        }
-    }
 
-    protected override void StopPowerupInternal()
-    {
-        GameplayScoreManager scoreManager = GameObject.FindObjectOfType<GameplayScoreManager>();
-        if (scoreManager != null)
-        {
+            yield return Timing.WaitForSeconds(Duration);
+
             scoreManager.RemoveScoreMultiplier(SocreMultiplier);
         }
     }

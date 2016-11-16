@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using MovementEffects;
+using System.Collections.Generic;
 
 public class PowerupComboMultiplier : PowerupBase
 {
@@ -14,20 +15,15 @@ public class PowerupComboMultiplier : PowerupBase
 
     public eComboMultiplierMethod Method;
 
-    protected override void StartPowerupInternal(ChromieController chromieController)
+    protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
         GameplayScoreManager scoreManager = GameObject.FindObjectOfType<GameplayScoreManager>();
         if (scoreManager != null)
         {
             scoreManager.AddomboMultiplier(ComboMultiplier);
-        }
-    }
 
-    protected override void StopPowerupInternal()
-    {
-        GameplayScoreManager scoreManager = GameObject.FindObjectOfType<GameplayScoreManager>();
-        if (scoreManager != null)
-        {
+            yield return Timing.WaitForSeconds(Duration);
+
             scoreManager.RemoveComboMultiplier(ComboMultiplier);
         }
     }
