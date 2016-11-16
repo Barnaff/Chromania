@@ -8,6 +8,7 @@ public class PausePopupController : PopupBaseController {
 
     public void QuitGameButtonAction()
     {
+        PauseManager.Instance.ResumeGame();
         FlowManager.Instance.QuitGame();
     }
 

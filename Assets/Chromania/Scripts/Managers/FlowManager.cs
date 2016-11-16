@@ -68,6 +68,7 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
     {
         Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.MenuScene, () =>
         {
+            PauseManager.Instance.ResumeGame();
             MenuScreensController.Instance.DisplayScreen(MenuScreensController.eMenuScreenType.MainMenu);
         }, Kobapps.eSceneTransition.FadeOutFadeIn);
     }

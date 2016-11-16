@@ -85,7 +85,7 @@ namespace Kobapps
                         _fadeDirection = 1;
                         while (_fadeValue <= 1f)
                         {
-                            yield return null;
+                            yield return 0f;
                         }
                         break;
                     }
@@ -113,7 +113,7 @@ namespace Kobapps
                         _fadeDirection = -1;
                         while (_fadeValue >= 0f)
                         {
-                            yield return null;
+                            yield return 0f;
                         }
 
                         break;
