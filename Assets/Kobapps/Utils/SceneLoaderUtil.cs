@@ -1,6 +1,5 @@
 using UnityEngine;
-using MovementEffects;
-using System.Collections.Generic;
+using System.Collections;
 
 namespace Kobapps
 {
@@ -56,28 +55,25 @@ namespace Kobapps
 
     internal class SceneLoaderController : MonoBehaviour
     {
-
         private float _fadeValue = 0;
         private Texture2D _overlayTexture = null;
         private const float _fadeSpeed = 1f;
         private bool _displayOverlay = false;
-        private int _fadeDirection = 1;
+        private float _fadeDirection = 1;
 
         public void LoadSceneAsync(string sceneName, System.Action sceneLoadedAction, eSceneTransition sceneTransition)
         {
             int sceneBuildIndex = UnityEngine.SceneManagement.SceneManager.GetSceneByName(sceneName).buildIndex;
-            Timing.RunCoroutine(LoadSceenCorutine(sceneBuildIndex, sceneTransition, sceneLoadedAction));
+            StartCoroutine(LoadSceenCorutine(sceneBuildIndex, sceneTransition, sceneLoadedAction));
         }
 
         public void LoadSceneAsync(int sceneBuildIndex, System.Action sceneLoadedAction, eSceneTransition sceneTransition)
         {
-            Timing.RunCoroutine(LoadSceenCorutine(sceneBuildIndex, sceneTransition, sceneLoadedAction));
+            StartCoroutine(LoadSceenCorutine(sceneBuildIndex, sceneTransition, sceneLoadedAction));
         }
 
-        private IEnumerator<float> LoadSceenCorutine(int sceneBuildIndex, eSceneTransition sceneTransition, System.Action completionAction)
+        private IEnumerator LoadSceenCorutine(int sceneBuildIndex, eSceneTransition sceneTransition, System.Action completionAction)
         {
-            sceneTransition = eSceneTransition.FadeOutFadeIn;
-
             switch (sceneTransition)
             {
                 case eSceneTransition.FadeOut:
@@ -87,18 +83,17 @@ namespace Kobapps
                         _fadeValue = 0;
                         _displayOverlay = true;
                         _fadeDirection = 1;
-                        while (_fadeValue < 1f)
+                        while (_fadeValue <= 1f)
                         {
-                            yield return 0f;
+                            yield return null;
                         }
-
                         break;
                     }
             }
 
             AsyncOperation sceneLoadOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneBuildIndex);
 
-            while (!sceneLoadOperation.isDone)
+            while (sceneLoadOperation != null && !sceneLoadOperation.isDone)
             {
                 yield return 0f;
             }
@@ -116,25 +111,25 @@ namespace Kobapps
                         _fadeValue = 1;
                         _displayOverlay = true;
                         _fadeDirection = -1;
-                        while (_fadeValue > 0f)
+                        while (_fadeValue >= 0f)
                         {
-                            yield return 0f;
+                            yield return null;
                         }
 
                         break;
                     }
             }
-
             Destroy(this.gameObject);
-
         }
 
         private void CreateOverlayTexture()
         {
             if (_overlayTexture == null)
             {
+                Color pixelColor = new Color(0,0,0,1);
                 _overlayTexture = new Texture2D(1, 1);
-                _overlayTexture.SetPixel(0, 0, Color.black);
+                _overlayTexture.SetPixel(0, 0, pixelColor);
+                _overlayTexture.Apply();
             }
         }
 
@@ -143,11 +138,10 @@ namespace Kobapps
             if (_displayOverlay)
             {
                 _fadeValue += _fadeSpeed * _fadeDirection * Time.deltaTime;
-                GUI.color = new Color(0, 0, 0, _fadeValue); ;
+                GUI.color = new Color(0, 0, 0, _fadeValue);
                 GUI.depth = -1000 ;
                 GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), _overlayTexture);
             }
         }
-
     }
 }

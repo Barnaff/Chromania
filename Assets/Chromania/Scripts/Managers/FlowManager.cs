@@ -8,7 +8,7 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
         Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.MenuScene, () =>
         {
             MenuScreensController.Instance.DisplayScreen(MenuScreensController.eMenuScreenType.MainMenu);
-        });
+        }, Kobapps.eSceneTransition.FadeOutFadeIn);
     }
 
     public void DisplayMainMenu()
@@ -42,7 +42,7 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
         Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.GameplayScene, () =>
         {
 
-        });
+        }, Kobapps.eSceneTransition.FadeOutFadeIn);
     }
 
     public void GameOver(GameplayTrackingData gameplayTrackingData)
@@ -61,11 +61,14 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
             {
                 gameOverScreenController.DisplayGameOverData(gameplayTrackingData);
             }
-        });
+        }, Kobapps.eSceneTransition.FadeOutFadeIn);
     }
 
     public void QuitGame()
     {
-        DisplayMainMenu();
+        Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.MenuScene, () =>
+        {
+            MenuScreensController.Instance.DisplayScreen(MenuScreensController.eMenuScreenType.MainMenu);
+        }, Kobapps.eSceneTransition.FadeOutFadeIn);
     }
 }
