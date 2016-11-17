@@ -38,26 +38,15 @@ public class GameplayScoreManager : MonoBehaviour {
         GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
     }
 
-    public void AddScoreMultiplier(int scoreMultiplierToAdd) 
+    public void UpdateScoreMultiplier()
     {
-        _currentScoreMultiplier += scoreMultiplierToAdd;
+        _currentScoreMultiplier = (int)GameplayBuffsManager.GetValue(eBuffType.ScoreMultiplier);
         GameplayEventsDispatcher.SendScoreMultiplierUpdate(_currentScoreMultiplier);
     }
 
-    public void RemoveScoreMultiplier(int scoreMultiplierToRemove)
+    public void UpdateComboMultiplier()
     {
-        _currentScoreMultiplier -= scoreMultiplierToRemove;
-        GameplayEventsDispatcher.SendScoreMultiplierUpdate(_currentScoreMultiplier);
-    }
-
-    public void AddomboMultiplier(int comboeMultiplierToAdd)
-    {
-        _currentComboMultiplier += comboeMultiplierToAdd;
-    }
-
-    public void RemoveComboMultiplier(int comboMultiplierToRemove)
-    {
-        _currentComboMultiplier -= comboMultiplierToRemove;
+        _currentComboMultiplier = (int)GameplayBuffsManager.GetValue(eBuffType.ComboMultiplier);
     }
 
     #endregion

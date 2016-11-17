@@ -48,15 +48,21 @@ public class GameplayBuffsManager : MonoBehaviour {
 
     #region Public
 
-    public GameplayBuffEffect CreateBuff(eBuffType buffType, float value)
+    public GameplayBuffEffect CreateBuff(eBuffType buffType, float value, eBuffMetod method)
     {
-        GameplayBuffEffect buffEffect = new GameplayBuffEffect(buffType, value);
+        GameplayBuffEffect buffEffect = new GameplayBuffEffect(buffType, value, method);
         if (_activeBuffs == null)
         {
             _activeBuffs = new List<GameplayBuffEffect>();
         }
         _activeBuffs.Add(buffEffect);
+        Debug.Log("add effect: " + buffEffect);
         return buffEffect;
+    }
+
+    public GameplayBuffEffect CreateBuff(GameplayBuffEffect buffEffect)
+    {
+        return CreateBuff(buffEffect.Type, buffEffect.Value, buffEffect.Method);
     }
 
     public void RemoveBuff(GameplayBuffEffect buffEffect)
@@ -74,9 +80,23 @@ public class GameplayBuffsManager : MonoBehaviour {
         {
             if (buffEffect.Type == buffType)
             {
-                value *= buffEffect.Value;
+                switch (buffEffect.Method)
+                {
+                    case eBuffMetod.Multiplier:
+                        {
+                            value *= buffEffect.Value;
+                            break;
+                        }
+                    case eBuffMetod.Add:
+                        {
+                            value += buffEffect.Value;
+                            break;
+                        }
+                }
+                
             }
         }
+        Debug.Log("Buff Get value: " + buffType + ": " + value);
         return value;
     }
 
@@ -93,6 +113,12 @@ public enum eBuffType
     PowerupEffectMultiplier,
 }
 
+public enum eBuffMetod
+{
+    Multiplier,
+    Add,
+}
+
 [System.Serializable]
 public class GameplayBuffEffect
 {
@@ -100,9 +126,17 @@ public class GameplayBuffEffect
 
     public float Value;
 
-    public GameplayBuffEffect(eBuffType type, float value)
+    public eBuffMetod Method;
+
+    public GameplayBuffEffect(eBuffType type, float value, eBuffMetod method)
     {
         Type = type;
         Value = value;
+        Method = method;
+    }
+
+    public override string ToString()
+    {
+        return string.Format("[GameplayBuffEffect] Type: {0}, Value: {1}, Method: {2}", Type, Value, Method);
     }
 }

@@ -5,27 +5,23 @@ using MovementEffects;
 
 public class PowerupAddScoreMultiplier : PowerupBase
 {
-    public int SocreMultiplier;
+    public GameplayBuffEffect BuffEffect;
 
-    public enum eScoreMultiplierMethod
-    {
-        Add,
-        Multiply,
-    }
-
-    public eScoreMultiplierMethod Method;
-
+    public bool IsActive;
 
     protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
         GameplayScoreManager scoreManager = GameObject.FindObjectOfType<GameplayScoreManager>();
         if (scoreManager != null)
         {
-            scoreManager.AddScoreMultiplier(SocreMultiplier);
-
-            yield return Timing.WaitForSeconds(Duration);
-
-            scoreManager.RemoveScoreMultiplier(SocreMultiplier);
+            GameplayBuffEffect buffEffectInstance = GameplayBuffsManager.Instance.CreateBuff(BuffEffect);
+            scoreManager.UpdateScoreMultiplier();
+            if (IsActive)
+            {
+                yield return Timing.WaitForSeconds(GetDuration());
+                GameplayBuffsManager.Instance.RemoveBuff(buffEffectInstance);
+                scoreManager.UpdateScoreMultiplier();
+            }
         }
     }
 }

@@ -5,26 +5,24 @@ using System.Collections.Generic;
 
 public class PowerupComboMultiplier : PowerupBase
 {
-    public int ComboMultiplier;
+    public GameplayBuffEffect BuffEffect;
 
-    public enum eComboMultiplierMethod
-    {
-        Add,
-        Multiply,
-    }
-
-    public eComboMultiplierMethod Method;
+    public bool IsActive;
 
     protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
         GameplayScoreManager scoreManager = GameObject.FindObjectOfType<GameplayScoreManager>();
         if (scoreManager != null)
         {
-            scoreManager.AddomboMultiplier(ComboMultiplier);
-
-            yield return Timing.WaitForSeconds(Duration);
-
-            scoreManager.RemoveComboMultiplier(ComboMultiplier);
+            GameplayBuffEffect buffEffect = GameplayBuffsManager.Instance.CreateBuff(BuffEffect);
+            scoreManager.UpdateComboMultiplier();
+            if (IsActive)
+            {
+                yield return Timing.WaitForSeconds(GetDuration());
+                GameplayBuffsManager.Instance.RemoveBuff(buffEffect);
+                scoreManager.UpdateComboMultiplier();
+            }
+          
         }
     }
 }

@@ -13,7 +13,7 @@ class ParticleScaler extends EditorWindow {
 
     static function ShowWindow() {
         var win = EditorWindow.GetWindow(ParticleScaler);
-        win.title = "PS Scaler";
+       // win.title = "PS Scaler";
         win.minSize = new Vector2(300, 165);
         win.maxSize = new Vector2(300, 165);
     }

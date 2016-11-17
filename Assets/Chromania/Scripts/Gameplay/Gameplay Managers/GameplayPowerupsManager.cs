@@ -46,9 +46,9 @@ public class GameplayPowerupsManager : MonoBehaviour {
 
     #region Public
 
-    public void AddSpwanIntervalMultiplier(float spwanInterval)
+    public void UpdatePowerupSpwanInterval()
     {
-        _powerupSpwanMultiplier -= spwanInterval;
+        _powerupSpwanMultiplier = GameplayBuffsManager.GetValue(eBuffType.PowerupSpwanChanceMultiplier);
     }
 
     #endregion

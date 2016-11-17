@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 public class PowerupEnlargeColorZones : PowerupBase
 {
-    public float ScaleFactor;
+    public GameplayBuffEffect BuffEffect;
 
     public bool IsActive = false;
 
     protected override IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator)
     {
-        GameplayBuffEffect buffEffect = GameplayBuffsManager.Instance.CreateBuff(eBuffType.ColorZoneSizeMultiplier, ScaleFactor * GameplayBuffsManager.GetValue(eBuffType.PowerupEffectMultiplier));
+        float scaleValue = BuffEffect.Value * GameplayBuffsManager.GetValue(eBuffType.PowerupEffectMultiplier);
+        GameplayBuffEffect buffEffect = GameplayBuffsManager.Instance.CreateBuff(BuffEffect.Type, scaleValue, BuffEffect.Method);
 
         ColorZoneController[] colorZoneControlerList = GameObject.FindObjectsOfType<ColorZoneController>();
         foreach (ColorZoneController colorZone in colorZoneControlerList)
@@ -22,7 +23,7 @@ public class PowerupEnlargeColorZones : PowerupBase
         if (IsActive)
         {
             GameplayBuffsManager.Instance.RemoveBuff(buffEffect);
-            yield return Timing.WaitForSeconds(Duration);
+            yield return Timing.WaitForSeconds(GetDuration());
             foreach (ColorZoneController colorZone in colorZoneControlerList)
             {
                 colorZone.UpdateScaleFactor();

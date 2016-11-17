@@ -27,7 +27,7 @@ public class PowerupAllSameColor : PowerupBase
             colorZonesController = GameObject.FindObjectOfType<ColorZonesController>();
             colorZonesController.OverrideColorZonesColor(cheomieControllerActivator.ChromieDefenition);
 
-            yield return Timing.WaitForSeconds(Duration);
+            yield return Timing.WaitForSeconds(GetDuration());
 
             spwanerController.SetSpwanColorOverride(eChromieType.None);
             colorZonesController.ResetColorZonesToOriginalColor();

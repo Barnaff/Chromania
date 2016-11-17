@@ -87,98 +87,21 @@ public abstract class PowerupBase : ScriptableObject {
         GameplayEventsDispatcher.SendPowerupStopped(this);
 
     }
-
-    /*
-    public void PlayPowerupEffect_(ChromieController chromieController)
-    {
-        StartPowerupInternal(chromieController);
-
-        if (ActivationEffectPrefab != null)
-        {
-            Instantiate(ActivationEffectPrefab);
-        }
-
-        if (DurationEffectPrefab != null)
-        {
-            if (_durationEffectInstance != null)
-            {
-                Destroy(_durationEffectInstance);
-            }
-
-            _durationEffectInstance = Instantiate(DurationEffectPrefab) as GameObject;
-        }
-
-        GameplayEventsDispatcher.SendPowerupStarted(this);
-
-        switch (ActivationType)
-        {
-            case ePowerupActivationType.ContinuesSingle:
-                {
-                    //StopPowerup();
-                    break;
-                }
-            case ePowerupActivationType.SingleUse:
-                {
-                    //StopPowerup();
-                    break;
-                }
-            case ePowerupActivationType.OverTime:
-                {
-                    StartPowerupDurationCount(Duration);
-                    break;
-                }
-        }
-    }
-
-    public void StopPowerup()
-    {
-        StopPowerupInternal();
-
-        Timing.KillCoroutines(this.GetHashCode().ToString());
-
-        if (_durationEffectInstance != null)
-        {
-            Destroy(_durationEffectInstance);
-            _durationEffectInstance = null;
-        }
-
-        if (FinishedEffectPrefab != null)
-        {
-            Instantiate(FinishedEffectPrefab);
-        }
-
-        GameplayEventsDispatcher.SendPowerupStopped(this);
-    }
-    */
+    
     #endregion
 
 
     #region Protected
 
-   // protected abstract void StartPowerupInternal(ChromieController chromieController);
-
-   // protected abstract void StopPowerupInternal();
-
     protected abstract IEnumerator<float> PowerupEffectCorutine(ChromieController cheomieControllerActivator);
 
+    protected float GetDuration()
+    {
+        return Duration * GameplayBuffsManager.GetValue(eBuffType.PowerupEffectMultiplier);
+    }
+
     #endregion
 
 
-    #region Private
-
-    private void StartPowerupDurationCount(float duration)
-    {
-       // Timing.RunCoroutine(PlayPowerupCorutine(duration), this.GetHashCode().ToString());
-    }
-    /*
-    private IEnumerator<float> PlayPowerupCorutine(float duration)
-    {
-        yield return Timing.WaitForSeconds(duration);
-
-        StopPowerup();
-    }
-    */
-
-    #endregion
-
+   
 }

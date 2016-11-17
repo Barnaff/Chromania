@@ -16,7 +16,7 @@ public class PowerupSlowMotion : PowerupBase
         }
         Time.timeScale = TimeValue;
 
-        yield return Timing.WaitForSeconds(Duration);
+        yield return Timing.WaitForSeconds(GetDuration());
 
         Time.timeScale = 1f;
        
@@ -25,7 +25,6 @@ public class PowerupSlowMotion : PowerupBase
             motionBlur.enabled = false;
         }
     }
-
 }
 
 
