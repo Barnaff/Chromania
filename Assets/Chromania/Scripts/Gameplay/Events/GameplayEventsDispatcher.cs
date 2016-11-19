@@ -24,8 +24,10 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public event ChromieActionDelegate OnChromieDropped;
     public event ChromieColorZoneActionDelegate OnChromieHitColorZone;
     public event ChromieColorZoneActionDelegate OnChromieCollected;
-    public event GameoverDelegate OnGameOver;
+    public event GameoverDelegate OnOutOfLives;
     public event GameoverDelegate OnTimeUp;
+    public event GameoverDelegate OnGameOver;
+    public event GameoverDelegate OnKeepPlaying;
     public event LivesUpdateDelegate OnLivesUpdate;
     public event ScoreUpdateDelegate OnScoreUpdate;
     public event TimeUpdateDelegate OnTimeUpdate;
@@ -110,11 +112,11 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
-    public void GameOver()
+    public void OutOfLives()
     {
-        if (OnGameOver != null)
+        if (OnOutOfLives != null)
         {
-            OnGameOver();
+            OnOutOfLives();
         }
     }
 
@@ -182,6 +184,23 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         }
     }
 
+    public void GameOver()
+    {
+        if (OnGameOver != null)
+        {
+            OnGameOver();
+        }
+    }
+
+    public void KeepPlaying()
+    {
+        if (OnKeepPlaying != null)
+        {
+            OnKeepPlaying();
+        }
+    }
+
+
     #endregion
 
 
@@ -207,9 +226,9 @@ public class GameplayEventsDispatcher : MonoBehaviour {
         GameplayEventsDispatcher.Instance.ChromieDropped(chromieController);
     }
 
-    public static void SendGameOver()
+    public static void SendOutOfLives()
     {
-        GameplayEventsDispatcher.Instance.GameOver();
+        GameplayEventsDispatcher.Instance.OutOfLives();
     }
 
     public static void SendTimeUp()
@@ -255,6 +274,16 @@ public class GameplayEventsDispatcher : MonoBehaviour {
     public static void SendPowerupStopped(PowerupBase powerup)
     {
         GameplayEventsDispatcher.Instance.PowerupStopped(powerup);
+    }
+
+    public static void SendGameOver()
+    {
+        GameplayEventsDispatcher.Instance.GameOver();
+    }
+
+    public static void SendKeepPlaying()
+    {
+        GameplayEventsDispatcher.Instance.KeepPlaying();
     }
 
     #endregion

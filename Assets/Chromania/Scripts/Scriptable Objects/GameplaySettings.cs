@@ -13,5 +13,9 @@ public class GameplaySettings : Kobapps.ScriptableSingleton<GameplaySettings> {
 
     public float GameSpeedMultiplier = 1f;
 
+    public int NumberOfKeepPlaying = 1;
+
+    public float KeepPlayingTImerDuration = 10f;
+
     #endregion
 }

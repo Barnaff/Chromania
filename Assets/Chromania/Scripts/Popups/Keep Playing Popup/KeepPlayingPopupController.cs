@@ -29,6 +29,7 @@ public class KeepPlayingPopupController : PopupBaseController {
 
     void Start()
     {
+        _keepPlayingTimerDuration = GameplaySettings.Instance.KeepPlayingTImerDuration;
         _currentKeepPlayingTimeCount = _keepPlayingTimerDuration;
     }
 

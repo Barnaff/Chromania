@@ -14,10 +14,10 @@ public class GameplayController : MonoBehaviour {
     private SpwanerController _spwanerController;
 
     [SerializeField]
-    private bool _isGameOver;
+    private GameplayGameOverManager _gameOverManager;
 
     [SerializeField]
-    private int _currentLevel;
+    private bool _isGameOver;
 
     [SerializeField]
     private GameplayGUIController _gameplayGUIController;
@@ -44,15 +44,15 @@ public class GameplayController : MonoBehaviour {
 
     private void PrepareGame()
     {
-        _currentLevel = 0;
         // create color zones
         _colorZonesController.CreateColorZones(GameSetupManager.Instance.SelectedChromiez);
         // init the spwaner
         _spwanerController.Init(GameSetupManager.Instance.SelectedPlayMode, GameSetupManager.Instance.SelectedChromiez);
+        // init the game over manager
+        _gameOverManager.Init(_gameplayTrackingData);
 
         GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
-        GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandler;
-        GameplayEventsDispatcher.Instance.OnTimeUp += OnTimeUpHandler;
+        
 
         if (_gameplayGUIController != null)
         {
@@ -106,55 +106,6 @@ public class GameplayController : MonoBehaviour {
         GameplayEventsDispatcher.SendChromieCollected(chromieController, colorZone);
     }
 
-    private IEnumerator<float> GameOverSequance()
-    {
-        _isGameOver = true;
-        _spwanerController.StopSpwaning();
-        switch (GameSetupManager.Instance.SelectedPlayMode)
-        {
-            case eGameplayMode.Classic:
-                {
-                    GameplayLivesManager livesManager = GameObject.FindObjectOfType<GameplayLivesManager>();
-                    if (livesManager != null)
-                    {
-                        livesManager.Active = false;
-                    }
-                    PopupsManager.Instance.DisplayPopup<GameOverMessagePopup>();
-                    break;
-                }
-            case eGameplayMode.Rush:
-                {
-                    GameplayTimerManager timerManager = GameObject.FindObjectOfType<GameplayTimerManager>();
-                    if (timerManager != null)
-                    {
-                        timerManager.Stop();
-                    }
-                    PopupsManager.Instance.DisplayPopup<TimesUpMessagePopupController>();
-                    break;
-                }
-            case eGameplayMode.Default:
-            default:
-                {
-                    break;
-                }
-        }
-
-        yield return Timing.WaitForSeconds(5.0f);
-
-        KeepPlayingPopupController keepPlayingPopup = PopupsManager.Instance.DisplayPopup<KeepPlayingPopupController>();
-        keepPlayingPopup.OnKeepPlaying += () =>
-        {
-            OnKeepPlayingHandler();
-        };
-        keepPlayingPopup.OnCloseAction += () =>
-        {
-            OnKeepPlayingTImeUpOrCancelhandler();
-        };
-
-    }
-
-
-
     #endregion
 
 
@@ -166,57 +117,6 @@ public class GameplayController : MonoBehaviour {
         {
             ChromieCollected(chromieController, colorZone);
         }
-    }
-
-    private void OnGameOverHandler()
-    {
-        Timing.RunCoroutine(GameOverSequance());
-    }
-
-    private void OnTimeUpHandler()
-    {
-        Timing.RunCoroutine(GameOverSequance());
-    }
-
-    private void OnKeepPlayingHandler()
-    {
-        _isGameOver = false;
-        _spwanerController.StartSpwaning();
-        switch (GameSetupManager.Instance.SelectedPlayMode)
-        {
-            case eGameplayMode.Classic:
-                {
-                    GameplayLivesManager livesManager = GameObject.FindObjectOfType<GameplayLivesManager>();
-                    if (livesManager != null)
-                    {
-                        livesManager.AddLife(1);
-                        livesManager.Active = true;
-                    }
-                    PopupsManager.Instance.ClosePopup<GameOverMessagePopup>();
-                    break;
-                }
-            case eGameplayMode.Rush:
-                {
-                    GameplayTimerManager timerManager = GameObject.FindObjectOfType<GameplayTimerManager>();
-                    if (timerManager != null)
-                    {
-                        timerManager.AddTime(10f);
-                        timerManager.Run();
-                    }
-                    PopupsManager.Instance.ClosePopup<TimesUpMessagePopupController>();
-                    break;
-                }
-            case eGameplayMode.Default:
-            default:
-                {
-                    break;
-                }
-        }
-    }
-
-    private void OnKeepPlayingTImeUpOrCancelhandler()
-    {
-        FlowManager.Instance.GameOver(_gameplayTrackingData);
     }
 
     #endregion

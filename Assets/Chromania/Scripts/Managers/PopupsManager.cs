@@ -50,12 +50,18 @@ public class PopupsManager : Kobapps.Singleton<PopupsManager> {
 
     public void ClosePopup<T>() where T : PopupBaseController
     {
+        List<PopupBaseController> popupsToClose = new List<PopupBaseController>();
         foreach (PopupBaseController popupController in _activePopups)
         {
             if (popupController.GetType() == typeof(T))
             {
-                ClosePopup(popupController);
+                popupsToClose.Add(popupController);   
             }
+        }
+
+        foreach (PopupBaseController popupToClose in popupsToClose)
+        {
+            ClosePopup(popupToClose);
         }
     }
 

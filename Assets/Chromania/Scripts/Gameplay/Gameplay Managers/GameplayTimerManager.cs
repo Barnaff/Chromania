@@ -21,6 +21,8 @@ public class GameplayTimerManager : MonoBehaviour {
     public void Init(float initialTime)
     {
         _currentTime = initialTime;
+        GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandler;
+        GameplayEventsDispatcher.Instance.OnKeepPlaying += OnKeepPlayingHandler;
     }
 
     public void Run()
@@ -57,6 +59,23 @@ public class GameplayTimerManager : MonoBehaviour {
             GameplayEventsDispatcher.SendTimerUpdate(_currentTime);
         }
     }
+
+    #endregion
+
+
+    #region Events
+
+    private void OnGameOverHandler()
+    {
+        Stop();
+    }
+
+    private void OnKeepPlayingHandler()
+    {
+        AddTime(15);
+        Run();
+    }
+
 
     #endregion
 

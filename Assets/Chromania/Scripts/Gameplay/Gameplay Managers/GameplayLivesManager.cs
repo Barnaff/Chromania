@@ -38,6 +38,8 @@ public class GameplayLivesManager : MonoBehaviour {
         _isActive = true;
         _gameplayTrackingData = gameplayTrackingData;
         GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
+        GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandler;
+        GameplayEventsDispatcher.Instance.OnKeepPlaying += OnKeepPlayingHandler;
         _startingLives = startingLives;
         _maxLives = _startingLives;
         _currentLives = _startingLives;
@@ -76,14 +78,6 @@ public class GameplayLivesManager : MonoBehaviour {
         _isImmune = isImmune;
     }
 
-    public bool Active
-    {
-        set
-        {
-            _isActive = value;
-        }
-    }
-
     #endregion
 
 
@@ -100,6 +94,17 @@ public class GameplayLivesManager : MonoBehaviour {
                 Timing.RunCoroutine(DisplayHit(chromieController.transform.position));
             }
         }
+    }
+
+    private void OnGameOverHandler()
+    {
+        _isActive = false;
+    }
+
+    private void OnKeepPlayingHandler()
+    {
+        AddLife(1);
+        _isActive = true;
     }
 
     #endregion
@@ -143,7 +148,7 @@ public class GameplayLivesManager : MonoBehaviour {
 
         if (_currentLives <= 0)
         {
-            GameplayEventsDispatcher.SendGameOver();
+            GameplayEventsDispatcher.SendOutOfLives();
         }
         else
         {
