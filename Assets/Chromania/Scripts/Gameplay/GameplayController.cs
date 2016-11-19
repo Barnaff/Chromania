@@ -141,8 +141,19 @@ public class GameplayController : MonoBehaviour {
 
         yield return Timing.WaitForSeconds(5.0f);
 
-        FlowManager.Instance.GameOver(_gameplayTrackingData);
+        KeepPlayingPopupController keepPlayingPopup = PopupsManager.Instance.DisplayPopup<KeepPlayingPopupController>();
+        keepPlayingPopup.OnKeepPlaying += () =>
+        {
+            OnKeepPlayingHandler();
+        };
+        keepPlayingPopup.OnCloseAction += () =>
+        {
+            OnKeepPlayingTImeUpOrCancelhandler();
+        };
+
     }
+
+
 
     #endregion
 
@@ -165,6 +176,47 @@ public class GameplayController : MonoBehaviour {
     private void OnTimeUpHandler()
     {
         Timing.RunCoroutine(GameOverSequance());
+    }
+
+    private void OnKeepPlayingHandler()
+    {
+        _isGameOver = false;
+        _spwanerController.StartSpwaning();
+        switch (GameSetupManager.Instance.SelectedPlayMode)
+        {
+            case eGameplayMode.Classic:
+                {
+                    GameplayLivesManager livesManager = GameObject.FindObjectOfType<GameplayLivesManager>();
+                    if (livesManager != null)
+                    {
+                        livesManager.AddLife(1);
+                        livesManager.Active = true;
+                    }
+                    PopupsManager.Instance.ClosePopup<GameOverMessagePopup>();
+                    break;
+                }
+            case eGameplayMode.Rush:
+                {
+                    GameplayTimerManager timerManager = GameObject.FindObjectOfType<GameplayTimerManager>();
+                    if (timerManager != null)
+                    {
+                        timerManager.AddTime(10f);
+                        timerManager.Run();
+                    }
+                    PopupsManager.Instance.ClosePopup<TimesUpMessagePopupController>();
+                    break;
+                }
+            case eGameplayMode.Default:
+            default:
+                {
+                    break;
+                }
+        }
+    }
+
+    private void OnKeepPlayingTImeUpOrCancelhandler()
+    {
+        FlowManager.Instance.GameOver(_gameplayTrackingData);
     }
 
     #endregion
