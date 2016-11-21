@@ -87,7 +87,7 @@ namespace GameSparks.Platforms
 		}
 
 		virtual protected void OnApplicationQuit(){
-			GS.ShutDown();
+            GS.Disconnect();
 		}
 
 		virtual protected void OnDestroy () {

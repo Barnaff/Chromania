@@ -23,6 +23,7 @@ public class MainLoaderController : MonoBehaviour {
         bool finishedAutologin = false;
         ServerRequestsManager.Instance.Init(() =>
         {
+            
             AccountManager.Instance.Autologin(() =>
             {
                 finishedAutologin = true;
@@ -31,12 +32,15 @@ public class MainLoaderController : MonoBehaviour {
                 finishedAutologin = true;
                 Debug.Log("ERROR ");
             });
+           
 
         }, ()=>
         {
             Debug.LogError("ERROR creating connection");
             finishedAutologin = true;
         });
+
+        InventoryManager inventoryManager = InventoryManager.Instance;
 
         yield return null;
         GameSetupManager.Instance.Init();

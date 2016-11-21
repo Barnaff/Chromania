@@ -57,6 +57,8 @@ public class SpwanerController : MonoBehaviour {
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
         GameplayEventsDispatcher.Instance.OnChromieDropped += ChromieDroppedHandler;
         GameplayEventsDispatcher.Instance.OnLevelUpdate += OnLevelUpdateHandler;
+        GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandelr;
+        GameplayEventsDispatcher.Instance.OnKeepPlaying += OnKeepPlayingHandler;
         _paused = true;
     }
 
@@ -216,6 +218,20 @@ public class SpwanerController : MonoBehaviour {
     private void OnLevelUpdateHandler(int newLevel)
     {
         _currentLevel = newLevel;
+    }
+
+    private void OnGameOverHandelr()
+    {
+        Paused = true;
+    }
+
+    private void OnKeepPlayingHandler()
+    {
+        _currentWave = null;
+        _currentSequance = null;
+        _phase = eSpwanerPhase.None;
+
+        Paused = false;
     }
 
     #endregion

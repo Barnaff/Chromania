@@ -1,15 +1,132 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class InventoryManager : MonoBehaviour {
+public class InventoryManager : Kobapps.Singleton<InventoryManager> {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    #region Private Properties
+
+    [SerializeField]
+    public List<Inventoryitem> _inventoryItemList;
+
+    [SerializeField]
+    private Inventoryitem _currencyInventoryItem;
+
+    private const string STORED_INVENTORY_KEY = "storedInventory";
+    private const string CURRENCTY_ITEM_ID = "currency";
+
+    #endregion
+
+
+    #region Initialization
+
+    void Awake()
+    {
+        Load();
+    }
+
+    #endregion
+
+    #region Public
+
+    public int AmountForItem(string itemId)
+    {
+        Inventoryitem inventoryItem = GetInventoryItem(itemId);
+        if (inventoryItem != null)
+        {
+            return inventoryItem.Amount;
+        }
+        return 0;
+    }
+
+    public Inventoryitem GetInventoryItem(string itemId)
+    {
+        foreach (Inventoryitem inventoryItem in _inventoryItemList)
+        {
+            if (inventoryItem.ID == itemId)
+            {
+                return inventoryItem;
+            }
+        }
+        return null;
+    }
+
+    public int Currency
+    {
+        get
+        {
+            if (_currencyInventoryItem != null)
+            {
+                return _currencyInventoryItem.Amount;
+            }
+            return 0;
+        }
+        set
+        {
+            if (_currencyInventoryItem != null)
+            {
+                _currencyInventoryItem.Amount = value;
+                Save();
+            }
+        }
+    }
+
+    #endregion
+
+
+    #region Private
+
+    private void Load()
+    {
+        if (PlayerPrefsUtil.HasKey(STORED_INVENTORY_KEY))
+        {
+            _inventoryItemList = (List<Inventoryitem>)PlayerPrefsUtil.GetObject(STORED_INVENTORY_KEY);
+        }
+
+        if (_inventoryItemList != null)
+        {
+            _currencyInventoryItem = GetInventoryItem(CURRENCTY_ITEM_ID);
+        }
+        if (_currencyInventoryItem == null)
+        {
+            AddInventoryitem(_currencyInventoryItem = new Inventoryitem(CURRENCTY_ITEM_ID, CURRENCTY_ITEM_ID, 0));
+        }
+    }
+
+    private void Save()
+    {
+        if (_inventoryItemList != null)
+        {
+            PlayerPrefsUtil.SetObject(STORED_INVENTORY_KEY, _inventoryItemList);
+        }
+    }
+
+    private void AddInventoryitem(Inventoryitem inventoryItem)
+    {
+        if (_inventoryItemList == null)
+        {
+            _inventoryItemList = new List<Inventoryitem>();
+        }
+        _inventoryItemList.Add(inventoryItem);
+    }
+
+    #endregion
 }
+
+[System.Serializable]
+public class Inventoryitem
+{
+    public string ID;
+
+    public string Name;
+
+    public int Amount;
+
+    public Inventoryitem(string id, string name, int amount)
+    {
+        ID = id;
+        Name = name;
+        Amount = amount;
+    }
+}
+

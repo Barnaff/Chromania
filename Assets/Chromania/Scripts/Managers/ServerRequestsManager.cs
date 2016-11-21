@@ -115,6 +115,8 @@ public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
     {
         this.gameObject.AddComponent<GameSparksUnity>();
 
+        yield return null;
+
         while (!NetworkAvalable)
         {
             yield return null;
