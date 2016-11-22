@@ -47,10 +47,8 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
 
     public void GameOver(GameplayTrackingData gameplayTrackingData)
     {
-        ServerRequestsManager.Instance.PostLeaderboardEntry(gameplayTrackingData, () =>
-        {
-            // posted leaderboard entry to server
-        });
+
+        HighScoreManager.Instance.SendGametrackingData(gameplayTrackingData);
 
         Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.MenuScene, () =>
         {

@@ -9,6 +9,15 @@ public class GameOverScreenController : MenuScreenBaseController{
     [SerializeField]
     private Text _scoreLabel;
 
+    [SerializeField]
+    private Text _bestScoreLabel;
+
+    [SerializeField]
+    private Text _currencyGainLabel;
+
+    [SerializeField]
+    private GameplayTrackingData _gameplayTrackingData;
+
     #endregion
 
 
@@ -16,7 +25,19 @@ public class GameOverScreenController : MenuScreenBaseController{
 
     public void DisplayGameOverData(GameplayTrackingData gameplayTrackingData)
     {
-        _scoreLabel.text = gameplayTrackingData.Score.ToString();
+        _gameplayTrackingData = gameplayTrackingData;
+        _scoreLabel.text = _gameplayTrackingData.Score.ToString();
+        GameplayTrackingData highScore = HighScoreManager.Instance.GetHighScore(_gameplayTrackingData.GameplayMode);
+        if (highScore != null)
+        {
+            _bestScoreLabel.text = "Best: " + highScore.Score;
+        }
+        else
+        {
+            _bestScoreLabel.gameObject.SetActive(false);
+        }
+        _currencyGainLabel.text = _gameplayTrackingData.CollectedCurrency.ToString() + "Coins";
+
     }
 
     #endregion

@@ -23,7 +23,6 @@ public class GameplayBuffsManager : MonoBehaviour {
             {
                 Debug.LogError("ERROR - GameplayBuffsManager is not in the scene!");
             }
-
             return _instance;
         }
     }
@@ -56,7 +55,6 @@ public class GameplayBuffsManager : MonoBehaviour {
             _activeBuffs = new List<GameplayBuffEffect>();
         }
         _activeBuffs.Add(buffEffect);
-        Debug.Log("add effect: " + buffEffect);
         return buffEffect;
     }
 
@@ -93,10 +91,8 @@ public class GameplayBuffsManager : MonoBehaviour {
                             break;
                         }
                 }
-                
             }
         }
-        Debug.Log("Buff Get value: " + buffType + ": " + value);
         return value;
     }
 

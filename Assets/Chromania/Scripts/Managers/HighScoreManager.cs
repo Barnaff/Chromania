@@ -11,8 +11,12 @@ public class HighScoreManager : Kobapps.Singleton<HighScoreManager> {
 
     private const string STORED_GHGH_SCORES_KEY = "storedHighscores";
 
-    #endregion
+    void Awake()
+    {
+        LoadHighScores();
+    }
 
+    #endregion
 
     public GameplayTrackingData GetHighScore(eGameplayMode gameplayMode)
     {
@@ -26,8 +30,13 @@ public class HighScoreManager : Kobapps.Singleton<HighScoreManager> {
         return null;
     }
 
-    public bool SetNewGametrackingData(GameplayTrackingData newGameplayTrackingData)
+    public void SendGametrackingData(GameplayTrackingData newGameplayTrackingData)
     {
+        ServerRequestsManager.Instance.PostLeaderboardEntry(newGameplayTrackingData, () =>
+        {
+
+        });
+
         foreach (GameplayTrackingData gameplayTrackingData in _highScoresList)
         {
             if (newGameplayTrackingData.GameplayMode == gameplayTrackingData.GameplayMode)
@@ -35,17 +44,14 @@ public class HighScoreManager : Kobapps.Singleton<HighScoreManager> {
                 if (newGameplayTrackingData.Score > gameplayTrackingData.Score)
                 {
                     SaveNewgameplayTracking(newGameplayTrackingData);
-                    return true;
                 }
                 else
                 {
-                    return false;
+                   
                 }
             }
         }
-
-
-        return false; ;
+       
     }
 
     private void LoadHighScores()
@@ -57,6 +63,14 @@ public class HighScoreManager : Kobapps.Singleton<HighScoreManager> {
         else
         {
             _highScoresList = new List<GameplayTrackingData>();
+            
+
+            foreach (eGameplayMode gameplayMode in System.Enum.GetValues(typeof(eGameplayMode)))
+            {
+                GameplayTrackingData gameplayTrackingData = new GameplayTrackingData();
+                gameplayTrackingData.GameplayMode = gameplayMode;
+                _highScoresList.Add(gameplayTrackingData);
+            }
         }
     }
 

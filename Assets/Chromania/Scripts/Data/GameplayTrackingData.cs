@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[SerializeField]
+[System.Serializable]
 public class GameplayTrackingData  {
 
     [SerializeField]
@@ -22,6 +22,9 @@ public class GameplayTrackingData  {
 
     [SerializeField]
     public int CollectedPowerups;
+
+    [SerializeField]
+    public int CollectedCurrency;
 
 
 }
