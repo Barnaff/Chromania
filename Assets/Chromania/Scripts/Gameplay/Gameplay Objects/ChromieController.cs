@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using MovementEffects;
+using System.Collections.Generic;
 
 public class ChromieController : MonoBehaviour, IDraggable {
 
@@ -25,6 +26,12 @@ public class ChromieController : MonoBehaviour, IDraggable {
     private bool _isDragged;
 
     private Bounds _screenBounds;
+
+    [SerializeField]
+    private TrailRenderer _trail;
+
+    [SerializeField]
+    private ParticleSystem _trailParticles;
 
     #endregion
 
@@ -76,6 +83,18 @@ public class ChromieController : MonoBehaviour, IDraggable {
         _characterController = characterGameobject.GetComponent<ChromieCharacterController>();
 
         IsPowerup = false;
+
+        if (_trail != null)
+        {
+            _trail.sortingOrder = -10;
+            _trail.material.color = Color.red;
+            Timing.RunCoroutine(ResetTrail());
+        }
+
+        if (_trailParticles != null)
+        {
+            _trailParticles.startColor = chromieDefenition.ColorValue;
+        }
     }
 
     public bool IsPowerup
@@ -147,6 +166,17 @@ public class ChromieController : MonoBehaviour, IDraggable {
 
 
     #region Private
+
+    private IEnumerator<float> ResetTrail()
+    {
+        float trailRime = _trail.time;
+        _trail.time = 0;
+
+        yield return Timing.WaitForSeconds(0.1f);
+
+        _trail.time = trailRime;
+    }
+
 
     private void ChromieDropped()
     {

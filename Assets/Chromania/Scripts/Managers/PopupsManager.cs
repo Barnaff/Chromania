@@ -53,7 +53,7 @@ public class PopupsManager : Kobapps.Singleton<PopupsManager> {
         List<PopupBaseController> popupsToClose = new List<PopupBaseController>();
         foreach (PopupBaseController popupController in _activePopups)
         {
-            if (popupController.GetType() == typeof(T))
+            if (popupController != null && popupController.GetType() == typeof(T))
             {
                 popupsToClose.Add(popupController);   
             }
@@ -63,6 +63,8 @@ public class PopupsManager : Kobapps.Singleton<PopupsManager> {
         {
             ClosePopup(popupToClose);
         }
+
+        _activePopups.Remove(null);
     }
 
     public void ClosePopup(PopupBaseController popupController)
@@ -128,6 +130,15 @@ public class PopupBaseController : MonoBehaviour
     #endregion
 
 
+    void OnDestory()
+    {
+        if (_onPopupRemoved != null)
+        {
+            _onPopupRemoved(this);
+            _onPopupRemoved = null;
+        }
+    }
+
     #region Public
 
     public bool DontDestroyOnLoad
@@ -148,6 +159,7 @@ public class PopupBaseController : MonoBehaviour
         if (_onPopupRemoved != null)
         {
             _onPopupRemoved(this);
+            _onPopupRemoved = null;
         }
         Destroy(this.gameObject);
     }

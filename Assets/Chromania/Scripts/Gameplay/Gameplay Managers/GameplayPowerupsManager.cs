@@ -26,6 +26,9 @@ public class GameplayPowerupsManager : MonoBehaviour {
     [SerializeField]
     private List<PowerupBase> _activePowerups;
 
+    [SerializeField]
+    private GameObject _powerupActivationEffectprefab;
+
     #endregion
 
 
@@ -71,6 +74,7 @@ public class GameplayPowerupsManager : MonoBehaviour {
             if (chromieController.ChromieDefenition.ActivePowerup != null)
             {
                 ActivatePowerup(chromieController.ChromieDefenition.ActivePowerup, chromieController);
+
             }
         }
     }
@@ -118,6 +122,13 @@ public class GameplayPowerupsManager : MonoBehaviour {
         PowerupBase powerupInstance = powerup.StartPowerup(chromieController);
 
         _activePowerups.Add(powerupInstance);
+
+        if (_powerupActivationEffectprefab != null)
+        {
+            GameObject powerupEffect = Lean.LeanPool.Spawn(_powerupActivationEffectprefab, chromieController.transform.position, Quaternion.identity);
+            powerupEffect.GetComponent<ParticleSystem>().startColor = chromieController.ChromieDefenition.ColorValue;
+            Lean.LeanPool.Despawn(powerupEffect, 2.0f);
+        }
     }
 
     private bool ShouldSpwanAsPwerup(ChromieController chromieController)
