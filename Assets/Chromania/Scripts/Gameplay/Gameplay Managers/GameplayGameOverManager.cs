@@ -64,6 +64,8 @@ public class GameplayGameOverManager : MonoBehaviour {
 
     private void OnKeepPlayingTimeUpOrCancelhandler()
     {
+        _gameplayTrackingData.CollectedCurrency += (int)(_gameplayTrackingData.Score * 0.1f * GameplayBuffsManager.GetValue(eBuffType.CurrencyCollectedMultiplier));
+
         FlowManager.Instance.GameOver(_gameplayTrackingData);
     }
 

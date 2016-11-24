@@ -11,6 +11,17 @@ public class ShopManager : Kobapps.Singleton<ShopManager> {
 
     #endregion
 
+
+    #region Initialization
+
+    void Awake()
+    {
+        LoadShopitems();
+    }
+
+    #endregion
+
+
     #region Public
 
     public bool CanPurchase(ShopItem shopitem)
@@ -20,7 +31,33 @@ public class ShopManager : Kobapps.Singleton<ShopManager> {
 
     public void Purchase(ShopItem shopItem, System.Action<bool> completionAction)
     {
-
+        switch (shopItem.Price.Action)
+        {
+            case Price.ePriceAction.Coins:
+                {
+                    Pay(shopItem.Price.Amount, (sucsess) =>
+                    {
+                        if (sucsess)
+                        {
+                            AddShopitemToInventory(shopItem);
+                        }
+                        if (completionAction != null)
+                        {
+                            completionAction(sucsess);
+                        }
+                    });
+                    break;
+                }
+            case Price.ePriceAction.IAP:
+                {
+                    AddShopitemToInventory(shopItem);
+                    if (completionAction != null)
+                    {
+                        completionAction(true);
+                    }
+                    break;
+                }
+        }
     }
 
     public void Pay(int currencyAmount, System.Action<bool> completionAction)
@@ -37,8 +74,19 @@ public class ShopManager : Kobapps.Singleton<ShopManager> {
         {
             // not enough currency
             Debug.Log("Not enough currency: " + currencyAmount);
+            PopupsManager.Instance.DisplayPopup<NoEnoughCurrencyPopupController>();
+
+            if (completionAction != null)
+            {
+                completionAction(false);
+            }
 
         }
+    }
+
+    public List<ShopItem> GetShopitems()
+    {
+        return _shopitems;
     }
 
     #endregion
@@ -46,9 +94,14 @@ public class ShopManager : Kobapps.Singleton<ShopManager> {
 
     #region private
 
-    private void LoadSHopitems()
+    private void AddShopitemToInventory(ShopItem shopitem)
     {
+        InventoryManager.Instance.AddInventoryItem(shopitem.Item);
+    }
 
+    private void LoadShopitems()
+    {
+        _shopitems = AppSettings.Instance.ShopItems;
     }
 
     #endregion

@@ -29,6 +29,20 @@ public class InventoryManager : Kobapps.Singleton<InventoryManager> {
 
     #region Public
 
+    public void AddInventoryItem(Inventoryitem inventoryItem)
+    {
+        Inventoryitem oldInventoryitem = GetInventoryItem(inventoryItem.ID);
+        if (oldInventoryitem != null)
+        {
+            oldInventoryitem.Amount += inventoryItem.Amount;
+        }
+        else
+        {
+            _inventoryItemList.Add(inventoryItem);
+        }
+        Save();
+    }
+
     public int AmountForItem(string itemId)
     {
         Inventoryitem inventoryItem = GetInventoryItem(itemId);
@@ -97,6 +111,7 @@ public class InventoryManager : Kobapps.Singleton<InventoryManager> {
     {
         if (_inventoryItemList != null)
         {
+            Debug.Log("Saved Inventory");
             PlayerPrefsUtil.SetObject(STORED_INVENTORY_KEY, _inventoryItemList);
         }
     }

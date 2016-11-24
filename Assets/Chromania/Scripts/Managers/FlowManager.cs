@@ -50,6 +50,8 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
 
         HighScoreManager.Instance.SendGametrackingData(gameplayTrackingData);
 
+        InventoryManager.Instance.Currency += gameplayTrackingData.CollectedCurrency;
+
         Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.MenuScene, () =>
         {
             MenuScreensController.Instance.DisplayScreen(MenuScreensController.eMenuScreenType.GameOver);

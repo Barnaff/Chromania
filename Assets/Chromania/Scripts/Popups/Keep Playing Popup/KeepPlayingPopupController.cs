@@ -23,6 +23,11 @@ public class KeepPlayingPopupController : PopupBaseController {
 
     private float _currentKeepPlayingTimeCount;
 
+    private bool _isTimerRunning = false;
+
+    [SerializeField]
+    private Text _currencyLabel;
+
     #endregion
 
     #region Initialization
@@ -31,6 +36,7 @@ public class KeepPlayingPopupController : PopupBaseController {
     {
         _keepPlayingTimerDuration = GameplaySettings.Instance.KeepPlayingTImerDuration;
         _currentKeepPlayingTimeCount = _keepPlayingTimerDuration;
+        _isTimerRunning = true;
     }
 
     #endregion
@@ -40,15 +46,23 @@ public class KeepPlayingPopupController : PopupBaseController {
 
     void Update()
     {
-        _currentKeepPlayingTimeCount -= Time.deltaTime;
-        if (_timeBarImage != null)
+        if (_isTimerRunning)
         {
-            _timeBarImage.fillAmount = _currentKeepPlayingTimeCount / _keepPlayingTimerDuration;
+            _currentKeepPlayingTimeCount -= Time.deltaTime;
+            if (_timeBarImage != null)
+            {
+                _timeBarImage.fillAmount = _currentKeepPlayingTimeCount / _keepPlayingTimerDuration;
+            }
+
+            if (_currentKeepPlayingTimeCount <= 0)
+            {
+                TimesUpOrCancel();
+            }
         }
 
-        if (_currentKeepPlayingTimeCount <= 0)
+        if (_currencyLabel != null)
         {
-            TimesUpOrCancel();
+            _currencyLabel.text = InventoryManager.Instance.Currency.ToString() + "C";
         }
     }
 
@@ -74,12 +88,19 @@ public class KeepPlayingPopupController : PopupBaseController {
 
     public void KeepPlayingButtonAction()
     {
-        if (OnKeepPlaying != null)
+        _isTimerRunning = false;
+        ShopManager.Instance.Pay(100, (sucsess) =>
         {
-            OnKeepPlaying();
-        }
-        OnCloseAction = null;
-        ClosePopup();
+            if (sucsess)
+            {
+                if (OnKeepPlaying != null)
+                {
+                    OnKeepPlaying();
+                }
+                OnCloseAction = null;
+                ClosePopup();
+            }
+        });
     }
 
     #endregion

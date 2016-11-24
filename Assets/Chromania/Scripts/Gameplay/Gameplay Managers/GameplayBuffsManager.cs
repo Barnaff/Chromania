@@ -107,6 +107,7 @@ public enum eBuffType
     ColorZoneSizeMultiplier,
     PowerupSpwanChanceMultiplier,
     PowerupEffectMultiplier,
+    CurrencyCollectedMultiplier,
 }
 
 public enum eBuffMetod
