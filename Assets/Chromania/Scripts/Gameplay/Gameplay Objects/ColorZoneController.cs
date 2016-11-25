@@ -27,6 +27,11 @@ public class ColorZoneController : MonoBehaviour {
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
     }
 
+    void OnEnable()
+    {
+        UpdateScaleFactor();
+    }
+
     #endregion
 
     #region Public
