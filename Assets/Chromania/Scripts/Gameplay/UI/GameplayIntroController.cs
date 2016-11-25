@@ -43,7 +43,11 @@ public class GameplayIntroController : MonoBehaviour {
             chromieCharacter.transform.SetParent(_chromieContainers[i].transform);
             chromieCharacter.transform.localPosition = Vector3.zero;
             chromieCharacter.transform.localScale = Vector3.one;
-            
+            chromieCharacter.layer = LayerMask.NameToLayer("Intro");
+            for (int childIndex=0; childIndex < chromieCharacter.transform.childCount; childIndex++)
+            {
+                chromieCharacter.transform.GetChild(childIndex).gameObject.layer = LayerMask.NameToLayer("Intro");
+            }
         }
     }
 
