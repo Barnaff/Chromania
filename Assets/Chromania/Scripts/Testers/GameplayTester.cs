@@ -60,6 +60,14 @@ public class GameplayTester : MonoBehaviour {
         _selectedChromieController = chromieController;
     }
 
+
 #endif
+
+
+    [Button]
+    public void TestButton()
+    {
+        Debug.Log("test");
+    }
 
 }

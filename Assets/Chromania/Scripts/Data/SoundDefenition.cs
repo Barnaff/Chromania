@@ -15,8 +15,10 @@ public class SoundDefenition : ScriptableObject {
 
     public float Delay = 0f;
 
+    
     public void Play()
     {
         SoundManager.PlaySFX(AudioClip, Looping, Delay, Random.Range(MinVolume, MaxVolume), Random.Range(MinPitch, MaxPitch));
     }
+
 }
