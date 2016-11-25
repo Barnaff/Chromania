@@ -36,5 +36,13 @@ public class ColorZoneCharacterController : MonoBehaviour {
         }
     }
 
+    public void Intro()
+    {
+        if (_animator != null)
+        {
+            _animator.SetTrigger("Intro");
+        }
+    }
+
     #endregion
 }

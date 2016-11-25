@@ -25,6 +25,9 @@ public class GameplayController : MonoBehaviour {
     [SerializeField]
     private GameplayTrackingData _gameplayTrackingData;
 
+    [SerializeField]
+    private GameplayIntroController _introControllerPrefab;
+
     #endregion
 
 
@@ -33,17 +36,18 @@ public class GameplayController : MonoBehaviour {
     // Use this for initialization
     IEnumerator Start()
     {
+#if UNITY_EDITOR
+        GameSetupManager.Instance.Init();
+#endif
         Physics2D.gravity = new Vector2(0, -9.81f * GameplaySettings.Instance.GameSpeedMultiplier);
-
         _gameplayTrackingData = new GameplayTrackingData();
         _gameplayTrackingData.SelectedColors = GameSetupManager.Instance.SelectedChromiezColorsList;
         _gameplayTrackingData.GameplayMode = GameSetupManager.Instance.SelectedPlayMode;
-        GameSetupManager.Instance.Init();
         yield return 0f;
-        PrepareGame();
+        Timing.RunCoroutine(PrepareGame());
     }
 
-    private void PrepareGame()
+    private IEnumerator<float> PrepareGame()
     {
         // create color zones
         _colorZonesController.CreateColorZones(GameSetupManager.Instance.SelectedChromiez);
@@ -52,24 +56,36 @@ public class GameplayController : MonoBehaviour {
         // init the game over manager
         _gameOverManager.Init(_gameplayTrackingData);
 
-        GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
-        
+        // Init score manager
+        this.gameObject.AddComponent<GameplayScoreManager>().Init(_gameplayTrackingData);
+
+        GameplayPowerupsManager powerupsManager = this.gameObject.GetComponent<GameplayPowerupsManager>();
 
         if (_gameplayGUIController != null)
         {
             _gameplayGUIController.DisplayGameplayGUI(GameSetupManager.Instance.SelectedPlayMode);
         }
 
-        this.gameObject.AddComponent<GameplayScoreManager>().Init(_gameplayTrackingData);
+        AddEventsListeners();
+
+        GameplayIntroController introController = Instantiate(_introControllerPrefab);
+        introController.OnFinishedChromieEnterAnimation += (index) =>
+        {
+            _colorZonesController.ActivateColorZone(index);
+            if (powerupsManager != null)
+            {
+                powerupsManager.ActivatePassivePowerupFromColorZone(_colorZonesController.GetColorZone(index));
+            }
+        };
+
+        yield return Timing.WaitForSeconds(4.0f);
 
         StartCoroutine(StartPlaying());
     }
 
-    public IEnumerator StartPlaying()
+    public IEnumerator<float> StartPlaying()
     {
-        yield return new WaitForSeconds(0.5f);
-
-        _spwanerController.StartSpwaning();
+        yield return Timing.WaitForSeconds(0.5f);
 
         switch (GameSetupManager.Instance.SelectedPlayMode)
         {
@@ -88,6 +104,7 @@ public class GameplayController : MonoBehaviour {
         }
 
         // activate passive powerups
+        /*
         foreach (ChromieDefenition chromieDefenition in GameSetupManager.Instance.SelectedChromiez)
         {
             if (chromieDefenition.PassivePowerup != null)
@@ -95,12 +112,20 @@ public class GameplayController : MonoBehaviour {
                 chromieDefenition.PassivePowerup.StartPowerup(null);
             }
         }
+        */
+
+        _spwanerController.StartSpwaning();
     }
 
     #endregion
 
 
     #region Private
+
+    private void AddEventsListeners()
+    {
+        GameplayEventsDispatcher.Instance.OnChromieHitColorZone += OnChromieHitColorZoneHandler;
+    }
 
     private void ChromieCollected(ChromieController chromieController, ColorZoneController colorZone)
     {

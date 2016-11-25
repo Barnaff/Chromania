@@ -54,6 +54,21 @@ public class GameplayPowerupsManager : MonoBehaviour {
         _powerupSpwanMultiplier = GameplayBuffsManager.GetValue(eBuffType.PowerupSpwanChanceMultiplier);
     }
 
+    public void ActivatePassivePowerupFromColorZone(ColorZoneController colorZneController)
+    {
+        if (colorZneController.ChromieDefenition.PassivePowerup != null)
+        {
+            colorZneController.ChromieDefenition.PassivePowerup.StartPowerup(null);
+
+            if (_powerupActivationEffectprefab != null)
+            {
+                GameObject powerupEffect = Lean.LeanPool.Spawn(_powerupActivationEffectprefab, colorZneController.gameObject.transform.position, Quaternion.identity);
+                powerupEffect.GetComponent<ParticleSystem>().startColor = colorZneController.ChromieDefenition.ColorValue;
+                Lean.LeanPool.Despawn(powerupEffect, 2.0f);
+            }
+        }
+    }
+
     #endregion
 
 

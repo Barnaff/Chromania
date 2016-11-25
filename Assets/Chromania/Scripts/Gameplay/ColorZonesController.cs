@@ -26,6 +26,7 @@ public class ColorZonesController : MonoBehaviour {
         {
             ColorZoneController colorZoneController = CreateColorZone(selectedColors[i], i);
             _colorZones.Add(colorZoneController);
+            colorZoneController.gameObject.SetActive(false);
         }
         return _colorZones;
     }
@@ -44,6 +45,16 @@ public class ColorZonesController : MonoBehaviour {
         {
             colorZone.SetOverrideColor(null);
         }
+    }
+
+    public void ActivateColorZone(int index)
+    {
+        _colorZones[index].DisplayIntroAndActivate();
+    }
+
+    public ColorZoneController GetColorZone(int index)
+    {
+        return _colorZones[index];
     }
 
     #endregion

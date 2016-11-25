@@ -37,6 +37,14 @@ public class ColorZoneController : MonoBehaviour {
         SetColorZoneCharacter(_chromieDefenition);
     }
 
+    public ChromieDefenition ChromieDefenition
+    {
+        get
+        {
+            return _chromieDefenition;
+        }
+    }
+
     public eChromieType Color
     {
         get
@@ -60,6 +68,12 @@ public class ColorZoneController : MonoBehaviour {
         {
             SetColorZoneCharacter(_overrideChromieDefenition);
         }
+    }
+
+    public void DisplayIntroAndActivate()
+    {
+        this.gameObject.SetActive(true);
+        _colorZoneCharacter.Intro();
     }
 
     public void UpdateScaleFactor()
