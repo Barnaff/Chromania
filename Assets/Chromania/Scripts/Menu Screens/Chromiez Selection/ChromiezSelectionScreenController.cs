@@ -16,8 +16,17 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
     [SerializeField]
     private List<ChromieSelectionSelectedCellController> _selctionsCellsList;
 
+    [Header("Info Panel")]
     [SerializeField]
     private Text _chromieInfoLabel;
+
+    [SerializeField]
+    private GameObject _unlockButton;
+
+    [SerializeField]
+    private Text _unlockPriceLabel;
+
+    private ChromieDefenition _currenctSelection;
 
     #endregion
 
@@ -26,7 +35,13 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
 
     void Start()
     {
+        InventoryManager.Instance.OnInventoryUpdated += OnInventoryUpdateHandler;
         InitScreen();
+    }
+
+    void OnDestory()
+    {
+        InventoryManager.Instance.OnInventoryUpdated -= OnInventoryUpdateHandler;
     }
 
     #endregion
@@ -55,6 +70,10 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
 
     private void InitScreen()
     {
+        if (_unlockButton != null)
+        {
+            _unlockButton.SetActive(false);
+        }
         _inventoryItemCellPrefab.SetActive(false);
         PopulateInventoryList();
         UpdateSelectionList();
@@ -76,6 +95,14 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
 
     private void PopulateInventoryList()
     {
+        for (int i=0; i< _inventoryListContent.childCount; i++)
+        {
+            if (_inventoryListContent.GetChild(i).gameObject.activeInHierarchy)
+            {
+                Destroy(_inventoryListContent.GetChild(i).gameObject);
+            }
+        }
+
         List<ChromieDefenition> chromiez = ChromezData.Instance.Chromiez;
         foreach (ChromieDefenition chromieDefenition in chromiez)
         {
@@ -119,6 +146,8 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
 
     private void DisplayInfo(ChromieDefenition chromieDefenition)
     {
+        _currenctSelection = chromieDefenition;
+
         string infoString = "";
         infoString = chromieDefenition.ChromieName + "\n\n";
         if (chromieDefenition.PassivePowerup != null)
@@ -134,6 +163,45 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
             infoString += chromieDefenition.DroppedPowerup.Description + "\n\n";
         }
         _chromieInfoLabel.text = infoString;
+
+
+        if (InventoryManager.Instance.HasItem(chromieDefenition.ChromieColor.ToString()))
+        {
+            if (_unlockButton != null)
+            {
+                _unlockButton.SetActive(false);
+            }
+        }
+        else
+        {
+            ShopItem shopitem = ShopManager.Instance.GetShopItemForChromie(chromieDefenition.ChromieColor);
+            if (shopitem != null)
+            {
+                if (_unlockButton != null)
+                {
+                    _unlockButton.SetActive(true);
+                }
+                if (_unlockPriceLabel != null)
+                {
+                    _unlockPriceLabel.text = shopitem.Price.Amount.ToString();
+                }
+            }
+        }
+    }
+
+    public void UnlockButtonAction()
+    {
+        if (_currenctSelection != null)
+        {
+            ShopItem shopitem = ShopManager.Instance.GetShopItemForChromie(_currenctSelection.ChromieColor);
+            if (shopitem != null)
+            {
+                ShopManager.Instance.Purchase(shopitem, (sucsess) =>
+                {
+
+                });
+            }
+        }
     }
 
     #endregion
@@ -143,9 +211,12 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
 
     private void InventoryCellSelectedHandler(ChromieSelectionItemCellController cellController)
     {
-        if (AddSelection(cellController.ChromieDefenition))
+        if (InventoryManager.Instance.HasItem(cellController.ChromieDefenition.ChromieColor.ToString()))
         {
-            cellController.Selected = true;
+            if (AddSelection(cellController.ChromieDefenition))
+            {
+                cellController.Selected = true;
+            }
         }
         DisplayInfo(cellController.ChromieDefenition);
     }
@@ -155,6 +226,15 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
         if (RemoveSelection(cellController.ChromieDefenition))
         {
             cellController.SetSelection(null);
+        }
+    }
+
+    private void OnInventoryUpdateHandler()
+    {
+        PopulateInventoryList();
+        if (_currenctSelection != null)
+        {
+            DisplayInfo(_currenctSelection);
         }
     }
 

@@ -4,6 +4,14 @@ using System.Collections.Generic;
 
 public class InventoryManager : Kobapps.Singleton<InventoryManager> {
 
+    #region Public Properties
+
+    public delegate void InventoryUpdatedDelegate();
+
+    public event InventoryUpdatedDelegate OnInventoryUpdated;
+
+    #endregion
+
     #region Private Properties
 
     [SerializeField]
@@ -85,6 +93,18 @@ public class InventoryManager : Kobapps.Singleton<InventoryManager> {
         }
     }
 
+    public bool HasItem(string itemId)
+    {
+        return (GetInventoryItem(itemId) != null);
+    }
+
+    [Kobapps.Button]
+    public void ClearInventory()
+    {
+        _inventoryItemList.Clear();
+        Save();
+    }
+
     #endregion
 
 
@@ -113,6 +133,11 @@ public class InventoryManager : Kobapps.Singleton<InventoryManager> {
         {
             Debug.Log("Saved Inventory");
             PlayerPrefsUtil.SetObject(STORED_INVENTORY_KEY, _inventoryItemList);
+        }
+
+        if (OnInventoryUpdated != null)
+        {
+            OnInventoryUpdated();
         }
     }
 

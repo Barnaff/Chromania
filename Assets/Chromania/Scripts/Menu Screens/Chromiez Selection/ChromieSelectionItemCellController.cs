@@ -19,6 +19,9 @@ public class ChromieSelectionItemCellController : MonoBehaviour {
     private Image _chromieImage;
 
     [SerializeField]
+    private GameObject _lockOverlay;
+
+    [SerializeField]
     private bool _isSelected;
 
     [SerializeField]
@@ -39,6 +42,15 @@ public class ChromieSelectionItemCellController : MonoBehaviour {
         if (_chromieDefenition.ChromieSprite != null)
         {
             _chromieImage.sprite = _chromieDefenition.ChromieSprite;
+        }
+
+        if (InventoryManager.Instance.HasItem(chromieDefenition.ChromieColor.ToString()))
+        {
+            _lockOverlay.SetActive(false);
+        }
+        else
+        {
+            _lockOverlay.SetActive(true);
         }
     }
 

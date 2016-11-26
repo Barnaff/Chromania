@@ -7,10 +7,17 @@ public class ShopScreenController : MonoBehaviour {
     #region Private proeprties
 
     [SerializeField]
-    private GameObject _shopitemCellPrefab;
+    private ShopScreenItemCellController _shopitemCellPrefab;
 
     [SerializeField]
     private Transform _shopitemListContent;
+
+    [SerializeField]
+    private ShopScreenItemDisplayController _itemDisplayController;
+
+    private ShopItem _selectedShopitem;
+
+    
 
     #endregion
 
@@ -20,7 +27,7 @@ public class ShopScreenController : MonoBehaviour {
 	
         if (_shopitemCellPrefab != null)
         {
-            _shopitemCellPrefab.SetActive(false);
+            _shopitemCellPrefab.gameObject.SetActive(false);
         }
 
         PopulateShopitems();
@@ -54,11 +61,38 @@ public class ShopScreenController : MonoBehaviour {
         List<ShopItem> shopitems = ShopManager.Instance.GetShopitems(ShopItem.eShopItemCategoty.Chromiez);
         foreach (ShopItem shopItem in shopitems)
         {
-            GameObject shopItemCell = Instantiate(_shopitemCellPrefab);
-            shopItemCell.SetActive(true);
-            shopItemCell.transform.SetParent(_shopitemListContent);
-            shopItemCell.transform.localScale = Vector3.one;
+            ShopScreenItemCellController shopItemCell = Instantiate(_shopitemCellPrefab) as ShopScreenItemCellController;
+            shopItemCell.gameObject.SetActive(true);
+            shopItemCell.gameObject.transform.SetParent(_shopitemListContent);
+            shopItemCell.gameObject.transform.localScale = Vector3.one;
+            shopItemCell.SetShopitem(shopItem);
+            shopItemCell.OnShopItemSelected += OnShopItemSelectedHandler;
         }
+
+        if (_selectedShopitem == null)
+        {
+            SelectShopItem(shopitems[0]);
+        }
+    }
+
+    private void SelectShopItem(ShopItem shopItem)
+    {
+        _selectedShopitem = shopItem;
+
+        if (_itemDisplayController != null)
+        {
+            _itemDisplayController.SetShopitem(_selectedShopitem);
+        }
+    }
+
+    #endregion
+
+
+    #region Events
+
+    private void OnShopItemSelectedHandler(ShopItem shopItem)
+    {
+        SelectShopItem(shopItem);
     }
 
     #endregion

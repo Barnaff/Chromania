@@ -102,6 +102,18 @@ public class ShopManager : Kobapps.Singleton<ShopManager> {
         return shopitems;
     }
 
+    public ShopItem GetShopItemForChromie(eChromieType chromieType)
+    {
+        foreach (ShopItem shopItem in _shopitems)
+        {
+            if (shopItem.Item.ChromieType == chromieType)
+            {
+                return shopItem;
+            }
+        }
+        return null;
+    }
+
     #endregion
 
 
