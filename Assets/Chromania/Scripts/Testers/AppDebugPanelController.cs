@@ -67,6 +67,9 @@ public class AppDebugPanelController : MonoBehaviour {
 
     #endregion
 
+
+    #region Shop Debug
+
     public void PayCurrencyButtonAction(int amount)
     {
         ShopManager.Instance.Pay(amount, (sucsess) =>
@@ -82,8 +85,15 @@ public class AppDebugPanelController : MonoBehaviour {
         Debug.Log("updated amount: " + InventoryManager.Instance.Currency);
     }
 
-    #region Shop Debug
+    #endregion
 
+
+    #region Inventory Debug
+
+    public void ResetInventoryButtonAction()
+    {
+        InventoryManager.Instance.ClearInventory();
+    }
 
     #endregion
 

@@ -144,7 +144,7 @@ public class ShopItem
     public enum eShopItemCategoty
     {
         All,
-        IAP,
+        Currency,
         Chromiez,
     }
 

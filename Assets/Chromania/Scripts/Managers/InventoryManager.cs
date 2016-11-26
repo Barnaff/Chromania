@@ -102,6 +102,7 @@ public class InventoryManager : Kobapps.Singleton<InventoryManager> {
     public void ClearInventory()
     {
         _inventoryItemList.Clear();
+        AddInventoryitem(_currencyInventoryItem = new Inventoryitem(CURRENCTY_ITEM_ID, CURRENCTY_ITEM_ID, 0));
         Save();
     }
 

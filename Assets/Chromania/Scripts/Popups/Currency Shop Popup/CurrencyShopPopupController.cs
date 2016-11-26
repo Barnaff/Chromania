@@ -30,11 +30,11 @@ public class CurrencyShopPopupController : PopupBaseController
 
     private void PopulateShopItemsList()
     {
-        List<ShopItem> shopItems = ShopManager.Instance.GetShopitems();
+        List<ShopItem> shopItems = ShopManager.Instance.GetShopitems(ShopItem.eShopItemCategoty.Currency);
 
         for (int i = 0; i < _shopItemsListContent.childCount; i++)
         {
-            if (!_shopItemsListContent.GetChild(i).gameObject.activeInHierarchy)
+            if (_shopItemsListContent.GetChild(i).gameObject.activeInHierarchy)
             {
                 Destroy(_shopItemsListContent.GetChild(i));
             }

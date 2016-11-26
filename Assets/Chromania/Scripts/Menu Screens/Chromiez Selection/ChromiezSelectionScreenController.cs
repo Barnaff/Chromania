@@ -35,11 +35,15 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
 
     void Start()
     {
-        InventoryManager.Instance.OnInventoryUpdated += OnInventoryUpdateHandler;
         InitScreen();
     }
 
-    void OnDestory()
+    void OnEnable()
+    {
+        InventoryManager.Instance.OnInventoryUpdated += OnInventoryUpdateHandler;
+    }
+
+    void OnDisable()
     {
         InventoryManager.Instance.OnInventoryUpdated -= OnInventoryUpdateHandler;
     }

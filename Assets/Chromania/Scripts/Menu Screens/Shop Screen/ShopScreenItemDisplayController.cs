@@ -34,7 +34,7 @@ public class ShopScreenItemDisplayController : MonoBehaviour {
         InventoryManager.Instance.OnInventoryUpdated += OnInventoryUpdatedHandler;
     }
 
-    void OnDestory()
+    void OnDisable()
     {
         InventoryManager.Instance.OnInventoryUpdated -= OnInventoryUpdatedHandler;
     }
