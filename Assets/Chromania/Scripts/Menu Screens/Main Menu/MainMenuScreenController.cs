@@ -34,5 +34,10 @@ public class MainMenuScreenController : MenuScreenBaseController {
 
     }
 
+    public void ShopButtonAction()
+    {
+        FlowManager.Instance.Shop();
+    }
+
     #endregion
 }

@@ -72,4 +72,12 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
             MenuScreensController.Instance.DisplayScreen(MenuScreensController.eMenuScreenType.MainMenu);
         }, Kobapps.eSceneTransition.FadeOutFadeIn);
     }
+
+    public void Shop()
+    {
+        Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.ShopScene, () =>
+        {
+
+        }, Kobapps.eSceneTransition.FadeOutFadeIn);
+    }
 }

@@ -4,13 +4,15 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
+namespace Kobapps
+{
     public class BehaviourButtonsHelper
     {
         private static object[] emptyParamList = new object[0];
 
         private IList<MethodInfo> methods = new List<MethodInfo>();
         private Object targetObject;
-         
+
         public void Init(Object targetObject)
         {
             this.targetObject = targetObject;
@@ -43,13 +45,13 @@ using UnityEngine;
         }
     }
 
-   
+
     [CanEditMultipleObjects]
     [CustomEditor(typeof(MonoBehaviour), true)]
-    public class BehaviourButtonsEditor : Editor
+    public class BehaviourButtonsEditor : UnityEditor.Editor
     {
         private BehaviourButtonsHelper helper = new BehaviourButtonsHelper();
-         
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -62,3 +64,5 @@ using UnityEngine;
         }
     }
 
+
+}

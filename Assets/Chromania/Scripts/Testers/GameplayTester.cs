@@ -64,7 +64,7 @@ public class GameplayTester : MonoBehaviour {
 #endif
 
 
-    [Button]
+    [Kobapps.Button]
     public void TestButton()
     {
         Debug.Log("test");

@@ -84,9 +84,22 @@ public class ShopManager : Kobapps.Singleton<ShopManager> {
         }
     }
 
-    public List<ShopItem> GetShopitems()
+    public List<ShopItem> GetShopitems(ShopItem.eShopItemCategoty category= ShopItem.eShopItemCategoty.All)
     {
-        return _shopitems;
+        if (category == ShopItem.eShopItemCategoty.All)
+        {
+            return _shopitems;
+        }
+
+        List<ShopItem> shopitems = new List<ShopItem>();
+        foreach (ShopItem shopItem in _shopitems)
+        {
+            if (shopItem.Category == category)
+            {
+                shopitems.Add(shopItem);
+            }
+        }
+        return shopitems;
     }
 
     #endregion
@@ -114,9 +127,23 @@ public class ShopItem
 
     public string Name;
 
+    public string Description;
+
+    public enum eShopItemCategoty
+    {
+        All,
+        IAP,
+        Chromiez,
+    }
+
+    public eShopItemCategoty Category;
+
+    public bool IsUnique;
+
     public Price Price;
 
     public Inventoryitem Item;
+
 }
 
 [System.Serializable]

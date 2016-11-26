@@ -87,6 +87,10 @@ namespace GeneratedConstants
         /// Index of layer 'UI'.
         /// </summary>
         public const int UI = 5;
+        /// <summary>
+        /// Index of layer 'Intro'.
+        /// </summary>
+        public const int Intro = 8;
 
         /// <summary>
         /// Bitmask of layer 'Default'.
@@ -108,6 +112,10 @@ namespace GeneratedConstants
         /// Bitmask of layer 'UI'.
         /// </summary>
         public const int UIMask = 1 << 5;
+        /// <summary>
+        /// Bitmask of layer 'Intro'.
+        /// </summary>
+        public const int IntroMask = 1 << 8;
     }
 
     public static class Scenes
@@ -125,6 +133,10 @@ namespace GeneratedConstants
         /// </summary>
         public const int GameplayScene = 2;
         /// <summary>
+        /// ID of scene 'ShopScene'.
+        /// </summary>
+        public const int ShopScene = 3;
+        /// <summary>
         /// Name of scene 'LoaderScene'.
         /// </summary>
         public const string LoaderSceneName = "LoaderScene";
@@ -136,6 +148,10 @@ namespace GeneratedConstants
         /// Name of scene 'GameplayScene'.
         /// </summary>
         public const string GameplaySceneName = "GameplayScene";
+        /// <summary>
+        /// Name of scene 'ShopScene'.
+        /// </summary>
+        public const string ShopSceneName = "ShopScene";
     }
 
     public static class SortingLayers

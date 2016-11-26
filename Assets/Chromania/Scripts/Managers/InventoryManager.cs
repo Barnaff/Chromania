@@ -137,6 +137,8 @@ public class Inventoryitem
 
     public int Amount;
 
+    public eChromieType ChromieType;
+
     public Inventoryitem(string id, string name, int amount)
     {
         ID = id;
