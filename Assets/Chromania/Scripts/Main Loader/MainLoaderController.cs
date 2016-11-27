@@ -18,6 +18,8 @@ public class MainLoaderController : MonoBehaviour {
 
     private IEnumerator LoadingSequanceCorutine()
     {
+        Fabric.Runtime.Fabric.Initialize();
+        
         yield return 0f;
 
         bool finishedAutologin = false;
