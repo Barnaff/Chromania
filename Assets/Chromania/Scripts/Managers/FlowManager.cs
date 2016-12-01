@@ -45,6 +45,14 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
         }, Kobapps.eSceneTransition.FadeOutFadeIn);
     }
 
+    public void RestartGame()
+    {
+        Kobapps.SceneLoaderutil.ReloadCurrentScene(() =>
+        {
+
+        }, Kobapps.eSceneTransition.FadeOutFadeIn);
+    }
+
     public void GameOver(GameplayTrackingData gameplayTrackingData)
     {
 

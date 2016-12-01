@@ -80,7 +80,10 @@ public class GameplayController : MonoBehaviour {
 
         yield return Timing.WaitForSeconds(4.0f);
 
-        Destroy(introController.gameObject);
+        if (introController != null && introController.gameObject != null)
+        {
+            Destroy(introController.gameObject);
+        }
 
         StartCoroutine(StartPlaying());
     }

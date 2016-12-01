@@ -17,5 +17,11 @@ public class PausePopupController : PopupBaseController {
         ClosePopup(); 
     }
 
+    public void RestartButtonAction()
+    {
+        PauseManager.Instance.ResumeGame();
+        FlowManager.Instance.RestartGame();
+    }
+
     #endregion
 }

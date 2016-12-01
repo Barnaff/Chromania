@@ -42,6 +42,11 @@ namespace Kobapps
             }  
         }
 
+        public static void ReloadCurrentScene(System.Action sceneLoadedAction, eSceneTransition sceneTransition = eSceneTransition.None)
+        {
+            CreateSceneLoaderController().LoadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex, sceneLoadedAction, sceneTransition);
+        }
+
         private static SceneLoaderController CreateSceneLoaderController()
         {
             GameObject sceneLoaderContainer = new GameObject();
