@@ -7,4 +7,6 @@ public class AppSettings : Kobapps.ScriptableSingleton<AppSettings> {
     public bool EnableDebug;
 
     public List<ShopItem> ShopItems;
+
+    public List<ObjectiveDefenition> Objectives;
 }

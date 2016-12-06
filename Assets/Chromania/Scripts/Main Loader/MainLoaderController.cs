@@ -46,6 +46,7 @@ public class MainLoaderController : MonoBehaviour {
 
         yield return null;
         GameSetupManager.Instance.Init();
+        ObjectivesManager.Instance.Init();
 
         while (!finishedAutologin)
         {

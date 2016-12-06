@@ -6,12 +6,7 @@ public class GameplayScoreManager : MonoBehaviour {
     #region Private Properties
 
     [SerializeField]
-    private GameplayTrackingData _gameplayTrackingData;
-
-#if UNITY_EDITOR
-    [SerializeField]
     private int _currentScore;
-#endif
 
     [SerializeField]
     private int _currentScoreMultiplier = 1;
@@ -30,9 +25,9 @@ public class GameplayScoreManager : MonoBehaviour {
 
     #region Public
 
-    public void Init(GameplayTrackingData gameplayTrackingData)
+    public void Init()
     {
-        _gameplayTrackingData = gameplayTrackingData;
+        _currentScore = 0;
         _currentScoreMultiplier = 1;
         GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
         GameplayEventsDispatcher.Instance.OnChromieDropped += OnChromieDroppedHandler;
@@ -75,13 +70,9 @@ public class GameplayScoreManager : MonoBehaviour {
 
         scoreToAdd *= _currentScoreMultiplier;
 
-        _gameplayTrackingData.Score += scoreToAdd;
+        _currentScore += scoreToAdd;
 
-        GameplayEventsDispatcher.Instance.ScoreUpdate(scoreToAdd, _gameplayTrackingData.Score, chromieController);
-
-#if UNITY_EDITOR
-        _currentScore = _gameplayTrackingData.Score;
-#endif
+        GameplayEventsDispatcher.Instance.ScoreUpdate(scoreToAdd, _currentScore, chromieController);
 
         _lastCollectedChromie = chromieController.ChromieType;
     }

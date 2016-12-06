@@ -40,9 +40,9 @@ public class GameplayController : MonoBehaviour {
         GameSetupManager.Instance.Init();
 #endif
         Physics2D.gravity = new Vector2(0, -9.81f * GameplaySettings.Instance.GameSpeedMultiplier);
-        _gameplayTrackingData = new GameplayTrackingData();
-        _gameplayTrackingData.SelectedColors = GameSetupManager.Instance.SelectedChromiezColorsList;
-        _gameplayTrackingData.GameplayMode = GameSetupManager.Instance.SelectedPlayMode;
+
+        _gameplayTrackingData = this.gameObject.AddComponent<GameplayTrackingManager>().StartTracking();
+
         yield return 0f;
         Timing.RunCoroutine(PrepareGame());
     }
@@ -57,7 +57,7 @@ public class GameplayController : MonoBehaviour {
         _gameOverManager.Init(_gameplayTrackingData);
 
         // Init score manager
-        this.gameObject.AddComponent<GameplayScoreManager>().Init(_gameplayTrackingData);
+        this.gameObject.AddComponent<GameplayScoreManager>().Init();
 
         GameplayPowerupsManager powerupsManager = this.gameObject.GetComponent<GameplayPowerupsManager>();
 
@@ -107,17 +107,6 @@ public class GameplayController : MonoBehaviour {
                     break;
                 }
         }
-
-        // activate passive powerups
-        /*
-        foreach (ChromieDefenition chromieDefenition in GameSetupManager.Instance.SelectedChromiez)
-        {
-            if (chromieDefenition.PassivePowerup != null)
-            {
-                chromieDefenition.PassivePowerup.StartPowerup(null);
-            }
-        }
-        */
 
         _spwanerController.StartSpwaning();
     }

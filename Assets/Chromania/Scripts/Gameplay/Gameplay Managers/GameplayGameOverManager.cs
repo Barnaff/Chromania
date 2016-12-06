@@ -64,9 +64,15 @@ public class GameplayGameOverManager : MonoBehaviour {
 
     private void OnKeepPlayingTimeUpOrCancelhandler()
     {
+        // calculate currency gained
         _gameplayTrackingData.CollectedCurrency += (int)(_gameplayTrackingData.Score * 0.1f * GameplayBuffsManager.GetValue(eBuffType.CurrencyCollectedMultiplier));
 
-        FlowManager.Instance.GameOver(_gameplayTrackingData);
+
+         PopupsManager.Instance.DisplayPopup<ObjectivesPopupController>(() =>
+        {
+            FlowManager.Instance.GameOver(_gameplayTrackingData);
+
+        }).SetGameplayTrackingData(_gameplayTrackingData);
     }
 
     #endregion

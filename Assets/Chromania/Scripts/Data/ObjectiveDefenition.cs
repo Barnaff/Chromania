@@ -2,10 +2,12 @@
 using System.Collections;
 
 [System.Serializable]
-public class ObjectiveDefenition : ScriptableObject {
+public class ObjectiveDefenition {
 
     [Header("Meta Data")]
     public int ObjectiveId;
+
+    public int MinLevel;
 
     public string ObjectiveTitle;
 
@@ -35,6 +37,8 @@ public class ObjectiveProgress
     public float Progress;
 
     public bool IsCompleted;
+
+    public bool IsNew;
 }
 
 public enum eObjectiveType
