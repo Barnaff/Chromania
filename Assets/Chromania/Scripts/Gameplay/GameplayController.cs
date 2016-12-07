@@ -56,6 +56,8 @@ public class GameplayController : MonoBehaviour {
         // init the game over manager
         _gameOverManager.Init(_gameplayTrackingData);
 
+        ObjectivesManager.Instance.GameStarted();
+
         // Init score manager
         this.gameObject.AddComponent<GameplayScoreManager>().Init();
 

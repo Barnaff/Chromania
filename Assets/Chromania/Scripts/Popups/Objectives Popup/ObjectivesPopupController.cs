@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using MovementEffects;
 
 public class ObjectivesPopupController : PopupBaseController {
 
@@ -29,7 +30,7 @@ public class ObjectivesPopupController : PopupBaseController {
         }
         PopulateObjectiveList();
 
-        StartCoroutine(ObjectiveUpdateCorutine());
+        Timing.RunCoroutine(ObjectiveUpdateCorutine());
     }
 
     #endregion
@@ -46,6 +47,17 @@ public class ObjectivesPopupController : PopupBaseController {
 
 
     #region Private
+
+    [Kobapps.Button]
+    private void ProgresAllObjectives()
+    {
+        foreach (ObjectiveProgress objectiveProgress in ObjectivesManager.Instance.ActiveObjectives)
+        {
+            objectiveProgress.UpdateObjective((int)(objectiveProgress.Objective.CountObjective * Random.Range(0f, 1f)));
+        }
+
+        Timing.RunCoroutine(ObjectiveUpdateCorutine());
+    }
 
     private void PopulateObjectiveList()
     {
@@ -73,13 +85,41 @@ public class ObjectivesPopupController : PopupBaseController {
         return objectiveCell;
     }
 
-    private IEnumerator ObjectiveUpdateCorutine()
+    private IEnumerator<float> ObjectiveUpdateCorutine()
     {
-        foreach (ObjectivePopupObjectiveCellController objectiveCell in _objectiveCells)
+        for (int i = 0; i < _objectiveCells.Count; i++)
         {
+            Debug.Log(ObjectivesManager.Instance.ActiveObjectives.Length);
+            if (ObjectivesManager.Instance.ActiveObjectives.Length >= i)
+            {
+                Debug.Log(ObjectivesManager.Instance.ActiveObjectives[i]);
+                ObjectiveProgress objectiveProgress = ObjectivesManager.Instance.ActiveObjectives[i];
+                objectiveProgress.UpdateObjective(_gameplayTrackingData);
+                yield return Timing.WaitUntilDone(Timing.RunCoroutine(_objectiveCells[i].UpdateNewObjectiveValues(objectiveProgress)));
 
+                if (objectiveProgress.IsCompleted)
+                {
+                    yield return Timing.WaitUntilDone(Timing.RunCoroutine(_objectiveCells[i].CompleteObjective()));
+                }
+            }
         }
-        yield return null;
+
+        yield return Timing.WaitForSeconds(0.5f);
+
+        for (int i = 0; i < _objectiveCells.Count; i++)
+        {
+            if (_objectiveCells[i].ObjectiveProgress.IsCompleted)
+            {
+                ObjectiveProgress newObjectiveProgress = ObjectivesManager.Instance.ReplaceObjective(_objectiveCells[i].ObjectiveProgress);
+                if (newObjectiveProgress != null)
+                {
+                    _objectiveCells[i].SetObjectiverProgress(newObjectiveProgress);
+                    yield return Timing.WaitForSeconds(0.5f);
+                }
+            }
+        }
+
+        ObjectivesManager.Instance.SaveProgress();
     }
 
     #endregion

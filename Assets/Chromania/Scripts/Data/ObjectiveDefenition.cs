@@ -39,6 +39,7 @@ public class ObjectiveProgress
     public bool IsCompleted;
 
     public bool IsNew;
+
 }
 
 public enum eObjectiveType

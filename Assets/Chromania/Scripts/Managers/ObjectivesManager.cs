@@ -24,9 +24,28 @@ public class ObjectivesManager : Kobapps.Singleton<ObjectivesManager> {
     [SerializeField]
     private ObjectiveProgress[] _activeObjecties;
 
+    [SerializeField]
+    private List<int> _usedObjectives;
+
     private const string STORED_ACTIVE_OBJECTIVES = "storedActiveObjective";
+    private const string STORED_USED_OBJECTIVES = "usedActiveObjective";
 
     private const int NUMBER_OF_ACTIVE_OBJECTIVES = 3;
+
+    private bool _isInitialized = false;
+
+    #endregion
+
+
+    #region Initialized
+
+    void Start()
+    {
+        if (!_isInitialized)
+        {
+            Init();
+        }
+    }
 
     #endregion
 
@@ -37,6 +56,18 @@ public class ObjectivesManager : Kobapps.Singleton<ObjectivesManager> {
     {
         LoadCurrentProgress();
         UpdateObjectivesList();
+        _isInitialized = true;
+    }
+
+    public void GameStarted()
+    {
+        foreach (ObjectiveProgress objectiveProgress in _activeObjecties)
+        {
+            if (objectiveProgress.Objective.ResetAtGameStart)
+            {
+                objectiveProgress.Progress = 0;
+            }
+        }
     }
 
     public ObjectiveProgress[] ActiveObjectives
@@ -65,6 +96,11 @@ public class ObjectivesManager : Kobapps.Singleton<ObjectivesManager> {
         return null;
     }
 
+    public void SaveProgress()
+    {
+        Save();
+    }
+
     #endregion
 
 
@@ -81,11 +117,21 @@ public class ObjectivesManager : Kobapps.Singleton<ObjectivesManager> {
         {
             _activeObjecties = new ObjectiveProgress[NUMBER_OF_ACTIVE_OBJECTIVES];
         }
+
+        if (PlayerPrefsUtil.HasKey(STORED_USED_OBJECTIVES))
+        {
+            _usedObjectives = (List<int>)PlayerPrefsUtil.GetObject(STORED_USED_OBJECTIVES);
+        }
+        else
+        {
+            _usedObjectives = new List<int>();
+        }
     }
 
     private void Save()
     {
         PlayerPrefsUtil.SetObject(STORED_ACTIVE_OBJECTIVES, _activeObjecties);
+        PlayerPrefsUtil.SetObject(STORED_USED_OBJECTIVES, _usedObjectives);
     }
 
     private void UpdateObjectivesList()
@@ -109,9 +155,30 @@ public class ObjectivesManager : Kobapps.Singleton<ObjectivesManager> {
     {
         ObjectiveProgress objectiveProgress = new ObjectiveProgress();
 
-        ObjectiveDefenition objective = AppSettings.Instance.Objectives[Random.Range(0, AppSettings.Instance.Objectives.Count)];
+        ObjectiveDefenition newObjective = null;
 
-        objectiveProgress.Objective = objective;
+        List<ObjectiveDefenition> avalableObjectives = new List<ObjectiveDefenition>();
+        foreach (ObjectiveDefenition objective in AppSettings.Instance.Objectives)
+        {
+            if (!_usedObjectives.Contains(objective.ObjectiveId))
+            {
+                avalableObjectives.Add(objective);
+            }
+        }
+
+        if (avalableObjectives.Count == 0)
+        {
+            _usedObjectives.Clear();
+            newObjective = AppSettings.Instance.Objectives.RandomItem();
+        }
+        else
+        {
+            newObjective = avalableObjectives.RandomItem();
+        }
+
+        _usedObjectives.Add(newObjective.ObjectiveId);
+
+        objectiveProgress.Objective = newObjective;
         objectiveProgress.Progress = 0;
         objectiveProgress.IsCompleted = false;
         return objectiveProgress;
@@ -147,8 +214,26 @@ public static class ObjectiveProgressExtension
         return objectiveProgress.Objective.CountObjective;
     }
 
+    public static bool UpdateObjective(this ObjectiveProgress objectiveProgress, int progressValue)
+    {
+        objectiveProgress.Progress += progressValue;
+
+        if (objectiveProgress.Progress >= objectiveProgress.Objective.CountObjective)
+        {
+            objectiveProgress.IsCompleted = true;
+            objectiveProgress.Progress = objectiveProgress.Objective.CountObjective;
+        }
+
+        return objectiveProgress.IsCompleted;
+    }
+
     public static bool UpdateObjective(this ObjectiveProgress objectiveProgress, GameplayTrackingData gameplayTrackingData)
     {
+        if (gameplayTrackingData == null)
+        {
+            return false;
+        }
+
         ObjectiveDefenition objective = objectiveProgress.Objective;
         switch (objective.Type)
         {
@@ -219,6 +304,7 @@ public static class ObjectiveProgressExtension
         if (objectiveProgress.Progress >= objective.CountObjective)
         {
             objectiveProgress.IsCompleted = true;
+            objectiveProgress.Progress = objective.CountObjective;
         }
 
         return objectiveProgress.IsCompleted;
