@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class WaveDefenition  {
 
 	#region Public
@@ -16,13 +17,17 @@ public class WaveDefenition  {
 	public int MaxLevel;
 	public List<SequanceDefenition> SequanceList;
 
-	#endregion
+    #endregion
 
 
-	#region Public
+    #region Public
 
-    
-	public WaveDefenition(JSONObject jsonObject)
+    public WaveDefenition()
+    {
+        SequanceList = new List<SequanceDefenition>();
+    }
+
+    public WaveDefenition(JSONObject jsonObject)
 	{
 		EndDelay = float.Parse(jsonObject["endDelay"].ToString());
 		MinLevel = int.Parse(jsonObject["minLevel"].ToString());

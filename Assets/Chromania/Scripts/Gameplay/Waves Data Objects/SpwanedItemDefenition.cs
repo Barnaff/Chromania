@@ -10,6 +10,7 @@ public enum eSpwanedColorType
 	BottomRight,
 }
 
+[System.Serializable]
 public class SpwanedItemDefenition  {
 
 	#region Public 
@@ -24,8 +25,12 @@ public class SpwanedItemDefenition  {
 
 	#region Public
 	
-    
-	public SpwanedItemDefenition(JSONObject jsonObject)
+    public SpwanedItemDefenition()
+    {
+
+    }
+
+    public SpwanedItemDefenition(JSONObject jsonObject)
 	{
 		ID = int.Parse(jsonObject["id"].ToString());
 		string[] forceVectorStringArray = jsonObject["forceVector"].ToString().Replace("\"", "").Split(","[0]);

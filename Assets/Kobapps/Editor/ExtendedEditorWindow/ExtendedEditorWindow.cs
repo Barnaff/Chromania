@@ -43,8 +43,11 @@ public abstract class ExtendedEditorWindow : EditorWindow
 
 			{ EventType.ScrollWheel, () => {
 				this.OnScrollWheel(Event.current.delta);
-			}}
-		};
+			}},
+            { EventType.MouseUp, () => {
+                this.OnMouseUp((MouseButton)Event.current.button, Event.current.mousePosition);
+            }},
+        };
 	}
 
 	protected virtual void OnGUI()
@@ -72,15 +75,19 @@ public abstract class ExtendedEditorWindow : EditorWindow
 	{
 	}
 
-	protected virtual void OnMouseDrag(MouseButton button, Vector2 position, Vector2 delta)
+    protected virtual void OnMouseUp(MouseButton button, Vector2 position)
+    {
+    }
+
+    protected virtual void OnMouseDrag(MouseButton button, Vector2 position, Vector2 delta)
 	{
 	}
 
 	protected virtual void OnMouseMove(Vector2 position, Vector2 delta)
 	{
 	}
-	
-	protected virtual void OnContext()
+
+    protected virtual void OnContext()
 	{
 	}
 

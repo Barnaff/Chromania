@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class SequanceDefenition {
 
     #region Public Properties
@@ -18,7 +19,12 @@ public class SequanceDefenition {
 
 
     #region Public
-   
+
+    public SequanceDefenition()
+    {
+        SpwanItemList = new List<SpwanedItemDefenition>();
+    }
+
     public SequanceDefenition(JSONObject jsonObject)
 	{
         EndInterval = float.Parse(jsonObject["endInterval"].ToString());
