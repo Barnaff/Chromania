@@ -59,38 +59,42 @@ public static class WavesEditorPropertiesPanel  {
 
         GUILayout.BeginArea(new Rect(rect.width * 0.1f, 0, rect.width  - rect.width * 0.1f, rect.height));
         {
-            switch (_selectedTab)
+            EditorGUILayout.BeginVertical("Box");
             {
-                case eWaveEditorTabTab.Sequance:
-                    {
-                        if (wavesEditor._currentSequance == null)
+                switch (_selectedTab)
+                {
+                    case eWaveEditorTabTab.Sequance:
                         {
+                            if (wavesEditor._currentSequance == null)
+                            {
+                                break;
+                            }
+                            DrawSequancePanel(wavesEditor);
                             break;
                         }
-                        DrawSequancePanel(wavesEditor);
-                        break;
-                    }
-                case eWaveEditorTabTab.Wave:
-                    {
-                        if (wavesEditor._currentWave == null)
+                    case eWaveEditorTabTab.Wave:
                         {
-                            _selectedTab = eWaveEditorTabTab.Sequance;
+                            if (wavesEditor._currentWave == null)
+                            {
+                                _selectedTab = eWaveEditorTabTab.Sequance;
+                                break;
+                            }
+                            DrawWavePanel(wavesEditor);
                             break;
                         }
-                        DrawWavePanel(wavesEditor);
-                        break;
-                    }
-                case eWaveEditorTabTab.Item:
-                    {
-                        if (wavesEditor._currentSpwanItem == null)
+                    case eWaveEditorTabTab.Item:
                         {
-                            _selectedTab = eWaveEditorTabTab.Wave;
+                            if (wavesEditor._currentSpwanItem == null)
+                            {
+                                _selectedTab = eWaveEditorTabTab.Wave;
+                                break;
+                            }
+                            DrawItemPanel(wavesEditor);
                             break;
                         }
-                        DrawItemPanel(wavesEditor);
-                        break;
-                    }
+                }
             }
+            EditorGUILayout.EndVertical();  
         }
         GUILayout.EndArea();
     }
@@ -101,7 +105,7 @@ public static class WavesEditorPropertiesPanel  {
         {
             EditorGUILayout.BeginHorizontal();
             {
-                EditorGUILayout.BeginVertical();
+                EditorGUILayout.BeginVertical(GUILayout.Width(wavesEditor.position.width * 0.3f));
                 {
                     wavesEditor._currentSequance.Enabled = EditorGUILayout.Toggle("Enabled", wavesEditor._currentSequance.Enabled);
                     wavesEditor._currentSequance.Identifier = EditorGUILayout.TextField("Wave ID", wavesEditor._currentSequance.Identifier);
@@ -123,11 +127,12 @@ public static class WavesEditorPropertiesPanel  {
     {
         EditorGUILayout.BeginHorizontal();
         {
-            EditorGUILayout.BeginVertical();
+            EditorGUILayout.BeginVertical(GUILayout.Width(wavesEditor.position.width * 0.3f));
             {
                 wavesEditor._currentWave.Enabled = EditorGUILayout.Toggle("Enabled", wavesEditor._currentWave.Enabled);
                 wavesEditor._currentWave.Delay = EditorGUILayout.FloatField("Delay", wavesEditor._currentWave.Delay);
-              
+
+                DrawWaveButtons(wavesEditor);
             }
             EditorGUILayout.EndVertical();
 
@@ -148,7 +153,7 @@ public static class WavesEditorPropertiesPanel  {
     {
         EditorGUILayout.BeginHorizontal();
         {
-            EditorGUILayout.BeginVertical();
+            EditorGUILayout.BeginVertical(GUILayout.Width(wavesEditor.position.width * 0.3f));
             {
                 if (wavesEditor._currentSpwanItem != null)
                 {
@@ -156,7 +161,7 @@ public static class WavesEditorPropertiesPanel  {
                     wavesEditor._currentSpwanItem.XPosition = EditorGUILayout.FloatField("X Position", wavesEditor._currentSpwanItem.XPosition);
                     wavesEditor._currentSpwanItem.ForceVector = EditorGUILayout.Vector2Field("Force Vector", wavesEditor._currentSpwanItem.ForceVector);
                 }
-            }
+            } 
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.BeginHorizontal();
@@ -214,14 +219,10 @@ public static class WavesEditorPropertiesPanel  {
 
                     SelectedSequance = wavesEditor._currentSequance;
                 }
-
-
                 _selectedWaveList.DoLayoutList();
-
             }
             EditorGUILayout.EndScrollView();
         }
-       
     }
 
     private static void DrawSpwanedItemsList(WavesEditor wavesEditor)
@@ -230,19 +231,19 @@ public static class WavesEditorPropertiesPanel  {
         {
             _spawnedItemsListScrollPosition = EditorGUILayout.BeginScrollView(_spawnedItemsListScrollPosition);
             {
-                if (wavesEditor._currentWave != _selectedWave)
+                if (wavesEditor._currentWave != _selectedWave && wavesEditor._currentWave.SpawnedItems != null)
                 {
                     _spawnedItemsList = new ReorderableList(wavesEditor._currentWave.SpawnedItems, typeof(SpawnedItemDataObject), true, false, true, true);
 
                     _spawnedItemsList.drawElementCallback = (Rect cellRect, int index, bool isActive, bool isFocused) => {
 
-                       // GUI.Label(cellRect, "item " + index.ToString());
-
                         if (wavesEditor._currentWave != null && wavesEditor._currentWave.SpawnedItems != null && wavesEditor._currentWave.SpawnedItems.Count > index)
                         {
-                           GUI.DrawTexture(new Rect(cellRect.x, cellRect.y, 16, 16), TeaxtureForSpwanItem(wavesEditor._currentWave.SpawnedItems[index].SpwanedColor, wavesEditor));
+                            if (wavesEditor._currentWave.SpawnedItems[index] != null)
+                            {
+                                GUI.DrawTexture(new Rect(cellRect.x, cellRect.y, 16, 16), TeaxtureForSpwanItem(wavesEditor._currentWave.SpawnedItems[index].SpwanedColor, wavesEditor));
+                            }
                         }
-                        
                     };
 
                     _spawnedItemsList.onSelectCallback = (list) =>
@@ -261,13 +262,104 @@ public static class WavesEditorPropertiesPanel  {
                     _selectedWave = wavesEditor._currentWave;
                 }
 
-
-                _spawnedItemsList.DoLayoutList();
+                if (_spawnedItemsList != null)
+                {
+                    _spawnedItemsList.DoLayoutList();
+                }
+               
 
             }
             EditorGUILayout.EndScrollView();
         }
-       
+    }
+
+    private static void DrawWaveButtons(WavesEditor wavesEditor)
+    {
+        EditorGUILayout.Space();
+
+        EditorGUILayout.BeginVertical("Box");
+        {
+            EditorGUILayout.LabelField("Add Items");
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                if (GUILayout.Button(wavesEditor._leftBottomTexture))
+                {
+                    AddItem(wavesEditor, eSpwanedColorType.BottomLeft);
+                }
+                if (GUILayout.Button(wavesEditor._leftTopTexture))
+                {
+                    AddItem(wavesEditor, eSpwanedColorType.TopLeft);
+                }
+                if (GUILayout.Button(wavesEditor._rightBottomTexture))
+                {
+                    AddItem(wavesEditor, eSpwanedColorType.BottomRight);
+                }
+                if (GUILayout.Button(wavesEditor._rightTopTexture))
+                {
+                    AddItem(wavesEditor, eSpwanedColorType.TopRight);
+                }
+                if (GUILayout.Button(wavesEditor._randomTexture))
+                {
+                    AddItem(wavesEditor, eSpwanedColorType.RandomCorner);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Add Delay Wave");
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                if (GUILayout.Button("0.1f"))
+                {
+                    AddItem(wavesEditor, 0.1f);
+                }
+                if (GUILayout.Button("0.2f"))
+                {
+                    AddItem(wavesEditor, 0.2f);
+                }
+                if (GUILayout.Button("0.3f"))
+                {
+                    AddItem(wavesEditor, 0.3f);
+                }
+                if (GUILayout.Button("0.4f"))
+                {
+                    AddItem(wavesEditor, 0.4f);
+                }
+                if (GUILayout.Button("0.5f"))
+                {
+                    AddItem(wavesEditor, 0.5f);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                if (GUILayout.Button("0.6f"))
+                {
+                    AddItem(wavesEditor, 0.6f);
+                }
+                if (GUILayout.Button("0.7f"))
+                {
+                    AddItem(wavesEditor, 0.7f);
+                }
+                if (GUILayout.Button("0.8f"))
+                {
+                    AddItem(wavesEditor, 0.8f);
+                }
+                if (GUILayout.Button("0.9f"))
+                {
+                    AddItem(wavesEditor, 0.9f);
+                }
+                if (GUILayout.Button("1.0f"))
+                {
+                    AddItem(wavesEditor, 1.0f);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
     }
 
     private static Texture2D TeaxtureForSpwanItem(eSpwanedColorType spwanedItemColorType, WavesEditor wavesEditor)
@@ -303,5 +395,37 @@ public static class WavesEditorPropertiesPanel  {
         }
 
         return texture;
+    }
+
+    private static void AddItem(WavesEditor wavesEditor, eSpwanedColorType spwnaedItemType)
+    {
+        if (wavesEditor._currentWave != null)
+        {
+            if (wavesEditor._currentWave.SpawnedItems == null)
+            {
+                wavesEditor._currentWave.SpawnedItems = new List<SpawnedItemDataObject>();
+            }
+
+            SpawnedItemDataObject newItem = new SpawnedItemDataObject();
+            newItem.SpwanedColor = spwnaedItemType;
+            newItem.ForceVector = new Vector2(0, 144);
+
+            wavesEditor._currentWave.SpawnedItems.Add(newItem);
+        }
+    }
+
+    private static void AddItem(WavesEditor wavesEditor, float delay)
+    {
+        if (wavesEditor._currentSequance != null)
+        {
+            if (wavesEditor._currentSequance.Waves == null)
+            {
+                wavesEditor._currentSequance.Waves = new List<WaveDataObject>();
+            }
+
+            WaveDataObject newWave = new WaveDataObject();
+            newWave.Delay = delay;
+            wavesEditor._currentSequance.Waves.Add(newWave);
+        }
     }
 }

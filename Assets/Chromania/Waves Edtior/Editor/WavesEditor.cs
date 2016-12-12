@@ -56,6 +56,7 @@ public class WavesEditor : ExtendedEditorWindow
     void OnEnable()
     {
         LoadTextures();
+        LoadWavesdata();
     }
 
     void OnGUI()
@@ -109,6 +110,11 @@ public class WavesEditor : ExtendedEditorWindow
         }
         EditorGUILayout.EndVertical();
 
+        if (_wavesData != null)
+        {
+            EditorUtility.SetDirty(_wavesData);
+            
+        }
     }
 
     #region Draw Panels
@@ -122,26 +128,11 @@ public class WavesEditor : ExtendedEditorWindow
         {
             panelColor.a = 0.5f;
             GUI.backgroundColor = panelColor;
-            if (GUILayout.Button(_leftBottomTexture, GUILayout.Height(rect.height)))
+            if (GUILayout.Button("▶", GUILayout.Height(rect.height)))
             {
-                AddNewSpwanItem(eSpwanedColorType.BottomLeft);
+                PlayTestCurrentWave();
             }
-            if (GUILayout.Button(_leftTopTexture, GUILayout.Height(rect.height)))
-            {
-                AddNewSpwanItem(eSpwanedColorType.TopLeft);
-            }
-            if (GUILayout.Button(_rightBottomTexture, GUILayout.Height(rect.height)))
-            {
-                AddNewSpwanItem(eSpwanedColorType.BottomRight);
-            }
-            if (GUILayout.Button(_rightTopTexture, GUILayout.Height(rect.height)))
-            {
-                AddNewSpwanItem(eSpwanedColorType.TopRight);
-            }
-            if (GUILayout.Button(_randomTexture, GUILayout.Height(rect.height)))
-            {
-                AddNewSpwanItem(eSpwanedColorType.RandomCorner);
-            }
+           
             GUI.backgroundColor = Color.white;
         }
         EditorGUILayout.EndHorizontal();
@@ -179,7 +170,7 @@ public class WavesEditor : ExtendedEditorWindow
 
                     _sequancesList.drawElementCallback = (Rect cellRect, int index, bool isActive, bool isFocused) => {
 
-                        if (_sequances[index] != null && _sequances[index].Identifier != null)
+                        if (_sequances != null && _sequances[index] != null && _sequances[index].Identifier != null)
                         {
                             GUI.Label(cellRect, _sequances[index].Identifier);
                         }
@@ -306,6 +297,12 @@ public class WavesEditor : ExtendedEditorWindow
         {
             Debug.LogError("ERROR - Could not find WavesData file");
         }
+    }
+
+    private void PlayTestCurrentWave()
+    {
+        EditorApplication.OpenScene("Assets/Chromania/Scenes/GameplayScene.unity");
+        EditorApplication.isPlaying = true;
     }
 
     #endregion
