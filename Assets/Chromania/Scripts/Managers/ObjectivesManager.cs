@@ -61,11 +61,14 @@ public class ObjectivesManager : Kobapps.Singleton<ObjectivesManager> {
 
     public void GameStarted()
     {
-        foreach (ObjectiveProgress objectiveProgress in _activeObjecties)
+        if (_activeObjecties != null)
         {
-            if (objectiveProgress.Objective.ResetAtGameStart)
+            foreach (ObjectiveProgress objectiveProgress in _activeObjecties)
             {
-                objectiveProgress.Progress = 0;
+                if (objectiveProgress.Objective.ResetAtGameStart)
+                {
+                    objectiveProgress.Progress = 0;
+                }
             }
         }
     }

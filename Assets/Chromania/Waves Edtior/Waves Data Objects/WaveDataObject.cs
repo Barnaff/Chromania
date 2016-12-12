@@ -5,8 +5,8 @@ using System.Collections.Generic;
 [System.Serializable]
 public class WaveDataObject  {
 
-    public bool Enabled;
-    public float Delay;
+    public bool Enabled = true;
+    public float Delay = 0;
     public List<SpawnedItemDataObject> SpawnedItems;
 
  

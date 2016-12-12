@@ -6,10 +6,10 @@ using System.Collections.Generic;
 public class SequanceDataObject {
 
     public string Identifier;
-    public int MinLevel;
-    public int MaxLevel;
-    public float LevelModifier;
-    public bool Enabled;
+    public int MinLevel = 0;
+    public int MaxLevel = 0;
+    public float LevelModifier = 0.98f;
+    public bool Enabled = true;
     public eGameplayMode GameMode;
     public List<WaveDataObject> Waves;
 
