@@ -100,6 +100,8 @@ public class ObjectivesPopupController : PopupBaseController {
                 if (objectiveProgress.IsCompleted)
                 {
                     yield return Timing.WaitUntilDone(Timing.RunCoroutine(_objectiveCells[i].CompleteObjective()));
+
+                    InventoryManager.Instance.AddInventoryItem(_objectiveCells[i].ObjectiveProgress.Objective.Reword);
                 }
             }
         }

@@ -24,6 +24,9 @@ public class ObjectivePopupObjectiveCellController : MonoBehaviour {
     private Image _progressBarImage;
 
     [SerializeField]
+    private Text _rewordAmountLabel;
+
+    [SerializeField]
     private ObjectiveProgress _objectiveProgress;
 
     private float _currentProgress;
@@ -51,6 +54,8 @@ public class ObjectivePopupObjectiveCellController : MonoBehaviour {
         _progressLabel.text = _currentProgress + "/" + _objectiveProgress.TargetValue();
 
         _progressBarImage.fillAmount = _currentProgressValue;
+
+        _rewordAmountLabel.text = objectiveProgress.Objective.Reword.Amount.ToString() + "C";
     }
 
     public ObjectiveProgress ObjectiveProgress

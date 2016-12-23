@@ -312,4 +312,5 @@ public static class ObjectiveProgressExtension
 
         return objectiveProgress.IsCompleted;
     }
+
 }

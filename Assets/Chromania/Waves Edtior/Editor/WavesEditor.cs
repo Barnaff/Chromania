@@ -128,11 +128,16 @@ public class WavesEditor : ExtendedEditorWindow
         {
             panelColor.a = 0.5f;
             GUI.backgroundColor = panelColor;
-            if (GUILayout.Button("▶", GUILayout.Height(rect.height)))
+            if (GUILayout.Button("Play Current ▶", GUILayout.Height(rect.height)))
             {
                 PlayTestCurrentWave();
             }
-           
+
+            if (GUILayout.Button("Play Selected ▶", GUILayout.Height(rect.height)))
+            {
+                PlayTestSelecte();
+            }
+
             GUI.backgroundColor = Color.white;
         }
         EditorGUILayout.EndHorizontal();
@@ -140,8 +145,9 @@ public class WavesEditor : ExtendedEditorWindow
 
     private void DrawSequancesList(Rect rect)
     {
-        Color panelColor = new Color(0.2f, 0.2f, 0.4f); ;
-        EditorGUI.DrawRect(new Rect(0, 0, rect.width, rect.height), panelColor);
+        //Color panelColor = new Color(0.2f, 0.2f, 0.4f); ;
+       // EditorGUI.DrawRect(new Rect(0, 0, rect.width, rect.height), panelColor);
+
 
         EditorGUILayout.BeginVertical();
         {
@@ -155,6 +161,33 @@ public class WavesEditor : ExtendedEditorWindow
 
             }
 
+            if (GUILayout.Button("Merge JSON file"))
+            {
+                MergeJsonFile();
+            }
+
+            _wavesData = (WavesData)EditorGUILayout.ObjectField(_wavesData, typeof(WavesData));
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                if (GUILayout.Button("Select All"))
+                {
+                    foreach (SequanceDataObject sequance in _sequances)
+                    {
+                        sequance.Selected = true;
+                    }
+                }
+
+                if (GUILayout.Button("Deselect All"))
+                {
+                    foreach (SequanceDataObject sequance in _sequances)
+                    {
+                        sequance.Selected = false;
+                    }
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
             _sequancesListScrollPosition = EditorGUILayout.BeginScrollView(_sequancesListScrollPosition);
             {
                 if (_sequances == null)
@@ -162,8 +195,8 @@ public class WavesEditor : ExtendedEditorWindow
                     _sequances = new List<SequanceDataObject>();
                 }
 
-                panelColor.a = 0.5f;
-                GUI.backgroundColor = panelColor;
+                //panelColor.a = 0.5f;
+                //GUI.backgroundColor = panelColor;
                 if (_sequancesList == null)
                 {
                     _sequancesList = new ReorderableList(_sequances, typeof(SequanceDataObject), true, false, true, true);
@@ -172,7 +205,9 @@ public class WavesEditor : ExtendedEditorWindow
 
                         if (_sequances != null && _sequances[index] != null && _sequances[index].Identifier != null)
                         {
-                            GUI.Label(cellRect, _sequances[index].Identifier);
+                            GUI.Label(cellRect, "[" + _sequances[index].MinLevel + "-" + _sequances[index].MaxLevel + "] " +  _sequances[index].Identifier);
+
+                            _sequances[index].Selected = GUI.Toggle(new Rect(cellRect.width - 20, cellRect.y, 20, 20), _sequances[index].Selected, "");
                         }
                         
                     };
@@ -262,18 +297,6 @@ public class WavesEditor : ExtendedEditorWindow
     {
         LoadWavesdata();
         return;
-
-        TextAsset textAsset = Resources.Load("ChromaniaWavesData") as TextAsset;
-
-        JSONObject j = new JSONObject(textAsset.text);
-        JSONObject waves = j["wavesArray"];
-       // _sequances = new List<WaveDefenition>();
-        for (int i = 0; i < waves.Count; i++)
-        {
-            JSONObject waveData = waves[i];
-            WaveDefenition wave = new WaveDefenition(waveData);
-           // _sequances.Add(wave);
-        }
     }
 
     private void LoadTextures()
@@ -301,8 +324,135 @@ public class WavesEditor : ExtendedEditorWindow
 
     private void PlayTestCurrentWave()
     {
+
         EditorApplication.OpenScene("Assets/Chromania/Scenes/GameplayScene.unity");
         EditorApplication.isPlaying = true;
+
+        SpwanerController spwanerController = GameObject.FindObjectOfType<SpwanerController>();
+        if (spwanerController != null && _currentSequance != null)
+        {
+            List<SequanceDataObject> sequances = new List<SequanceDataObject>();
+            sequances.Add(_currentSequance);
+            spwanerController.PlaySequanceForEditMode(sequances);
+        }
+    }
+
+    private void PlayTestSelecte()
+    {
+        EditorApplication.playmodeStateChanged += HandlePlayTestSelected;
+    
+        EditorApplication.OpenScene("Assets/Chromania/Scenes/GameplayScene.unity");
+        EditorApplication.isPlaying = true;
+
+      
+    }
+
+    private void HandlePlayTestSelected()
+    {
+        SpwanerController spwanerController = GameObject.FindObjectOfType<SpwanerController>();
+        if (spwanerController != null)
+        {
+            List<SequanceDataObject> sequances = new List<SequanceDataObject>();
+            foreach (SequanceDataObject sequance in _sequances)
+            {
+                if (sequance.Selected)
+                {
+                    sequances.Add(sequance);
+                }
+            }
+
+           
+
+            spwanerController.OnSequancesLoaded += () =>
+            {
+                Debug.Log(">>>>>>>>>>>>>>>>>> override sequances for editor");
+                spwanerController.PlaySequanceForEditMode(sequances);
+            };
+            Debug.Log("override sequances for editor");
+        }
+    }
+
+    private void MergeJsonFile()
+    {
+        TextAsset textAsset = Resources.Load("ChromaniaWavesData") as TextAsset;
+
+        JSONObject j = new JSONObject(textAsset.text);
+        JSONObject waves = j["wavesArray"];
+        List<WaveDefenition> JSONWaves = new List<WaveDefenition>();
+        for (int i = 0; i < waves.Count; i++)
+        {
+            JSONObject waveData = waves[i];
+            WaveDefenition wave = new WaveDefenition(waveData);
+            JSONWaves.Add(wave);
+        }
+
+
+        foreach (WaveDefenition JSONWave in JSONWaves)
+        {
+            SequanceDataObject newSequance = new SequanceDataObject();
+
+            newSequance.Identifier = "sequance." + JSONWave.ID;
+            newSequance.MinLevel = JSONWave.MinLevel;
+            newSequance.MaxLevel = JSONWave.MaxLevel;
+            newSequance.GameMode = JSONWave.GameMode;
+            newSequance.LevelModifier = JSONWave.LevelModier;
+            newSequance.Enabled = true;
+
+            if (JSONWave.StartDelay > 0)
+            {
+                WaveDataObject delayWave = new WaveDataObject();
+                delayWave.Delay = JSONWave.StartDelay;
+                delayWave.Enabled = true;
+                newSequance.Waves.Add(delayWave);
+            }
+
+            foreach (SequanceDefenition JSONSequance in JSONWave.SequanceList)
+            {
+                if (JSONSequance.StartInterval > 0)
+                {
+                    WaveDataObject delayWave = new WaveDataObject();
+                    delayWave.Delay = JSONSequance.StartInterval;
+                    delayWave.Enabled = true;
+                    newSequance.Waves.Add(delayWave);
+                }
+
+                WaveDataObject newWave = new WaveDataObject();
+                
+                foreach (SpwanedItemDefenition JSONSpwanItem in JSONSequance.SpwanItemList)
+                {
+                    SpawnedItemDataObject newSpwanItem = new SpawnedItemDataObject();
+
+                    newSpwanItem.SpwanedColor = JSONSpwanItem.SpwanedColor;
+                    newSpwanItem.ForceVector = JSONSpwanItem.ForceVector;
+                    newSpwanItem.XPosition = JSONSpwanItem.XPosition;
+
+                    newWave.SpawnedItems.Add(newSpwanItem);
+                }
+
+                if (newWave.SpawnedItems.Count > 0)
+                {
+                    newSequance.Waves.Add(newWave);
+                }
+
+                if (JSONSequance.EndInterval > 0)
+                {
+                    WaveDataObject delayWave = new WaveDataObject();
+                    delayWave.Delay = JSONSequance.EndInterval;
+                    delayWave.Enabled = true;
+                    newSequance.Waves.Add(delayWave);
+                }
+            }
+
+            if (JSONWave.EndDelay > 0)
+            {
+                WaveDataObject delayWave = new WaveDataObject();
+                delayWave.Delay = JSONWave.EndDelay;
+                delayWave.Enabled = true;
+                newSequance.Waves.Add(delayWave);
+            }
+
+            _sequances.Add(newSequance);
+        }
     }
 
     #endregion

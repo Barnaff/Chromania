@@ -1,5 +1,5 @@
 {
-    "version":"0.1.4",
+    "version":"0.1.6",
     "plugin": {
 	"version":"1.2.2",
 	"manifest":"Fabric/Manifest",
@@ -11,11 +11,11 @@
 	"kits":[
 	    {
 		"name":"Crashlytics",
-		"version":"1.2.0",
-		"packageUrl":"https://fabric.io/unity-fabric/crashlytics/1.2.0/Crashlytics.unitypackage",
+		"version":"1.2.1",
+		"packageUrl":"https://fabric.io/unity-fabric/crashlytics/1.2.1/Crashlytics.unitypackage",
 		"packageName":"Crashlytics.unitypackage",
 		"manifest":"Fabric/Kits/Crashlytics/Manifest",
-		"releaseNotesUrl":"https://fabric.io/unity-fabric/crashlytics/1.2.0/Crashlytics.releasenotes",
+		"releaseNotesUrl":"https://fabric.io/unity-fabric/crashlytics/1.2.1/Crashlytics.releasenotes",
 		"dependsOn":[
 				"Crashlytics-Android",
 				"Crashlytics-iOS",
@@ -26,11 +26,11 @@
 	    },
 	    {
 		"name":"Twitter",
-		"version":"2.0.0",
-		"packageUrl":"https://fabric.io/unity-fabric/twitter/2.0.0/Twitter.unitypackage",
+		"version":"2.0.1",
+		"packageUrl":"https://fabric.io/unity-fabric/twitter/2.0.1/Twitter.unitypackage",
 		"packageName":"Twitter.unitypackage",
 		"manifest":"Fabric/Kits/Twitter/Manifest",
-		"releaseNotesUrl":"https://fabric.io/unity-fabric/twitter/2.0.0/Twitter.releasenotes",
+		"releaseNotesUrl":"https://fabric.io/unity-fabric/twitter/2.0.1/Twitter.releasenotes",
 		"dependsOn":[
 				"Tweet-Composer-Android",
 				"TwitterKit-Wrapper-Android",
@@ -41,18 +41,20 @@
 	    },
 		{
 		"name":"MoPub",
-		"version":"2.0.0",
-		"packageUrl":"https://fabric.io/unity-fabric/mopub/2.0.0/MoPub.unitypackage",
+		"version":"2.0.1",
+		"packageUrl":"https://fabric.io/unity-fabric/mopub/2.0.1/MoPub.unitypackage",
 		"packageName":"MoPub.unitypackage",
 		"manifest":"Fabric/Kits/MoPub/Manifest",
-		"releaseNotesUrl":"https://fabric.io/unity-fabric/mopub/2.0.0/MoPub.releasenotes",
+		"releaseNotesUrl":"https://fabric.io/unity-fabric/mopub/2.0.1/MoPub.releasenotes",
 		"dependsOn":[
 				"Android-Support-RecyclerView-v7",
 				"Android-Support-v4",
 				"MoPub-Android",
 				"MoPub-Sdk-Android",
 				"MoPub-Volley-Android",
-				"MoPub-Fabric-Bridge-Android"
+				"MoPub-Fabric-Bridge-Android",
+				"MoPub-iOS",
+				"MoPub-Sdk-iOS"
 		],
 		"minimumPluginVersion":"1.2.1"
 		}
@@ -75,7 +77,7 @@
 	    },
 		{
 		"name":"Fabric-iOS",
-		"version":"1.6.8",
+		"version":"1.6.11",
 		"dependsOn":[]
 	    },
 		{
@@ -89,7 +91,7 @@
 		},
 		{
 		"name":"Crashlytics-iOS",
-		"version":"3.8.1",
+		"version":"3.8.3",
 		"dependsOn":[]
 		},
 		{
@@ -206,12 +208,22 @@
 		},
 		{
 		"name":"MoPub-Android",
-		"version":"4.6.0",
+		"version":"4.11.0",
 		"dependsOn":[]
 		},
 		{
 		"name":"MoPub-Sdk-Android",
-		"version":"4.6.0",
+		"version":"4.11.0",
+		"dependsOn":[]
+		},
+		{
+		"name":"MoPub-iOS",
+		"version":"4.11.1",
+		"dependsOn":[]
+		},
+		{
+		"name":"MoPub-Sdk-iOS",
+		"version":"4.11.1",
 		"dependsOn":[]
 		},
 		{

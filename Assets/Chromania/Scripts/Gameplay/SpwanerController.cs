@@ -25,7 +25,7 @@ public class SpwanerController : MonoBehaviour {
     [SerializeField]
     private bool _isPaued;
 
-    private List<SequanceDataObject> _loadedSequances;
+    private List<SequanceDataObject> _loadedSequances = null;
 
     private List<SequanceDataObject> _usedSequances = new List<SequanceDataObject>();
 
@@ -48,6 +48,7 @@ public class SpwanerController : MonoBehaviour {
 
 #if UNITY_EDITOR
 
+
     public void SetWavesDataForEditMode(WavesData wavesData)
     {
         _wavesData = wavesData;
@@ -55,13 +56,32 @@ public class SpwanerController : MonoBehaviour {
 
     private SequanceDataObject _sequanceDataObjectForEditor;
 
-    public void PlaySequanceForEditMode(SequanceDataObject sequance)
+    public void PlaySequanceForEditMode(List<SequanceDataObject> sequance)
     {
-        _sequanceDataObjectForEditor = sequance;
+        _loadedSequances = sequance;
     }
+
+    public delegate void SequancesLoadedDelegate();
+
+    public event SequancesLoadedDelegate OnSequancesLoaded;
 
 #endif
 
+
+    #region Initialization
+
+    void Start()
+    {
+        GameplayEventsDispatcher.Instance.OnChromieCollected += OnChromieCollectedHandler;
+        GameplayEventsDispatcher.Instance.OnChromieDropped += ChromieDroppedHandler;
+        GameplayEventsDispatcher.Instance.OnLevelUpdate += OnLevelUpdateHandler;
+        GameplayEventsDispatcher.Instance.OnGameOver += OnGameOverHandelr;
+        GameplayEventsDispatcher.Instance.OnKeepPlaying += OnKeepPlayingHandler;
+        _isPaued = true;
+    }
+
+
+    #endregion
 
     #region Spwaning
 
@@ -132,7 +152,18 @@ public class SpwanerController : MonoBehaviour {
 
     public void Init(eGameplayMode gameMode, List<ChromieDefenition> selectedColors)
     {
-        _loadedSequances = _wavesData.SequancesList;
+        if (_loadedSequances == null)
+        {
+            _loadedSequances = _wavesData.SequancesList;
+            Debug.Log("loaded sequance list");
+
+#if UNITY_EDITOR
+            if (OnSequancesLoaded != null)
+            {
+                OnSequancesLoaded();
+            }
+#endif
+        }
 
         _spwanBasePosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, 0, 10));
 
@@ -315,6 +346,41 @@ public class SpwanerController : MonoBehaviour {
         }
 
         return avalableSequances;
+    }
+
+    #endregion
+
+
+    #region Events
+
+    public void OnChromieCollectedHandler(ChromieController chromieController, ColorZoneController colorZone)
+    {
+        GameplayEventsDispatcher.SendChromieDeSpwaned(chromieController);
+        Lean.LeanPool.Despawn(chromieController.gameObject);
+    }
+
+    private void ChromieDroppedHandler(ChromieController chromieController)
+    {
+        GameplayEventsDispatcher.SendChromieDeSpwaned(chromieController);
+        Lean.LeanPool.Despawn(chromieController.gameObject);
+    }
+
+    private void OnLevelUpdateHandler(int newLevel)
+    {
+        _currentLevel = newLevel;
+    }
+
+    private void OnGameOverHandelr()
+    {
+        Paused = true;
+    }
+
+    private void OnKeepPlayingHandler()
+    {
+        _currentWave = null;
+        _currentSequance = null;
+
+        Paused = false;
     }
 
     #endregion

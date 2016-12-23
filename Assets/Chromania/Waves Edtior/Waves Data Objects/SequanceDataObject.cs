@@ -13,6 +13,10 @@ public class SequanceDataObject {
     public eGameplayMode GameMode;
     public List<WaveDataObject> Waves;
 
+#if UNITY_EDITOR
+    public bool Selected = false;
+#endif
+
     public SequanceDataObject()
     {
         Waves = new List<WaveDataObject>();

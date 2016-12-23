@@ -35,8 +35,17 @@ public class CurrencyDisplayController : MonoBehaviour {
     {
         if (_currencyLabel != null)
         {
-            _currencyLabel.text = InventoryManager.Instance.Currency.ToString() + " Coins";
+            _currencyLabel.text = InventoryManager.Instance.Currency.ToString();
         }
+    }
+
+    #endregion
+
+    #region Public
+
+    public void OpenShopButtonAction()
+    {
+        PopupsManager.Instance.DisplayPopup<CurrencyShopPopupController>();
     }
 
     #endregion
