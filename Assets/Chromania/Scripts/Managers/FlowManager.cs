@@ -88,4 +88,15 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
 
         }, Kobapps.eSceneTransition.FadeOutFadeIn);
     }
+
+    public void GameplayTutorial()
+    {
+        Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.GameplayTutorialScene, () =>
+        {
+            Kobapps.SceneLoaderutil.LoadSceneAddativeAsync(GeneratedConstants.Scenes.GameplayScene, () =>
+            {
+
+            }, Kobapps.eSceneTransition.None);
+        }, Kobapps.eSceneTransition.FadeOutFadeIn);
+    }
 }

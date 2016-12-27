@@ -12,9 +12,10 @@ namespace Kobapps
 
     public class SceneLoaderutil 
     {
-        public static void LoadSceneAsync(string scenename, System.Action sceneLoadedAction, eSceneTransition sceneTransition = eSceneTransition.None)
+     
+        public static void LoadSceneAsync(string sceneName, System.Action sceneLoadedAction, eSceneTransition sceneTransition = eSceneTransition.None)
         {
-            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == scenename)
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == sceneName)
             {
                 if (sceneLoadedAction != null)
                 {
@@ -23,7 +24,7 @@ namespace Kobapps
             }
             else
             {
-                CreateSceneLoaderController().LoadSceneAsync(scenename, sceneLoadedAction, sceneTransition);
+                CreateSceneLoaderController().LoadSceneAsync(sceneName, sceneLoadedAction, sceneTransition);
             }
         }
 
@@ -40,6 +41,36 @@ namespace Kobapps
             {
                 CreateSceneLoaderController().LoadSceneAsync(sceneBuildIndex, sceneLoadedAction, sceneTransition);
             }  
+        }
+
+        public static void LoadSceneAddativeAsync(string sceneName, System.Action sceneLoadedAction, eSceneTransition sceneTransition = eSceneTransition.None)
+        {
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == sceneName)
+            {
+                if (sceneLoadedAction != null)
+                {
+                    sceneLoadedAction();
+                }
+            }
+            else
+            {
+                CreateSceneLoaderController().LoadSceneAddativeAsync(sceneName, sceneLoadedAction, sceneTransition);
+            }
+        }
+
+        public static void LoadSceneAddativeAsync(int sceneBuildIndex, System.Action sceneLoadedAction, eSceneTransition sceneTransition = eSceneTransition.None)
+        {
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == sceneBuildIndex)
+            {
+                if (sceneLoadedAction != null)
+                {
+                    sceneLoadedAction();
+                }
+            }
+            else
+            {
+                CreateSceneLoaderController().LoadSceneAddativeAsync(sceneBuildIndex, sceneLoadedAction, sceneTransition);
+            }
         }
 
         public static void ReloadCurrentScene(System.Action sceneLoadedAction, eSceneTransition sceneTransition = eSceneTransition.None)
@@ -69,15 +100,26 @@ namespace Kobapps
         public void LoadSceneAsync(string sceneName, System.Action sceneLoadedAction, eSceneTransition sceneTransition)
         {
             int sceneBuildIndex = UnityEngine.SceneManagement.SceneManager.GetSceneByName(sceneName).buildIndex;
-            StartCoroutine(LoadSceenCorutine(sceneBuildIndex, sceneTransition, sceneLoadedAction));
+            StartCoroutine(LoadSceenCorutine(sceneBuildIndex, false, sceneTransition, sceneLoadedAction));
         }
 
         public void LoadSceneAsync(int sceneBuildIndex, System.Action sceneLoadedAction, eSceneTransition sceneTransition)
         {
-            StartCoroutine(LoadSceenCorutine(sceneBuildIndex, sceneTransition, sceneLoadedAction));
+            StartCoroutine(LoadSceenCorutine(sceneBuildIndex, false, sceneTransition, sceneLoadedAction));
         }
 
-        private IEnumerator LoadSceenCorutine(int sceneBuildIndex, eSceneTransition sceneTransition, System.Action completionAction)
+        public void LoadSceneAddativeAsync(string sceneName, System.Action sceneLoadedAction, eSceneTransition sceneTransition)
+        {
+            int sceneBuildIndex = UnityEngine.SceneManagement.SceneManager.GetSceneByName(sceneName).buildIndex;
+            StartCoroutine(LoadSceenCorutine(sceneBuildIndex, true, sceneTransition, sceneLoadedAction));
+        }
+
+        public void LoadSceneAddativeAsync(int sceneBuildIndex, System.Action sceneLoadedAction, eSceneTransition sceneTransition)
+        {
+            StartCoroutine(LoadSceenCorutine(sceneBuildIndex, true, sceneTransition, sceneLoadedAction));
+        }
+
+        private IEnumerator LoadSceenCorutine(int sceneBuildIndex, bool isAddative, eSceneTransition sceneTransition, System.Action completionAction)
         {
             switch (sceneTransition)
             {
@@ -96,7 +138,13 @@ namespace Kobapps
                     }
             }
 
-            AsyncOperation sceneLoadOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneBuildIndex);
+            UnityEngine.SceneManagement.LoadSceneMode loadSceneMode = UnityEngine.SceneManagement.LoadSceneMode.Single;
+            if (isAddative)
+            {
+                loadSceneMode = UnityEngine.SceneManagement.LoadSceneMode.Additive;
+            }
+
+            AsyncOperation sceneLoadOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneBuildIndex, loadSceneMode);
 
             while (sceneLoadOperation != null && !sceneLoadOperation.isDone)
             {

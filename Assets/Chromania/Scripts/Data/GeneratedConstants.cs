@@ -137,6 +137,10 @@ namespace GeneratedConstants
         /// </summary>
         public const int ShopScene = 3;
         /// <summary>
+        /// ID of scene 'GameplayTutorialScene'.
+        /// </summary>
+        public const int GameplayTutorialScene = 4;
+        /// <summary>
         /// Name of scene 'LoaderScene'.
         /// </summary>
         public const string LoaderSceneName = "LoaderScene";
@@ -152,6 +156,10 @@ namespace GeneratedConstants
         /// Name of scene 'ShopScene'.
         /// </summary>
         public const string ShopSceneName = "ShopScene";
+        /// <summary>
+        /// Name of scene 'GameplayTutorialScene'.
+        /// </summary>
+        public const string GameplayTutorialSceneName = "GameplayTutorialScene";
     }
 
     public static class SortingLayers

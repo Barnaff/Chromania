@@ -26,7 +26,14 @@ public class MainMenuScreenController : MenuScreenBaseController {
 
     public void PlayButtonAction()
     {
-        FlowManager.Instance.MainMenuPlay();
+        if (AccountManager.Instance.TutorialEnabled)
+        {
+            FlowManager.Instance.GameplayTutorial();
+        }
+        else
+        {
+            FlowManager.Instance.MainMenuPlay();
+        }
     }
 
     public void SettingsButtonAction()

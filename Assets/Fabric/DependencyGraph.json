@@ -1,11 +1,11 @@
 {
-    "version":"0.1.6",
+    "version":"0.1.7",
     "plugin": {
-	"version":"1.2.2",
+	"version":"1.2.3",
 	"manifest":"Fabric/Manifest",
-	"packageUrl":"https://fabric.io/unity-fabric/fabric/1.2.2/Fabric.unitypackage",
+	"packageUrl":"https://fabric.io/unity-fabric/fabric/1.2.3/Fabric.unitypackage",
 	"packageName":"Fabric.unitypackage",
-	"releaseNotesUrl":"https://fabric.io/unity-fabric/fabric/1.2.2/Fabric.releasenotes"
+	"releaseNotesUrl":"https://fabric.io/unity-fabric/fabric/1.2.3/Fabric.releasenotes"
     },
     "dependencies": {
 	"kits":[

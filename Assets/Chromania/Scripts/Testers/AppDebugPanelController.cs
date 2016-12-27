@@ -9,6 +9,9 @@ public class AppDebugPanelController : MonoBehaviour {
     [SerializeField]
     private Text _currencyLabel;
 
+    [SerializeField]
+    private Toggle _tutorialEnabledToggle;
+
     #endregion
 
 
@@ -17,8 +20,9 @@ public class AppDebugPanelController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
         this.gameObject.SetActive(false);
+
+       
     }
 
     #endregion
@@ -41,6 +45,11 @@ public class AppDebugPanelController : MonoBehaviour {
     {
         Debug.Log("show debug");
         this.gameObject.SetActive(true);
+
+        if (_tutorialEnabledToggle != null)
+        {
+            _tutorialEnabledToggle.isOn = AccountManager.Instance.TutorialEnabled;
+        }
     }
 
     public void Hide()
@@ -93,6 +102,16 @@ public class AppDebugPanelController : MonoBehaviour {
     public void ResetInventoryButtonAction()
     {
         InventoryManager.Instance.ClearInventory();
+    }
+
+    #endregion
+
+
+    #region Tutorial Debug
+
+    public void TutorialToggleChnagedAction()
+    {
+        AccountManager.Instance.TutorialEnabled = _tutorialEnabledToggle.isOn;
     }
 
     #endregion
