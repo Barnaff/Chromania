@@ -164,15 +164,18 @@ public class GameSetupManager : Kobapps.Singleton<GameSetupManager> {
 
     public bool TryRemoveSelection(ChromieDefenition chromieDefenition)
     {
-        for (int i = 0; i < _selectedChromiez.Count; i++)
+        if (chromieDefenition != null)
         {
-            if (_selectedChromiez[i] != null && _selectedChromiez[i].ChromieColor == chromieDefenition.ChromieColor)
+            for (int i = 0; i < _selectedChromiez.Count; i++)
             {
-                _selectedChromiez[i] = null;
-                SaveSettings();
-                return true;
-            }
+                if (_selectedChromiez[i] != null && _selectedChromiez[i].ChromieColor == chromieDefenition.ChromieColor)
+                {
+                    _selectedChromiez[i] = null;
+                    SaveSettings();
+                    return true;
+                }
 
+            }
         }
         return false;
     }

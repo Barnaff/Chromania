@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ChromieSelectionItemCellController : MonoBehaviour {
 
@@ -20,6 +21,9 @@ public class ChromieSelectionItemCellController : MonoBehaviour {
 
     [SerializeField]
     private GameObject _lockOverlay;
+
+    [SerializeField]
+    private GameObject _selectedIndicator;
 
     [SerializeField]
     private bool _isSelected;
@@ -52,6 +56,8 @@ public class ChromieSelectionItemCellController : MonoBehaviour {
         {
             _lockOverlay.SetActive(true);
         }
+
+        _selectedIndicator.SetActive(isSelected);
     }
 
     public ChromieDefenition ChromieDefenition
@@ -67,6 +73,8 @@ public class ChromieSelectionItemCellController : MonoBehaviour {
         set
         {
             _isSelected = value;
+            _selectedIndicator.SetActive(_isSelected);
+            DisplaySelectedAnimation(_isSelected);
         }
         get
         {
@@ -84,6 +92,22 @@ public class ChromieSelectionItemCellController : MonoBehaviour {
         if (OnItemCellSelected != null)
         {
             OnItemCellSelected(this);
+        }
+    }
+
+    #endregion
+
+    #region Private 
+
+    private void DisplaySelectedAnimation(bool selected)
+    {
+        if (selected)
+        {
+            _chromieImage.transform.DOScale(0, 0.3f).SetEase(Ease.OutCirc);
+        } 
+        else
+        {
+            _chromieImage.transform.DOScale(1, 0.5f).SetEase(Ease.OutElastic);
         }
     }
 

@@ -16,6 +16,9 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
     [SerializeField]
     private List<ChromieSelectionSelectedCellController> _selctionsCellsList;
 
+    [SerializeField]
+    private List<ChromieSelectionItemCellController> _inventoryItemsCells;
+
     [Header("Info Panel")]
     [SerializeField]
     private Text _chromieInfoLabel;
@@ -95,6 +98,12 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
             ChromieSelectionSelectedCellController selectionCell = _selctionsCellsList[i];
             selectionCell.SetSelection(GameSetupManager.Instance.SelectedChromiez[i]);
         }
+
+        foreach (ChromieSelectionItemCellController cellController in _inventoryItemsCells)
+        {
+            cellController.Selected = GameSetupManager.Instance.SelectedChromiez.Contains(cellController.ChromieDefenition);
+        }
+        
     }
 
     private void PopulateInventoryList()
@@ -107,6 +116,7 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
             }
         }
 
+        _inventoryItemsCells = new List<ChromieSelectionItemCellController>();
         List<ChromieDefenition> chromiez = ChromezData.Instance.Chromiez;
         foreach (ChromieDefenition chromieDefenition in chromiez)
         {
@@ -116,6 +126,7 @@ public class ChromiezSelectionScreenController : MenuScreenBaseController {
                 cellController.SetCell(chromieDefenition, false);
                 cellController.OnItemCellSelected += InventoryCellSelectedHandler;
             }
+            _inventoryItemsCells.Add(cellController);
         }
     }
 
