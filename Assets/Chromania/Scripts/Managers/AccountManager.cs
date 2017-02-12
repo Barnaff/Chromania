@@ -55,6 +55,7 @@ public class AccountManager : Kobapps.Singleton<AccountManager>
                 {
                     failAction();
                 }
+                Debug.LogError(authonticationResponse.Errors.ToString());
             }
             else
             {

@@ -11,6 +11,8 @@
 	#if UNITY_ANDROID && !UNITY_EDITOR
 	internal class AndroidImpl : Impl
 	{
+		private readonly List<IntPtr> references = new List<IntPtr> ();
+
 		private AndroidJavaObject native = null;
 		private AndroidJavaObject Native
 		{
@@ -92,29 +94,48 @@
 
 		public override void RecordCustomException(string name, string reason, string stackTraceString)
 		{
+			references.Clear ();
+
 			// new Exception(message)
 			var exceptionClass = AndroidJNI.FindClass("java/lang/Exception");
 			var exceptionConstructor = AndroidJNI.GetMethodID (exceptionClass, "<init>", "(Ljava/lang/String;)V");
 			var exceptionArgs = new jvalue[1];
+
 			exceptionArgs[0].l = AndroidJNI.NewStringUTF(name + " : " + reason);
+
 			var exceptionObj = AndroidJNI.NewObject (exceptionClass, exceptionConstructor, exceptionArgs);
+
+			references.Add (exceptionArgs [0].l);
+			references.Add (exceptionObj);
 
 			// stackTrace = [StackTraceElement, ...]
 			var stackTraceElClass = AndroidJNI.FindClass ("java/lang/StackTraceElement");
 			var stackTraceElConstructor = AndroidJNI.GetMethodID (stackTraceElClass, "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V");
 			var parsedStackTrace = ParseStackTraceString (stackTraceString);
 			var stackTraceArray = AndroidJNI.NewObjectArray(parsedStackTrace.Length, stackTraceElClass, IntPtr.Zero);
-			for (var i = 0; i < parsedStackTrace.Length; i++) {
-			var frame = parsedStackTrace[i];
 
-			// new StackTraceElement()
-			var stackTraceArgs = new jvalue[4];
-			stackTraceArgs[0].l = AndroidJNI.NewStringUTF(frame["class"]);
-			stackTraceArgs[1].l = AndroidJNI.NewStringUTF(frame["method"]);
-			stackTraceArgs[2].l = AndroidJNI.NewStringUTF(frame["file"]);
-			stackTraceArgs[3].i = Int32.Parse(frame["line"]);
-			var stackTraceEl = AndroidJNI.NewObject (stackTraceElClass, stackTraceElConstructor, stackTraceArgs);
-			AndroidJNI.SetObjectArrayElement(stackTraceArray, i, stackTraceEl);
+			references.Add (stackTraceArray);
+
+			for (var i = 0; i < parsedStackTrace.Length; i++) {
+				var frame = parsedStackTrace[i];
+				// new StackTraceElement()
+				var stackTraceArgs = new jvalue[4];
+
+				stackTraceArgs[0].l = AndroidJNI.NewStringUTF(frame["class"]);
+				stackTraceArgs[1].l = AndroidJNI.NewStringUTF(frame["method"]);
+				stackTraceArgs[2].l = AndroidJNI.NewStringUTF(frame["file"]);
+
+				references.Add (stackTraceArgs [0].l);
+				references.Add (stackTraceArgs [1].l);
+				references.Add (stackTraceArgs [2].l);
+
+				stackTraceArgs[3].i = Int32.Parse(frame["line"]);
+
+				var stackTraceEl = AndroidJNI.NewObject (stackTraceElClass, stackTraceElConstructor, stackTraceArgs);
+
+				references.Add (stackTraceEl);
+
+				AndroidJNI.SetObjectArrayElement(stackTraceArray, i, stackTraceEl);
 			}
 
 			// exception.setStackTrace(stackTraceArray)
@@ -129,6 +150,10 @@
 			var logExceptionArgs = new jvalue[1];
 			logExceptionArgs[0].l = exceptionObj;
 			AndroidJNI.CallStaticVoidMethod (crashClass, logExceptionMethod, logExceptionArgs);
+
+			foreach (IntPtr reference in references) {
+				AndroidJNI.DeleteLocalRef (reference);
+			}
 		}
 
 	}

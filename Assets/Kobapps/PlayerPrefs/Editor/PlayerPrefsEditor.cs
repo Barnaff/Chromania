@@ -289,8 +289,5 @@ namespace Kobapps.Editor
         {
             PlayerPrefsUtil.DeleteKey(fieldName);
         }
-
-
     }
-
 }

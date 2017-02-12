@@ -17,5 +17,7 @@ public class GameplaySettings : Kobapps.ScriptableSingleton<GameplaySettings> {
 
     public float KeepPlayingTImerDuration = 10f;
 
+    public int[] ChromiezIdsForTutorial;
+
     #endregion
 }

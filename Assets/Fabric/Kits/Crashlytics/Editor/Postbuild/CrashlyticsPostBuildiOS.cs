@@ -61,6 +61,9 @@ namespace Fabric.Internal.Crashlytics.Editor.Postbuild
 
 		private static void CheckiOSVersion ()
 		{
+#if UNITY_5_5_OR_NEWER
+			var isOldiOSVersion = new System.Version (PlayerSettings.iOS.targetOSVersionString) < new System.Version ("6.0");
+#else
 			iOSTargetOSVersion[] oldiOSVersions = {
 				iOSTargetOSVersion.iOS_4_0,
 				iOSTargetOSVersion.iOS_4_1,
@@ -70,7 +73,7 @@ namespace Fabric.Internal.Crashlytics.Editor.Postbuild
 				iOSTargetOSVersion.iOS_5_1
 			};
 			var isOldiOSVersion = oldiOSVersions.Contains (PlayerSettings.iOS.targetOSVersion);
-
+#endif
 			if (Enabled () && isOldiOSVersion) {
 				Fabric.Internal.Editor.Utils.Error (
 					"{0} requires iOS 6+. Please change the Target iOS Version in Player Settings to iOS 6 or higher.",

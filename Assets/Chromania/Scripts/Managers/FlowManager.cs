@@ -91,6 +91,8 @@ public class FlowManager : Kobapps.Singleton<FlowManager> {
 
     public void GameplayTutorial()
     {
+        GameSetupManager.Instance.SelectedPlayMode = eGameplayMode.Tutorial;
+        GameSetupManager.Instance.SelectedChromiez = ChromezData.Instance.ChromiezForIds(GameplaySettings.Instance.ChromiezIdsForTutorial);
         Kobapps.SceneLoaderutil.LoadSceneAsync(GeneratedConstants.Scenes.GameplayTutorialScene, () =>
         {
             Kobapps.SceneLoaderutil.LoadSceneAddativeAsync(GeneratedConstants.Scenes.GameplayScene, () =>

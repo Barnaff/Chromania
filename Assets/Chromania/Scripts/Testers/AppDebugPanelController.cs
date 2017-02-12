@@ -116,4 +116,23 @@ public class AppDebugPanelController : MonoBehaviour {
 
     #endregion
 
+
+    #region Facebook
+
+    public void FacebookConnectButtonAction()
+    {
+        FacebookManager.Instance.Init(() =>
+        {
+            FacebookManager.Instance.Connect(() =>
+            {
+                Debug.Log("Connected to facebook");
+            }, () =>
+            {
+                Debug.LogError("Failed connect to facebook");
+            });
+        });
+    }
+
+    #endregion
+
 }

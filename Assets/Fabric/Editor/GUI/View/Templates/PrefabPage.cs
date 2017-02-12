@@ -144,6 +144,21 @@
 				addComponentGeneric.Invoke (gameObject, null);
 			}
 
+			private static void MarkSceneDirty(string prefabName)
+			{
+				GameObject prefab = GameObject.Find (prefabName);
+
+				if (prefab == null) {
+					Fabric.Internal.Editor.Utils.Log ("Couldn't find the {0} Prefab in any scene", prefabName);
+					return;
+				}
+#if UNITY_5_3_OR_NEWER
+				UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty (prefab.scene);
+#else
+				EditorUtility.SetDirty (prefab);
+#endif
+			}
+
 			public static void AcceptDragAndDrop(string prefabName, System.Type prefabScript, Action removeListener, Action advance)
 			{
 				if (Event.current.type == EventType.DragUpdated) {
@@ -158,6 +173,9 @@
 				AddPrefab (FabricPrefabName, typeof(Fabric.Internal.FabricInit));
 				AddPrefab (prefabName, prefabScript);
 				removeListener ();
+
+				MarkSceneDirty (prefabName);
+
 				advance ();
 			}
 		}

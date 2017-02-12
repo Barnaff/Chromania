@@ -25,5 +25,21 @@ public class ChromezData : Kobapps.ScriptableSingleton<ChromezData> {
         return null;
     }
 
+    public List<ChromieDefenition> ChromiezForIds(int[] ids)
+    {
+        List<ChromieDefenition> chromiezForIds = new List<ChromieDefenition>();
+        for (int i=0; i< ids.Length; i++)
+        {
+            foreach (ChromieDefenition chromieDefenition in Chromiez)
+            {
+                if (chromieDefenition.ChromieID == ids[i])
+                {
+                    chromiezForIds.Add(chromieDefenition);
+                }
+            }
+        }
+        return chromiezForIds;
+    }
+
     #endregion
 }

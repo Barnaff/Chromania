@@ -9,7 +9,7 @@ public class HighScoreManager : Kobapps.Singleton<HighScoreManager> {
     [SerializeField]
     private List<GameplayTrackingData> _highScoresList;
 
-    private const string STORED_GHGH_SCORES_KEY = "storedHighscores";
+    private const string STORED_HIGH_SCORES_KEY = "storedHighscores";
 
     void Awake()
     {
@@ -56,9 +56,9 @@ public class HighScoreManager : Kobapps.Singleton<HighScoreManager> {
 
     private void LoadHighScores()
     {
-        if (PlayerPrefsUtil.HasKey(STORED_GHGH_SCORES_KEY))
+        if (PlayerPrefsUtil.HasKey(STORED_HIGH_SCORES_KEY))
         {
-            _highScoresList = (List<GameplayTrackingData>)PlayerPrefsUtil.GetObject(STORED_GHGH_SCORES_KEY);
+            _highScoresList = (List<GameplayTrackingData>)PlayerPrefsUtil.GetObject(STORED_HIGH_SCORES_KEY);
         }
         else
         {
@@ -89,7 +89,7 @@ public class HighScoreManager : Kobapps.Singleton<HighScoreManager> {
         if (replacedIndex > -1)
         {
             _highScoresList[replacedIndex] = gameplayTrackingData;
-            PlayerPrefsUtil.SetObject(STORED_GHGH_SCORES_KEY, _highScoresList);
+            PlayerPrefsUtil.SetObject(STORED_HIGH_SCORES_KEY, _highScoresList);
         }
     }
 }

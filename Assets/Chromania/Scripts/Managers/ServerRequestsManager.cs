@@ -86,25 +86,92 @@ public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
 
     public void PostLeaderboardEntry(GameplayTrackingData gameplayTrackingData, System.Action completionAction)
     {
-        new LogEventRequest_POST_CS_SCORE().Set_SCORE(gameplayTrackingData.Score)
-                .Set_COLOR_1((int)gameplayTrackingData.SelectedColors[0])
-                .Set_COLOR_2((int)gameplayTrackingData.SelectedColors[1])
-                .Set_COLOR_3((int)gameplayTrackingData.SelectedColors[2])
-                .Set_COLOR_4((int)gameplayTrackingData.SelectedColors[3])
-                .Send((response) =>
+        switch (gameplayTrackingData.GameplayMode)
+        {
+            case eGameplayMode.Classic:
                 {
-                    if (completionAction != null)
-                    {
-                        completionAction();
-                    }
-                });
+                    new LogEventRequest_POST_CS_SCORE().Set_SCORE(gameplayTrackingData.Score)
+                       .Set_COLOR_1((int)gameplayTrackingData.SelectedColors[0])
+                       .Set_COLOR_2((int)gameplayTrackingData.SelectedColors[1])
+                       .Set_COLOR_3((int)gameplayTrackingData.SelectedColors[2])
+                       .Set_COLOR_4((int)gameplayTrackingData.SelectedColors[3])
+                       .Send((response) =>
+                       {
+                       if (completionAction != null)
+                       {
+                           completionAction();
+                       }
+                   });
+                   break;
+                }
+            case eGameplayMode.Rush:
+                {
+                    new LogEventRequest_POST_RU_SCORE().Set_SCORE(gameplayTrackingData.Score)
+                       .Set_COLOR_1((int)gameplayTrackingData.SelectedColors[0])
+                       .Set_COLOR_2((int)gameplayTrackingData.SelectedColors[1])
+                       .Set_COLOR_3((int)gameplayTrackingData.SelectedColors[2])
+                       .Set_COLOR_4((int)gameplayTrackingData.SelectedColors[3])
+                       .Send((response) =>
+                       {
+                           if (completionAction != null)
+                           {
+                               completionAction();
+                           }
+                    });
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+       
     }
 
     public void GetLeaderboard(eGameplayMode gameplayMode, System.Action <List<object>> completionAction)
     {
+        switch (gameplayMode)
+        {
+            case eGameplayMode.Classic:
+                {
+                    new LeaderboardDataRequest_CS().SetEntryCount(10).Send((response) =>
+                    {
+                        
+                        Debug.Log(response);
+                    });
+                    break;
+                }
+            case eGameplayMode.Rush:
+                {
+                    new LeaderboardDataRequest_RU().SetEntryCount(10).Send((response) =>
+                    {
+                        
+                        Debug.Log(response);
+                    });
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+       
+    }
+
+    public void GetInventory()
+    {
 
     }
-    
+
+    public void AddItemToInventory(Inventoryitem inventoryItem)
+    {
+
+    }
+
+    public void ConsumeCoins()
+    {
+
+    }
 
     #endregion
 
@@ -126,6 +193,8 @@ public class ServerRequestsManager : Kobapps.Singleton<ServerRequestsManager> {
         {
             completionAction();
         }
+
+        
     }
 
     #endregion

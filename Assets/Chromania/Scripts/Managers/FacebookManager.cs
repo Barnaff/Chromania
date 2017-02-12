@@ -16,19 +16,20 @@ public class FacebookManager : Kobapps.Singleton<FacebookManager> {
 
     public void Init(System.Action completionAction)
     {
-
-        FB.Init(()=>
+        if (!FB.IsInitialized)
         {
-            
-            if (completionAction != null)
+            FB.Init(() =>
             {
-                completionAction();
-            }
-        }, (isGameShown)=>
-        {
 
-        });
-        
+                if (completionAction != null)
+                {
+                    completionAction();
+                }
+            }, (isGameShown) =>
+            {
+
+            });
+        }
     }
 
     public void Connect(System.Action completionAction, System.Action failAction)

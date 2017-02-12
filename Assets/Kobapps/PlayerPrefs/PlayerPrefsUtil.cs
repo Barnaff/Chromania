@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class PlayerPrefsUtil : MonoBehaviour {
+public class PlayerPrefsUtil  {
 
 	private static Dictionary<string, object> _cachedValues = new Dictionary<string, object>();
 

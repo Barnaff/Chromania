@@ -18,7 +18,11 @@ namespace Fabric.Internal.Editor.Model
 		// versions of Unity.
 		private static bool IsInstantiated()
 		{
-			return !object.ReferenceEquals (instance, null); 
+#if UNITY_5_3_OR_NEWER
+			return instance != null;
+#else
+			return !object.ReferenceEquals (instance, null);
+#endif
 		}
 
 		#region Instance

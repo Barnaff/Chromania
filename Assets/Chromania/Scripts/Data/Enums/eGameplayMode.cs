@@ -3,4 +3,5 @@
     Default,
     Classic,
     Rush,
+    Tutorial,
 }

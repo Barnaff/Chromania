@@ -29,6 +29,13 @@ public class MainLoaderController : MonoBehaviour {
             AccountManager.Instance.Autologin(() =>
             {
                 finishedAutologin = true;
+
+                ServerRequestsManager.Instance.GetLeaderboard(eGameplayMode.Classic, (response) =>
+                {
+
+
+                });
+
             }, () =>
             {
                 finishedAutologin = true;
